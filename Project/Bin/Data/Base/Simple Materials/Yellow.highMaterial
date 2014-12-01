@@ -1,0 +1,5 @@
+highLevelMaterial Yellow
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 1 1 0
+}

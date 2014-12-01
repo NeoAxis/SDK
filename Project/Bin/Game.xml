@@ -1,0 +1,201 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Game</name>
+    </assembly>
+    <members>
+        <member name="T:Game.TurretDemoGameWindow">
+            <summary>
+            Defines a game window for TurretDemo.
+            </summary>
+        </member>
+        <member name="T:Game.ActionGameWindow">
+            <summary>
+            Defines a game window for FPS and TPS games.
+            </summary>
+        </member>
+        <member name="T:Game.GameWindow">
+            <summary>
+            Defines a base window of game.
+            </summary>
+        </member>
+        <member name="M:Game.ActionGameWindow.UpdateCurrentPlayerUseObjects">
+            <summary>
+            Updates objects on which the player can to operate.
+            Such as which the player can supervise switches, ingameGUI or control units.
+            </summary>
+        </member>
+        <member name="M:Game.ActionGameWindow.UpdateHUD">
+            <summary>
+            Updates HUD screen
+            </summary>
+        </member>
+        <member name="M:Game.ActionGameWindow.DrawTarget(Engine.Renderer.GuiRenderer)">
+            <summary>
+            Draw a target at center of screen
+            </summary>
+            <param name="renderer"></param>
+        </member>
+        <member name="M:Game.ActionGameWindow.DrawPlayerInformation(Engine.Renderer.GuiRenderer)">
+            <summary>
+            To draw some information of a player
+            </summary>
+            <param name="renderer"></param>
+        </member>
+        <member name="M:Game.ActionGameWindow.GetActiveObserveCameraArea">
+            <summary>
+            Finds observe area in which there is a player.
+            </summary>
+            <returns><b>ObserveCameraArea</b>if the player is in area; otherwise <b>null</b>.</returns>
+        </member>
+        <member name="M:Game.ActionGameWindow.GetNearestPointToMapCurve(Engine.MathEx.Vec3,Engine.MapSystem.MapCurve)">
+            <summary>
+            Finds the nearest point to a map curve.
+            </summary>
+            <param name="destPos">The point to which is searched the nearest.</param>
+            <param name="mapCurve">The map curve.</param>
+            <returns>The nearest point to a map curve.</returns>
+        </member>
+        <member name="M:Game.ActionGameWindow.GetActiveObserveCameraAreaCameraOrientation(Engine.MathEx.Vec3@,Engine.MathEx.Vec3@,Engine.MathEx.Vec3@,Engine.MathEx.Degree@)">
+            <summary>
+            Receives orientation of the camera in the observe area of in which there is a player.
+            </summary>
+            <param name="position">The camera position.</param>
+            <param name="forward">The forward vector.</param>
+            <param name="up">The up vector.</param>
+            <param name="cameraFov">The camera FOV.</param>
+            <returns><b>true</b>if the player is in any area; otherwise <b>false</b>.</returns>
+        </member>
+        <member name="T:Game.BallGameWindow">
+            <summary>
+            Defines a game window for ball game demo
+            </summary>
+        </member>
+        <member name="T:Game.AboutWindow">
+            <summary>
+            Defines a about us window.
+            </summary>
+        </member>
+        <member name="T:Game.Program">
+            <summary>
+            Defines an input point in the application.
+            </summary>
+        </member>
+        <member name="M:Game.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
+        <member name="T:Game.MapsWindow">
+            <summary>
+            Defines a window of map choice.
+            </summary>
+        </member>
+        <member name="T:Game.PlatformerDemoGameWindow">
+            <summary>
+            Defines a game window for PlatformerDemo.
+            </summary>
+        </member>
+        <member name="M:Game.PlatformerDemoGameWindow.UpdateHUD">
+            <summary>
+            Updates HUD screen
+            </summary>
+        </member>
+        <member name="T:Game.PathfindingDemoGameWindow">
+            <summary>
+            Defines a game window for PathfindingDemo.
+            </summary>
+        </member>
+        <member name="M:Game.PathfindingDemoGameWindow.UpdateHUD">
+            <summary>
+            Updates HUD screen
+            </summary>
+        </member>
+        <member name="T:Game.GameEngineApp">
+            <summary>
+            Defines a game application.
+            </summary>
+        </member>
+        <member name="T:Game.Properties.Resources">
+            <summary>
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Game.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Game.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Game.Properties.Resources.Logo">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="T:Game.MenuWindow">
+            <summary>
+            Defines a system game menu.
+            </summary>
+        </member>
+        <member name="T:Game.ProductLogoWindow">
+            <summary>
+            Defines a your project logo window.
+            </summary>
+        </member>
+        <member name="T:Game.EngineLogoWindow">
+            <summary>
+            Defines a NeoAxis Engine Logo window.
+            </summary>
+        </member>
+        <member name="T:Game.MainMenuWindow">
+            <summary>
+            Defines a main menu.
+            </summary>
+        </member>
+        <member name="M:Game.MainMenuWindow.OnAttach">
+            <summary>
+            Creates a window of the main menu and creates the background world.
+            </summary>
+        </member>
+        <member name="M:Game.MainMenuWindow.OnDetach">
+            <summary>
+            Destroys the background world at closing the main menu.
+            </summary>
+        </member>
+        <member name="M:Game.MainMenuWindow.CreateMap">
+            <summary>
+            Creates the background world.
+            </summary>
+        </member>
+        <member name="M:Game.MainMenuWindow.DestroyMap">
+            <summary>
+            Destroys the background world.
+            </summary>
+        </member>
+        <member name="T:Game.OptionsWindow">
+            <summary>
+            Defines a window of options.
+            </summary>
+        </member>
+        <member name="T:Game.MessageBoxWindow">
+            <summary>
+            Defines a "MessageBox" window.
+            </summary>
+        </member>
+        <member name="T:Game.VillageDemoGameWindow">
+            <summary>
+            Defines a game window for Mountain Village Demo.
+            </summary>
+        </member>
+        <member name="T:Game.JigsawPuzzleGameWindow">
+            <summary>
+            Defines a game window for Jigsaw Puzzle Game Example
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{C3541ACE-241A-4A64-AC36-51032673CA1C}</ProjectGuid>
+    <RootNamespace>PhysXNativeWrapper</RootNamespace>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <CharacterSet>Unicode</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\_Compilation\Win32\PhysXNativeWrapper\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\..\..\_Compilation\Win32\PhysXNativeWrapper\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+    <ClCompile>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>External\Windows\include;External\Windows\foundation\include;External\Windows\cooking\include;..\..\..\Engine\Src\Core\NativeMemoryManager;hacd\src\HACD_Lib\inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;_USRDLL;PHYSXNATIVEWRAPPER_EXPORTS;P____HYSX_PROFILE_SDK;P____X_CHECKED;P____X_SUPPORT_VISUAL_DEBUGGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <FloatingPointModel>Precise</FloatingPointModel>
+      <PrecompiledHeader>Use</PrecompiledHeader>
+      <PrecompiledHeaderFile>precompiled.h</PrecompiledHeaderFile>
+      <WarningLevel>Level3</WarningLevel>
+      <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <CallingConvention>Cdecl</CallingConvention>
+      <DisableSpecificWarnings>4996;4305;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <Link>
+      <AdditionalDependencies>NativeMemoryManager.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>External\Windows\Lib\win32;..\..\..\Engine\Lib\Windows_x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <IgnoreSpecificDefaultLibraries>libcmt.lib;%(IgnoreSpecificDefaultLibraries)</IgnoreSpecificDefaultLibraries>
+      <GenerateDebugInformation>false</GenerateDebugInformation>
+      <SubSystem>Windows</SubSystem>
+      <OptimizeReferences>true</OptimizeReferences>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <RandomizedBaseAddress>false</RandomizedBaseAddress>
+      <DataExecutionPrevention>
+      </DataExecutionPrevention>
+      <TargetMachine>MachineX86</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\..\..\_Compilation\Win32\PhysXNativeWrapper\PhysXNativeWrapper.dll ..\..\..\Project\Bin\NativeDlls\Windows_x86</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="PhysXBody.cpp" />
+    <ClCompile Include="PhysXJoint.cpp" />
+    <ClCompile Include="PhysXMaterial.cpp" />
+    <ClCompile Include="PhysXNativeWrapper.cpp" />
+    <ClCompile Include="PhysXScene.cpp" />
+    <ClCompile Include="PhysXShape.cpp" />
+    <ClCompile Include="PhysXVehicle.cpp" />
+    <ClCompile Include="PhysXVehicleSceneQuery.cpp" />
+    <ClCompile Include="PhysXWorld.cpp" />
+    <ClCompile Include="precompiled.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp" />
+    <ClCompile Include="hacd\src\hacd.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdGraph.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdHACD.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdICHull.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdManifoldMesh.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdMeshDecimator.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdMicroAllocator.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdRaycastMesh.cpp">
+      <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
+      </PrecompiledHeader>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PhysXBody.h" />
+    <ClInclude Include="PhysXJoint.h" />
+    <ClInclude Include="PhysXMaterial.h" />
+    <ClInclude Include="PhysXNativeWrapper.h" />
+    <ClInclude Include="PhysXScene.h" />
+    <ClInclude Include="PhysXShape.h" />
+    <ClInclude Include="PhysXVehicle.h" />
+    <ClInclude Include="PhysXVehicleSceneQuery.h" />
+    <ClInclude Include="PhysXWorld.h" />
+    <ClInclude Include="precompiled.h" />
+    <ClInclude Include="StringUtils.h" />
+    <ClInclude Include="hacd\src\hacd.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdCircularList.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdGraph.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdHACD.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdICHull.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdManifoldMesh.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdMeshDecimator.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdMicroAllocator.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdRaycastMesh.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdSArray.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdVector.h" />
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdVersion.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hacd\src\HACD_Lib\inc\hacdCircularList.inl" />
+    <None Include="hacd\src\HACD_Lib\inc\hacdVector.inl" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

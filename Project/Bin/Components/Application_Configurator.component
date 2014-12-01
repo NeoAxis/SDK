@@ -1,0 +1,17 @@
+fullName = "Configurator"
+componentTypes = "Application"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "Configurator.exe"
+	platforms = "Windows"
+	entryPoint = True
+}
+
+path
+{
+	path = "Configurator.exe.config"
+	platforms = "Windows"
+}

@@ -1,0 +1,3 @@
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/ALL_BUILD.dir
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/openal.dir
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/openal-info.dir

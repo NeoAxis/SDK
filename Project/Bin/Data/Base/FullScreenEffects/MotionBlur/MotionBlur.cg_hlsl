@@ -1,0 +1,34 @@
+float4 combine_fp
+(
+    float2 texCoord: TEXCOORD0,
+    
+    uniform sampler RT : register(s0),
+    uniform sampler Sum : register(s1),
+
+    uniform float blur,
+	uniform float frameTime
+) : COLOR
+{
+	float4 render = tex2D(RT, texCoord);
+	float4 sum = tex2D(Sum, texCoord);
+	float value = exp( -sqrt(frameTime) * (1.0f / blur));
+	return lerp(render, sum, value);
+}
+
+float4 copyback_fp
+(
+    float2 texCoord: TEXCOORD0,
+    uniform sampler RT : register(s0)
+) : COLOR
+{
+	return tex2D(RT, texCoord);
+}
+
+float4 display_fp
+(
+    float2 texCoord: TEXCOORD0,
+    uniform sampler RT : register(s0)
+) : COLOR
+{
+	return tex2D(RT, texCoord);
+}

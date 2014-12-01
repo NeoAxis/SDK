@@ -1,0 +1,68 @@
+
+fragment_program Compositor/HeatVision/LightToHeat_fp_hlsl hlsl
+{
+	source Base\FullScreenEffects\HeatVision\HeatVision.cg_hlsl
+	entry_point lightToHeat_fp
+	target ps_3_0
+}
+
+fragment_program Compositor/HeatVision/LightToHeat_fp_cg cg
+{
+	source Base\FullScreenEffects\HeatVision\HeatVision.cg_hlsl
+	entry_point lightToHeat_fp
+	profiles arbfp1
+}
+
+fragment_program Compositor/HeatVision/LightToHeat_fp unified
+{
+	delegate Compositor/HeatVision/LightToHeat_fp_hlsl
+	delegate Compositor/HeatVision/LightToHeat_fp_cg
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+material Compositor/HeatVision/LightToHeat
+{
+	technique
+	{
+		pass
+		{
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+
+			fragment_program_ref Compositor/HeatVision/LightToHeat_fp
+			{
+				// these should be *really* random!
+				param_named randomFractions float4 0.3 0.7 0 0
+				param_named depthModulator float4 0.6 0 0 0
+
+				// this one can be fixed
+				param_named heatBiasScale float4 0.0 1.0 0 0
+			}
+
+			// Input (from scene, where entities has "Compositor/HeatVision/Caster" material for heat emanation)
+			texture_unit
+			{
+				tex_coord_set 0
+				filtering linear linear none
+				tex_address_mode clamp
+			}
+
+			// Noise map
+			texture_unit
+			{
+				texture Base\FullScreenEffects\HeatVision\HeatVisionNoise.jpg
+				tex_coord_set 0
+			}
+
+			// heat conversion texture
+			texture_unit
+			{
+				texture Base\FullScreenEffects\HeatVision\HeatVisionLookup.tga
+				tex_coord_set 0
+				filtering point point none
+			}
+		}
+	}
+}

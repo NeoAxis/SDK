@@ -1,0 +1,12 @@
+highLevelMaterial Base_LightFlare
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = ".\\LightFlare.png"
+		clamp = True
+	}
+}

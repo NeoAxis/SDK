@@ -1,0 +1,198 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>The Basics &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Startup and Shutdown" href="Startup.html" />
+    <link rel="prev" title="User&#39;s Guide" href="Index.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Startup.html" title="Startup and Shutdown"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Index.html" title="User&#39;s Guide"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="the-basics">
+<span id="basics"></span><h1>The Basics<a class="headerlink" href="#the-basics" title="Permalink to this headline">¶</a></h1>
+<p>Welcome to the PhysX SDK version 3!  With this second major rewrite of the SDK, we are excited to bring you a great number of enhancements, including numerous API improvements.  Because so much has changed in the API, we recommend even experienced PhysX users to read through this guide to familiarize themselves with the new programming interface.</p>
+<p>Users migrating from PhysX 2 will find the <a class="reference internal" href="Migration.html#migration"><em>Migration Guide From PhysX SDK 2.x to 3.x</em></a> chapter of particular interest.</p>
+<div class="section" id="building-and-running-the-samples-on-windows">
+<h2>Building and Running the Samples on Windows<a class="headerlink" href="#building-and-running-the-samples-on-windows" title="Permalink to this headline">¶</a></h2>
+<p>This guide explains the code from a series of samples:</p>
+<ul class="simple">
+<li>The <strong>Hello World Sample</strong> shows a minimal physx setup.</li>
+<li>The <strong>North Pole Sample</strong> demonstrates basic functionality covered in <a class="reference internal" href="Startup.html#startup"><em>Startup and Shutdown</em></a>, <a class="reference internal" href="ScenesAndActors.html#scenesandactors"><em>Scenes, Materials, and Actors</em></a>, <a class="reference internal" href="Shapes.html#shapes"><em>Shapes and Geometries</em></a>, and <a class="reference internal" href="RigidDynamics.html#rigiddynamics"><em>Rigid Body Dynamics</em></a>.</li>
+<li>The <strong>Bridges Sample</strong> demonstrates joints, described in the chapter <a class="reference internal" href="Joints.html#joints"><em>Joints</em></a>, as well as the character controller explained in <a class="reference internal" href="CharacterControllers.html#character"><em>Character Controllers</em></a>.</li>
+<li>The <strong>Vehicle Sample</strong> demonstrates the use of vehicles described in the chapter <a class="reference internal" href="Vehicles.html#vehicles"><em>Vehicles</em></a>.</li>
+<li>The <strong>Particles Sample</strong> demonstrates the use of particle effects, which is the topic of <a class="reference internal" href="Particles.html#particles"><em>Particles</em></a>.</li>
+<li>The <strong>Character Cloth Sample</strong> demonstrates clothing functionality, described in the chapter <a class="reference internal" href="Cloth.html#cloth"><em>Cloth</em></a>.</li>
+<li>The <strong>Custom Gravity Sample</strong> demonstrates using the character controller in a context where the vertical direction is not fixed.</li>
+<li>Finally, the <strong>Submarine Sample</strong> shows off a number of advanced features, which receive a treatment in the chapters <a class="reference internal" href="SceneQuery.html#scenequery"><em>Scene Queries</em></a>, <a class="reference internal" href="Callbacks.html#callbacks"><em>Callbacks and Customization</em></a>, <a class="reference internal" href="Advanced.html#advanced"><em>Advanced Rigid Body Topics</em></a>, and <a class="reference internal" href="TaskManager.html#taskman"><em>Task Management</em></a>.</li>
+</ul>
+<p>On Windows, PhysX requires either Visual Studio 2008 with Service Pack 1 or higher, or Visual Studio 2010.</p>
+<p>To see the samples, open the Visual Studio solution called Samples.sln.  This includes the samples listed above within the project Samples, plus some additional projects which implement common operations.</p>
+</div>
+<div class="section" id="build-settings">
+<h2>Build Settings<a class="headerlink" href="#build-settings" title="Permalink to this headline">¶</a></h2>
+<p>While not particularly important for understanding the Sample code, to build your own PhysX app, you will need to add some include paths and libraries to your project makefile or IDE.
+The include files and libraries are located in the root folders &quot;Include&quot; and &quot;Lib&quot; respectively.
+A number of these include directories and libraries are of course only needed if the corresponding component, such as the Vehicle library, is used.  You will also need to add the apropriate platform specific extension for libs  (e.g. &quot;.lib&quot; or &quot;.a&quot;) and the apropriate relative path prefixes (e.g. &quot;../../&quot;) for includes.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The static libraries we provide with the Windows binary distribution are linked against the Multi-Threaded static C Run-Time (CRT) libraries.  This means that your application must also use the same CRT flavor.  If you need to use a different CRT version, you must upgrade to our source license.  The source distribution can simply be recompiled using different CRT settings.</p>
+</div>
+</div>
+<div class="section" id="library-redistribution">
+<h2>Library Redistribution<a class="headerlink" href="#library-redistribution" title="Permalink to this headline">¶</a></h2>
+<p>On the Windows platform, you need to redistribute some of our DLLs to end users as part of your application:</p>
+<ul class="simple">
+<li>PhysX3Common_*.dll                    - will always be needed.</li>
+<li>PhysX3_*.dll                          - will always be needed.</li>
+<li>PhysX3Cooking_*.dll                   - you only need to bundle if your application cooks geometry data on the fly.</li>
+<li>PhysX3GPU_*.dll                       - is only needed if your application runs some simulation on the GPU.</li>
+<li>PhysX3CharacterKinematic_*.dll- is only needed if your application uses the character controller.</li>
+</ul>
+<p>Where * is a platform specific suffix, e.g. x86 or x64.  You will need one or the other depending on whether your application is built in 64 bit mode.</p>
+</div>
+<div class="section" id="build-configurations">
+<h2>Build Configurations<a class="headerlink" href="#build-configurations" title="Permalink to this headline">¶</a></h2>
+<p>The SDK has three build configurations available to all licensees, designed for different stages of development and deployment.</p>
+<ul class="simple">
+<li>the <em>checked</em> build contains code to detect invalid parameters, API race conditions, and other incorrect uses of the API which might otherwise cause mysterious crashes or failures in simulation.</li>
+<li>the <em>profile</em> build omits the checks, but still has PVD and memory instrumentation.</li>
+<li>the <em>release</em> build is built for minimal footprint and maximum speed. It omits most checks and instrumentation.</li>
+</ul>
+<p>Simulation works the same way in all of them, and all are compiled with high optimization levels. In addition, you can build components of PhysX which ship with source in a debug configuration, which is compiled without optimizations. The debug build can be useful for error analysis, but contains asserts used for SDK development which some customers may find too intrusive for daily use.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">We strongly recommend that you use the checked build as the primary configuration for day-to-day development and QA.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">PhysX libraries of different build configurations (e.g. the DEBUG version of PhysXVehicle and the CHECKED version of PhysXVisualDebuggerSDK) should never be mixed in an application because this will also result a CRT conflict.</p>
+</div>
+</div>
+<div class="section" id="the-api">
+<h2>The API<a class="headerlink" href="#the-api" title="Permalink to this headline">¶</a></h2>
+<p>The PhysX SDK exposes an application programming interface (API) composed primarily of abstract interface classes.  The header files that belong to the public API are located in a top level directory named &quot;Include&quot;.  Classes, enumerations and functions defined by the public API have the prefix Px. We are committed to keeping this API stable and backwards-compatible from one minor release to the next, to protect the investment you make in your integration code.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">There are currently two sections of the public API which do not have the Px prefix: the RepX serialization library for structured data which has the prefix RepX, and the PhysX Visual Debugger connection library which has the prefix Pvd.</p>
+</div>
+<p>The PhysX libraries also expose some classes and functions that are not part of the public API, such as container and platform abstractions that we find practical to reuse in our samples. These are largely undocumented, and can be recognized because they do not have the Px prefix of the public API. While they are technically available to users, most users either will not need them or will have their own versions, and we are not committed to backwards-compatibility of this code between PhysX versions.</p>
+</div>
+<div class="section" id="multithreading">
+<h2>Multithreading<a class="headerlink" href="#multithreading" title="Permalink to this headline">¶</a></h2>
+<p>PhysX provides efficient multithreaded implementations of its simulation and raycasting functionality. See <a class="reference internal" href="TaskManager.html#taskman"><em>Task Management</em></a> for details of integrating PhysX threading into an application.</p>
+<p>For efficiency reasons, PhysX does not internally lock access to its data structures by the application, so be careful when calling the API from multiple application threads. The rules are as follows:</p>
+<ul class="simple">
+<li>API interface methods marked 'const' are read calls, other API interface methods are write calls.</li>
+<li>API read calls may be made simultaneously from multiple threads.</li>
+<li>Objects in different scenes may be safely accessed by different threads.</li>
+<li>Different objects outside a scene may be safely accessed from different threads. Be aware that accessing an object may indirectly cause access to another object via a persistent reference (such as joints and actors referencing one another, an actor referencing a shape, or a shape referencing a mesh.)</li>
+</ul>
+<p>Access patterns which do not conform to the above rules may result in data corruption, deadlocks, or crashes. Note in particular that it is not legal to perform a write operation on an object in a scene concurrently with a read operation to an object in the same scene. The checked build contains code which tracks access by application threads to objects within a scene, to try and detect problems at the point when the illegal API call is made.</p>
+<p>Read and write calls may be made to objects in a scene that is being simulated. See <a class="reference internal" href="DataAccess.html#dataaccess"><em>Data Access and Buffering</em></a> for details.</p>
+</div>
+<div class="section" id="physx-visual-debugger">
+<h2>PhysX Visual Debugger<a class="headerlink" href="#physx-visual-debugger" title="Permalink to this headline">¶</a></h2>
+<p>The PhysX Visual Debugger (PVD) provides a graphical view of the PhysX scene together with various tools to inspect and visualize variables of every PhysX object. Additionally it can also record and visualize memory and timing data. See <a class="reference internal" href="PhysXVisualDebugger.html#physxvisualdebugger"><em>PhysX Visual Debugger (PVD)</em></a> for details.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">The Basics</a><ul>
+<li><a class="reference internal" href="#building-and-running-the-samples-on-windows">Building and Running the Samples on Windows</a></li>
+<li><a class="reference internal" href="#build-settings">Build Settings</a></li>
+<li><a class="reference internal" href="#library-redistribution">Library Redistribution</a></li>
+<li><a class="reference internal" href="#build-configurations">Build Configurations</a></li>
+<li><a class="reference internal" href="#the-api">The API</a></li>
+<li><a class="reference internal" href="#multithreading">Multithreading</a></li>
+<li><a class="reference internal" href="#physx-visual-debugger">PhysX Visual Debugger</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Index.html"
+                        title="previous chapter">User's Guide</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Startup.html"
+                        title="next chapter">Startup and Shutdown</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Startup.html" title="Startup and Shutdown"
+             >next</a></li>
+        <li class="right" >
+          <a href="Index.html" title="User&#39;s Guide"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

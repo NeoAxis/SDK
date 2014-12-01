@@ -1,0 +1,27 @@
+fullName = "OpenAL Soft"
+componentTypes = "SoundSystem"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "OpenALSoundSystem.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\OpenAL32.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\OpenAL32.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls/MacOSX_x86/OpenAL32.dylib"
+	platforms = "MacOSX"
+}

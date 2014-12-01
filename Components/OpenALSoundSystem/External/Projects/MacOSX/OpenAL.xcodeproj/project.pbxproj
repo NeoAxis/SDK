@@ -1,0 +1,1005 @@
+// !$*UTF8*$!
+{
+       archiveVersion = 1;
+       classes = {
+       };
+       objectVersion = 46;
+       objects = {
+
+/* Begin PBXAggregateTarget section */
+              149806014980601498060000 /* ALL_BUILD */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 12AAE1012AAE1012AAE10000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */;
+                     buildPhases = (
+                            149829014982901498290000 /* CMake ReRun */,
+                            14B950014B950014B9500000 /* CMake Rules */,
+                     );
+                     dependencies = (
+                            26E0D78026E0D78026E0D780 /* PBXTargetDependency */,
+                            26E0DEC026E0DEC026E0DEC0 /* PBXTargetDependency */,
+                     );
+                     name = ALL_BUILD;
+                     productName = ALL_BUILD;
+              };
+              12BA1F012BA1F012BA1F0000 /* install */ = {
+                     isa = PBXAggregateTarget;
+                     buildConfigurationList = 12BB32012BB32012BB320000 /* Build configuration list for PBXAggregateTarget "install" */;
+                     buildPhases = (
+                            12BA3D012BA3D012BA3D0000 /* CMake ReRun */,
+                            12BAAA012BAAA012BAAA0000 /* CMake PostBuild Rules */,
+                     );
+                     dependencies = (
+                            26E0E71026E0E71026E0E710 /* PBXTargetDependency */,
+                     );
+                     name = install;
+                     productName = install;
+              };
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+12B3DE012B3DE012B3DE0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alAuxEffectSlot.c */ = {isa = PBXBuildFile; fileRef = 12B365012B365012B3650000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alAuxEffectSlot.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+129A080129A080129A080000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alBuffer.c */ = {isa = PBXBuildFile; fileRef = 12B75F012B75F012B75F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alBuffer.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12989D012989D012989D0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alDatabuffer.c */ = {isa = PBXBuildFile; fileRef = 12B6FD012B6FD012B6FD0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alDatabuffer.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12A7AA012A7AA012A7AA0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alEffect.c */ = {isa = PBXBuildFile; fileRef = 12A73D012A73D012A73D0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alEffect.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+129F450129F450129F450000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alError.c */ = {isa = PBXBuildFile; fileRef = 12A7E4012A7E4012A7E40000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alError.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+1296A201296A201296A20000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alExtension.c */ = {isa = PBXBuildFile; fileRef = 129F7F0129F7F0129F7F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alExtension.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12902C012902C012902C0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alFilter.c */ = {isa = PBXBuildFile; fileRef = 128FC10128FC10128FC10000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alFilter.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+129945012994501299450000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alListener.c */ = {isa = PBXBuildFile; fileRef = 128ED70128ED70128ED70000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alListener.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12939F012939F012939F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alSource.c */ = {isa = PBXBuildFile; fileRef = 129330012933001293300000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alSource.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+129831012983101298310000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alState.c */ = {isa = PBXBuildFile; fileRef = 1297C201297C201297C20000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alState.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+126280012628001262800000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alThunk.c */ = {isa = PBXBuildFile; fileRef = 12A9C6012A9C6012A9C60000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alThunk.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12541D012541D012541D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALc.c */ = {isa = PBXBuildFile; fileRef = 125FA50125FA50125FA50000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALc.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12588E012588E012588E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALu.c */ = {isa = PBXBuildFile; fileRef = 125457012545701254570000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALu.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+1258CF01258CF01258CF0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcConfig.c */ = {isa = PBXBuildFile; fileRef = 1258C801258C801258C80000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcConfig.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+125848012584801258480000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcEcho.c */ = {isa = PBXBuildFile; fileRef = 1257D801257D801257D80000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcEcho.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12563D012563D012563D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcModulator.c */ = {isa = PBXBuildFile; fileRef = 1255CC01255CC01255CC0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcModulator.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+1256ED01256ED01256ED0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcReverb.c */ = {isa = PBXBuildFile; fileRef = 125677012567701256770000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcReverb.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12A403012A403012A4030000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcRing.c */ = {isa = PBXBuildFile; fileRef = 1253F301253F301253F30000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcRing.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+126451012645101264510000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcThread.c */ = {isa = PBXBuildFile; fileRef = 125D950125D950125D950000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcThread.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+126416012641601264160000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/bs2b.c */ = {isa = PBXBuildFile; fileRef = 12649E012649E012649E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/bs2b.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+125B530125B530125B530000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/mixer.c */ = {isa = PBXBuildFile; fileRef = 126689012668901266890000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/mixer.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+125BFD0125BFD0125BFD0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/panning.c */ = {isa = PBXBuildFile; fileRef = 125B8D0125B8D0125B8D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/panning.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+125C420125C420125C420000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/null.c */ = {isa = PBXBuildFile; fileRef = 125D3E0125D3E0125D3E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/null.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+125AD20125AD20125AD20000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/wave.c */ = {isa = PBXBuildFile; fileRef = 125C7C0125C7C0125C7C0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/wave.c */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+125E3B0125E3B0125E3B0000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 12B941012B941012B9410000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */; settings = { COMPILER_FLAGS = "-DAL_ALEXT_PROTOTYPES"; }; };
+12CA0C012CA0C012CA0C0000 /* /Users/apple/Desktop/openal-soft-1.13/utils/openal-info.c */ = {isa = PBXBuildFile; fileRef = 1253E801253E801253E80000 /* /Users/apple/Desktop/openal-soft-1.13/utils/openal-info.c */; settings = { COMPILER_FLAGS = ""; }; };
+12AF8B012AF8B012AF8B0000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */ = {isa = PBXBuildFile; fileRef = 12B941012B941012B9410000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */; settings = { COMPILER_FLAGS = ""; }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXBuildStyle section */
+              149379014937901493790000 /*  */ = {
+                     isa = PBXBuildStyle;
+              };
+              147F620147F620147F620000 /* Debug */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Debug;
+              };
+              14C2E8014C2E8014C2E80000 /* Release */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = Release;
+              };
+              1496B001496B001496B00000 /* MinSizeRel */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = MinSizeRel;
+              };
+              1496ED01496ED01496ED0000 /* RelWithDebInfo */ = {
+                     isa = PBXBuildStyle;
+                     buildSettings = {
+                            COPY_PHASE_STRIP = NO;
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End PBXBuildStyle section */
+
+/* Begin PBXContainerItemProxy section */
+              26E0D29026E0D29026E0D290 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 14F459014F459014F4590000 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 125999012599901259990000;
+                     remoteInfo = openal;
+              };
+              26E0D9E026E0D9E026E0D9E0 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 14F459014F459014F4590000 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 1274C701274C701274C70000;
+                     remoteInfo = "openal-info";
+              };
+              26E0E33026E0E33026E0E330 /* PBXContainerItemProxy */ = {
+                     isa = PBXContainerItemProxy;
+                     containerPortal = 14F459014F459014F4590000 /* Project object */;
+                     proxyType = 1;
+                     remoteGlobalIDString = 149806014980601498060000;
+                     remoteInfo = ALL_BUILD;
+              };
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+12B941012B941012B9410000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.text"; name = "CMakeLists.txt"; path = "CMakeLists.txt"; sourceTree = SOURCE_ROOT; };
+12B365012B365012B3650000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alAuxEffectSlot.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alAuxEffectSlot.c"; path = "OpenAL32/alAuxEffectSlot.c"; sourceTree = SOURCE_ROOT; };
+12B75F012B75F012B75F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alBuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alBuffer.c"; path = "OpenAL32/alBuffer.c"; sourceTree = SOURCE_ROOT; };
+12B6FD012B6FD012B6FD0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alDatabuffer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alDatabuffer.c"; path = "OpenAL32/alDatabuffer.c"; sourceTree = SOURCE_ROOT; };
+12A73D012A73D012A73D0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alEffect.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alEffect.c"; path = "OpenAL32/alEffect.c"; sourceTree = SOURCE_ROOT; };
+12A7E4012A7E4012A7E40000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alError.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alError.c"; path = "OpenAL32/alError.c"; sourceTree = SOURCE_ROOT; };
+129F7F0129F7F0129F7F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alExtension.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alExtension.c"; path = "OpenAL32/alExtension.c"; sourceTree = SOURCE_ROOT; };
+128FC10128FC10128FC10000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alFilter.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alFilter.c"; path = "OpenAL32/alFilter.c"; sourceTree = SOURCE_ROOT; };
+128ED70128ED70128ED70000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alListener.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alListener.c"; path = "OpenAL32/alListener.c"; sourceTree = SOURCE_ROOT; };
+129330012933001293300000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alSource.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alSource.c"; path = "OpenAL32/alSource.c"; sourceTree = SOURCE_ROOT; };
+1297C201297C201297C20000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alState.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alState.c"; path = "OpenAL32/alState.c"; sourceTree = SOURCE_ROOT; };
+12A9C6012A9C6012A9C60000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alThunk.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alThunk.c"; path = "OpenAL32/alThunk.c"; sourceTree = SOURCE_ROOT; };
+125FA50125FA50125FA50000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALc.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "ALc.c"; path = "Alc/ALc.c"; sourceTree = SOURCE_ROOT; };
+125457012545701254570000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALu.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "ALu.c"; path = "Alc/ALu.c"; sourceTree = SOURCE_ROOT; };
+1258C801258C801258C80000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcConfig.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alcConfig.c"; path = "Alc/alcConfig.c"; sourceTree = SOURCE_ROOT; };
+1257D801257D801257D80000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcEcho.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alcEcho.c"; path = "Alc/alcEcho.c"; sourceTree = SOURCE_ROOT; };
+1255CC01255CC01255CC0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcModulator.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alcModulator.c"; path = "Alc/alcModulator.c"; sourceTree = SOURCE_ROOT; };
+125677012567701256770000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcReverb.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alcReverb.c"; path = "Alc/alcReverb.c"; sourceTree = SOURCE_ROOT; };
+1253F301253F301253F30000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcRing.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alcRing.c"; path = "Alc/alcRing.c"; sourceTree = SOURCE_ROOT; };
+125D950125D950125D950000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcThread.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "alcThread.c"; path = "Alc/alcThread.c"; sourceTree = SOURCE_ROOT; };
+12649E012649E012649E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/bs2b.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "bs2b.c"; path = "Alc/bs2b.c"; sourceTree = SOURCE_ROOT; };
+126689012668901266890000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/mixer.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "mixer.c"; path = "Alc/mixer.c"; sourceTree = SOURCE_ROOT; };
+125B8D0125B8D0125B8D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/panning.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "panning.c"; path = "Alc/panning.c"; sourceTree = SOURCE_ROOT; };
+125D3E0125D3E0125D3E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/null.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "null.c"; path = "Alc/null.c"; sourceTree = SOURCE_ROOT; };
+125C7C0125C7C0125C7C0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/wave.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "wave.c"; path = "Alc/wave.c"; sourceTree = SOURCE_ROOT; };
+12C927012C927012C9270000 /* openal */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.dylib"; path = "libopenal.dylib"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+1253E801253E801253E80000 /* /Users/apple/Desktop/openal-soft-1.13/utils/openal-info.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = "sourcecode.c.c"; name = "openal-info.c"; path = "utils/openal-info.c"; sourceTree = SOURCE_ROOT; };
+26E0CBE026E0CBE026E0CBE0 /* openal-info */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; path = "openal-info"; refType = 0; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+              14972F014972F014972F0000  = {
+                     isa = PBXGroup;
+                     children = (
+                            148737014873701487370000 /* Sources */,
+                            14E7B2014E7B2014E7B20000 /* Resources */,
+                            14B9C7014B9C7014B9C70000 /* Products */,
+                     );
+                     sourceTree = "<group>";
+              };
+              148737014873701487370000 /* Sources */ = {
+                     isa = PBXGroup;
+                     children = (
+                            14A5F2014A5F2014A5F20000 /* ALL_BUILD */,
+                            149533014953301495330000 /* openal */,
+                            14AAFC014AAFC014AAFC0000 /* openal-info */,
+                     );
+                     name = Sources;
+                     sourceTree = "<group>";
+              };
+              14E7B2014E7B2014E7B20000 /* Resources */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = Resources;
+                     sourceTree = "<group>";
+              };
+              14A5F2014A5F2014A5F20000 /* ALL_BUILD */ = {
+                     isa = PBXGroup;
+                     children = (
+                            1494E301494E301494E30000 /* CMake Rules */,
+                            12B941012B941012B9410000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */,
+                     );
+                     name = ALL_BUILD;
+                     sourceTree = "<group>";
+              };
+              1494E301494E301494E30000 /* CMake Rules */ = {
+                     isa = PBXGroup;
+                     children = (
+                     );
+                     name = "CMake Rules";
+                     sourceTree = "<group>";
+              };
+              149533014953301495330000 /* openal */ = {
+                     isa = PBXGroup;
+                     children = (
+                            26D0DD8026D0DD8026D0DD80 /* Source Files */,
+                            12B941012B941012B9410000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */,
+                     );
+                     name = openal;
+                     sourceTree = "<group>";
+              };
+              26D0DD8026D0DD8026D0DD80 /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            12B365012B365012B3650000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alAuxEffectSlot.c */,
+                            12B75F012B75F012B75F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alBuffer.c */,
+                            12B6FD012B6FD012B6FD0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alDatabuffer.c */,
+                            12A73D012A73D012A73D0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alEffect.c */,
+                            12A7E4012A7E4012A7E40000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alError.c */,
+                            129F7F0129F7F0129F7F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alExtension.c */,
+                            128FC10128FC10128FC10000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alFilter.c */,
+                            128ED70128ED70128ED70000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alListener.c */,
+                            129330012933001293300000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alSource.c */,
+                            1297C201297C201297C20000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alState.c */,
+                            12A9C6012A9C6012A9C60000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alThunk.c */,
+                            125FA50125FA50125FA50000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALc.c */,
+                            125457012545701254570000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALu.c */,
+                            1258C801258C801258C80000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcConfig.c */,
+                            1257D801257D801257D80000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcEcho.c */,
+                            1255CC01255CC01255CC0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcModulator.c */,
+                            125677012567701256770000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcReverb.c */,
+                            1253F301253F301253F30000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcRing.c */,
+                            125D950125D950125D950000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcThread.c */,
+                            12649E012649E012649E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/bs2b.c */,
+                            126689012668901266890000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/mixer.c */,
+                            125B8D0125B8D0125B8D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/panning.c */,
+                            125D3E0125D3E0125D3E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/null.c */,
+                            125C7C0125C7C0125C7C0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/wave.c */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              14AAFC014AAFC014AAFC0000 /* openal-info */ = {
+                     isa = PBXGroup;
+                     children = (
+                            14A31B014A31B014A31B0000 /* Source Files */,
+                            12B941012B941012B9410000 /* /Users/apple/Desktop/openal-soft-1.13/CMakeLists.txt */,
+                     );
+                     name = "openal-info";
+                     sourceTree = "<group>";
+              };
+              14A31B014A31B014A31B0000 /* Source Files */ = {
+                     isa = PBXGroup;
+                     children = (
+                            1253E801253E801253E80000 /* /Users/apple/Desktop/openal-soft-1.13/utils/openal-info.c */,
+                     );
+                     name = "Source Files";
+                     sourceTree = "<group>";
+              };
+              14B9C7014B9C7014B9C70000 /* Products */ = {
+                     isa = PBXGroup;
+                     children = (
+                            12C927012C927012C9270000 /* openal */,
+                            26E0CBE026E0CBE026E0CBE0 /* openal-info */,
+                     );
+                     name = Products;
+                     sourceTree = "<group>";
+              };
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+              125999012599901259990000 /* openal */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 1259E701259E701259E70000 /* Build configuration list for PBXNativeTarget "openal" */;
+                     buildPhases = (
+                            12A3BA012A3BA012A3BA0000 /* CMake ReRun */,
+                            125E6A0125E6A0125E6A0000 /* Sources */,
+                            125933012593301259330000 /* CMake PostBuild Rules */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                     );
+                     name = openal;
+                     productName = openal;
+                     productReference = 12C927012C927012C9270000 /* openal */;
+                     productType = "com.apple.product-type.library.dynamic";
+              };
+              1274C701274C701274C70000 /* openal-info */ = {
+                     isa = PBXNativeTarget;
+                     buildConfigurationList = 12B7CB012B7CB012B7CB0000 /* Build configuration list for PBXNativeTarget "openal-info" */;
+                     buildPhases = (
+                            12CC37012CC37012CC370000 /* CMake ReRun */,
+                            12681A012681A012681A0000 /* Sources */,
+                            12C027012C027012C0270000 /* CMake PostBuild Rules */,
+                     );
+                     buildRules = (
+                     );
+                     dependencies = (
+                            26E0D78026E0D78026E0D780 /* PBXTargetDependency */,
+                     );
+                     name = "openal-info";
+                     productName = "openal-info";
+                     productReference = 26E0CBE026E0CBE026E0CBE0 /* openal-info */;
+                     productType = "com.apple.product-type.tool";
+              };
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+              14F459014F459014F4590000 /* Project object */ = {
+                     isa = PBXProject;
+                     attributes = {
+                            BuildIndependentTargetsInParallel = YES;
+                     };
+                     buildConfigurationList = 14EEB8014EEB8014EEB80000 /* Build configuration list for PBXProject  "OpenAL" */;
+                     buildSettings = {
+                     };
+                     buildStyles = (
+                            147F620147F620147F620000 /* Debug */,
+                            14C2E8014C2E8014C2E80000 /* Release */,
+                            1496B001496B001496B00000 /* MinSizeRel */,
+                            1496ED01496ED01496ED0000 /* RelWithDebInfo */,
+                     );
+                     compatibilityVersion = "Xcode 3.2";
+                     hasScannedForEncodings = 0;
+                     mainGroup = 14972F014972F014972F0000;
+                     projectDirPath = "..";
+                     projectRoot = "";
+                     targets = (
+                            149806014980601498060000 /* ALL_BUILD */,
+                            12BA1F012BA1F012BA1F0000 /* install */,
+                            125999012599901259990000 /* openal */,
+                            1274C701274C701274C70000 /* openal-info */,
+                     );
+              };
+/* End PBXProject section */
+
+/* Begin PBXShellScriptBuildPhase section */
+              14978F014978F014978F0000 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+              };
+              149829014982901498290000 /* CMake ReRun */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake ReRun";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/ReRunCMake.make";
+              };
+              14B950014B950014B9500000 /* CMake Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/ALL_BUILD_cmakeRulesBuildPhase.make$CONFIGURATION all";
+              };
+              12B9B0012B9B0012B9B00000 /*  */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     inputPaths = (
+                     );
+                     outputPaths = (
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "# shell script goes here
+exit 0";
+              };
+              12BA3D012BA3D012BA3D0000 /* CMake ReRun */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake ReRun";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/ReRunCMake.make";
+              };
+              12BAAA012BAAA012BAAA0000 /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/install_postBuildPhase.make$CONFIGURATION all";
+              };
+              12A3BA012A3BA012A3BA0000 /* CMake ReRun */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake ReRun";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/ReRunCMake.make";
+              };
+              125933012593301259330000 /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/openal_postBuildPhase.make$CONFIGURATION all";
+              };
+              12CC37012CC37012CC370000 /* CMake ReRun */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake ReRun";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/ReRunCMake.make";
+              };
+              12C027012C027012C0270000 /* CMake PostBuild Rules */ = {
+                     isa = PBXShellScriptBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                     );
+                     name = "CMake PostBuild Rules";
+                     runOnlyForDeploymentPostprocessing = 0;
+                     shellPath = /bin/sh;
+                     shellScript = "make -C /Users/apple/Desktop/openal-soft-1.13/out -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeScripts/openal-info_postBuildPhase.make$CONFIGURATION all";
+              };
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+              125E6A0125E6A0125E6A0000 /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            12B3DE012B3DE012B3DE0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alAuxEffectSlot.c */,
+                            129A080129A080129A080000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alBuffer.c */,
+                            12989D012989D012989D0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alDatabuffer.c */,
+                            12A7AA012A7AA012A7AA0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alEffect.c */,
+                            129F450129F450129F450000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alError.c */,
+                            1296A201296A201296A20000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alExtension.c */,
+                            12902C012902C012902C0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alFilter.c */,
+                            129945012994501299450000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alListener.c */,
+                            12939F012939F012939F0000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alSource.c */,
+                            129831012983101298310000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alState.c */,
+                            126280012628001262800000 /* /Users/apple/Desktop/openal-soft-1.13/OpenAL32/alThunk.c */,
+                            12541D012541D012541D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALc.c */,
+                            12588E012588E012588E0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/ALu.c */,
+                            1258CF01258CF01258CF0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcConfig.c */,
+                            125848012584801258480000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcEcho.c */,
+                            12563D012563D012563D0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcModulator.c */,
+                            1256ED01256ED01256ED0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcReverb.c */,
+                            12A403012A403012A4030000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcRing.c */,
+                            126451012645101264510000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/alcThread.c */,
+                            126416012641601264160000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/bs2b.c */,
+                            125B530125B530125B530000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/mixer.c */,
+                            125BFD0125BFD0125BFD0000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/panning.c */,
+                            125C420125C420125C420000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/null.c */,
+                            125AD20125AD20125AD20000 /* /Users/apple/Desktop/openal-soft-1.13/Alc/wave.c */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
+              12681A012681A012681A0000 /* Sources */ = {
+                     isa = PBXSourcesBuildPhase;
+                     buildActionMask = 2147483647;
+                     files = (
+                            12CA0C012CA0C012CA0C0000 /* /Users/apple/Desktop/openal-soft-1.13/utils/openal-info.c */,
+                     );
+                     runOnlyForDeploymentPostprocessing = 0;
+              };
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+              26E0D78026E0D78026E0D780 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 125999012599901259990000 /* openal */;
+                     targetProxy = 26E0D29026E0D29026E0D290 /* PBXContainerItemProxy */;
+              };
+              26E0DEC026E0DEC026E0DEC0 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 1274C701274C701274C70000 /* openal-info */;
+                     targetProxy = 26E0D9E026E0D9E026E0D9E0 /* PBXContainerItemProxy */;
+              };
+              26E0E71026E0E71026E0E710 /* PBXTargetDependency */ = {
+                     isa = PBXTargetDependency;
+                     target = 149806014980601498060000 /* ALL_BUILD */;
+                     targetProxy = 26E0E33026E0E33026E0E330 /* PBXContainerItemProxy */;
+              };
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+              14F331014F331014F3310000 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.6.sdk";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out/build";
+                     };
+                     name = Debug;
+              };
+              14F34C014F34C014F34C0000 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.6.sdk";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out/build";
+                     };
+                     name = Release;
+              };
+              14F36B014F36B014F36B0000 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.6.sdk";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out/build";
+                     };
+                     name = MinSizeRel;
+              };
+              14F38A014F38A014F38A0000 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            ARCHS = "$(ARCHS_STANDARD_32_64_BIT)";
+                            ONLY_ACTIVE_ARCH = YES;
+                            SDKROOT = "/Developer/SDKs/MacOSX10.6.sdk";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out/build";
+                     };
+                     name = RelWithDebInfo;
+              };
+              126585012658501265850000 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              12AEC3012AEC3012AEC30000 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              125599012559901255990000 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              12B299012B299012B2990000 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = ALL_BUILD;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              12BB6C012BB6C012BB6C0000 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              12BD22012BD22012BD220000 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              1293E901293E901293E90000 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              128E830128E830128E830000 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            OTHER_CFLAGS = "   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = "";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = install;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              125A180125A180125A180000 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/Debug";
+                            DYLIB_COMPATIBILITY_VERSION = "1.0.0";
+                            DYLIB_CURRENT_VERSION = "1.13.0";
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".dylib";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", AL_BUILD_LIBRARY, HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "/Users/apple/Desktop/openal-soft-1.13/out/Debug";
+                            LIBRARY_SEARCH_PATHS = "";
+                            LIBRARY_STYLE = DYNAMIC;
+                            OTHER_CFLAGS = "    -D_DEBUG -fPIC   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -dynamiclib -Wl,-headerpad_max_install_names -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = openal;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              12ADEB012ADEB012ADEB0000 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/Release";
+                            DYLIB_COMPATIBILITY_VERSION = "1.0.0";
+                            DYLIB_CURRENT_VERSION = "1.13.0";
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".dylib";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", AL_BUILD_LIBRARY, HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "/Users/apple/Desktop/openal-soft-1.13/out/Release";
+                            LIBRARY_SEARCH_PATHS = "";
+                            LIBRARY_STYLE = DYNAMIC;
+                            OTHER_CFLAGS = "    -fomit-frame-pointer -DNDEBUG -fPIC   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -dynamiclib -Wl,-headerpad_max_install_names -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = openal;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              126121012612101261210000 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/MinSizeRel";
+                            DYLIB_COMPATIBILITY_VERSION = "1.0.0";
+                            DYLIB_CURRENT_VERSION = "1.13.0";
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".dylib";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = s;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", AL_BUILD_LIBRARY, HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "/Users/apple/Desktop/openal-soft-1.13/out/MinSizeRel";
+                            LIBRARY_SEARCH_PATHS = "";
+                            LIBRARY_STYLE = DYNAMIC;
+                            OTHER_CFLAGS = "    -DNDEBUG -fPIC   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -dynamiclib -Wl,-headerpad_max_install_names -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = openal;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              12C6DB012C6DB012C6DB0000 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/RelWithDebInfo";
+                            DYLIB_COMPATIBILITY_VERSION = "1.0.0";
+                            DYLIB_CURRENT_VERSION = "1.13.0";
+                            EXECUTABLE_PREFIX = lib;
+                            EXECUTABLE_SUFFIX = ".dylib";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", AL_BUILD_LIBRARY, HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "/Users/apple/Desktop/openal-soft-1.13/out/RelWithDebInfo";
+                            LIBRARY_SEARCH_PATHS = "";
+                            LIBRARY_STYLE = DYNAMIC;
+                            OTHER_CFLAGS = "       -D_DEBUG -fPIC   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -dynamiclib -Wl,-headerpad_max_install_names -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = openal;
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+              12B801012B801012B8010000 /* Debug */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/Debug";
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 0;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "    -D_DEBUG   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/apple/Desktop/openal-soft-1.13/out/Debug/libopenal.dylib -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = "openal-info";
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Debug;
+              };
+              12C1E5012C1E5012C1E50000 /* Release */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/Release";
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "    -fomit-frame-pointer -DNDEBUG   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/apple/Desktop/openal-soft-1.13/out/Release/libopenal.dylib -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = "openal-info";
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = Release;
+              };
+              12761E012761E012761E0000 /* MinSizeRel */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/MinSizeRel";
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = s;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "    -DNDEBUG   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/apple/Desktop/openal-soft-1.13/out/MinSizeRel/libopenal.dylib -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = "openal-info";
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = MinSizeRel;
+              };
+              26E0AAD026E0AAD026E0AAD0 /* RelWithDebInfo */ = {
+                     isa = XCBuildConfiguration;
+                     buildSettings = {
+                            CONFIGURATION_BUILD_DIR = "/Users/apple/Desktop/openal-soft-1.13/out/RelWithDebInfo";
+                            EXECUTABLE_PREFIX = "";
+                            EXECUTABLE_SUFFIX = "";
+                            GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
+                            GCC_INLINES_ARE_PRIVATE_EXTERN = NO;
+                            GCC_OPTIMIZATION_LEVEL = 2;
+                            GCC_PREPROCESSOR_DEFINITIONS = ("'CMAKE_INTDIR=\"$(CONFIGURATION)\"'", HAVE_GCC_VISIBILITY, "'_GNU_SOURCE=1'", );
+                            GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+                            HEADER_SEARCH_PATHS = ("/Users/apple/Desktop/openal-soft-1.13/OpenAL32/Include", "/Users/apple/Desktop/openal-soft-1.13/include", "/Users/apple/Desktop/openal-soft-1.13/out", );
+                            INSTALL_PATH = "";
+                            LIBRARY_SEARCH_PATHS = "";
+                            OTHER_CFLAGS = "       -D_DEBUG   -Winline -Wall -Wextra -fvisibility=internal -pthread";
+                            OTHER_LDFLAGS = " -Wl,-search_paths_first -Wl,-headerpad_max_install_names /Users/apple/Desktop/openal-soft-1.13/out/RelWithDebInfo/libopenal.dylib -lpthread -ldl -lm -pthread";
+                            OTHER_REZFLAGS = "";
+                            PREBINDING = NO;
+                            PRODUCT_NAME = "openal-info";
+                            SECTORDER_FLAGS = "";
+                            SYMROOT = "/Users/apple/Desktop/openal-soft-1.13/out";
+                            USE_HEADERMAP = NO;
+                            WARNING_CFLAGS = ("-Wmost", "-Wno-four-char-constants", "-Wno-unknown-pragmas", );
+                     };
+                     name = RelWithDebInfo;
+              };
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+              14EEB8014EEB8014EEB80000 /* Build configuration list for PBXProject  "OpenAL" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            14F331014F331014F3310000 /* Debug */,
+                            14F34C014F34C014F34C0000 /* Release */,
+                            14F36B014F36B014F36B0000 /* MinSizeRel */,
+                            14F38A014F38A014F38A0000 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              12AAE1012AAE1012AAE10000 /* Build configuration list for PBXAggregateTarget "ALL_BUILD" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            126585012658501265850000 /* Debug */,
+                            12AEC3012AEC3012AEC30000 /* Release */,
+                            125599012559901255990000 /* MinSizeRel */,
+                            12B299012B299012B2990000 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              12BB32012BB32012BB320000 /* Build configuration list for PBXAggregateTarget "install" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            12BB6C012BB6C012BB6C0000 /* Debug */,
+                            12BD22012BD22012BD220000 /* Release */,
+                            1293E901293E901293E90000 /* MinSizeRel */,
+                            128E830128E830128E830000 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              1259E701259E701259E70000 /* Build configuration list for PBXNativeTarget "openal" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            125A180125A180125A180000 /* Debug */,
+                            12ADEB012ADEB012ADEB0000 /* Release */,
+                            126121012612101261210000 /* MinSizeRel */,
+                            12C6DB012C6DB012C6DB0000 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+              12B7CB012B7CB012B7CB0000 /* Build configuration list for PBXNativeTarget "openal-info" */ = {
+                     isa = XCConfigurationList;
+                     buildConfigurations = (
+                            12B801012B801012B8010000 /* Debug */,
+                            12C1E5012C1E5012C1E50000 /* Release */,
+                            12761E012761E012761E0000 /* MinSizeRel */,
+                            26E0AAD026E0AAD026E0AAD0 /* RelWithDebInfo */,
+                     );
+                     defaultConfigurationIsVisible = 0;
+                     defaultConfigurationName = Debug;
+              };
+/* End XCConfigurationList section */
+       };
+       rootObject = 14F459014F459014F4590000;
+}

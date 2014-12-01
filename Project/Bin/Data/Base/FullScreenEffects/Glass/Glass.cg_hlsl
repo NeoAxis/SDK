@@ -1,0 +1,9 @@
+sampler RT : register(s0);
+sampler NormalMap : register(s1);
+
+float4 main_fp(float2 texCoord : TEXCOORD0) : COLOR
+{	
+	float4 normal = 2 * (tex2D(NormalMap, texCoord * 3) - 0.5);
+	float4 color = tex2D(RT, texCoord + normal.xy * 0.05);
+	return color;
+}

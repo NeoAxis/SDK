@@ -1,0 +1,607 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Scene Queries &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Geometry Queries" href="GeometryQuery.html" />
+    <link rel="prev" title="GPU Resource Management" href="GPUTaskManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="GeometryQuery.html" title="Geometry Queries"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="GPUTaskManager.html" title="GPU Resource Management"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="scene-queries">
+<span id="scenequery"></span><h1>Scene Queries<a class="headerlink" href="#scene-queries" title="Permalink to this headline">¶</a></h1>
+<p>PhysX provides methods in PxScene to perform collision queries against the actors in the scene. The queries come in three types: raycasts, sweeps and overlaps.  Moreover, each query type has several variants. The API supports batching of queries via the <em>PxBatchQuery</em> interface, which may provide significant speedups for some platforms and scenarios. In particular, on PS3 only batched queries are SPU-accelerated.</p>
+<div class="section" id="raycast-queries">
+<h2>Raycast queries<a class="headerlink" href="#raycast-queries" title="Permalink to this headline">¶</a></h2>
+<p>A raycast intersects a user-defined ray with the whole scene. PhysX supports three types of raycasts.</p>
+<ul class="simple">
+<li><em>raycastAny</em></li>
+<li><em>raycastSingle</em></li>
+<li><em>raycastMultiple</em></li>
+</ul>
+<p><em>raycastAny</em> returns a single boolean result. It is optimized for cases where the hit shape and impact point are not important. A typical use case would be AI line-of-sight queries.</p>
+<p>The simplest <em>raycastAny</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxVec3</span> <span class="n">origin</span> <span class="o">=</span> <span class="p">...;</span>                 <span class="c1">// [in] Ray origin</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized ray direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Raycast max distance</span>
+<span class="n">PxSceneQueryHit</span> <span class="n">hit</span><span class="p">;</span>                 <span class="c1">// [out] Raycast results</span>
+
+<span class="c1">// Raycast against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The main result from this call is the boolean &#39;status&#39;</span>
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">raycastAny</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">hit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>raycastSingle</em> returns a single result: the closest touched shape along the ray, if any, along with the exact hit information. This might be used for simple bullets, for example.</p>
+<p>The simplest <em>raycastSingle</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxVec3</span> <span class="n">origin</span> <span class="o">=</span> <span class="p">...;</span>                 <span class="c1">// [in] Ray origin</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized ray direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Raycast max distance</span>
+<span class="n">PxRaycastHit</span> <span class="n">hit</span><span class="p">;</span>                    <span class="c1">// [out] Raycast results</span>
+
+<span class="c1">// [in] Define what parts of PxRaycastHit we&#39;re interested in</span>
+<span class="k">const</span> <span class="n">PxSceneQueryFlags</span> <span class="n">outputFlags</span> <span class="o">=</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eDISTANCE</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eIMPACT</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eNORMAL</span><span class="p">;</span>
+
+<span class="c1">// Raycast against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The main result from this call is the closest hit, stored in the &#39;hit&#39; structure</span>
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">raycastSingle</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">outputFlags</span><span class="p">,</span> <span class="n">hit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>raycastMultiple</em> finds all the objects touched by the ray, along with all the corresponding hits. For example this could be used for armor-piercing bullets.</p>
+<p>The simplest <em>raycastMultiple</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxVec3</span> <span class="n">origin</span> <span class="o">=</span> <span class="p">...;</span>                 <span class="c1">// [in] Ray origin</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized ray direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Raycast max distance</span>
+
+<span class="c1">// [in] Define what parts of PxRaycastHit we&#39;re interested in</span>
+<span class="k">const</span> <span class="n">PxSceneQueryFlags</span> <span class="n">outputFlags</span> <span class="o">=</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eDISTANCE</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eIMPACT</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eNORMAL</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="n">blockingHit</span><span class="p">;</span>                    <span class="c1">// [out] Tells whether hitBuffer contains a blocking hit</span>
+<span class="k">const</span> <span class="n">PxU32</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>        <span class="c1">// [in] size of &#39;hitBuffer&#39;</span>
+<span class="n">PxRaycastHit</span> <span class="n">hitBuffer</span><span class="p">[</span><span class="n">bufferSize</span><span class="p">];</span>  <span class="c1">// [out] Results will be stored here</span>
+
+<span class="c1">// Raycast against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The main result from this call are all hits along the ray, stored in &#39;hitBuffer&#39;</span>
+<span class="n">PxI32</span> <span class="n">nbHits</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">raycastMultiple</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">outputFlags</span><span class="p">,</span>
+                                      <span class="n">hitBuffer</span><span class="p">,</span> <span class="n">bufferSize</span><span class="p">,</span> <span class="n">blockingHit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Notes:</p>
+<ul class="simple">
+<li>Solid objects (sphere, capsule, box, convex) are defined as closed (i.e. they include their boundaries.)</li>
+<li>A plane is a closed half-space</li>
+<li>Heightfields are also closed and solid</li>
+</ul>
+<p>When raycasting against solid objects, the rays include their endpoints. Any intersection between a ray and a solid object results in a hit report.</p>
+<p>For solid objects (sphere, capsule, box, convex) and heightfields PhysX will report a hit:</p>
+<ol class="arabic simple">
+<li>if the start point or the end point is inside a solid object or heightfield.</li>
+<li>if the start point or the end point is on the surface of a solid object or heightfield.</li>
+</ol>
+<p>In the case that the start point is inside a solid object or heightfield:</p>
+<ol class="arabic simple">
+<li>the reported hit distance is set to zero.</li>
+<li>the hit normal is in the opposite direction to the ray.</li>
+<li>the hit impact position is the start point of the ray.</li>
+</ol>
+<p>For Planes:
+If the start point is behind the plane's surface, no hit will be reported even in the case that the ray intersects the plane.
+If the start point is on the plane, a hit with zero distance will be reported.</p>
+<p>There are two kinds of meshes: double-sided meshes and single-sided meshes. Backface culling is enabled for single-sided meshes, disabled for double-sided ones. A double-sided mesh is defined with the PxMeshGeometryFlag::eDOUBLE_SIDED flag.</p>
+<p>If the start point or end point is on the surface for both kinds of meshes, PhysX will report a hit.
+If the start point is on the back of a mesh triangle, and the ray intersects the triangle, PhysX will:</p>
+<ol class="arabic simple">
+<li>report a hit for the double-sided mesh.</li>
+<li>report no hit for the single-sided mesh.</li>
+</ol>
+<p>To summarize, here are the tables for the definition of raycast behavior.</p>
+<p><strong>Solid Shape &amp; Heightfield</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head stub">&nbsp;</th>
+<th class="head">Start Pt Inside</th>
+<th class="head">Start Pt On the Surface</th>
+<th class="head">Start Pt Outside</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><th class="stub">End Pt Inside</th>
+<td>HIT</td>
+<td>HIT</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt On the Surface</th>
+<td>HIT</td>
+<td>HIT</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt Outside</th>
+<td>HIT</td>
+<td>HIT</td>
+<td>MISS</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Plane</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head stub">&nbsp;</th>
+<th class="head">Start Pt Behind</th>
+<th class="head">Start Pt On the Plane</th>
+<th class="head">Start Pt in Front</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><th class="stub">End Pt Behind</th>
+<td>MISS</td>
+<td>HIT</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt On the Plane</th>
+<td>MISS</td>
+<td>HIT</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt in Front</th>
+<td>MISS</td>
+<td>HIT</td>
+<td>MISS</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Double-Sided Mesh</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head stub">&nbsp;</th>
+<th class="head">Start Pt Behind Triangle</th>
+<th class="head">Start Pt On the Triangle</th>
+<th class="head">Start Pt in Front of Triangle</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><th class="stub">End Pt Behind Triangle</th>
+<td>MISS</td>
+<td>MISS</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt On the Triangle</th>
+<td>HIT</td>
+<td>MISS</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt in Front of Triangle</th>
+<td>HIT</td>
+<td>MISS</td>
+<td>MISS</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+<p><strong>Single-Sided Mesh</strong></p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+<col width="25%" />
+</colgroup>
+<thead valign="bottom">
+<tr><th class="head stub">&nbsp;</th>
+<th class="head">Start Pt Behind Triangle</th>
+<th class="head">Start Pt On the Triangle</th>
+<th class="head">Start Pt in Front of Triangle</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr><th class="stub">End Pt Behind Triangle</th>
+<td>MISS</td>
+<td>MISS</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt On the Triangle</th>
+<td>MISS</td>
+<td>MISS</td>
+<td>HIT</td>
+</tr>
+<tr><th class="stub">End Pt in Front of Triangle</th>
+<td>MISS</td>
+<td>MISS</td>
+<td>MISS</td>
+</tr>
+</tbody>
+</table>
+<div class="line-block">
+<div class="line"><br /></div>
+</div>
+</div>
+<div class="section" id="sweep-queries">
+<h2>Sweep Queries<a class="headerlink" href="#sweep-queries" title="Permalink to this headline">¶</a></h2>
+<p>A sweep query sweeps a shape from a given point along a given direction, and collisions with scene objects are reported. As with raycasts, PhysX supports three kinds of sweep tests with the same distinctions and limitations:</p>
+<ul class="simple">
+<li><em>sweepAny</em></li>
+<li><em>sweepSingle</em></li>
+<li><em>sweepMultiple</em></li>
+</ul>
+<p>Each kind of sweep test has two versions: geometry sweeping and compound geometry sweeping. The compound version sweeps all specified geometry objects through space and finds all rigid actors that get hit along the sweep. Each result contains data as specified by the outputFlags field. A typical use case would be character sweeping queries.</p>
+<p>The distance of sweep must be larger than 0. It will be clamped to PX_MAX_SWEEP_DISTANCE which is defined in file PxScene.h.</p>
+<p><em>sweepAny</em> is optimized for cases in which a simple boolean result is enough. All that matters is that there was a hit, and the exact impact point or which shape has been touched is not important.</p>
+<p>The simplest <em>sweepAny</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxGeometry</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">...;</span>           <span class="c1">// [in] Geometry of object to check for sweep</span>
+<span class="n">PxTransform</span> <span class="n">pose</span> <span class="o">=</span> <span class="p">...;</span>              <span class="c1">// [in] Pose of the object</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized sweep direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Sweep max distance</span>
+<span class="n">PxSweepHit</span> <span class="n">hit</span><span class="p">;</span>                      <span class="c1">// [out] Sweep results</span>
+
+<span class="c1">// [in] Define what parts of PxSweepHit we&#39;re interested in</span>
+<span class="k">const</span> <span class="n">PxSceneQueryFlags</span> <span class="n">outputFlags</span> <span class="o">=</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eDISTANCE</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eIMPACT</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eNORMAL</span><span class="p">;</span>
+
+<span class="c1">// Sweep against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The main result from this call is the boolean &#39;status&#39;, return True if an hit was found, vice versa.</span>
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">sweepAny</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">outputFlags</span><span class="p">,</span> <span class="n">hit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>sweepSingle</em> returns a single result: the closest touched shape along the sweep direction, if any, along with the exact hit information.</p>
+<p>The simplest <em>sweepSingle</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxGeometry</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">...;</span>           <span class="c1">// [in] Geometry of object to check for sweep</span>
+<span class="n">PxTransform</span> <span class="n">pose</span> <span class="o">=</span> <span class="p">...;</span>              <span class="c1">// [in] Pose of the object</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized sweep direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Sweep max distance</span>
+<span class="n">PxSweepHit</span> <span class="n">hit</span><span class="p">;</span>                      <span class="c1">// [out] Sweep results</span>
+
+<span class="c1">// [in] Define what parts of PxSweepHit we&#39;re interested in</span>
+<span class="k">const</span> <span class="n">PxSceneQueryFlags</span> <span class="n">outputFlags</span> <span class="o">=</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eDISTANCE</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eIMPACT</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eNORMAL</span><span class="p">;</span>
+
+<span class="c1">// Sweep against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The main result from this call is the boolean &#39;status&#39;, return True if an hit was found, vice versa.</span>
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">sweepSingle</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">outputFlags</span><span class="p">,</span> <span class="n">hit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>sweepMultiple</em> finds all the objects touched by the sweep volume, along with all the corresponding hits.</p>
+<p>The simplest <em>sweepMultiple</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxGeometry</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">...;</span>           <span class="c1">// [in] Geometry of object to check for sweep</span>
+<span class="n">PxTransform</span> <span class="n">pose</span> <span class="o">=</span> <span class="p">...;</span>              <span class="c1">// [in] Pose of the object</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized sweep direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Sweep max distance</span>
+<span class="n">PxSweepHit</span> <span class="n">hit</span><span class="p">;</span>                      <span class="c1">// [out] Sweep results</span>
+
+<span class="c1">// [in] Define what parts of PxSweepHit we&#39;re interested in</span>
+<span class="k">const</span> <span class="n">PxSceneQueryFlags</span> <span class="n">outputFlags</span> <span class="o">=</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eDISTANCE</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eIMPACT</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eNORMAL</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="n">blockingHit</span><span class="p">;</span>                    <span class="c1">// [out] Tells whether hitBuffer contains a blocking hit</span>
+<span class="k">const</span> <span class="n">PxU32</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>        <span class="c1">// [in] size of &#39;hitBuffer&#39;</span>
+<span class="n">PxSweepHit</span> <span class="n">hitBuffer</span><span class="p">[</span><span class="n">bufferSize</span><span class="p">];</span>    <span class="c1">// [out] Results will be stored here</span>
+
+<span class="c1">// Sweep against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The return value is the number of hits in the buffer, or -1 if the buffer overflowed.</span>
+<span class="n">PxI32</span> <span class="n">nbHits</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">sweepMultiple</span><span class="p">((</span><span class="n">geometry</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">outputFlags</span><span class="p">,</span> <span class="n">hitBuffer</span><span class="p">,</span><span class="n">bufferSize</span><span class="p">,</span><span class="n">blockingHit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The currently supported input shapes are boxes, spheres, capsules and convex.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li>Solid objects (sphere, capsule, box, convex) are defined as closed (i.e. they include their boundaries.)</li>
+<li>A plane is a closed half-space</li>
+<li>Triangle Mesh is defined as thin triangle surface.</li>
+<li>Heightfield is defined as thin triangle surface, the thickness of heightfield is ignored for sweeping test.</li>
+<li>Sweeping volumes are defined as closed (i.e. they include their boundaries.)</li>
+</ul>
+<p>PhysX does not use tolerance when sweeping. Instead, users can add their own tolerance to the sweeping volume by using a larger sweeping geometry or longer sweeping distance before filling the query for PhysX. For example, use a large tolerance to get more broad results, use a small tolerance to get more accurate results.</p>
+<div class="section" id="sweeps-with-initial-intersection">
+<h3>Sweeps with Initial Intersection<a class="headerlink" href="#sweeps-with-initial-intersection" title="Permalink to this headline">¶</a></h3>
+<p>By default PhysX sweeps return an undefined result if the initial position of the swept volume intersects another shape. Setting the <em>PxSceneQueryFlag::eINITIAL_OVERLAP</em> flag specifies that additional tests will be performned to ensure a defined result in this case. When this flag is set and an initial overlap is found, the <em>PxSceneQueryFlag::eINITIAL_OVERLAP_KEEP</em> flag determines whether the overlap generates a hit result or is ignored. If a hit result is generated, the distance is set to zero, and the returned normal is set to the opposite of the sweep direction.  If none of the flags are set the behaviour is undefined.</p>
+<p>There is a slight performance hit for initial overlap checks.</p>
+</div>
+</div>
+<div class="section" id="overlap-queries">
+<h2>Overlap Queries<a class="headerlink" href="#overlap-queries" title="Permalink to this headline">¶</a></h2>
+<p>In overlap queries, a shape is collided against the objects in the scene, and any touching object is reported. PhysX only supports two kinds of overlap tests:</p>
+<ul class="simple">
+<li><em>overlapAny</em></li>
+<li><em>overlapMultiple</em></li>
+</ul>
+<p><em>overlapAny</em> returns a single boolean, and is optimized for testing whether a given volume of space is empty or not.</p>
+<p>The simplest <em>overlapAny</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxGeometry</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">...;</span>           <span class="c1">// [in] Geometry of object to check for overlap</span>
+<span class="n">PxTransform</span> <span class="n">pose</span> <span class="o">=</span> <span class="p">...;</span>              <span class="c1">// [in] Pose of the object</span>
+<span class="n">PxShape</span><span class="o">*</span> <span class="n">hit</span><span class="p">;</span>                        <span class="c1">// [out] Overlap results</span>
+
+<span class="c1">// Overlap against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The main result from this call is the boolean &#39;status&#39;, return True if an overlap hit was found, vice versa.</span>
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">overlapAny</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">hit</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>overlapMultiple</em> returns the set of all overlapping objects.</p>
+<p>The simplest <em>overlapMultiple</em> call looks like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxGeometry</span> <span class="n">geometry</span> <span class="o">=</span> <span class="p">...;</span>           <span class="c1">// [in] Geometry of object to check for overlap</span>
+<span class="n">PxTransform</span> <span class="n">pose</span> <span class="o">=</span> <span class="p">...;</span>              <span class="c1">// [in] Pose of the object</span>
+<span class="k">const</span> <span class="n">PxU32</span> <span class="n">bufferSize</span> <span class="o">=</span> <span class="mi">256</span><span class="p">;</span>        <span class="c1">// [in] size of &#39;hitBuffer&#39;</span>
+<span class="n">PxShape</span><span class="o">*</span> <span class="n">hitBuffer</span><span class="p">[</span><span class="n">bufferSize</span><span class="p">];</span>      <span class="c1">// [out] Results will be stored here</span>
+
+<span class="c1">// Overlap against all static &amp; dynamic objects (no filtering)</span>
+<span class="c1">// The return value is the number of hits in the buffer, or -1 if the buffer overflowed.</span>
+<span class="n">PxI32</span> <span class="n">hitNum</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">overlapMultiple</span><span class="p">(</span><span class="n">geometry</span><span class="p">,</span> <span class="n">pose</span><span class="p">,</span> <span class="n">hitBuffer</span><span class="p">,</span> <span class="n">bufferSize</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>There is no &quot;overlapSingle&quot; case here because overlap queries do not have a given direction, and thus we cannot define a &quot;closest&quot; or &quot;first&quot; hit in this case.</p>
+<p>The currently supported input shapes are boxes, spheres, capsules and convex.</p>
+<p>Notes:</p>
+<ul class="simple">
+<li>Solid objects (sphere, capsule, box, convex) are defined as closed (i.e. they include their boundaries.)</li>
+<li>A plane is a closed half-space</li>
+<li>Triangle Mesh is defined as thin triangle surface.</li>
+<li>Heightfield is defined as extruded triangle surface with thickness. Overlap geometries who do not intersect with heightfield surface but are within the extruded space also report a overlap hit.</li>
+<li>Overlapping volumes are defined as closed.</li>
+</ul>
+<p>PhysX does not use tolerance when overlapping. Instead, users can add their own tolerance to the overlapping volume by using a larger overlapping geometry before fill the query for PhysX. For example, use a large tolerance to get more broad results, use a small tolerance to get more accurate results.</p>
+</div>
+<div class="section" id="filtering">
+<h2>Filtering<a class="headerlink" href="#filtering" title="Permalink to this headline">¶</a></h2>
+<p>There are several ways to filter out undesired shapes from scene queries. Each scene query accepts the following filtering-related parameters:</p>
+<ul class="simple">
+<li>a <em>PxSceneQueryFilterData</em> structure, containing both <em>PxSceneQueryFilterFlags</em> and <em>PxFilterData</em></li>
+<li>an optional <em>PxSceneQueryFilterCallback</em></li>
+</ul>
+<p>The first level of filtering is given by the <em>PxSceneQueryFilterFlag::eSTATIC</em> and <em>PxSceneQueryFilterFlag::eDYNAMIC</em> flags. These flags control whether the query takes static and/or dynamic shapes into account. This is the most efficient way to filter out all static shapes. For example an explosion effect which applies forces within a region could use the <em>overlapMultiple</em> query with a sphere shape, and the <em>PxSceneQueryFilterFlag::eDYNAMIC</em> flag to only consider dynamic objects, since it is useless to apply forces to static objects.</p>
+<p>Returning to the initial raycast code snippets, a <em>raycastAny</em> call against static shapes only would be written like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxVec3</span> <span class="n">origin</span> <span class="o">=</span> <span class="p">...;</span>                 <span class="c1">// [in] Ray origin</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized ray direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Raycast max distance</span>
+<span class="n">PxSceneQueryHit</span> <span class="n">hit</span><span class="p">;</span>                 <span class="c1">// [out] Raycast results</span>
+
+<span class="c1">// [in] Define filter for static objects only</span>
+<span class="n">PxSceneQueryFilterData</span> <span class="n">filterData</span><span class="p">(</span><span class="n">PxSceneQueryFilterFlag</span><span class="o">::</span><span class="n">eSTATIC</span><span class="p">);</span>
+
+<span class="c1">// Raycast against static objects only</span>
+<span class="c1">// The main result from this call is the boolean &#39;status&#39;</span>
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">raycastAny</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">filterData</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In case of triangle meshes it is possible to receive multiple hits per mesh. To enable triangle mesh multiple hits set <em>PxSceneQueryFilterFlag::eMESH_MULTIPLE</em> flag. This flag can be set in the scene query filter data and can be also set/cleared in pre-filter shader.</p>
+<p>The second level of filtering is controlled by the <em>PxFilterData</em>, a 128-bit bitmask used in a built-in filtering equation. Each shape has a bitmask, set using PxShape::setQueryFilterData(), and the query also has a bitmask.</p>
+<p>The query data is used differently by batched and unbatched queries (see below for batched queries.) For unbatcher queries, the following rules are applied:</p>
+<ul class="simple">
+<li>If the query's bitmask is all zero, the shape is kept</li>
+<li>Otherwise, if the bitwise-AND value of the query's bitmask and the shape's bitmask is zero, the shape is skipped</li>
+</ul>
+<p>Or in other words:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxU32</span> <span class="n">keep</span> <span class="o">=</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">word0</span> <span class="o">&amp;</span> <span class="n">object</span><span class="p">.</span><span class="n">word0</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">word1</span> <span class="o">&amp;</span> <span class="n">object</span><span class="p">.</span><span class="n">word1</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">word2</span> <span class="o">&amp;</span> <span class="n">object</span><span class="p">.</span><span class="n">word2</span><span class="p">)</span> <span class="o">|</span> <span class="p">(</span><span class="n">query</span><span class="p">.</span><span class="n">word3</span> <span class="o">&amp;</span> <span class="n">object</span><span class="p">.</span><span class="n">word3</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The hardcoded filtering equation avoids the function call overhead of the filtering callback, while still providing reasonable filtering capabilities. This is similar to the &quot;active groups&quot; from previous versions of PhysX. For example, one can simply use the first word of filterData (word0) to emulate the behavior of previous PhysX versions. The active groups could be defined like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">enum</span> <span class="n">ActiveGroup</span>
+<span class="p">{</span>
+    <span class="n">GROUP1</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">0</span><span class="p">),</span>
+    <span class="n">GROUP2</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">1</span><span class="p">),</span>
+    <span class="n">GROUP3</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">2</span><span class="p">),</span>
+    <span class="n">GROUP4</span>    <span class="o">=</span> <span class="p">(</span><span class="mi">1</span><span class="o">&lt;&lt;</span><span class="mi">3</span><span class="p">),</span>
+    <span class="p">...</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>When shapes are created, they can be put in a single group, for example GROUP1:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxShape</span><span class="o">*</span> <span class="n">shape</span><span class="p">;</span>                      <span class="c1">// Previously created shape</span>
+
+<span class="n">PxFilterData</span> <span class="n">filterData</span><span class="p">;</span>
+<span class="n">filterData</span><span class="p">.</span><span class="n">word0</span> <span class="o">=</span> <span class="n">GROUP1</span><span class="p">;</span>
+<span class="n">shape</span><span class="o">-&gt;</span><span class="n">setQueryFilterData</span><span class="p">(</span><span class="n">filterData</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Or in several groups, for example GROUP1 and GROUP3:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxShape</span><span class="o">*</span> <span class="n">shape</span><span class="p">;</span>                      <span class="c1">// Previously created shape</span>
+
+<span class="n">PxFilterData</span> <span class="n">filterData</span><span class="p">;</span>
+<span class="n">filterData</span><span class="p">.</span><span class="n">word0</span> <span class="o">=</span> <span class="n">GROUP1</span><span class="o">|</span><span class="n">GROUP3</span><span class="p">;</span>
+<span class="n">shape</span><span class="o">-&gt;</span><span class="n">setQueryFilterData</span><span class="p">(</span><span class="n">filterData</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then when performing a scene query, select which groups are active for the query - for example GROUP2 and GROUP3 here:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxVec3</span> <span class="n">origin</span> <span class="o">=</span> <span class="p">...;</span>                 <span class="c1">// [in] Ray origin</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized ray direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Raycast max distance</span>
+<span class="n">PxRaycastHit</span> <span class="n">hit</span><span class="p">;</span>                    <span class="c1">// [out] Raycast results</span>
+
+<span class="c1">// [in] Define what parts of PxRaycastHit we&#39;re interested in</span>
+<span class="k">const</span> <span class="n">PxSceneQueryFlags</span> <span class="n">outputFlags</span> <span class="o">=</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eDISTANCE</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eIMPACT</span> <span class="o">|</span> <span class="n">PxSceneQueryFlag</span><span class="o">::</span><span class="n">eNORMAL</span><span class="p">;</span>
+
+<span class="c1">// [in] Raycast against GROUP2 and GROUP3</span>
+<span class="n">PxSceneQueryFilterData</span> <span class="n">filterData</span> <span class="o">=</span> <span class="n">PxSceneQueryFilterData</span><span class="p">();</span>
+<span class="n">filterData</span><span class="p">.</span><span class="n">data</span><span class="p">.</span><span class="n">word0</span> <span class="o">=</span> <span class="n">GROUP2</span><span class="o">|</span><span class="n">GROUP3</span><span class="p">;</span>
+
+<span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">raycastSingle</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">outputFlags</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">filterData</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A built-in equation is never flexible enough, so the last level of filtering is provided by a filtering callback. The filtering callback must be passed to the query as a <em>PxSceneQueryFilterCallback</em>. Set the <em>PxSceneQueryFilterFlag::ePREFILTER</em> and <em>PxSceneQueryFilterFlag::ePOSTFILTER</em> flags to determine whether to filter before accurate per-shape collision, afterward, or both. Filtering early allows shapes to be efficiently discarded before the potentially expensive collision test. On the other hand, the results of that test may be required in order to determine whether a shape should be discarded or not.</p>
+<p>The implementation of the filtering callback must return a <em>PxSceneQueryHitType</em>. These types define three different kinds of behavior:</p>
+<ul class="simple">
+<li><em>eNONE</em> indicates that the shape must simply be discarded from any further processing</li>
+<li><em>eBLOCK</em> indicates that the shape is a &quot;blocking hit&quot;, and any shapes located further away can be ignored</li>
+<li><em>eTOUCH</em> indicates that the shape is a &quot;touching hit&quot;, and while this shape will be recorded and included in the query's report, the query will continue to seek hits further away</li>
+</ul>
+<p>The <em>eNONE</em> and <em>eBLOCK</em> types correspond to the intuitive definition of a standard filtering mechanism: discard the shape (eNONE) or keep it (eBLOCK). <em>eTOUCH</em> provides support for scenarios such as bullets going through windows (breaking them on their way), or through the leaves of a tree (making them rustle). That is, cases where it is useful to apply various effects to touched objects, without actually blocking the bullet. Note that eTOUCH is only useful for scene queries reporting multiple hits. For queries returning a single result, touching hits are simply ignored (similar to eNONE).</p>
+<p>To use filter-style querying in unbatched queries, similar to that performed by the simulation filter shader and for batched queries, add a filterData field to the query callback object and call your filter function there.</p>
+</div>
+<div class="section" id="caching">
+<h2>Caching<a class="headerlink" href="#caching" title="Permalink to this headline">¶</a></h2>
+<p>Scene queries can sometimes be accelerated using <em>PxSceneQueryCache</em> objects. This is especially true for <em>raycastAny</em>, <em>raycastSingle</em> and <em>sweepSingle</em> queries. The cache object defines which shape - or even, in the case of triangle meshes, which triangle - should be tested first. For queries with high temporal coherence, this can provide significant performance gains. A good strategy to capture that coherence is simply to fill the cache object of a given query with the results (last touched shape, last touched triangle) from the previous frame.</p>
+<p>For example there is a high probability that an AI visibility query will return the same vision-blocking shape for several frames. Using <em>raycastAny</em> with a properly filled <em>PxSceneQueryCache</em> object will allow PhysX to test a single shape - or a single triangle! - before traversing internal pruning structures, and in the case of a &quot;cache hit&quot; the pruning structures can be bypassed entirely. Caching in such a scenario works like this:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>
+<span class="n">PxVec3</span> <span class="n">origin</span> <span class="o">=</span> <span class="p">...;</span>                 <span class="c1">// [in] Ray origin</span>
+<span class="n">PxVec3</span> <span class="n">unitDir</span> <span class="o">=</span> <span class="p">...;</span>                <span class="c1">// [in] Normalized ray direction</span>
+<span class="n">PxReal</span> <span class="n">maxDistance</span> <span class="o">=</span> <span class="p">...;</span>            <span class="c1">// [in] Raycast max distance</span>
+<span class="n">PxSceneQueryHit</span> <span class="n">hit</span><span class="p">;</span>                 <span class="c1">// [out] Raycast results</span>
+
+<span class="c1">// Per-raycast persistent cache, valid from one frame to the next</span>
+<span class="k">static</span> <span class="n">PxSceneQueryCache</span> <span class="n">persistentCache</span><span class="p">;</span>
+
+<span class="c1">// Define cache for current frame:</span>
+<span class="c1">// - if there was a hit in the previous frame, use the cache.</span>
+<span class="c1">// - otherwise do not (PhysX requires given cache has a valid shape pointer)</span>
+<span class="k">const</span> <span class="n">PxSceneQueryCache</span><span class="o">*</span> <span class="n">cache</span> <span class="o">=</span> <span class="n">persistentCache</span><span class="p">.</span><span class="n">shape</span> <span class="o">?</span> <span class="o">&amp;</span><span class="n">persistentCache</span> <span class="o">:</span> <span class="nb">NULL</span><span class="p">;</span>
+
+<span class="c1">// Perform raycast query using the cache</span>
+<span class="n">PxSceneQueryHit</span> <span class="n">hit</span><span class="p">;</span>
+<span class="k">const</span> <span class="kt">bool</span> <span class="n">status</span> <span class="o">=</span> <span class="n">scene</span><span class="o">-&gt;</span><span class="n">raycastAny</span><span class="p">(</span><span class="n">origin</span><span class="p">,</span> <span class="n">unitDir</span><span class="p">,</span> <span class="n">maxDistance</span><span class="p">,</span> <span class="n">hit</span><span class="p">,</span> <span class="n">PxSceneQueryFilterData</span><span class="p">(),</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">cache</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="n">status</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// We hit a shape. Cache it for next frame.</span>
+    <span class="n">persistentCache</span><span class="p">.</span><span class="n">shape</span> <span class="o">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">shape</span><span class="p">;</span>
+    <span class="n">persistentCache</span><span class="p">.</span><span class="n">faceIndex</span> <span class="o">=</span> <span class="n">hit</span><span class="p">.</span><span class="n">faceIndex</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="k">else</span>
+<span class="p">{</span>
+    <span class="c1">// We did not hit anything. Reset the cache for next frame.</span>
+    <span class="n">persistentCache</span> <span class="o">=</span> <span class="n">PxSceneQueryCache</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Caching can also be useful in queries looking for the &quot;closest&quot; hit. Here, testing the previously closest object first can allow PhysX to shorten the query distance very early, leading to fewer collision tests overall.</p>
+<p>PhysX cannot detect stale pointers, so the application is responsible for updating caches when shapes are deleted.</p>
+</div>
+<div class="section" id="batched-queries">
+<h2>Batched queries<a class="headerlink" href="#batched-queries" title="Permalink to this headline">¶</a></h2>
+<p>Batched queries provide an interface, <em>PxBatchQuery</em>, where queries can be batched together and executed all at once. PxBatchQuery buffers the raycast, overlap and sweep queries until PxBatchQuery::execute() is called.</p>
+<p>Use PxScene::createBatchQuery to create PxBatchQuery object.</p>
+<p>The hardcoded filtering equation is not used for batched queries. Instead it is replaced with two filter shaders, respectively running before (<em>PxBatchQueryPreFilterShader</em>) and after (<em>PxBatchQueryPostFilterShader</em>) the accurate collision tests. Set the preFilterShader and postFilterShader in PxBatchQueryDesc correspondingly.</p>
+<p>The filterShaderData will be copied into PhysX and passed to the filter shader by the constantBlock parameter.</p>
+<p>Results are written to the user-defined buffers in <em>PxBatchQueryDesc</em>, in the same order the queries were given to the <em>PxBatchQuery</em> object. The results buffer and hits buffer for the needed query type must be set. The SDK ignores batched queries with NULL results buffer or NULL hits buffer.</p>
+<p>PS3 specific limitations and how to write an SPU Query Filter Shader are captured in the User's PS3 Guide &quot;SPU Simulation Restrictions&quot; and &quot;SPU Query Filter Shaders&quot; chapters respectively.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Scene Queries</a><ul>
+<li><a class="reference internal" href="#raycast-queries">Raycast queries</a></li>
+<li><a class="reference internal" href="#sweep-queries">Sweep Queries</a><ul>
+<li><a class="reference internal" href="#sweeps-with-initial-intersection">Sweeps with Initial Intersection</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#overlap-queries">Overlap Queries</a></li>
+<li><a class="reference internal" href="#filtering">Filtering</a></li>
+<li><a class="reference internal" href="#caching">Caching</a></li>
+<li><a class="reference internal" href="#batched-queries">Batched queries</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="GPUTaskManager.html"
+                        title="previous chapter">GPU Resource Management</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="GeometryQuery.html"
+                        title="next chapter">Geometry Queries</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="GeometryQuery.html" title="Geometry Queries"
+             >next</a></li>
+        <li class="right" >
+          <a href="GPUTaskManager.html" title="GPU Resource Management"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

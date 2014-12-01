@@ -1,0 +1,28 @@
+compositor Invert
+{
+	technique
+	{
+		// Temporary textures
+		texture rt0 target_width target_height PF_A8R8G8B8
+
+		target rt0
+		{
+			// Render output from previous compositor (or original scene)
+			input previous
+		}
+
+		target_output
+		{
+			// Start with clear output
+			input none
+
+			// Draw a fullscreen quad with the Invert image
+			pass render_quad
+			{
+				// Renders a fullscreen quad with a material
+				material Compositor/Invert
+				input 0 rt0
+			}
+		}
+	}
+}

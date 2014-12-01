@@ -1,0 +1,45 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+//lightAttenuation: x = near; y = far; z = power; w = far - near.
+float getLightAttenuation(float4 lightAttenuation, float distance)
+{
+	return saturate(pow(1 - min( (distance - lightAttenuation.x) / lightAttenuation.w, 1), 
+		lightAttenuation.z));
+}
+
+#ifndef OPENGL_ES
+//lightAttenuation: x = near; y = far; z = power; w = far - near.
+half getLightAttenuation(half4 lightAttenuation, half distance)
+{
+	return (half)saturate(pow(1.0h - (half)min( (distance - lightAttenuation.x) / lightAttenuation.w, 1), 
+		lightAttenuation.z));
+}
+#endif //!OPENGL_ES
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+half3 expand(half3 v)
+{
+	return v * 2 - 1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+float3 packNormalized3(float v)
+{
+	const float3 bitShift = float3( 65536, 256, 1 );
+	const float3 bitMask = float3( 0.0, 1.0/256.0, 1.0/256.0 );
+	float3 result; 
+	result = v * bitShift; 
+	result = frac(result); 
+	result -= result.xxy * bitMask; 
+	return result;
+}
+
+float unpackNormalized3(float3 v)
+{
+	const float3 bitsUnshift = float3( 1.0/65536.0, 1.0/256.0, 1.0 );
+	return dot(v, bitsUnshift);
+}

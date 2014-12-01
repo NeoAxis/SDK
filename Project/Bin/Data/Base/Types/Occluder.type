@@ -1,0 +1,6 @@
+type Occluder
+{
+	class = Occluder
+	allowEditorCreate = True
+	networkType = ClientOnly
+}

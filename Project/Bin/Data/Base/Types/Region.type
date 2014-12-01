@@ -1,0 +1,14 @@
+type Region
+{
+	class = Region
+	creatableInMapEditor = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\InvisiblePoint.mesh"
+			useOwnerScale = False
+			onlyForEditor = True
+		}
+	}
+}

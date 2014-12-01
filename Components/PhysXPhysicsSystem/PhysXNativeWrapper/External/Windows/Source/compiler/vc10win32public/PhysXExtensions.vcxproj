@@ -1,0 +1,351 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+	<PropertyGroup Condition="('$(Platform)'=='Win32')or('$(Platform)'=='x64')or('$(Platform)'=='Xbox 360')">
+		<TrackFileAccess>false</TrackFileAccess>
+	</PropertyGroup>
+	<ItemGroup Label="ProjectConfigurations">
+		<ProjectConfiguration Include="checked|Win32">
+			<Configuration>checked</Configuration>
+			<Platform>Win32</Platform>
+	</ProjectConfiguration>
+		<ProjectConfiguration Include="profile|Win32">
+			<Configuration>profile</Configuration>
+			<Platform>Win32</Platform>
+	</ProjectConfiguration>
+		<ProjectConfiguration Include="release|Win32">
+			<Configuration>release</Configuration>
+			<Platform>Win32</Platform>
+	</ProjectConfiguration>
+	</ItemGroup>
+	<PropertyGroup Label="Globals">
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='checked|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<GenerateManifest>false</GenerateManifest>
+		<CharacterSet>MultiByte</CharacterSet>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<GenerateManifest>false</GenerateManifest>
+		<CharacterSet>MultiByte</CharacterSet>
+	</PropertyGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'" Label="Configuration">
+		<ConfigurationType>StaticLibrary</ConfigurationType>
+		<GenerateManifest>false</GenerateManifest>
+		<CharacterSet>MultiByte</CharacterSet>
+	</PropertyGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+	<ImportGroup Label="ExtensionSettings">
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='checked|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='profile|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+	</ImportGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='checked|Win32'">
+		<OutDir>./../../../Lib/win32\</OutDir>
+		<IntDir>./Win32/PhysXExtensions/checked\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>PhysX3ExtensionsCHECKED</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='checked|Win32'">
+		<ClCompile>
+			<TreatWarningAsError>true</TreatWarningAsError>
+			<StringPooling>true</StringPooling>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/MP</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../../Include/foundation;./../../foundation/include;./../../../Include/physxprofilesdk;./../../../Include/physxvisualdebuggersdk;./../../../Include/common;./../../../Include/geometry;./../../../Include/pvd;./../../../Include/cooking;./../../../Include/extensions;./../../../Include/vehicle;./../../../Include/pxtask;./../../../Include/cloth;./../../../Include/RepX;./../../../Include;./../../Common/src;./../../PhysXExtensions/headers;./../../GeomUtils/headers;./../../RepX/src;./../../PhysXMetaData/core/include;./../../PhysXMetaData/extensions/include;./../../PhysXProfileSDK;./../../PvdRuntime/src;./../../../Include/physxvisualdebuggersdk/PVDClientDll/Implementation;./../../../Include/physxvisualdebuggersdk/PVDClientDll/Public;./../../../Include/physxvisualdebuggersdk/PVDCommLayer/Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>PX_PHYSX_STATIC_LIB;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;NDEBUG;PX_CHECKED;PX_SUPPORT_VISUAL_DEBUGGER;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ExceptionHandling>false</ExceptionHandling>
+			<WarningLevel>Level4</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions></AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)PhysX3ExtensionsCHECKED.lib</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/PhysX3ExtensionsCHECKED.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='profile|Win32'">
+		<OutDir>./../../../Lib/win32\</OutDir>
+		<IntDir>./Win32/PhysXExtensions/profile\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>PhysX3ExtensionsPROFILE</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='profile|Win32'">
+		<ClCompile>
+			<TreatWarningAsError>true</TreatWarningAsError>
+			<StringPooling>true</StringPooling>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/MP</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../../Include/foundation;./../../foundation/include;./../../../Include/physxprofilesdk;./../../../Include/physxvisualdebuggersdk;./../../../Include/common;./../../../Include/geometry;./../../../Include/pvd;./../../../Include/cooking;./../../../Include/extensions;./../../../Include/vehicle;./../../../Include/pxtask;./../../../Include/cloth;./../../../Include/RepX;./../../../Include;./../../Common/src;./../../PhysXExtensions/headers;./../../GeomUtils/headers;./../../RepX/src;./../../PhysXMetaData/core/include;./../../PhysXMetaData/extensions/include;./../../PhysXProfileSDK;./../../PvdRuntime/src;./../../../Include/physxvisualdebuggersdk/PVDClientDll/Implementation;./../../../Include/physxvisualdebuggersdk/PVDClientDll/Public;./../../../Include/physxvisualdebuggersdk/PVDCommLayer/Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>PX_PHYSX_STATIC_LIB;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;NDEBUG;PX_PROFILE;PX_SUPPORT_VISUAL_DEBUGGER;_SECURE_SCL=0;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ExceptionHandling>false</ExceptionHandling>
+			<WarningLevel>Level4</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions></AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)PhysX3ExtensionsPROFILE.lib</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/PhysX3ExtensionsPROFILE.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<PropertyGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<OutDir>./../../../Lib/win32\</OutDir>
+		<IntDir>./Win32/PhysXExtensions/release\</IntDir>
+		<TargetExt>.lib</TargetExt>
+		<TargetName>PhysX3Extensions</TargetName>
+		<CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+		<CodeAnalysisRules />
+		<CodeAnalysisRuleAssemblies />
+	</PropertyGroup>
+	<ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='release|Win32'">
+		<ClCompile>
+			<TreatWarningAsError>true</TreatWarningAsError>
+			<StringPooling>true</StringPooling>
+			<EnableEnhancedInstructionSet>StreamingSIMDExtensions2</EnableEnhancedInstructionSet>
+			<RuntimeTypeInfo>false</RuntimeTypeInfo>
+			<BufferSecurityCheck>false</BufferSecurityCheck>
+			<FloatingPointModel>Fast</FloatingPointModel>
+			<AdditionalOptions>/MP</AdditionalOptions>
+			<Optimization>Full</Optimization>
+			<AdditionalIncludeDirectories>./../../../Include/foundation;./../../foundation/include;./../../../Include/physxprofilesdk;./../../../Include/physxvisualdebuggersdk;./../../../Include/common;./../../../Include/geometry;./../../../Include/pvd;./../../../Include/cooking;./../../../Include/extensions;./../../../Include/vehicle;./../../../Include/pxtask;./../../../Include/cloth;./../../../Include/RepX;./../../../Include;./../../Common/src;./../../PhysXExtensions/headers;./../../GeomUtils/headers;./../../RepX/src;./../../PhysXMetaData/core/include;./../../PhysXMetaData/extensions/include;./../../PhysXProfileSDK;./../../PvdRuntime/src;./../../../Include/physxvisualdebuggersdk/PVDClientDll/Implementation;./../../../Include/physxvisualdebuggersdk/PVDClientDll/Public;./../../../Include/physxvisualdebuggersdk/PVDCommLayer/Public;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+			<PreprocessorDefinitions>PX_PHYSX_STATIC_LIB;WIN32;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;NDEBUG;_SECURE_SCL=0;_ITERATOR_DEBUG_LEVEL=0;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+			<ExceptionHandling>false</ExceptionHandling>
+			<WarningLevel>Level4</WarningLevel>
+			<RuntimeLibrary>MultiThreaded</RuntimeLibrary>
+		</ClCompile>
+		<Lib>
+			<AdditionalOptions></AdditionalOptions>
+			<AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
+			<OutputFile>$(OutDir)PhysX3Extensions.lib</OutputFile>
+			<AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+			<ProgramDatabaseFile>$(OutDir)/PhysX3Extensions.lib.pdb</ProgramDatabaseFile>
+			<TargetMachine>MachineX86</TargetMachine>
+		</Lib>
+		<ResourceCompile>
+		</ResourceCompile>
+		<ProjectReference>
+			<LinkLibraryDependencies>true</LinkLibraryDependencies>
+		</ProjectReference>
+	</ItemDefinitionGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\..\Include\extensions\PxConstraintExt.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxD6Joint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxDefaultAllocator.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxDefaultCpuDispatcher.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxDefaultErrorCallback.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxDefaultSimulationFilterShader.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxDefaultStreams.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxDistanceJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxExtensionsAPI.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxFixedJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxJointLimit.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxJointRepXExtensions.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxParticleExt.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxPrismaticJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxRevoluteJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxRigidBodyExt.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxShapeExt.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxSimpleFactory.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxSmoothNormals.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxSphericalJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxStringTableExt.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxTriangleMeshExt.h">
+		</ClInclude>
+		<ClInclude Include="..\..\..\Include\extensions\PxVisualDebuggerExt.h">
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtConstraintHelper.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtCpuWorkerThread.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtD6Joint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtDefaultCpuDispatcher.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtDistanceJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtFixedJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtInertiaTensor.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtJointMetaDataExtensions.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtPlatform.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtPrismaticJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtPvdClientImpl.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtRevoluteJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtSharedQueueEntryPool.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtSphericalJoint.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtTaskQueueHelper.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXExtensions\src\ExtVisualDebugger.h">
+		</ClInclude>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtCpuWorkerThread.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtD6Joint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtD6JointSolverPrep.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtDefaultCpuDispatcher.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtDefaultErrorCallback.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtDefaultSimulationFilterShader.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtDefaultStreams.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtDistanceJoint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtDistanceJointSolverPrep.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtExtensions.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtFixedJoint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtFixedJointSolverPrep.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtJoint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtJointRepXExtensions.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtMetaData.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtParticleExt.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtPrismaticJoint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtPrismaticJointSolverPrep.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtPvdClientImpl.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtPxStringTable.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtRevoluteJoint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtRevoluteJointSolverPrep.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtRigidBodyExt.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtSimpleFactory.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtSmoothNormals.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtSphericalJoint.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtSphericalJointSolverPrep.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtTriangleMeshExt.cpp">
+		</ClCompile>
+		<ClCompile Include="..\..\PhysXExtensions\src\ExtVisualDebugger.cpp">
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PvdMetaDataDefineProperties.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PvdMetaDataExtensions.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PvdMetaDataPropertyVisitor.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PxAutoGeneratedMetaDataObjectNames.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PxAutoGeneratedMetaDataObjects.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PxMetaDataCompare.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PxMetaDataCppPrefix.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\PxMetaDataObjects.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\core\include\RepXMetaDataPropertyVisitor.h">
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+		<ClInclude Include="..\..\PhysXMetaData\extensions\include\PxExtensionAutoGeneratedMetaDataObjectNames.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\extensions\include\PxExtensionAutoGeneratedMetaDataObjects.h">
+		</ClInclude>
+		<ClInclude Include="..\..\PhysXMetaData\extensions\include\PxExtensionMetaDataObjects.h">
+		</ClInclude>
+	</ItemGroup>
+	<ItemGroup>
+		<ClCompile Include="..\..\PhysXMetaData\extensions\src\PxExtensionAutoGeneratedMetaDataObjects.cpp">
+		</ClCompile>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<ItemGroup>
+	</ItemGroup>
+	<Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+	<ImportGroup Label="ExtensionTargets"></ImportGroup>
+</Project>

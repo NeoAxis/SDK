@@ -1,0 +1,22 @@
+compositor OldTV
+{
+	technique
+	{
+		texture rt0 target_width target_height PF_R8G8B8
+
+		// render scene to a texture
+		target rt0 { input previous }
+
+		target_output
+		{
+			// Start with clear output
+			input none
+
+			pass render_quad
+			{
+				material Compositor/OldTV
+				input 0 rt0
+			}
+		}
+	}
+}

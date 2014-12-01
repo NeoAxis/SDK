@@ -1,0 +1,1236 @@
+The system is: Darwin - 10.6.0 - i386
+Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+Compiler: /usr/bin/gcc 
+Build flags: 
+Id flags: 
+
+The output was:
+0
+
+
+Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+
+The C compiler identification is GNU, found in "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CompilerIdC/a.out"
+
+Determining if the C compiler works passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F053014F053014F0530000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F053014F053014F0530000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/testCCompiler.o testCCompiler.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/testCCompiler.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/testCCompiler.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14EF03014EF03014EF030000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14EF03014EF03014EF030000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Detecting C compiler ABI info compiled with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E01E6026E01E6026E01E60.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E01E6026E01E6026E01E60.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CMakeCCompilerABI.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CMakeCCompilerABI.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CMakeCCompilerABI.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CMakeCCompilerABI.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -v -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+Using built-in specs.
+Target: i686-apple-darwin10
+Configured with: /var/tmp/gcc/gcc-5646.1~2/src/configure --disable-checking --enable-werror --prefix=/usr --mandir=/share/man --enable-languages=c,objc,c++,obj-c++ --program-transform-name=/^[cg][^.-]*$/s/$/-4.2/ --with-slibdir=/usr/lib --build=i686-apple-darwin10 --with-gxx-include-dir=/include/c++/4.2.1 --program-prefix=i686-apple-darwin10- --host=x86_64-apple-darwin10 --target=i686-apple-darwin10
+Thread model: posix
+gcc version 4.2.1 (Apple Inc. build 5646) (dot 1)
+ /Developer/usr/bin/../libexec/gcc/i686-apple-darwin10/4.2.1/collect2 -dynamic -arch x86_64 -macosx_version_min 10.6 -syslibroot /Developer/SDKs/MacOSX10.6.sdk -weak_reference_mismatches non-weak -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec -lcrt1.10.6.o -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -L/Developer/usr/bin/../lib/gcc/i686-apple-darwin10/4.2.1/x86_64 -L/usr/lib/gcc/i686-apple-darwin10/4.2.1/x86_64 -L/usr/lib/gcc/i686-apple-darwin10/4.2.1/x86_64 -L/Developer/SDKs/MacOSX10.6.sdk/usr/lib/i686-apple-darwin10/4.2.1 -L/Developer/SDKs/MacOSX10.6.sdk/usr/lib -L/Developer/usr/bin/../lib/gcc/i686-apple-darwin10/4.2.1 -L/Developer/usr/bin/../lib/gcc -L/usr/lib/gcc/i686-apple-darwin10/4.2.1 -L/usr/lib/gcc/i686-apple-darwin10/4.2.1 -L/Developer/usr/bin/../lib/gcc/i686-apple-darwin10/4.2.1/../../../i686-apple-darwin10/4.2.1 -L/Developer/usr/bin/../lib/gcc/i686-apple-darwin10/4.2.1/../../.. -L/Developer/SDKs/MacOSX10.6.sdk/usr/lib/gcc/i686-apple-darwin10/4.2.1/../../../i686-apple-darwin10/4.2.1 -L/Developer/SDKs/MacOSX10.6.sdk/usr/lib/gcc/i686-apple-darwin10/4.2.1/../../.. -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -search_paths_first -headerpad_max_install_names -lSystem -lgcc -lSystem -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0264026E0264026E02640.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0264026E0264026E02640.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the include file sys/types.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E003C026E003C026E003C0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E003C026E003C026E003C0.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E00BA026E00BA026E00BA0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E00BA026E00BA026E00BA0.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the include file stdint.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0732026E0732026E07320.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0732026E0732026E07320.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E07B2026E07B2026E07B20.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E07B2026E07B2026E07B20.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the include file stddef.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D17BA026D17BA026D17BA0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D17BA026D17BA026D17BA0.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D1839026D1839026D18390.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D1839026D1839026D18390.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining size of long passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14C3B8014C3B8014C3B80000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14C3B8014C3B8014C3B80000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_LONG.o ../CheckTypeSize/SIZEOF_LONG.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../CheckTypeSize/SIZEOF_LONG.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_LONG.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14C43A014C43A014C43A0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14C43A014C43A014C43A0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining size of long long passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12AF2D012AF2D012AF2D0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12AF2D012AF2D012AF2D0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_LONG_LONG.o ../CheckTypeSize/SIZEOF_LONG_LONG.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../CheckTypeSize/SIZEOF_LONG_LONG.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_LONG_LONG.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-1275D201275D201275D20000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-1275D201275D201275D20000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining size of unsigned int passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D18F3026D18F3026D18F30.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D18F3026D18F3026D18F30.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_UINT.o ../CheckTypeSize/SIZEOF_UINT.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../CheckTypeSize/SIZEOF_UINT.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_UINT.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D1971026D1971026D19710.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D1971026D1971026D19710.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining size of void* passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F972014F972014F9720000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F972014F972014F9720000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_VOIDP.o ../CheckTypeSize/SIZEOF_VOIDP.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../CheckTypeSize/SIZEOF_VOIDP.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/SIZEOF_VOIDP.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0098026D0098026D00980.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0098026D0098026D00980.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Performing C SOURCE FILE Test HAVE_W_EXTRA succeded with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E38C012E38C012E38C0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E38C012E38C012E38C0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o src.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -Wextra -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E40D012E40D012E40D0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E40D012E40D012E40D0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+Source file was:
+
+Performing C SOURCE FILE Test HAVE_GCC_DESTRUCTOR succeded with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BE2C012BE2C012BE2C0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BE2C012BE2C012BE2C0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o src.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DHAVE_GCC_DESTRUCTOR -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BEAD012BEAD012BEAD0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BEAD012BEAD012BEAD0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+Source file was:
+int foo() __attribute__((destructor));
+                             int main() {return 0;}
+Performing C SOURCE FILE Test HAVE_VISIBILITY_SWITCH succeded with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0824026E0824026E08240.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0824026E0824026E08240.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o src.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -fvisibility=internal -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c: In function 'main':
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c:1: warning: internal and protected visibility attributes not supported in this configuration; ignored
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E08A2026E08A2026E08A20.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E08A2026E08A2026E08A20.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+Source file was:
+
+Performing C SOURCE FILE Test HAVE_GCC_VISIBILITY succeded with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D17CA026D17CA026D17CA0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D17CA026D17CA026D17CA0.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o src.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DHAVE_GCC_VISIBILITY -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D184A026D184A026D184A0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D184A026D184A026D184A0.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+Source file was:
+int foo() __attribute__((visibility("default")));
+                                     int main() {return 0;}
+Performing C SOURCE FILE Test HAVE_GCC_FORMAT succeded with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14FAF4014FAF4014FAF40000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14FAF4014FAF4014FAF40000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o src.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DHAVE_GCC_FORMAT -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14E865014E865014E8650000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14E865014E865014E8650000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+Source file was:
+int foo(const char *str, ...) __attribute__((format(printf, 1, 2)));
+                         int main() {return 0;}
+Determining if the include file fenv.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F1A9012F1A9012F1A90000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F1A9012F1A9012F1A90000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F22A012F22A012F22A0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F22A012F22A012F22A0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the include file float.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D16B7026D16B7026D16B70.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D16B7026D16B7026D16B70.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D1737026D1737026D17370.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D1737026D1737026D17370.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function powf exists in the m passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0A17026D0A17026D0A170.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0A17026D0A17026D0A170.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=powf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'powf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lm -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0A97026D0A97026D0A970.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0A97026D0A97026D0A970.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function sqrtf exists in the m passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14DAB0014DAB0014DAB00000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14DAB0014DAB0014DAB00000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=sqrtf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'sqrtf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lm -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14DB31014DB31014DB310000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14DB31014DB31014DB310000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function acosf exists in the m passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F303014F303014F3030000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F303014F303014F3030000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=acosf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'acosf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lm -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F384014F384014F3840000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F384014F384014F3840000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function atanf exists in the m passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D082A026D082A026D082A0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D082A026D082A026D082A0.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=atanf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'atanf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lm -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D08AA026D08AA026D08AA0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D08AA026D08AA026D08AA0.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function fabsf exists in the m passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12C1E0012C1E0012C1E00000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12C1E0012C1E0012C1E00000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=fabsf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'fabsf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lm -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12C261012C261012C2610000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12C261012C261012C2610000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function fesetround exists in the m passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14EB9B014EB9B014EB9B0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14EB9B014EB9B014EB9B0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=fesetround -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lm -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14EC1C014EC1C014EC1C0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14EC1C014EC1C014EC1C0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function strtof exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12B0C3012B0C3012B0C30000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12B0C3012B0C3012B0C30000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=strtof -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-128CFC0128CFC0128CFC0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-128CFC0128CFC0128CFC0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function stat exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F6D6012F6D6012F6D60000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F6D6012F6D6012F6D60000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=stat -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F755012F755012F7550000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F755012F755012F7550000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function strcasecmp exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E02C2026E02C2026E02C20.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E02C2026E02C2026E02C20.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=strcasecmp -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'strcasecmp'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0340026E0340026E03400.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0340026E0340026E03400.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function strncasecmp exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-127578012757801275780000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-127578012757801275780000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=strncasecmp -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'strncasecmp'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-1275F901275F901275F90000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-1275F901275F901275F90000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function snprintf exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D22E014D22E014D22E0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D22E014D22E014D22E0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=snprintf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'snprintf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D2AF014D2AF014D2AF0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D2AF014D2AF014D2AF0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function vsnprintf exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D3E9014D3E9014D3E90000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D3E9014D3E9014D3E90000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=vsnprintf -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c:3: warning: conflicting types for built-in function 'vsnprintf'
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D46A014D46A014D46A0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D46A014D46A014D46A0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the isnan exist passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F355012F355012F3550000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F355012F355012F3550000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckSymbolExists.o CheckSymbolExists.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckSymbolExists.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckSymbolExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F3D6012F3D6012F3D60000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F3D6012F3D6012F3D60000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+File /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+void cmakeRequireSymbol(int dummy,...){(void)dummy;}
+int main()
+{
+#ifndef isnan
+  cmakeRequireSymbol(0,&isnan);
+#endif
+  return 0;
+}
+
+Determining if the include file dlfcn.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D768014D768014D7680000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D768014D768014D7680000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D7E9014D7E9014D7E90000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D7E9014D7E9014D7E90000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function dlopen exists in the dl passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BB05012BB05012BB050000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BB05012BB05012BB050000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=dlopen -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -ldl -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BB86012BB86012BB860000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BB86012BB86012BB860000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function gettimeofday exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D188D026D188D026D188D0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D188D026D188D026D188D0.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=gettimeofday -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D190B026D190B026D190B0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D190B026D190B026D190B0.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function nanosleep exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12CB48012CB48012CB480000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12CB48012CB48012CB480000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=nanosleep -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12CBC9012CBC9012CBC90000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12CBC9012CBC9012CBC90000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Performing C SOURCE FILE Test HAVE_PTHREAD succeded with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D00A2026D00A2026D00A20.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D00A2026D00A2026D00A20.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o src.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -pthread -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/src.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/src.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14B86A014B86A014B86A0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14B86A014B86A014B86A0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+Source file was:
+
+Determining if the include file pthread.h exists passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12D798012D798012D7980000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12D798012D798012D7980000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12D819012D819012D8190000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12D819012D819012D8190000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function pthread_create exists in the pthread passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14CC67014CC67014CC670000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14CC67014CC67014CC670000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=pthread_create -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lpthread -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14CCE8014CCE8014CCE80000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14CCE8014CCE8014CCE80000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+
+Determining if the function pthread_setschedparam exists in the pthread passed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E0EC012E0EC012E0EC0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E0EC012E0EC012E0EC0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=pthread_setschedparam -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lpthread -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E16D012E16D012E16D0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12E16D012E16D012E16D0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+make[1]: Nothing to be done for `all.Debug'.
+** BUILD SUCCEEDED **
+
+
+

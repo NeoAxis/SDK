@@ -1,0 +1,14 @@
+type SoundSource
+{
+	class = SoundSource
+	creatableInMapEditor = True
+	networkType = ClientOnly
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\SoundSource.mesh"
+			onlyForEditor = True
+		}
+	}
+}

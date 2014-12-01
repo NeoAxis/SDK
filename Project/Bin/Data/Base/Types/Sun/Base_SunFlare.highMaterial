@@ -1,0 +1,12 @@
+highLevelMaterial Base_SunFlare
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = ".\\SunFlare.png"
+		clamp = True
+	}
+}

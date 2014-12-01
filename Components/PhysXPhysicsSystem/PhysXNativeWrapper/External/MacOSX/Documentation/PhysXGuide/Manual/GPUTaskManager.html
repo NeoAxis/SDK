@@ -1,0 +1,405 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>GPU Resource Management &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Scene Queries" href="SceneQuery.html" />
+    <link rel="prev" title="Task Management" href="TaskManager.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="SceneQuery.html" title="Scene Queries"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="TaskManager.html" title="Task Management"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="gpu-resource-management">
+<span id="gpu-taskman"></span><h1>GPU Resource Management<a class="headerlink" href="#gpu-resource-management" title="Permalink to this headline">¶</a></h1>
+<p>PxTask provides both a CUDA heap manager and an execution scheduler. To
+use the execution scheduler (GpuDispatcher), you need to break up your CUDA pipeline
+into GpuTasks.  Each GpuTask can be one of three flavors: Host-to-Device
+copies, CUDA kernels, or Device-to-Host copies. The execution scheduler
+will submit your tasks to the device in an order that optimizes the
+device throughput.</p>
+<p>The following classes comprise the PxTask GPU resource management.</p>
+<div class="section" id="gputasks">
+<h2>GpuTasks<a class="headerlink" href="#gputasks" title="Permalink to this headline">¶</a></h2>
+<p>GpuTask derives from Task (not BaseTask), so they must be submitted to a
+TaskManager for scheduling.  GpuTasks are dispatched to the
+TaskManager's given GpuDispatcher when they are ready to run, and have a
+specialized launchInstance() method rather than run().</p>
+<p>GpuTasks come in three flavors.  They are <em>HostToDevice</em>, <em>Kernel</em>, and
+<em>DeviceToHost</em>.  Each GpuTask must declare their flavor by returning a
+valid value from getTaskHint().  The GpuDispatcher must know the type of
+operations each task will perform in order to optimally combine work of
+multiple tasks, for example the dispatcher should run all available <em>HostToDevice</em>
+tasks before running all <em>Kernel</em> tasks, and all <em>Kernel</em> tasks before running any
+<em>DeviceToHost</em> tasks.  This provides maximal kernel overlap and the least number of
+CUDA flushes.</p>
+</div>
+<div class="section" id="cudacontextmanager">
+<h2>CudaContextManager<a class="headerlink" href="#cudacontextmanager" title="Permalink to this headline">¶</a></h2>
+<p>The application should allocate one CudaContextManager for each CUDA
+context it wishes PhysX/APEX to use.  In most typical scenarios, only a
+single CUDA context is required, as the user only has one GPU, or in the
+cases where two CUDA capable GPUs are present, only one is used for game
+physics.</p>
+<p>If the application is using CUDA itself and wants to share its CUDA
+context with PhysX, it can provide its context to the CudaContextManager
+constructor.  Otherwise the CudaContextManager will allocate its own
+context.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the application allocates its own CUDA context and gives it to a
+CudaContextManager, the context must be detached from any threads
+when the CudaContextManager takes ownership.</p>
+</div>
+<p>Each CudaContextManager provides a heap for managing memory allocated
+within the CUDA context (both device and host memory), and a
+GpuDispatcher instance for scheduling CUDA work on the device managed by
+the context.  A scene's TaskManager GpuDispatcher pointer determines the
+CUDA context used by that scene.</p>
+<p>The CudaContextManager has ownership of the CUDA context until it is
+released.  Any code which wishes to use CUDA APIs must acquire the
+context from the CudaContextManager for the duration of the CUDA API
+calls.</p>
+<p>The CudaContextManager also provides functions which perform
+Graphics/CUDA Interop mappings in a version safe manner. The
+intent is that application code can call these functions without needing
+to include CUDA headers.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">After allocating a CudaContextManager, it is required that you check
+the return value of contextIsValid() and to discard the instance if
+it returns false.  The CUDA context will not be used at all if this
+method fails.   At runtime, the application should also poll the
+return of GpuDispatcher::failureDetected().  If it returns True, the
+CUDA context has encountered a non-recoverable error and no further
+CUDA work is possible.</p>
+</div>
+</div>
+<div class="section" id="gpudispatcher">
+<h2>GpuDispatcher<a class="headerlink" href="#gpudispatcher" title="Permalink to this headline">¶</a></h2>
+<p>Every CudaContextManager instance creates and owns a GpuDispatcher
+instance.  The GpuDispatcher is responsible for scheduling GpuTasks for
+the given context in the most efficient means possible.</p>
+<p>On SM architectures 1.0 through 1.3, this mostly means overlapping the
+kernels in one task with copies (HostToDevice or DeviceToHost) in
+other tasks.  On SM 2.0 and higher architectures, the GpuDispatcher will
+try to maximize the kernel overlap (out-of-order completion).</p>
+<p>These types of overlap optimizations are only possible when more than
+one GpuTask is ready to run at the same time, so if parts of your CUDA
+pipeline are parallelizable with itself, you should break the work into
+multiple GpuTasks and set dependencies accordingly.</p>
+<p>Dependencies between GpuTasks determines the order they are dispatched
+through the GpuDispatcher, which enforces the order those tasks
+are submitted to CUDA. Note however that independent tasks may be rearranged
+for maximum efficiency (see GpuTasks section for details).</p>
+<p>If you have a task which cannot start until actual CUDA results are
+available (this almost always implies a DeviceToHost copy), then one of
+your GpuTasks must call the GpuDispatcher::addCompletionPrereq(
+BaseTask&amp; ) method to register a <em>CUDA completion</em> dependency on the
+given task.  The GpuDispatcher will immediately increment the reference
+count of the given Task and then decrement it again when all of the work
+submitted up to CUDA at the time addCompletionPrereq() was called has
+been completed.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Since addCompletionPrereq() takes a BaseTask reference, CUDA
+completion tasks may be GpuTasks, LightCpuTasks or normal Tasks.</p>
+</div>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">CUDA completion dependencies are volatile in that they are not
+created until your GpuTask pipeline is essentially finished running.
+In order to prevent your completion task from starting before the
+CUDA completion dependency can be added to its reference count, it
+is recommended practice to add normal <em>startAfter</em> dependency on the
+GpuTask that will set the CUDA completion dependency.</p>
+</div>
+<p>The GpuTask &quot;run&quot; function, launchInstance() takes two parameters, a
+CUDA stream and a kernel index.  launchInstance() will always be called
+with the same CUDA stream while the kernel index will increment from 0
+until the GpuTask is finished.  Returning false from launchInstance
+tells the GpuDispatcher that your GpuTask is done launching CUDA work and
+should be released.</p>
+<p>The reason for the iterative kernel launching is that optimal kernel
+scheduling on SM 2.0 GPUs requires kernels in different streams to be
+launch interleaved to minimize the blocking that occurs when kernels
+have to wait for their own stream to become idle.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">HostToDevice and DeviceToHost GpuTasks can ignore the kernelIndex
+and simply perform all of their copies, then return false.  There is
+no benefit to interleaving copies in streams.</p>
+</div>
+<p>GpuTasks have three flavors to avoid serious performance pitfalls,
+especially when multiple pipelines are sharing a single CUDA context.
+When GpuTasks are dispatched they are binned by the GpuDispatcher by flavor
+and the dispatcher itself runs in a three-phase state machine: HtoD -&gt;
+Kernel -&gt; DtoH -&gt; HtoD, etc.  At each phase, the GpuDispatcher
+interleaves launchInstance() calls to all running GpuTasks in that phase
+until there are no more tasks remaining.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All of the work submitted to CUDA in one round trip of the state
+machine is referred to as a GpuTaskBatch.  It should roughly
+correlate to a single submission of work to the GPU, unless you
+submitted more work than could fit and caused an implicit flush.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The GpuDispatcher has a utility kernel to perform memory copies
+as part of the Kernel GpuTasks. See GpuDispatcher::launchCopyKernel()</p>
+</div>
+<p>When a GpuTask's launchInstance() function returns false, the
+GpuDispatcher immediately releases the task and allows its dependency
+resolutions to schedule new GpuTasks of the same flavor so those can be
+dispatched in the same pass through the state machine (if the newly
+dispatched GpuTasks do not match the current GpuDispatcher phase, they
+are binned).   In short, three kernel GpuTasks that each launch a single
+kernel and have linear dependencies will be executed in exactly the
+same way as one kernel GpuTask which launches three kernels (one per
+launchInstance() call).</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Now that the concept of the GpuDispatcher state machine has been
+introduced, it is worth noting that CUDA completions are queued
+within the GpuDispatcher.  The completion tasks' reference counts
+are incremented immediately, but the CUDA work is not flushed until
+the GpuDispather transitions from the DtoH to HtoD phase.  This is
+an optimization tailored for multiple pipeline situations where we
+want to minimize the number of CUDA flushes (aka, maximize the
+amortization).</p>
+</div>
+<p>To make GpuTask scheduling flexible, the GpuDispatcher manages the
+assignment of CUDA streams to each task.  It does this by managing a
+pool of free CUDA streams, and a few extra flags and fields on each
+GpuTask.  The logic works like this:</p>
+<p>1.  If a GpuTask has no GpuTask predicate dependencies (essentially
+means it is the first GpuTask in the pipeline), it is assigned a new
+CUDA stream from the free pool.
+2.  When a GpuTask completes launching CUDA work and is released, it
+passes its CUDA stream to its first dependent GpuTask.
+3.  If a GpuTask has more than one dependent tasks, the remaining tasks
+are given new CUDA streams (from the free pool) and have a flag set
+on them that informs the GpuDispatcher it must perform a WFI
+(wait-for-idle) on the GPU before that task's CUDA work is allowed
+to run.
+4.  If a GpuTask has more than one GpuTask predicate dependency (a
+joining of two CUDA streams), it takes the CUDA stream of the first
+predicate and is marked as requiring a WFI.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The GpuDispatcher implements the WFI by issuing a non-blocking
+cuEventRecord in stream 0.  For all architectures up to SM2.0, this
+causes all previously launched CUDA work to complete before any
+later submitted work to start - a sync point.</p>
+</div>
+<p>The GpuDispatcher does not release CUDA streams back to the free pool
+until it knows that all of the TaskManagers that are using the
+GpuDispatcher have finished submitting GpuTasks.  This is the primary
+reason the TaskManager calls the startSimulation() and stopSimulation()
+methods of the GpuDispatcher (the other is to initialize profiling), and
+also why the TaskManager itself needs to be notified of simulation
+start and stop, even if LightCpuTasks are being used for all non-Gpu
+work.</p>
+</div>
+<div class="section" id="blockingwait">
+<h2>BlockingWait<a class="headerlink" href="#blockingwait" title="Permalink to this headline">¶</a></h2>
+<p>CUDA completion notifications are handled by a special BlockingWait
+thread of the GpuDispatcher.  The main GpuDispatcher thread queues the
+completion task references and the CUDA EventRecord they are waiting
+for, and the BlockingWait thread waits for each of them in turn and then
+decrements the reference count of the provided task.  The BlockingWait
+thread is either in a blocking wait for completion tasks or in a blocking
+wait for a CUDA EventRecord.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Profiling events for the blocking wait thread are prefixed with GDB,
+while profiling events for the GpuDispatcher dispatch thread are
+prefixed with GD.</p>
+</div>
+</div>
+<div class="section" id="copy-engine-kernel">
+<h2>Copy Engine Kernel<a class="headerlink" href="#copy-engine-kernel" title="Permalink to this headline">¶</a></h2>
+<p>The GpuDispatcher has a utility kernel that can execute an arbitrary
+number of memory copies or memory sets in parallel on the GPU itself.
+This is the recommended method for performing all host-to-device,
+device-to-host, device-to-device copies.</p>
+<ol class="arabic simple">
+<li>By using the utility kernel from a Kernel flavor GpuTask, you avoid the need for creating DeviceToHost or HostToDevice flavor GpuTasks.</li>
+<li>By batching together many copies into a single kernel launch, you save driver overhead and save space inside your push buffer.</li>
+<li>By only using Kernel flavored GpuTasks, there is a much greater opportunity to overlap both copies and kernels on SM2.0 architectures and greater.</li>
+<li>By using a copy kernel, the copies will show up in your profile.</li>
+</ol>
+<p>See GpuDispatcher::launchCopyKernel() for the details on using the
+utility kernel.  The primary point to remember is that the copy
+descriptors are read from host memory if you perform more than one copy
+at a time, so the descriptors must be allocated from page locked memory.</p>
+</div>
+<div class="section" id="cuda-profiling">
+<h2>CUDA Profiling<a class="headerlink" href="#cuda-profiling" title="Permalink to this headline">¶</a></h2>
+<p>PxTask, more specifically the GpuDispatcher, supports profiling at the
+CTA level.  This requires a number of preparation steps:</p>
+<ol class="arabic simple">
+<li>Your application must register kernel names with the GpuDispatcher using the registerKernelNames() method.  It returns an index to the start of an ID range, each kernel should use this index as an offset when constructing IDs for use with fillKernelEvent().</li>
+<li>Each kernel must call KERNEL_START_EVENT(profileBuffer, kernelID) and KERNEL_STOP_EVENT(profileBuffer, kernelID) at the appropriate times (start and stop of the kernel).  This requires the inclusion of PsPAGpuEventSrc.h</li>
+<li>At run-time, the kernel ID and current profiling buffer must be passed to each kernel (see GpuDispatcher::getCurrentProfileBuffer()).  Note that the profile buffer will be NULL unless you are actively collecting events.</li>
+</ol>
+<p>The application needs to tune a couple of parameters for their needs,
+both in PsPAGPUEventSrc.h.</p>
+<p><em>ENABLE_CTA_PROFILING</em> - this flag toggles CTA level event collection
+globally.  Turning it off removes the code (and probably register)
+overhead in each kernel, and disables the allocation of profile buffers
+and their copying overhead.</p>
+<p><em>NUM_CTAS_PER_PROFILE_BUFFER</em> - needs to be larger than the count of
+CTAs launched in your largest batch of kernel launches.  The
+BlockingWait thread will issue a warning if it finds that CTA events
+were lost because the buffer was too small.</p>
+<p><em>NUM_CTA_PROFILE_BUFFERS</em> - the number of profile buffers allocated.
+This should be the number of GpuTaskBatches you intend to launch each
+simulation step.  If it is too small, later GpuTaskBatches will not have
+CTA level profiling.</p>
+<div class="admonition warning">
+<p class="first admonition-title">Warning</p>
+<p class="last">After changing ENABLE_CTA_PROFILING or NUM_CTAS_PER_PROFILE_BUFFER,
+you must rebuild all of your CUDA source files.</p>
+</div>
+<p>CTA profiling works on a GpuTaskBatch basis, and is only active when the
+GpuDispatcher notices an event collector is attached and active.  At the
+start of each batch the GpuDispatcher allocates an idle profile buffer,
+issues a small memset kernel to clear the 8 word header of the buffer,
+then issues a saturation kernel in order to record the clock on each SM.
+These clocks are used by the event viewer to line up the SM events,
+though this only seems to work well on SM 2.0.  The GpuDispatcher then
+executes GpuTasks as normal until the state machine finishes all three
+phases (HtoD, Kernel, DtoH).  At the end the GpuDispatcher issues
+another Saturate kernel to delineate the end of all of the DtoH copy
+times, then issues a DtoH copy for the profile buffer itself, then
+finally issues a blocking cuEventRecord to flush everything to the GPU
+for execution.</p>
+<p>The profile buffer ID is sent to the BlockingWait thread along with the
+blocking EventRecord, and once the event has completed the BlockingWait
+thread is responsible for parsing the CTA events and emitting profiling
+data to the collector.</p>
+<p>Note that much effort was devoted to minimize the performance impact of
+collecting all this data, but some penalties are unavoidable. Also, the
+copy back to the host can be substantial depending
+on the value you chose for NUM_CTAS_PER_PROFILE_BUFFER.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The CTA based profiling requires global memory atomics, and thus SM
+architecture 1.1 or above.  SM 1.0 cards will see the GpuTaskBatch
+bar, which is measured via non-blocking cuEventRecords, but they
+will not see any CTAs.</p>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default, the BlockingWait thread will parse the CTA events in the
+profile buffer and attempt to piece together the run-times of each
+kernel.  This is done with a simplistic heuristic and does not work
+very well with short kernels and SM clock skews.  It seems to work
+best with SM 2.0 devices.  By changing EMIT_CTA_EVENTS to 1, near
+the top of BlockingWait.cpp, the BlockingWait thread will instead
+emit one profile bar for each CTA, giving you a more truthfull
+picture of how the SMs were used by each kernel.  You will still
+need to account for the SM clock skew in your analysis.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">GPU Resource Management</a><ul>
+<li><a class="reference internal" href="#gputasks">GpuTasks</a></li>
+<li><a class="reference internal" href="#cudacontextmanager">CudaContextManager</a></li>
+<li><a class="reference internal" href="#gpudispatcher">GpuDispatcher</a></li>
+<li><a class="reference internal" href="#blockingwait">BlockingWait</a></li>
+<li><a class="reference internal" href="#copy-engine-kernel">Copy Engine Kernel</a></li>
+<li><a class="reference internal" href="#cuda-profiling">CUDA Profiling</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="TaskManager.html"
+                        title="previous chapter">Task Management</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="SceneQuery.html"
+                        title="next chapter">Scene Queries</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="SceneQuery.html" title="Scene Queries"
+             >next</a></li>
+        <li class="right" >
+          <a href="TaskManager.html" title="Task Management"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

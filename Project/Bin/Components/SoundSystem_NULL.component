@@ -1,0 +1,4 @@
+fullName = "No Sound"
+componentTypes = "SoundSystem"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = ""

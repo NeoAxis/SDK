@@ -1,0 +1,11 @@
+fullName = "ZIP archives support"
+componentTypes = "Archive"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "ZipArchive.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

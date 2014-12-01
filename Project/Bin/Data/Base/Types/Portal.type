@@ -1,0 +1,6 @@
+type Portal
+{
+	class = Portal
+	allowEditorCreate = True
+	networkType = ClientOnly
+}

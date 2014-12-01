@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Release|Win32">
+      <Configuration>Release</Configuration>
+      <Platform>Win32</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <ProjectGuid>{7BF5167F-AE79-4317-AC0D-0D0FD3742A8B}</ProjectGuid>
+    <Keyword>Win32Proj</Keyword>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+    <ConfigurationType>Application</ConfigurationType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>DynamicLibrary</ConfigurationType>
+    <UseOfMfc>false</UseOfMfc>
+    <CharacterSet>MultiByte</CharacterSet>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup>
+    <_ProjectFileVersion>10.0.30319.1</_ProjectFileVersion>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\..\_Compilation\Win64\OpenAL\</OutDir>
+    <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\..\..\_Compilation\Win64\OpenAL\</IntDir>
+    <LinkIncremental Condition="'$(Configuration)|$(Platform)'=='Release|x64'">false</LinkIncremental>
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" />
+    <CodeAnalysisRuleSet Condition="'$(Configuration)|$(Platform)'=='Release|x64'">AllRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRules Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+    <CodeAnalysisRuleAssemblies Condition="'$(Configuration)|$(Platform)'=='Release|x64'" />
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Midl>
+      <MkTypLibCompatible>false</MkTypLibCompatible>
+      <TargetEnvironment>Win32</TargetEnvironment>
+      <GenerateStublessProxies>true</GenerateStublessProxies>
+      <TypeLibraryName>%(Filename).tlb</TypeLibraryName>
+      <OutputDirectory>$(IntDir)</OutputDirectory>
+      <HeaderFileName>%(Filename).h</HeaderFileName>
+      <DllDataFileName>
+      </DllDataFileName>
+      <InterfaceIdentifierFileName>%(Filename)_i.c</InterfaceIdentifierFileName>
+      <ProxyFileName>%(Filename)_p.c</ProxyFileName>
+    </Midl>
+    <ClCompile>
+      <AdditionalOptions> /Zm1000 %(AdditionalOptions)</AdditionalOptions>
+      <Optimization>Full</Optimization>
+      <InlineFunctionExpansion>AnySuitable</InlineFunctionExpansion>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
+      <OmitFramePointers>true</OmitFramePointers>
+      <EnableFiberSafeOptimizations>true</EnableFiberSafeOptimizations>
+      <WholeProgramOptimization>true</WholeProgramOptimization>
+      <AdditionalIncludeDirectories>..\..\OpenAL32\Include;..\..\include;..\..\Projects\Windows;..\..\..\..\..\Engine\Src\Core\External\DirectX\Include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NDEBUG;AL_ALEXT_PROTOTYPES;_WIN32;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;strcasecmp=_stricmp;strncasecmp=_strnicmp;snprintf=_snprintf;isnan=_isnan;CMAKE_INTDIR="Release";AL_BUILD_LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ExceptionHandling>
+      </ExceptionHandling>
+      <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
+      <BufferSecurityCheck>false</BufferSecurityCheck>
+      <AssemblerListingLocation>Release</AssemblerListingLocation>
+      <ObjectFileName>$(IntDir)</ObjectFileName>
+      <ProgramDataBaseFileName>..\..\Projects\Windows\Release/OpenALSoft.pdb</ProgramDataBaseFileName>
+      <WarningLevel>Level3</WarningLevel>
+      <CompileAs>CompileAsC</CompileAs>
+      <DisableSpecificWarnings>4244;4305;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+    </ClCompile>
+    <ResourceCompile>
+      <PreprocessorDefinitions>WIN32;_WINDOWS;NDEBUG;NDEBUG;AL_ALEXT_PROTOTYPES;_WIN32;_CRT_SECURE_NO_WARNINGS;_CRT_NONSTDC_NO_DEPRECATE;strcasecmp=_stricmp;strncasecmp=_strnicmp;snprintf=_snprintf;isnan=_isnan;CMAKE_INTDIR="Release";AL_BUILD_LIBRARY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>..\..\OpenAL32\Include;..\..\include;..\..\Projects\Windows;%3b;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+    </ResourceCompile>
+    <ProjectReference>
+      <LinkLibraryDependencies>true</LinkLibraryDependencies>
+    </ProjectReference>
+    <Link>
+      <AdditionalOptions> /STACK:10000000 /machine:X64 %(AdditionalOptions)</AdditionalOptions>
+      <AdditionalDependencies>kernel32.lib;user32.lib;winmm.lib</AdditionalDependencies>
+      <OutputFile>$(OutDir)OpenAL32.dll</OutputFile>
+      <Version>1.13</Version>
+      <AdditionalLibraryDirectories>..\..\..\..\..\Engine\Src\Core\External\DirectX\Lib\x64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <ProgramDatabaseFile>$(TargetDir)$(TargetName).pdb</ProgramDatabaseFile>
+      <ImportLibrary>$(OutDir)OpenALSoft.lib</ImportLibrary>
+      <TargetMachine>MachineX64</TargetMachine>
+    </Link>
+    <PostBuildEvent>
+      <Command>copy ..\..\..\..\..\_Compilation\Win64\OpenAL\OpenAL32.dll ..\..\..\..\..\Project\Bin\NativeDlls\Windows_x64
+
+</Command>
+    </PostBuildEvent>
+  </ItemDefinitionGroup>
+  <ItemGroup>
+    <ClCompile Include="..\..\OpenAL32\alAuxEffectSlot.c" />
+    <ClCompile Include="..\..\OpenAL32\alBuffer.c" />
+    <ClCompile Include="..\..\Alc\ALc.c" />
+    <ClCompile Include="..\..\Alc\alcConfig.c" />
+    <ClCompile Include="..\..\Alc\alcEcho.c" />
+    <ClCompile Include="..\..\Alc\alcModulator.c" />
+    <ClCompile Include="..\..\Alc\alcReverb.c" />
+    <ClCompile Include="..\..\Alc\alcRing.c" />
+    <ClCompile Include="..\..\Alc\alcThread.c" />
+    <ClCompile Include="..\..\OpenAL32\alDatabuffer.c" />
+    <ClCompile Include="..\..\OpenAL32\alEffect.c" />
+    <ClCompile Include="..\..\OpenAL32\alError.c" />
+    <ClCompile Include="..\..\OpenAL32\alExtension.c" />
+    <ClCompile Include="..\..\OpenAL32\alFilter.c" />
+    <ClCompile Include="..\..\OpenAL32\alListener.c" />
+    <ClCompile Include="..\..\OpenAL32\alSource.c" />
+    <ClCompile Include="..\..\OpenAL32\alState.c" />
+    <ClCompile Include="..\..\OpenAL32\alThunk.c" />
+    <ClCompile Include="..\..\Alc\ALu.c" />
+    <ClCompile Include="..\..\Alc\bs2b.c" />
+    <ClCompile Include="..\..\Alc\dsound.c" />
+    <ClCompile Include="..\..\Alc\mixer.c" />
+    <ClCompile Include="..\..\Alc\null.c" />
+    <ClCompile Include="..\..\Alc\panning.c" />
+    <ClCompile Include="..\..\Alc\winmm.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="..\..\OpenAL32\Include\alAuxEffectSlot.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alBuffer.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alDatabuffer.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alEffect.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alError.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alFilter.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alListener.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alMain.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alSource.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alState.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alThunk.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\alu.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\bs2b.h" />
+  </ItemGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

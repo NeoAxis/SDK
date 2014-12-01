@@ -1,0 +1,430 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Joints &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Rigid Body Dynamics" href="RigidDynamics.html" />
+    <link rel="prev" title="Shapes and Geometries" href="Shapes.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="RigidDynamics.html" title="Rigid Body Dynamics"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Shapes.html" title="Shapes and Geometries"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="joints">
+<span id="id1"></span><h1>Joints<a class="headerlink" href="#joints" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="joint-basics">
+<h2>Joint Basics<a class="headerlink" href="#joint-basics" title="Permalink to this headline">¶</a></h2>
+<p>A joint constrains the way two actors move relative to one another. A typical use for a joint would be to model a door hinge or the shoulder of a character. Joints are implemented in the PhysX extensions library and cover many common scenarios, but if you have use cases that are not met by the joints packaged with PhysX, you can implement your own. Since joints are implemented as extensions, the pattern for creating them is slightly different from other PhysX objects.</p>
+<p>To create a joint, call the joint's creation function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxRevoluteJointCreate</span><span class="p">(</span><span class="n">PxPhysics</span><span class="o">&amp;</span> <span class="n">physics</span><span class="p">,</span>
+                      <span class="n">PxRigidActor</span><span class="o">*</span> <span class="n">actor0</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxTransform</span><span class="o">&amp;</span> <span class="n">localFrame0</span><span class="p">,</span>
+                      <span class="n">PxRigidActor</span><span class="o">*</span> <span class="n">actor1</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxTransform</span><span class="o">&amp;</span> <span class="n">localFrame1</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This has the same pattern for all joints: two actors, and for each actor a constraint frame.</p>
+<p>One of the actors must be movable, either a <em>PxRigidDynamic</em> or a <em>PxArticulationLink</em>. The other may be of one of those types, or a <em>PxRigidStatic</em>. Use a NULL pointer here to indicate an implicit actor representing the immovable global reference frame.</p>
+<p>Each localFrame argument specifies a constraint frame relative to the actor's global pose. Each joint defines a relationship between the global positions and origins of the constraint frames that will be enforced by the PhysX constraint solver. In this example, the revolute joint constrains the origin points of the two frames to be coincident and their x-axes to coincide, but allows the two actors to rotate freely relative to one another around this common axis.</p>
+<p>PhysX supports six different joint types:</p>
+<ul class="simple">
+<li>a <strong>fixed</strong> joint locks the orientations and origins rigidly together</li>
+<li>a <strong>distance</strong> joint keeps the origins within a certain distance range</li>
+<li>a <strong>spherical</strong> joint (also called a <em>ball-and-socket</em>) keeps the origins together, but allows the orientations to vary freely.</li>
+<li>a <strong>revolute</strong> joint (also called a <em>hinge</em>) keeps the origins and x-axes of the frames together, and allows free rotation around this common axis.</li>
+<li>a <strong>prismatic</strong> joint (also called a <em>slider</em>) keeps the orientations identical, but allows the origin of each frame to slide freely along the common x-axis.</li>
+<li>a <strong>D6</strong> joint is a highly configurable joint that allows specification of individual degrees of freedom either to move freely or be locked together. It can be used to implement a wide variety of mechanical and anatomical joints, but is somewhat less intuitive to configure than the other joint types. This joint is covered in detail below.</li>
+</ul>
+<p>All joints are implemented as plugins to the SDK through the PxConstraint class. A number of the properties for each joint are configured using the PxConstraintFlag enumeration.</p>
+<p><strong>Note:</strong> <em>As in the rest of the PhysX API, all joint angles for limits and drive targets are specified in radians</em></p>
+<div class="section" id="visualization">
+<h3>Visualization<a class="headerlink" href="#visualization" title="Permalink to this headline">¶</a></h3>
+<p>All standard PhysX joints support debug visualization. You can visualize the joint frames of each actor, and also any limits the joint may have.</p>
+<p>By default, joints are not visualized. To visualize a joint, set its visualization constraint flag and the appropriate scene-level visualization parameters:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">scene</span><span class="o">-&gt;</span><span class="n">setVisualizationParameter</span><span class="p">(</span><span class="n">PxVisualizationParameter</span><span class="o">::</span><span class="n">eJOINT_FRAMES</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+<span class="n">scene</span><span class="o">-&gt;</span><span class="n">setVisualizationParameter</span><span class="p">(</span><span class="n">PxVisualizationParameter</span><span class="o">::</span><span class="n">eJOINT_LIMITS</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">);</span>
+
+<span class="p">...</span>
+
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setConstraintFlag</span><span class="p">(</span><span class="n">PxConstraintFlag</span><span class="o">::</span><span class="n">eVISUALIZATION</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="force-reporting">
+<h3>Force Reporting<a class="headerlink" href="#force-reporting" title="Permalink to this headline">¶</a></h3>
+<p>The joint may be configured to report each frame the force that was required to hold it together. To enable this behavior, set the joint's reporting flag. The force may then be retrieved after simulation with a call to getForce():</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setConstraintFlag</span><span class="p">(</span><span class="n">PxConstraintFlag</span><span class="o">::</span><span class="n">eREPORTING</span><span class="p">)</span>
+<span class="p">...</span>
+
+<span class="n">scene</span><span class="o">-&gt;</span><span class="n">fetchResults</span><span class="p">(...)</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">getgetConstraint</span><span class="p">().</span><span class="n">getForce</span><span class="p">(</span><span class="n">force</span><span class="p">,</span> <span class="n">torque</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The force is resolved at the origin of actor1's joint frame.</p>
+<p>Note that this force is only updated while the joint's actors are awake.</p>
+</div>
+<div class="section" id="breakage">
+<h3>Breakage<a class="headerlink" href="#breakage" title="Permalink to this headline">¶</a></h3>
+<p>All of the standard PhysX joints can be made <em>breakable</em>. A maximum breaking force and torque may be specified, and if the force or torque required to maintain the joint constraint exceeds this threshold, the joint will break. Breaking a joint generates a simulation event (see PxSimulationEventCallback::onJointBreak), and the joint no longer partakes in simulation, although it remains attached to its actors until it is deleted.</p>
+<p>By default the threshold force and torque are set to FLT_MAX, making joints effectively unbreakable. To make a joint breakable, specify the force and torque thresholds.</p>
+<p>joint-&gt;setBreakForce(100.0f, 100.0f);</p>
+<p>A constraint flag records whether a joint is currently broken:</p>
+<p>bool broken = (joint-&gt;getConstraintFlags() &amp; PxConstraintFlag::eBROKEN) != 0;</p>
+<p>Breaking a joint causes a callback via PxSimulationEventCallback::onConstraintBreak. In this callback, a pointer to the joint and its type are specified in the externalReference and type field of the PxConstraintInfo struct. If you have implemented your own joint types, use the PxConstraintInfo::type field to determine the dynamic type of the broken constraint. Otherwise, simply cast the externalReference to a PxJoint:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MySimulationEventCallback</span>
+<span class="p">{</span>
+    <span class="kt">void</span> <span class="n">onConstraintBreak</span><span class="p">(</span><span class="n">PxConstraintInfo</span><span class="o">*</span> <span class="n">constraints</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">count</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                        <span class="n">PxJoint</span><span class="o">*</span> <span class="n">joint</span> <span class="o">=</span> <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">PxJoint</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">constraints</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">externalReference</span><span class="p">);</span>
+                            <span class="p">...</span>
+        <span class="p">}</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="projection">
+<h3>Projection<a class="headerlink" href="#projection" title="Permalink to this headline">¶</a></h3>
+<p>Under stressful conditions, PhysX' dynamics solver may not be able to accurately enforce the constraints specified by the joint. PhysX provides kinematic <em>projection</em> which tries to bring violated constraints back into alignment even when the solver fails. Projection is not a physical process and does not preserve momentum or respect collision geometry. It is best avoided if practical, but can be useful in improving simulation quality where joint separation results in unacceptable artifacts.</p>
+<p>By default projection is disabled. To enable projection, set the linear and angular tolerance values beyond which a joint will be projected, and set the constraint projection flag:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setProjectionLinearTolerance</span><span class="p">(</span><span class="mf">0.1f</span><span class="p">);</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setConstraintFlag</span><span class="p">(</span><span class="n">PxConstraintFlag</span><span class="o">::</span><span class="n">ePROJECTION</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Very small tolerance values for projection may result in jittering around the joint.</p>
+</div>
+<div class="section" id="limits">
+<h3>Limits<a class="headerlink" href="#limits" title="Permalink to this headline">¶</a></h3>
+<p>Some PhysX joints constrain not just relative rotation or translation, but can also enforce <em>limits</em> on the range of that motion. For example, in its initial configuration the revolute joint allows free rotation around its axis, but by specifying and enabling a limit, lower and upper bounds may be placed upon the angle of rotation.</p>
+<p>Limits are a form of collision, and like collision of rigid body shapes, stable limit behavior requires a <em>contactDistance</em> tolerance specifying how close to the limit the joint configuration may be before the solver tries to enforce it. A high tolerance makes the limit less likely to be violated even at high relative velocity, but because the limit is active more of the time, the joint is more expensive to simulate.</p>
+<p>Limit configuration is specific to each type of joint. To set a limit, configure the limit geometry and set the joint-specific flag indicating that the limit is enabled:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">revolute</span><span class="o">-&gt;</span><span class="n">setLimit</span><span class="p">(</span><span class="n">PxJointLimitPair</span><span class="p">(</span><span class="o">-</span><span class="n">PxPi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">PxPi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">));</span> <span class="c1">// upper, lower, tolerance</span>
+<span class="n">revolute</span><span class="o">-&gt;</span><span class="n">setRevoluteJointFlag</span><span class="p">(</span><span class="n">PxRevoluteJointFlag</span><span class="o">::</span><span class="n">eLIMIT_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Limits may be either <em>hard</em> or <em>soft</em>. When a hard limit is reached, relative motion will simply stop dead (or, if you configure the limit with non-zero restitution, it will bounce.) When a soft limit is violated, the solver will pull the joint back towards the limit using a spring specified by the limit's spring and damping parameters. By default, limits are hard and without restitution, so when the joint reaches a limit motion will simply stop. To specify softness for a limit, declare the limit structure and set the spring and damping parameters directly:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxJointLimitPair</span> <span class="n">limitPair</span><span class="p">(</span><span class="o">-</span><span class="n">PxPi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">PxPi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">));</span>
+<span class="n">limitPair</span><span class="p">.</span><span class="n">spring</span> <span class="o">=</span> <span class="mf">100.0f</span><span class="p">;</span>
+<span class="n">limitPair</span><span class="p">.</span><span class="n">damping</span> <span class="o">=</span> <span class="mf">20.0f</span><span class="p">;</span>
+<span class="n">revolute</span><span class="o">-&gt;</span><span class="n">setRevoluteJointLimit</span><span class="p">(</span><span class="n">limitPair</span><span class="p">);</span>
+<span class="n">revolute</span><span class="o">-&gt;</span><span class="n">setRevoluteJointFlag</span><span class="p">(</span><span class="n">PxRevoluteJointFlag</span><span class="o">::</span><span class="n">eLIMIT_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><strong>Note</strong>: <em>Limits are not projected.</em></p>
+</div>
+<div class="section" id="actuation">
+<h3>Actuation<a class="headerlink" href="#actuation" title="Permalink to this headline">¶</a></h3>
+<p>Some PhysX joints may be actuated by a motor or a spring implicitly integrated by the PhysX solver. While driving simulations with actuated joints is more expensive than simply applying forces, it can provide much more stable control of simulation. See the specific documentation on the D6 and revolute joints for details</p>
+<p><strong>Note</strong>: <em>The force generated by actuation is not included in the force reported by the solver, nor does it contribute towards exceeding the joint's breakage force threshold.</em></p>
+</div>
+</div>
+<div class="section" id="fixed-joint">
+<h2>Fixed Joint<a class="headerlink" href="#fixed-joint" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/fixedJoint.png" src="../_images/fixedJoint.png" />
+<p>The fixed joint constrains two objects so that the positions and orientations of their constraint frames are the same.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">All joints are enforced by the dynamics solver, so although under ideal conditions the objects will maintain their spatial relationship, there may be some drift. A common alternative, which is cheaper to simulate and does not suffer from drift, is to construct a single actor with multiple shapes. However fixed joints are useful, for example, when a joint must be breakable or report its constraint force.</p>
+</div>
+</div>
+<div class="section" id="spherical-joint">
+<h2>Spherical Joint<a class="headerlink" href="#spherical-joint" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/sphericalJoint.png" src="../_images/sphericalJoint.png" />
+<p>A spherical joint constrains the origins of the actor's constraint frames to be coincident.</p>
+<p>The spherical joint supports a cone limit, which constrains the angle between the X-axes of the two constraint frames. Actor1's X-axis is constrained by a limit cone whose axis is is the x-axis of actor0's constraint frame. The allowed limit values are the maximum rotation around the the y- and z- axes of that frame. Different values for the y- and z- axes may be specified, in which case the limit takes the form of an elliptical angular cone:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setLimitCone</span><span class="p">(</span><span class="n">PxJointLimitCone</span><span class="p">(</span><span class="n">PxPi</span><span class="o">/</span><span class="mi">2</span><span class="p">,</span> <span class="n">PxPi</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mf">0.01f</span><span class="p">);</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setSphericalJointFlag</span><span class="p">(</span><span class="n">PxSphericalJointFlag</span><span class="o">::</span><span class="n">eLIMIT_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that very small or highly elliptical limit cones may result in solver jitter.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><em>Visualization of the limit surface can help considerably in understanding its shape.</em></p>
+</div>
+</div>
+<div class="section" id="revolute-joint">
+<h2>Revolute Joint<a class="headerlink" href="#revolute-joint" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/revoluteJoint.png" src="../_images/revoluteJoint.png" />
+<p>A revolute joint removes all but a single rotational degree of freedom from two objects. The axis along which the two bodies may rotate is specified by the common origin of the joint frames and their common x-axis. In theory, all origin points along the axis of rotation are equivalent, but simulation stability is best in practice when the point is near where the bodies are closest.</p>
+<p>The joint supports a rotational limit with upper and lower extents. The angle is zero where the y- and z- axes of the joint frames are coincident, and increases moving from the y-axis towards the z-axis:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setLimit</span><span class="p">(</span><span class="n">PxJointLimitPair</span><span class="p">(</span><span class="o">-</span><span class="n">PxPi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="n">PxPi</span><span class="o">/</span><span class="mi">4</span><span class="p">,</span> <span class="mf">0.01f</span><span class="p">);</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setRevoluteJointFlag</span><span class="p">(</span><span class="n">PxRevoluteJointFlag</span><span class="o">::</span><span class="n">eLIMIT_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The joint also supports a motor which drives the relative angular velocity of the two actors towards a user-specified target velocity. The magnitude of the force applied by the motor may be limited to a specified maximum:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setDriveVelocity</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">);</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setRevoluteJointFlag</span><span class="p">(</span><span class="n">PxRevoluteJointFlag</span><span class="o">::</span><span class="n">eDRIVE_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>By default, when the angular velocity at the joint exceeds the target velocity the motor acts as a brake; a freespin flag disables this braking behavior.</p>
+</div>
+<div class="section" id="prismatic-joint">
+<h2>Prismatic Joint<a class="headerlink" href="#prismatic-joint" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/prismJoint.png" src="../_images/prismJoint.png" />
+<p>A prismatic joint prevents all rotational motion, but allows the origin of actor1's constraint frame to move freely along the x-axis of actor0's constraint frame. The primatic joint supports a single limit with upper and lower bounds on the distance between the two constraint frames' origin points:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setLimit</span><span class="p">(</span><span class="n">PxJointLimitPair</span><span class="p">(</span><span class="o">-</span><span class="mf">10.0f</span><span class="p">,</span> <span class="mf">20.0f</span><span class="p">,</span> <span class="mf">0.01f</span><span class="p">);</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setPrismaticJointFlag</span><span class="p">(</span><span class="n">PxPrismaticJointFlag</span><span class="o">::</span><span class="n">eLIMIT_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="distance-joint">
+<h2>Distance Joint<a class="headerlink" href="#distance-joint" title="Permalink to this headline">¶</a></h2>
+<img alt="../_images/distanceJoint.png" src="../_images/distanceJoint.png" />
+<p>The distance joint keeps the origins of the constraint frames within a certain range of distance. The range may have both upper and lower bounds, which are enabled separately by flags:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">joint</span><span class="o">-&gt;</span><span class="n">setMaxDistance</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">);</span>
+<span class="n">joint</span><span class="o">-&gt;</span><span class="n">setDistanceJointFlag</span><span class="p">(</span><span class="n">eMAX_DISTANCE_ENABLED</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>In addition, when the joint reaches the limits of its range motion beyond this distance may either be entirely prevented by the solver, or pushed back towards its range with an implicit spring, for which spring and damping paramters may be specified.</p>
+</div>
+<div class="section" id="d6-joint">
+<h2>D6 Joint<a class="headerlink" href="#d6-joint" title="Permalink to this headline">¶</a></h2>
+<p>The D6 joint is by far the most complex of the the standard PhysX joints. In its default state it behaves like a fixed joint - that is, it rigidly fixes the constraint frames of its two actors. However, individual degrees of freedom may be unlocked to permit any combination of rotation around the x-, y- and z- axes, and translation along these axes.</p>
+<div class="section" id="locking-and-unlocking-axes">
+<h3>Locking and Unlocking Axes<a class="headerlink" href="#locking-and-unlocking-axes" title="Permalink to this headline">¶</a></h3>
+<p>To unlock and lock degrees of freedom, use the joint's setMotion function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eX</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Unlocking translational degrees of freedom allows the origin point of actor1's constraint frame to move along a subset of the axes defined by actor0's constraint frame. For example, unlocking just the X-axis creates the equivalent of a prismatic joint.</p>
+<p>Rotational degrees of freedom are partitioned as <em>twist</em> (around the X-axis of actor0's constraint frame) and <em>swing</em> (around the Y- and Z- axes.) Different effects are achieved by unlocking various combinations of twist and swing.</p>
+<ul class="simple">
+<li>if just a single degree of angular freedom is unlocked, the result is always equivalent to a revolute joint. It is recommended that if just one angular freedom is unlocked, it should be the twist degree, because the joint has various configuration options and optimizations that are designed for this case.</li>
+</ul>
+<ul class="simple">
+<li>if both swing degrees of freedom are unlocked but the twist degree remains locked, the result is a <em>zero-twist</em> joint. The x-axis of actor1 swings freely away from the x-axis of actor0 but twists to minimize the rotation required to align the two frames. This creates a kind of isotropic universal joint which avoids the problems of the usual 'engineering style' universal joint (see below) that is sometimes used as a kind of twist constraint. There is a nasty singularity at π radians (180 degrees) swing, so a swing limit should be used to avoid the singularity.</li>
+</ul>
+<ul class="simple">
+<li>if one swing and one twist degree of freedom are unlocked but the remaining swing is kept locked, a <em>zero-swing</em> joint results (often also called a <em>universal</em> joint.) If for example the SWING1 (y-axis rotation) is unlocked, the x-axis of actor1 is constrained to remain orthogonal to the z-axis of actor0. In character applications, this joint can be used to model an elbow swing joint incorporating the twist freedom of the lower arm or a knee swing joint incorporating the twist freedom of the lower leg. In vehicle applications, these joints can be used as 'steered wheel' joints in which the child actor is the wheel, free to rotate about its twist axis, while the free swing axis in the parent acts as the steering axis. Care must be taken with this combination because of anisotropic behavior and singularities (beware the dreaded gimbal lock) at angles of π/2 radians (90 degrees), making the zero-twist joint a better behaved alternative for most use cases.</li>
+</ul>
+<ul class="simple">
+<li>if all three angular degrees are unlocked, the result is equivalent to a spherical joint.</li>
+</ul>
+<p>Three of the joints from PhysX 2 that have been removed from PhysX 3 can be implemented as follows:</p>
+<ul>
+<li><p class="first">The cylindrical joint (with axis along the common x-axis of the two constraint frames) is given by the combination:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eX</span><span class="p">,</span>     <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eTWIST</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">the point-on-plane joint (with plane axis along the x-axis of actor0's constraint frame) is given by the combination:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eY</span><span class="p">,</span>      <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eZ</span><span class="p">,</span>      <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eTWIST</span><span class="p">,</span>  <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eSWING1</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eSWING2</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+<li><p class="first">the point-on-line joint (with axis along the x-axis of actor0's constraint frame) is given by the combination:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eX</span><span class="p">,</span>      <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eTWIST</span><span class="p">,</span>  <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eSWING1</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eSWING2</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+</pre></div>
+</div>
+</li>
+</ul>
+</div>
+<div class="section" id="id2">
+<h3>Limits<a class="headerlink" href="#id2" title="Permalink to this headline">¶</a></h3>
+<p>Instead of specifying that an axis is free or locked, it may also be specified as limited. The D6 supports three different limits which may be used in any combination.</p>
+<p>A single linear limit with only an upper bound is used to constrain any of the translational degrees of freedom. The limit constrains the distance between the origins of the constraint frames when projected onto these axes. For example, the combination:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eX</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eY</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eLIMITED</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eZ</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eLIMITED</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setLinearLimit</span><span class="p">(</span><span class="n">PxJointLimit</span><span class="p">(</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.1f</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>constrains the y- and z- coordinates of actor1's constraint frame to lie within the unit disc. Since the x-axis is unconstrained, the effect is to constrain the origin of actor1's constraint frame to lie within a cylinder of radius 1 extending along the x-axis of actor0's constraint frame.</p>
+<p>The twist degree of freedom is limited by a pair limit with upper and lower bounds, identical to the limit of the revolute joint.</p>
+<p>If both swing degrees of freedom are limited, a limit cone is generated, identical to the limit of the spherical joint. As with the spherical joint, very small or highly elliptical limit cones may result in solver jitter.</p>
+<p>If only one swing degree of freedom is limited, the corresponding angle from the cone limit is used to limit rotation. If the other swing degree is locked, the maximum value of the limit is π radians (180 degrees). If the other swing degree is free, the maximum value of the limit is π/2 radians (90 degrees.)</p>
+</div>
+<div class="section" id="drives">
+<h3>Drives<a class="headerlink" href="#drives" title="Permalink to this headline">¶</a></h3>
+<p>The D6 has a linear drive model, and two possible angular drive models. The drive is a <em>proportional derivative</em> drive, which applies a force as follows:</p>
+<p><em>force = spring * (targetPosition - position) + damping * (targetVelocity - velocity)</em></p>
+<p>The drive model may also be configured to generate a proportional acceleration instead of a force, factoring in the masses of the actors to which the joint is attached. Acceleration drive is often easier to tune than force drive.</p>
+<dl class="docutils">
+<dt>The linear drive model for the D6 has the following parameters:</dt>
+<dd><ul class="first last simple">
+<li>target position, specified in actor0's constraint frame</li>
+<li>target velocity, specified in actor0's constraint frame</li>
+<li>spring</li>
+<li>damping</li>
+<li>forceLimit - the maximum force the drive can apply</li>
+<li>acceleration drive flag</li>
+</ul>
+</dd>
+</dl>
+<p>The drive attempts to follow the desired position input with the configured stiffness and damping properties. A physical lag due to the inertia of the driven body acting through the drive spring will occur; therefore, sudden step changes will result over a number of time steps. Physical lag can be reduced by stiffening the spring or supplying a velocity target.</p>
+<p>With a fixed position input and a zero target velocity, a position drive will spring about that drive position with the specified springing/damping characteristics:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// set all translational degrees free</span>
+
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eX</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eY</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setMotion</span><span class="p">(</span><span class="n">PxD6Axis</span><span class="o">::</span><span class="n">eZ</span><span class="p">,</span> <span class="n">PxD6Motion</span><span class="o">::</span><span class="n">eFREE</span><span class="p">);</span>
+
+<span class="c1">// set all translation degrees driven:</span>
+
+<span class="n">PxD6Drive</span> <span class="n">drive</span><span class="p">(</span><span class="mf">10.0f</span><span class="p">,</span> <span class="o">-</span><span class="mf">20.0f</span><span class="p">,</span> <span class="n">PX_MAX_F32</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setDrive</span><span class="p">(</span><span class="n">PxD6JointDrive</span><span class="o">::</span><span class="n">eX</span><span class="p">,</span> <span class="n">drive</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setDrive</span><span class="p">(</span><span class="n">PxD6JointDrive</span><span class="o">::</span><span class="n">eY</span><span class="p">,</span> <span class="n">drive</span><span class="p">);</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setDrive</span><span class="p">(</span><span class="n">PxD6JointDrive</span><span class="o">::</span><span class="n">eZ</span><span class="p">,</span> <span class="n">drive</span><span class="p">);</span>
+
+<span class="c1">//Drive the joint to the local(actor[0]) origin - since no angular dofs are free, the angular part of the transform is ignored</span>
+
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setDrivePosition</span><span class="p">(</span><span class="n">PxTransform</span><span class="o">::</span><span class="n">createIdentity</span><span class="p">());</span>
+<span class="n">d6joint</span><span class="o">-&gt;</span><span class="n">setDriveVelocity</span><span class="p">(</span><span class="n">PxVec3</span><span class="o">::</span><span class="n">createZero</span><span class="p">());</span>
+</pre></div>
+</div>
+<p>Angular drive differs from linear drive in a fundamental way: it does not have a simple and intuitive representation free from singularities. For this reason, the D6 joint provides two angular drive models - twist and swing and SLERP (Spherical Linear Interpolation).</p>
+<p>The two models differ in the way they estimate the path in quaternion space between the current orientation and the target orientation. In a SLERP drive, the quaternion is used directly. In a twist and swing drive, it is decomposed into separate twist and swing components and each component is interpolated separately. Twist and swing is intuitive in many situations; however, there is a singularity when driven to 180 degrees swing. In addition, the drive will not follow the shortest arc between two orientations. On the other hand, SLERP drive will follow the shortest arc between a pair of angular configurations, but may cause unintuitive changes in the joint's twist and swing.</p>
+<p>The angular drive model has the following parameters:</p>
+<blockquote>
+<div><ul class="simple">
+<li>An angular velocity target specified relative to actor0's constraint frame</li>
+<li>An orientation target specified relative to actor0's constraint frame</li>
+<li>drive specifications for SLERP (slerpDrive), swing (swingDrive) and twist (twistDrive):</li>
+<li>spring - amount of torque needed to move the joint to its target orientation proportional to the angle from the target (not used for a velocity drive).</li>
+<li>damping - applied to the drive spring (used to smooth out oscillations about the drive target).</li>
+<li>forceLimit - maximum torque applied when driving towards a velocity target (not used for an orientation drive)</li>
+<li>acceleration drive flag. If this flag is set the acceleration (rather than the force) applied by the drive is proportional to the angle from the target.</li>
+</ul>
+</div></blockquote>
+<p>Best results will be achieved when the drive target inputs are consistent with the joint freedom and limit constraints.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">if any angular degrees of freedom are locked, the SLERP drive parameters are ignored. If all angular degrees of freedom are unlocked, and parameters are set for multiple angular drives, the SLERP parameters will be used.</p>
+</div>
+</div>
+<div class="section" id="configuring-joints-for-best-behavior">
+<h3>Configuring Joints for Best Behavior<a class="headerlink" href="#configuring-joints-for-best-behavior" title="Permalink to this headline">¶</a></h3>
+<p>The behavior quality of joints in PhysX is largely determined by the ability of the iterative solver to converge. Better convergence can be achieved simply by increasing the attributes of the PxRigidDynamic which controls the solver iteration count. However, joints can also be configured to produce better convergence.</p>
+<ul class="simple">
+<li>the solver can have difficulty converging well when where a light object is constrained between two heavy objects. Mass ratios of higher than 10 are best avoided in such scenarios.</li>
+<li>when one body is significantly heavier than the other, make the lighter body the second actor in the joint. Similarly, when one of the objects is static or kinematic (or the actor pointer is NULL) make the dynamic bodythe the second actor.</li>
+</ul>
+<p>A common use for joints is to move objects around in the world. Best results are obtained when the solver has access to the velocity of motion as well as the change in position.</p>
+<ul class="simple">
+<li>if you want a very stiff controller that moves the object to specific position each frame, consider jointing the object to a kinematic actor and use the setKinematicTarget function to move the actor.</li>
+<li>if you want a more springy controller, use a D6 joint with a drive target to set the desired position and orientation, and control the spring parameters to increase stiffness and damping.  In general, acceleration drive is much easier to tune than force drive.</li>
+</ul>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Joints</a><ul>
+<li><a class="reference internal" href="#joint-basics">Joint Basics</a><ul>
+<li><a class="reference internal" href="#visualization">Visualization</a></li>
+<li><a class="reference internal" href="#force-reporting">Force Reporting</a></li>
+<li><a class="reference internal" href="#breakage">Breakage</a></li>
+<li><a class="reference internal" href="#projection">Projection</a></li>
+<li><a class="reference internal" href="#limits">Limits</a></li>
+<li><a class="reference internal" href="#actuation">Actuation</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#fixed-joint">Fixed Joint</a></li>
+<li><a class="reference internal" href="#spherical-joint">Spherical Joint</a></li>
+<li><a class="reference internal" href="#revolute-joint">Revolute Joint</a></li>
+<li><a class="reference internal" href="#prismatic-joint">Prismatic Joint</a></li>
+<li><a class="reference internal" href="#distance-joint">Distance Joint</a></li>
+<li><a class="reference internal" href="#d6-joint">D6 Joint</a><ul>
+<li><a class="reference internal" href="#locking-and-unlocking-axes">Locking and Unlocking Axes</a></li>
+<li><a class="reference internal" href="#id2">Limits</a></li>
+<li><a class="reference internal" href="#drives">Drives</a></li>
+<li><a class="reference internal" href="#configuring-joints-for-best-behavior">Configuring Joints for Best Behavior</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Shapes.html"
+                        title="previous chapter">Shapes and Geometries</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="RigidDynamics.html"
+                        title="next chapter">Rigid Body Dynamics</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="RigidDynamics.html" title="Rigid Body Dynamics"
+             >next</a></li>
+        <li class="right" >
+          <a href="Shapes.html" title="Shapes and Geometries"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

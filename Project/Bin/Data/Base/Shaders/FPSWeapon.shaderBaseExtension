@@ -1,0 +1,9 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+#if defined(VERTEX_BODY_END) || defined(VERTEX_BODY_SHADOW_CASTER_END)
+	//change zbuffer depth
+	oPosition.z /= 100;
+	#ifdef VERTEX_BODY_END
+		oEyeDirectionAndDepth.w /= 100;
+	#endif
+#endif

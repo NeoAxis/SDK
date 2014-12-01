@@ -1,0 +1,11 @@
+fullName = "Project common classes"
+componentTypes = "EngineInitializationClass, HighLevelMaterialClasses, CompositorInstanceClasses, GUIControlClasses, Archive, EntityClasses"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "ProjectCommon.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

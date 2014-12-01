@@ -1,0 +1,14 @@
+// Thanks to Radius Studios for this post effect
+ 
+float4 main_fp(
+	uniform float radius,
+	uniform float intensity,
+	float2 texCoord : TEXCOORD0,
+	sampler2D rt : register(s0)
+) : COLOR
+{
+	float2 dist = texCoord - 0.5f;
+	float powX = 1 - dot(dist, dist);
+	float color = saturate(pow(powX, radius) + (1 - intensity));
+	return tex2D(rt, texCoord)  * color;
+}

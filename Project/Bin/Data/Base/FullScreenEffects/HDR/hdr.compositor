@@ -1,0 +1,170 @@
+compositor HDR
+{
+	technique
+	{
+		// Fullsize HDR render target, used as tone mapping source
+		texture rt_full target_width target_height PF_FLOAT16_RGB
+		
+		// Targets used for luminance evaluation
+		texture rt_luminance0 128 128 PF_FLOAT16_R
+		texture rt_luminance1 64 64 PF_FLOAT16_R
+		texture rt_luminance2 16 16 PF_FLOAT16_R
+		texture rt_luminance3 4 4 PF_FLOAT16_R
+		texture rt_luminance4 1 1 PF_FLOAT16_R
+
+		// Bright-pass filtered target
+		// Texture size will be changed from code.
+		texture rt_brightPass 1 1 PF_R8G8B8
+		
+		// Bloom filter targets
+		// Texture size will be changed from code.
+		texture rt_bloomBlur 1 1 PF_R8G8B8
+		texture rt_bloomHorizontal 1 1 PF_R8G8B8
+		texture rt_bloomVertical 1 1 PF_R8G8B8
+
+		texture rt_adaptedLuminance 1 1 PF_FLOAT16_R
+		texture rt_lastAdaptedLuminance 1 1 PF_FLOAT16_R
+
+		target rt_full
+		{
+			input previous
+		}
+
+		// Down scale the original HDR scene to extract luminence value
+		target rt_luminance0
+		{
+			input none
+			pass render_quad
+			{
+				//material Compositor/HDR/DownScale2x2Luminence
+				material Compositor/HDR/SampleLuminanceInitial
+				input 0 rt_full
+				identifier 994
+			}
+		}
+		target rt_luminance1
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/SampleLuminanceIterative
+				input 0 rt_luminance0
+				identifier 993
+			}
+		}
+		target rt_luminance2
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/SampleLuminanceIterative
+				input 0 rt_luminance1
+				identifier 992
+			}
+		}
+		target rt_luminance3
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/SampleLuminanceIterative
+				input 0 rt_luminance2
+				identifier 991
+			}
+		}
+		target rt_luminance4
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/SampleLuminanceFinal
+				input 0 rt_luminance3
+				identifier 990
+			}
+		}
+
+		target rt_brightPass
+		{
+			input none
+			pass render_quad
+			{
+				// Down scale using a 4x4 filter, hi-pass and tone map
+				material Compositor/HDR/BrightPass
+				input 0 rt_full
+				input 1 rt_luminance4
+				identifier 800
+			}
+		}
+
+		target rt_bloomBlur
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/GaussianBlur5x5
+				input 0 rt_brightPass
+				identifier 700
+			}
+		}
+		target rt_bloomHorizontal
+		{
+			input none
+			pass render_quad
+			{
+				// Horizontal blur
+				material Compositor/HDR/Bloom
+				input 0 rt_bloomBlur
+				identifier 701
+			}
+		}
+		target rt_bloomVertical
+		{
+			input none
+			pass render_quad
+			{
+				// Vertical blur
+				material Compositor/HDR/Bloom
+				input 0 rt_bloomHorizontal
+				identifier 702
+			}
+		}
+
+		target rt_adaptedLuminance
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/CalculateAdaptedLuminance
+				input 0 rt_lastAdaptedLuminance
+				input 1 rt_luminance4
+				identifier 500
+			}
+		}
+
+		target rt_lastAdaptedLuminance
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/CopyLastAdaptedLuminance
+				input 0 rt_adaptedLuminance
+			}
+		}
+
+		// Final output combines tone mapping of the original scene, with an
+		// exposure setting passed in as a GPU parameter, and an additive bloom
+		// effect
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/HDR/FinalToneMapping
+				input 0 rt_full
+				input 1 rt_bloomVertical
+				input 2 rt_adaptedLuminance
+				identifier 600
+			}
+		}
+	}
+}

@@ -1,0 +1,10 @@
+fullName = "Simple static lighting calculation implementation"
+componentTypes = "StaticLightingCalculation"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "SimpleStaticLightingSystem.dll"
+	platforms = "Windows"
+}	

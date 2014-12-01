@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>GridBasedNavigationSystem</name>
+    </assembly>
+    <members>
+        <member name="M:Engine.GridBasedNavigationSystem.OnPostCreate(System.Boolean)">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="M:Engine.GridBasedNavigationSystem.OnPostCreate2(System.Boolean)">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="M:Engine.GridBasedNavigationSystem.OnDestroy">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.Type">
+            <summary>
+            Gets the entity type.
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.GridBounds">
+            <summary>
+            The bounds of the grid.
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.GridCellSize">
+            <summary>
+            The size of the cell of the grid.
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.AgentHeight">
+            <summary>
+            Maximum agent's height.
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.AgentMaxSlope">
+            <summary>
+            The maximum angle which the agent can reach.
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.AlwaysDrawGrid">
+            <summary>
+            A value indicating whether a grid drawing enabled.
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.HeightByTerrainOnly">
+            <summary>
+            A value indicates calculation of the height only for terrain (HeightmapTerrain).
+            </summary>
+        </member>
+        <member name="P:Engine.GridBasedNavigationSystem.DrawGridDistance">
+            <summary>
+            The distance of drawing the grid.
+            </summary>
+        </member>
+    </members>
+</doc>

@@ -1,0 +1,6 @@
+type Fog
+{
+	class = Fog
+	allowEditorCreate = True
+	networkType = ClientOnly
+}

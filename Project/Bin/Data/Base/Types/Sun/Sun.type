@@ -1,0 +1,14 @@
+type Sun
+{
+	class = Sun
+	creatableInMapEditor = True
+	networkType = ClientOnly
+	attachedObjects
+	{
+		billboard
+		{
+			materialName = Base_SunFlare
+			onlyForEditor = True
+		}
+	}
+}

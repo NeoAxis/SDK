@@ -1,0 +1,66 @@
+.. _aggregates:
+
+---------------------------------
+Aggregates
+---------------------------------
+
+===============================
+Introduction
+===============================
+
+An aggregate is a collection of actors. Aggregates do not provide extra simulation or query features, but allow you to tell the SDK that a set of actors will be clustered together, which in turn allows the SDK to optimize its spatial data operations. A typical use case is a ragdoll, made of N different body parts, with each part a PhysX actor. Without aggregates, this gives rise to N broad-phase entries for the ragdoll. It is typically more efficient to represent the rag doll in the broad phase as a single entity, and do internal collisions in a second pass if necessary.
+
+==============================
+Creating an Aggregate
+==============================
+
+Create an aggregate from the *PxPhysics* object::
+
+	PxPhysics* physics;	// The physics SDK object
+
+	PxU32 nbActors;	// Max number of actors expected in the aggregate
+	bool selfCollisions = true;
+
+	PxAggregate* aggregate = physics->createAggregate(nbActors, selfCollisions);
+
+The maximum number of actors is currently limited to 128, and for efficiency should be set as low as possible.
+
+If you will never need collisions between the actors of the aggregate, disable them at creation time. This is much more efficient than using the scene filtering mechanism, as it bypasses all internal filtering logic. A typical use case would be an aggregate of static or kinematic actors. 
+
+Note that both the maximum number of actors and the self-collision attribute are immutable.
+
+====================================
+Populating an Aggregate
+====================================
+
+Adds an actor to an aggregate as follows::
+
+	PxActor& actor;	// Some actor, previously created
+	aggregate->addActor(actor);
+
+Note that if the actor already belongs to a scene, the call is ignored. Either add the actors to an aggregate and then add the aggregate to the scene, or add the aggregate to the scene and then the actors to the aggregate. 
+
+To add the aggregate to a scene (before or after populating it)::
+
+	scene->addAggregate(*aggregate);
+
+Similarly, to remove the aggregate from the scene::
+
+	scene->removeAggregate(*aggregate);
+
+===============================
+Releasing an Aggregate
+===============================
+
+To release an aggregate::
+
+	PxAggregate* aggregate;	// The aggregate we previously created
+	aggregate->release();
+
+Releasing the PxAggregate does not release the aggregated actors. If the PxAggregate belongs to a scene, the actors are automatically re-inserted in that scene. If you intend to delete both the PxAggregate and its actors, it is most efficient to release the actors first, then release the PxAggregate when it is empty.
+
+===============================================================
+Amortizing Insertion
+===============================================================
+
+Adding many objects to a scene in one frame can be a costly operation. This can be the case for a ragdoll, which as discussed is a good candidate for PxAggregate. Another case is localized debris, for which self-collisions are often disabled. To amortize the cost of object insertion into the broad-phase structure over several, spawn the debris in a PxAggregate, then remove each actor from the aggregate and and re-insert it into the scene over those frames.

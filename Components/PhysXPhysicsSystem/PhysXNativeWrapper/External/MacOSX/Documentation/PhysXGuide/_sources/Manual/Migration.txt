@@ -1,0 +1,234 @@
+.. _migration:
+
+--------------------------------------------
+Migration Guide From PhysX SDK 2.x to 3.x
+--------------------------------------------
+
+This guide describes how to upgrade applications that have an integration of PhysX 2.x to using PhysX 3.x.
+
+===============================
+Changed Actor Hierarchy
+===============================
+
+In PhysX 2, PhysX provided one actor class, and you were able to call any method on objects of this class even if that did not make sense.
+For example, you were able to call isSleeping() on static actors which do not have any sleep logic.  In PhysX 3, we have
+a hierarchy of Actor classes, with each subclass only providing methods that truly apply to the specific subclass.  This may mean that you have to change
+your code so that it either holds Actor references of the proper subtype, or you cast to the proper type before making certain calls.
+
+===============================
+Collision Filtering
+===============================
+
+In PhysX 2, we had multiple fixed function, custom mechanisms for configuring if a pair of shapes desires collisions to be detected.  An example was collision groups.  You were able to assign each shape to a fixed number of groups, and then set if a particular pair of groups should collide.
+
+We found that for some people this approach was not flexible enough.  In PhysX 3, the user is able to write his own program code to implement custom filtering.  This is like a callback function from the engine, with the limitation that arbitrary memory may not be accessed.  We made this restriction so that the filtering code can be executed on PS3 SPUs or on GPUs with optimal performance.  If performance is not a top concern for users, they can also opt to use conventional callbacks ( PxSimulationFilterCallback ).  
+
+When migrating PhysX 2 code, note that we provide the class PxDefaultSimulationFilterShader in PhysX 3, which emulates a portion of PhysX 2 filtering behavior.  Start by checking if this class is sufficient.  As this is an extension class, the source code is available and may be extended or customized.
+
+To migrate your fixed function PhysX 2 filtering code on your own, you need to be aware of its exact behavior and implement it as a callback or shader.  Let us look at the precise 2.8 mechanisms and make some recommendations for porting::
+
+	virtual void NxScene::setShapePairFlags  (  NxShape &  shapeA,  
+	  NxShape &  shapeB,  
+	  NxU32  nxContactPairFlag 	//0 or NX_IGNORE_PAIR 
+	 )  
+	 
+	virtual void NxScene::setActorPairFlags  (  NxActor &  actorA,  
+	  NxActor &  actorB,  
+	  NxU32  nxContactPairFlag 
+	 )
+	 
+
+The first function stored explicit shape pairs in a hash, and a lookup returned the bit indicating to filter or not.  The second did the same for actor pairs.  Because of the arbitrary size of the pair hash, implementing this mechanism as a shader with fixed memory is difficult in practice, but implementing as a callback should be trivial using a data structure such as the STL hash_map where Key is a struct holding the two pointers and Data is the bit flag.
+
+Another scheme provided by PhysX 2 were collision groups::
+
+	virtual void  NxShape::setGroup (NxCollisionGroup collisionGroup)
+	virtual void NxScene::setGroupCollisionFlag  (  NxCollisionGroup  group1,  
+	  NxCollisionGroup  group2,  
+	  bool  enable 
+	 )  
+
+This approach let the user assign shapes to one of 32 collision groups, and then let each pair of groups be assigned a boolean pair flag.  This approach lends itself better to a shader based implementation.  To do this, you should reserve a word of each shape's filterData (say word0) to hold the group index,
+and assign this as before. Next, define a matrix to hold the group pair bits, and a function to set it::
+
+	NxU32 groupCollisionFlags[32];
+		
+	//init all group pairs to true:
+	for (unsigned i = 0; i < 32; i ++)
+		groupCollisionFlags[i] = 0xffffffff;
+
+	
+	void setU32CollisionFlag(NxU32 groups1, NxU32 groups2, bool enable)
+		{
+		NX_ASSERT(groups1 < 32 && groups2 < 32);
+		if (enable)
+			{
+			//be symmetric:
+			groupCollisionFlags[groups1] |= (1 << groups2);
+			groupCollisionFlags[groups2] |= (1 << groups1);
+			}
+		else
+			{
+			groupCollisionFlags[groups1] &= ~(1 << groups2);
+			groupCollisionFlags[groups2] &= ~(1 << groups1);
+			}
+		}
+
+Unfortunately it is not possible to change this state after the scene is created. This is because if the matrix could change during simulation, it would force an arbitrary amount of existing contact pairs to be refiltered. In a large simulation, this could be an unacceptable amount of computation. Therefore the matrix must be initialized to its final state before the scene is created, like this::
+
+	PxSceneDesc desc;
+	...
+	desc.filterShaderData = groupCollisionFlags;
+	desc.filterShaderDataSize = 32 * sizeof(PxU32);
+	scene = sdk.createScene(desc);
+	
+Finally, you need to code the filter shader to access this data::
+
+	PxFilterFlags FilterShader(
+			PxFilterObjectAttributes attributes0, PxFilterData filterData0,
+			PxFilterObjectAttributes attributes1, PxFilterData filterData1,
+			PxPairFlags& pairFlags, const void* constantBlock, PxU32 constantBlockSize)
+	{
+			// let triggers through, and do any other prefiltering you need.
+			if(PxFilterObjectIsTrigger(attributes0) || PxFilterObjectIsTrigger(attributes1))
+			{
+					pairFlags = PxPairFlag::eTRIGGER_DEFAULT;
+					return PxFilterFlag::eDEFAULT;
+			}
+			// generate contacts for all that were not filtered above
+			pairFlags = PxPairFlag::eCONTACT_DEFAULT;
+	
+			
+			PxU32 ShapeGroup0 = filterData0.word0 & 31;
+			PxU32 ShapeGroup1 = filterData1.word0 & 31;
+			PxU32* groupCollisionFlags = (PxU32*)constantBlock;
+			
+			if ((groupCollisionFlags[ShapeGroup0] & (1 << ShapeGroup1)) == 0)							
+				return PxFilterFlag::eSUPPRESS;
+			else
+				return PxFilterFlag::eDEFAULT;				
+	}
+
+===============================
+Material Indexes
+===============================
+
+PhysX 2 used so-called material indexes for stored materials. Material indices are not
+supported in PhysX 3.0, you'll have to use the object directly. This should be a rather trivial change, unless you are storing a lot of material indices and you want to avoid storing a full reference. In this case you should create your own index array data structure from which you can fetch the pointer before passing it into the API.
+
+===============================
+Continuous Collision Detection
+===============================
+
+PhysX 2 uses CCD skeleton meshes for CCD. PhysX 3 no longer needs this data so all skeleton related code can simply be removed.
+
+===============================
+Pose Description
+===============================
+
+In PhysX 2 pose was described using a simple matrix. Now the only way to describe a pose is to
+prepare a PxTransform structure that contains a PxVec3 for translation and a PxQuat for rotation. If the user code uses matrices
+natively, you will need to convert the matrices into a translation and a rotation component, and then convert the rotation matrix
+into a quaternion. See the class PxMat33 for helpers to facilitate this conversion, as well as the inverse.
+
+===============================
+Shape Description
+===============================
+
+PhysX 2 uses special geometry descriptor to set some required shape parameters (one descriptor
+for every type of shape, e.g. NxBoxShapeDesc). In PhysX 3, descriptors are no longer used - you should create a 
+required geometry class object (e.g. PxBoxGeometry) and pass it to PxShape using a setGeometry method.
+This means that the application shape creation logic should be slightly modified. In most cases the new approach 
+is more flexible and needs less code to implement.
+
+In PhysX 2, objects that have different geometry (Box, Capsule, and Sphere) were objects of
+different classes - now they are all PxShape objects. That means that if you want to figure out which
+geometry is assigned to some object you should call getGeometryType method. That means that the old
+way to have every geometry type classes inherited from different shapes classes (e.g.
+NxBoxShape) will not work now - you will have all geometry type classes inherited from PxShape class
+and should find out which geometry type it actually has internally.
+
+===============================
+Joints
+===============================
+
+The D6 driveType in PhysX 2 no longer exists in PhysX 3.  Now drive for D6 is
+always spring-like: if you want position drive you set the 'spring' value non-zero, if you want velocity
+drive you set the damping field non-zero, and if you set both you get a damped spring.
+Some specialized joints like NxJointDriveDesc, NxJointLimitSoftDesc (PhysX 2 names) now were
+moved to Extensions (see the extensions folder inside PhysX 3 include directory).
+
+Also, if you have used the deleted NxSpringAndDamperEffector, you should now use a joint with a spring property.
+
+===============================
+Time Stepping
+===============================
+
+The PhysX 2 SDK supported substeps, such that the simulation would automatically subdivide arbitrary elapsed
+time values into a variable number of fixed size simulation steps. This functionality is no longer provided 
+in the SDK because many users found the precise logic too opaque and had difficulty integrating it with real world 
+applications to get the behaviors they needed. Instead, we only provide the simulate code that used to be the
+logic for each substep. It is now the responsibility of the user to choose a stable step size, and to subdivide arbitrary 
+'wall clock' elapsed times into multiple such fixed size simulation steps, and then call PxScene::simulate() one
+or more times each frame with this step size. Because the user now owns the control logic, they are able to tweak all of the
+simulation control code, such as force application.
+
+In PhysX 2 it was legal to call simulate with a timestep of zero to force the execution of various side-effects of simulation. 
+PhysX 3 neither requires nor supports this.
+
+
+===============================
+Scene Queries
+===============================
+
+Working with functions that return a buffer of objects (e.g. raycastMultiple) has changed.
+In PhysX 3, functions that returns multiple objects want to get a pre-allocated buffer and buffer size as
+a parameter. You do not know how many elements should be needed when you are making a call, so you will need to make
+a guess. If the number of elements in the buffer is not enough, you will be informed about it and should re-allocate your
+buffer.
+
+It is a good performance optimization idea to use a buffer with a reasonable size first, try with this
+buffer and if -1 is returned, resize the buffer and try again. But most of the time the initial buffer will be
+large enough. Choosing a reasonable start size is not always easy ... here are some ideas:  You could profile the
+app and see the sizes that come up in practice.  Also, whenever space runs out, you could reallocate with double the size,
+and then keep this doubled buffer around for the next time queries are performed.  Finally, you
+should add an upper bound on how large the buffer can get in total, and do some error reporting if this size is exceeded.
+
+===============================
+Raycasts
+===============================
+
+The interface for making raycasts was changed in PhysX 3. Now you should pass an origin (PxVec3) and
+a direction (PxVec3) instead of a NxRay that combined these fields in PhysX 2.
+
+===============================
+Overlaps
+===============================
+
+Routines like overlapSphereShapes, overlapAABBShapes, overlapOBBShapes, overlapCapsuleShapes are
+now all covered with PxScene::overlapMultiple (passing in a PxSphereGeometry, PxBoxGeometry or
+PxCapsuleGeometry as a first parameter).
+
+===============================
+Sweep Tests
+===============================
+
+The only migration problem that we have met is with capsule sweeps tests. PhysX 2 provides a linearCapsuleSweep 
+that takes two points to define the capsule's two spherical ends.  In PhysX 3 we have a general sweepMultiple() routine that takes a
+PxGeometry and an initial position as a PxTransform. The capsules defined as two points should be
+converted to initial transformation (PxTransform) that consists of PxVec3 for position and PxQuat for
+rotation. The capsule's length is now along the x axis of this local frame.
+
+===============================
+Compartments
+===============================
+
+PhysX 2 scenes featured sub-scenes called compartments.  Each compartment simulated rigid bodies, deformables or fluids.  The compartments could be simulated in parallel and the scene contained some extra logic to permit objects from different compartments to interact with each other.  Compartments were an afterthought to permit an SDK that was not designed for native parallelism, and did not provide native interoperability between separate simulation technologies.  Both of these deficits were addressed from the ground up in PhysX 3, meaning that PhysX 3 scenes provide support for intra-scene paralellism and full object interaction across different simulation objects automatically without having to configure this manually.  
+
+There is one detail feature however which compartments provided for which we currently do not have an answer:  Because interaction between objects in different compartments was relatively weak and done with exchange of external forces, it was possible to step each compartment with a different time step.  It is not possible to step parts of a PhysX 3 scene with different time steps.  A workaround could be to create multiple scenes and step them at different rates.  This however will completely lose the interactions.  The user would have to exchange forces between the scenes to mimic the weak interactions provided between compartments in PhysX 2.  This however is not a reliable approach and we do not recommend it.  A better though eventually more costly approach is to simulate the entire scene at the smallest time step size of all the former compartments.  This approach is not as unattractive as it seems, as the simulation code in PhysX 3 often has far better performance than it did in PhysX 2.
+
+===============================
+Deformables
+===============================
+
+PhysX 2 featured a quite full featured and very flexible deformable mesh simulation component:  It was able to simulate environmental cloth such as banners or flags, clothing, soft bodies, inflatable balloons, and plastic deformation of rigid metal.  Unfortunately this great flexibility meant that the implementation code was quite complex and the performance optimization for low end consoles a daunting challenge.  We realized that that the flexibility of the solution prevented us from delivering a truly excellent solution in performance and behavior in the relatively few specific areas of application that our users were typically using.  In PhysX 3 we decided to shelve the general deformable simulation code in favor of focusing only on a clothing solution which we identified as the number one application.  PhysX 3 clothing differs primarily in that it sacrifices environmental interaction in favor of high speed simulation.  In PhysX 3 dot releases, we will be incrementally adding back more features such as environmental interactions while making certain that performance does not suffer.  For the time being, for many applications of PhysX 2 deformables there simply is no upgrade path in PhysX 3.

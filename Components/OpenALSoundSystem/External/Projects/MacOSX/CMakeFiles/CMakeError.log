@@ -1,0 +1,372 @@
+Determining if the function _controlfp exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	Ld /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec normal x86_64
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D0FE014D0FE014D0FE0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D0FE014D0FE014D0FE0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=_controlfp -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+Undefined symbols:
+  "__controlfp", referenced from:
+      _main in CheckFunctionExists.o
+ld: symbol(s) not found
+collect2: ld returned 1 exit status
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D17F014D17F014D17F0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D17F014D17F014D17F0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file windows.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E03D6026E03D6026E03D60.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E03D6026E03D6026E03D60.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -D_WIN32_WINNT=0x0500 -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:21: error: windows.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0456026E0456026E04560.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0456026E0456026E04560.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if files pthread.h;pthread_np.h exist failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFiles.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFiles.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0491026E0491026E04910.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26E0491026E0491026E04910.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFiles.o CheckIncludeFiles.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFiles.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFiles.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFiles.c:3:24: error: pthread_np.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12C890012C890012C8900000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12C890012C890012C8900000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+Source:
+/* */
+#include <pthread.h>
+#include <pthread_np.h>
+
+
+int main(){return 0;}
+
+Determining if the function clock_gettime exists in the rt failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	Ld /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec normal x86_64
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0E9E026D0E9E026D0E9E0.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-26D0E9E026D0E9E026D0E9E0.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o "../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -DCHECK_FUNCTION_EXISTS=clock_gettime -c "/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/../../../../../../../Applications/CMake 2.8-4.app/Contents/share/cmake-2.8/Modules/CheckFunctionExists.c" -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckFunctionExists.o
+
+Ld Debug/cmTryCompileExec normal x86_64
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -arch x86_64 -isysroot /Developer/SDKs/MacOSX10.6.sdk -L/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -filelist /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/cmTryCompileExec.LinkFileList -mmacosx-version-min=10.6 -Wl,-search_paths_first -Wl,-headerpad_max_install_names -lrt -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+ld: library not found for -lrt
+collect2: ld returned 1 exit status
+Command /Developer/usr/bin/gcc-4.2 failed with exit code 1
+Command /Developer/usr/bin/gcc-4.2 failed with exit code 1
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14FA7C014FA7C014FA7C0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14FA7C014FA7C014FA7C0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file alsa/asoundlib.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D1F6014D1F6014D1F60000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D1F6014D1F6014D1F60000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:28: error: alsa/asoundlib.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D277014D277014D2770000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D277014D277014D2770000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file sys/soundcard.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12EB8E012EB8E012EB8E0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12EB8E012EB8E012EB8E0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:27: error: sys/soundcard.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12EC0F012EC0F012EC0F0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12EC0F012EC0F012EC0F0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file sys/audioio.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F190012F190012F1900000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F190012F190012F1900000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:25: error: sys/audioio.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F211012F211012F2110000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12F211012F211012F2110000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file dsound.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F337014F337014F3370000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F337014F337014F3370000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:20: error: dsound.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F3B8014F3B8014F3B80000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14F3B8014F3B8014F3B80000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file portaudio.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12B9F0012B9F0012B9F00000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12B9F0012B9F0012B9F00000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:23: error: portaudio.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BA71012BA71012BA710000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-12BA71012BA71012BA710000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+
+Determining if the include file pulse/pulseaudio.h exists failed with the following output:
+Change Dir: /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+
+Run Build Command:/Applications/CMake\ 2.8-4.app/Contents/bin/cmakexbuild -project CMAKE_TRY_COMPILE.xcodeproj build -target cmTryCompileExec -configuration Debug
+** BUILD FAILED **
+
+
+The following build commands failed:
+cmTryCompileExec:
+	CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+(1 failure)
+
+
+=== BUILD NATIVE TARGET cmTryCompileExec OF PROJECT CMAKE_TRY_COMPILE WITH CONFIGURATION Debug ===
+Check dependencies
+PhaseScriptExecution "CMake ReRun" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D17C014D17C014D17C0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D17C014D17C014D17C0000.sh
+
+make: `CMakeFiles/cmake.check_cache' is up to date.
+CompileC CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o CheckIncludeFile.c normal x86_64 c com.apple.compilers.gcc.4_2
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /Developer/usr/bin/gcc-4.2 -x c -arch x86_64 -fmessage-length=0 -pipe -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -mdynamic-no-pic -DCMAKE_INTDIR="Debug" -isysroot /Developer/SDKs/MacOSX10.6.sdk -mmacosx-version-min=10.6 -gdwarf-2 -Wmost -Wno-four-char-constants -Wno-unknown-pragmas -F/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/include -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources/x86_64 -I/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/DerivedSources -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c -o /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Objects-normal/x86_64/CheckIncludeFile.o
+
+/Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CheckIncludeFile.c:1:30: error: pulse/pulseaudio.h: No such file or directory
+PhaseScriptExecution "CMake PostBuild Rules" CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D1FD014D1FD014D1FD0000.sh
+    cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp
+    /bin/sh -c /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMAKE_TRY_COMPILE.build/Debug/cmTryCompileExec.build/Script-14D1FD014D1FD014D1FD0000.sh
+
+echo "Depend check for xcode"
+Depend check for xcode
+cd /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp && make -C /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/CMakeScripts/XCODE_DEPEND_HELPER.make all.Debug
+/bin/rm -f /Users/apple/Desktop/openal-soft-1.13/out/CMakeFiles/CMakeTmp/Debug/cmTryCompileExec
+
+

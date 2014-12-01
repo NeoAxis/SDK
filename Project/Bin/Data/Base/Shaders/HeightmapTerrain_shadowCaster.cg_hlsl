@@ -1,0 +1,203 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+#include "Base/Shaders/General.cg_hlsl"
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct A2V
+{
+	float4 position : POSITION;
+#ifdef LOD_ENABLED
+	#ifdef SHARED_VERTEX_BUFFERS
+		float2 morphOffset : TEXCOORD0;
+	#else
+		float3 morphOffset : TEXCOORD0;
+	#endif
+#endif
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct V2F
+{
+	float4 position : POSITION;
+	float2 depth : TEXCOORD0;
+#ifdef OPENGL
+	float3 worldPosition : TEXCOORD1;
+#endif
+#ifdef HOLE_MAP
+	float2 holeUV : TEXCOORD2;
+#endif
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct F2O
+{
+	float4 color : COLOR;
+#if defined(ATI_HARDWARE_SHADOWS) || defined(NVIDIA_HARDWARE_SHADOWS)
+	float depth : DEPTH;
+#endif
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+V2F shadowCaster_vp(
+	uniform float4x4 worldViewProjMatrix,
+	uniform float3 cameraPosition,
+	uniform float4 texelOffsets,
+#ifdef LOD_ENABLED
+	uniform float2 morphParameters,
+	uniform float3 morphCameraPosition,
+#endif
+	uniform float2 tileMinVertexPosition,
+	uniform float4 normalsUVTransform,
+#ifdef SHARED_VERTEX_BUFFERS
+	uniform sampler2D heightMap : register(s0),
+#endif
+#ifdef HOLE_MAP
+	uniform float4 holeUVTransform,
+#endif
+
+	A2V input
+)
+{
+	V2F output;
+
+	//get "position" in world coordinates
+
+	float4 worldPosition = input.position;
+
+#ifdef SHARED_VERTEX_BUFFERS
+	//shared vertex buffers mode
+
+	float2 heightUV = normalsUVTransform.xy + worldPosition.xy * normalsUVTransform.zw;
+
+	float3 worldPosition1;
+	worldPosition1.xy = worldPosition.xy + tileMinVertexPosition.xy;
+	worldPosition1.z = tex2Dlod(heightMap, float4(heightUV, 0, 0)).r;
+
+	#ifdef LOD_ENABLED
+		float2 localPosition2 = worldPosition.xy + input.morphOffset.xy;
+		float2 heightUV2 = normalsUVTransform.xy + localPosition2 * normalsUVTransform.zw;
+		float3 worldPosition2;
+		worldPosition2.xy = localPosition2 + tileMinVertexPosition.xy;
+		worldPosition2.z = tex2Dlod(heightMap, float4(heightUV2, 0, 0)).r;
+
+		float morphCameraDistance = length(worldPosition1.xy - morphCameraPosition.xy);
+		float morphFactor = 1.0f - saturate( morphParameters.x - morphCameraDistance * morphParameters.y );
+		worldPosition.xyz = lerp(worldPosition1, worldPosition2, morphFactor);
+	#else
+		worldPosition.xyz = worldPosition1;
+	#endif
+
+#else
+	//non shared vertex buffers mode
+	#ifdef LOD_ENABLED
+		float morphCameraDistance = length(worldPosition.xy - morphCameraPosition.xy);
+		float morphFactor = 1.0f - saturate( morphParameters.x - morphCameraDistance * morphParameters.y );
+		worldPosition.xyz += input.morphOffset * morphFactor;
+	#endif
+#endif
+
+	//General
+	output.position = mul(worldViewProjMatrix, worldPosition);
+
+	output.position.xy += texelOffsets.zw * output.position.w;
+#ifdef LIGHTTYPE_POINT
+	output.depth = float2(length(worldPosition.xyz - cameraPosition), 0);
+#else
+	output.depth = float2(output.position.z, output.position.w);
+#endif
+
+#ifdef OPENGL
+	output.worldPosition = worldPosition.xyz;
+#endif
+
+#ifdef HOLE_MAP
+	float2 localPosition = worldPosition.xy - tileMinVertexPosition.xy;
+	output.holeUV = holeUVTransform.xy + localPosition * holeUVTransform.zw;
+#endif
+
+	return output;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+F2O shadowCaster_fp(
+	uniform float farClipDistance,
+	uniform float2 shadowDirectionalLightBias,
+	uniform float2 shadowSpotLightBias,
+	uniform float2 shadowPointLightBias,
+#ifdef OPENGL
+	uniform float4 clipPlane0,
+	uniform float4 clipPlane1,
+	uniform float4 clipPlane2,
+	uniform float4 clipPlane3,
+	uniform float4 clipPlane4,
+	uniform float4 clipPlane5,
+#endif
+#ifdef HOLE_MAP
+	uniform sampler2D holeMap : register(s0),
+#endif
+
+	V2F input
+)
+{
+	F2O output;
+
+	//clip holes
+#ifdef HOLE_MAP
+	clip((half)tex2D(holeMap, input.holeUV.xy).r - .5h);
+#endif
+
+	//OpenGL clip plane support. Direct3D is already support clip planes without this code.
+#ifdef OPENGL
+	clip(dot(clipPlane0, float4(input.worldPosition, 1)));
+	//uncomment it for support more than 1 clip plane
+	//clip(dot(clipPlane1, float4(worldPosition, 1)));
+	//clip(dot(clipPlane2, float4(worldPosition, 1)));
+	//clip(dot(clipPlane3, float4(worldPosition, 1)));
+	//clip(dot(clipPlane4, float4(worldPosition, 1)));
+	//clip(dot(clipPlane5, float4(worldPosition, 1)));
+#endif
+
+	//bias
+	float2 bias;
+#ifdef LIGHTTYPE_DIRECTIONAL
+	bias = shadowDirectionalLightBias;
+#endif
+#ifdef LIGHTTYPE_SPOT
+	bias = shadowSpotLightBias;
+#endif
+#ifdef LIGHTTYPE_POINT
+	bias = shadowPointLightBias;
+#endif
+
+	//get depth with applied bias
+	float2 depth = input.depth;
+#ifdef NVIDIA_HARDWARE_SHADOWS
+	depth.x += bias.x + bias.y * fwidth(depth.x);
+#elif defined(ATI_HARDWARE_SHADOWS)
+	depth.x += bias.x + bias.y * fwidth(depth.x);
+#else
+	#if defined(DIRECT3D)
+		depth.x += bias.x + bias.y * fwidth(depth.x);
+	#else
+		depth.x += bias.x;
+	#endif
+#endif
+
+	//get out values
+#ifdef NVIDIA_HARDWARE_SHADOWS
+	output.color = float4(0, 0, 0, 1);
+	output.depth = depth.x / depth.y;
+#elif defined(ATI_HARDWARE_SHADOWS)
+	float normalizedDepth = depth.x / farClipDistance;
+	output.color = float4(normalizedDepth, 0, 0, 1);
+	output.depth = normalizedDepth;
+#else
+	float normalizedDepth = depth.x / farClipDistance;
+	output.color = float4(normalizedDepth, 0, 0, 1);
+#endif
+	return output;
+}

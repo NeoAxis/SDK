@@ -1,0 +1,11 @@
+fullName = "The manager to drawing the big amount of small 3D models"
+componentTypes = "EntityClasses"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "DecorativeObjectManager.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

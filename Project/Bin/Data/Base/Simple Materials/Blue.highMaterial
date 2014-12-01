@@ -1,0 +1,5 @@
+highLevelMaterial Blue
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 0 0 1
+}

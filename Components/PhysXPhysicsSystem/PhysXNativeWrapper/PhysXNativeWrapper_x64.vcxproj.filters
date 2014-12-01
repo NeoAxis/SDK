@@ -1,0 +1,153 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Source Files">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="hacd">
+      <UniqueIdentifier>{8d22f973-0f9e-4aed-bd2f-5240db51b130}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="hacd\HACD_Lib">
+      <UniqueIdentifier>{3911f652-85ea-496d-ba88-33cfe169b856}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="PhysXBody.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXJoint.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXMaterial.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXNativeWrapper.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXScene.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXShape.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXVehicle.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXVehicleSceneQuery.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="PhysXWorld.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="precompiled.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\hacd.cpp">
+      <Filter>hacd</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdGraph.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdHACD.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdICHull.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdManifoldMesh.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdMeshDecimator.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdMicroAllocator.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+    <ClCompile Include="hacd\src\HACD_Lib\src\hacdRaycastMesh.cpp">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="PhysXBody.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXJoint.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXMaterial.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXNativeWrapper.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXScene.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXShape.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXVehicle.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXVehicleSceneQuery.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="PhysXWorld.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="precompiled.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\hacd.h">
+      <Filter>hacd</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdCircularList.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdGraph.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdHACD.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdICHull.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdManifoldMesh.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdMeshDecimator.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdMicroAllocator.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdRaycastMesh.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdSArray.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdVector.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+    <ClInclude Include="hacd\src\HACD_Lib\inc\hacdVersion.h">
+      <Filter>hacd\HACD_Lib</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="hacd\src\HACD_Lib\inc\hacdCircularList.inl">
+      <Filter>hacd\HACD_Lib</Filter>
+    </None>
+    <None Include="hacd\src\HACD_Lib\inc\hacdVector.inl">
+      <Filter>hacd\HACD_Lib</Filter>
+    </None>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,5 @@
+type RecastNavigationSystem
+{
+	class = RecastNavigationSystem
+	allowEditorCreate = True
+}

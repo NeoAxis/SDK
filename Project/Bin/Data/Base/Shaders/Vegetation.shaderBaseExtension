@@ -1,0 +1,93 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+//SodanKerjuu: Vegetation Animation
+
+#if defined(VERTEX_HEADER) || defined(VERTEX_HEADER_SHADOW_CASTER)
+
+	#ifdef RECEIVE_OBJECTS_POSITIONS_FROM_VERTICES
+		float3 texCoord4 : TEXCOORD4,
+	#endif
+	
+	//add vertex color if is not defined
+	#ifdef DETAIL_BENDING
+		#ifndef DIFFUSE_VERTEX_COLOR
+			float4 vertexColor : COLOR0,
+		#endif
+	#endif
+
+	uniform float4 windAnimationParameters, //xy = windSpeed, zw = waveSpeed
+	uniform float4 mainBendingParameters,	//float4: bendScale, bendVariation, bendFrequency, UNUSED
+	uniform float4 detailBendingParameters,	//float4: branchAmplitude, detailAmplitude, branchFrequency, detailFrequency
+#endif
+
+#ifdef VERTEX_BODY_CHANGE_WORLD_POSITION
+
+	float3 objectWorldPosition;
+	#ifdef RECEIVE_OBJECTS_POSITIONS_FROM_VERTICES
+		objectWorldPosition = texCoord4;
+	#else
+		objectWorldPosition = float3(worldMatrix[0][3], worldMatrix[1][3], worldMatrix[2][3]);
+	#endif
+
+	float3 localPosition = worldPosition.xyz - objectWorldPosition;
+
+	float2 windSpeed = windAnimationParameters.xy;
+	float2 waveSpeed = windAnimationParameters.zw;
+
+	//Main Bending
+
+	float bendScale = mainBendingParameters.x;
+	float bendVariation = mainBendingParameters.y;
+	float bendFrequency = mainBendingParameters.z;
+	
+	//calculate main bending strength
+	float mainBendingPhase = sin(time * bendFrequency * length(windSpeed) + dot(objectWorldPosition, 1));
+	float variationPhase = (dot(cos(time), mainBendingPhase) * .25f + .5f);
+	float bendStrength = bendScale + bendVariation * variationPhase * mainBendingPhase;
+	
+	//calculate vertex distance and bending factor
+	float fLength = length(localPosition.xyz);
+	float fBF = localPosition.z * bendStrength;
+	
+	//smooth bending factor and increase its nearby height limit.
+	fBF += 1.0;
+	fBF *= fBF;
+	fBF = fBF * fBF - fBF;
+	
+	//displace position
+	float3 vNewPos = localPosition;
+	vNewPos.xy += windSpeed * fBF;
+
+	//rescale - this keeps the plant parts from "stretching" by shortening the z (height) while they move about the xy.
+	localPosition = normalize(vNewPos.xyz) * fLength;
+
+	//Detail Bending
+
+	#ifdef DETAIL_BENDING
+		//parameters
+		float branchAmplitude = detailBendingParameters.x;
+		float leafAmplitude = detailBendingParameters.y;
+		float branchFrequency = detailBendingParameters.z;
+		float leafFrequency = detailBendingParameters.w;
+
+		//calculate different phases
+		float fTreePhase = dot(position.xyz, 1);
+		float fBranchPhase = vertexColor.g + fTreePhase;
+		float fLeafPhase = dot(position.xyz, fBranchPhase);
+
+		//make some waves
+		float2 vWavesIn = waveSpeed * (time + float2(fLeafPhase * leafFrequency, fBranchPhase * branchFrequency ));
+		float4 vWaves = frac( vWavesIn.xxyy * float4(1.975, 0.793, 0.375, 0.193) );
+
+		//apply the triangle wave and smooth function
+		float4 triangleWave = abs( frac( vWaves + 0.5 ) * 2.0 - 1.0 );
+		vWaves = triangleWave * triangleWave * (3.0 - 2.0 * triangleWave);
+		
+		//calculate resulting wave strength for two dimensions
+		float2 vWavesSum = vWaves.xz + vWaves.yw;  
+
+		localPosition.xyz += vWavesSum.xxy * float3(vertexColor.r * leafAmplitude * normal.xy, vertexColor.b * branchAmplitude);
+	#endif
+
+	worldPosition.xyz = objectWorldPosition + localPosition;
+
+#endif //VERTEX_BODY_CHANGE_WORLD_POSITION

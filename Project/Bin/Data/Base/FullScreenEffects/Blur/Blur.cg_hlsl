@@ -1,0 +1,16 @@
+
+half4 main_fp(
+	uniform half2 sampleOffsets[15],
+	uniform half4 sampleWeights[15],	
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+	) : COLOR
+{
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 15; n++)
+	{
+		half4 color = tex2D(sourceTexture, uv + sampleOffsets[n]);
+		sample += sampleWeights[n] * color;
+	}
+	return sample;
+}

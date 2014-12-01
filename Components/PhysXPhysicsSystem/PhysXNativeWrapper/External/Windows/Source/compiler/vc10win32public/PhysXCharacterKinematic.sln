@@ -1,0 +1,36 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysXCharacterKinematic", "PhysXCharacterKinematic.vcxproj", "{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}"
+	ProjectSection(ProjectDependencies) = postProject
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90} = {2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}
+	EndProjectSection
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysXExtensions", "./PhysXExtensions.vcxproj", "{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		checked|Win32 = checked|Win32
+		profile|Win32 = profile|Win32
+		release|Win32 = release|Win32
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}.checked|Win32.ActiveCfg = checked|Win32
+		{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}.checked|Win32.Build.0 = checked|Win32
+		{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}.profile|Win32.ActiveCfg = profile|Win32
+		{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}.profile|Win32.Build.0 = profile|Win32
+		{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}.release|Win32.ActiveCfg = release|Win32
+		{1E04F7A2-C8F8-3D62-46FE-8762D28CA9A4}.release|Win32.Build.0 = release|Win32
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}.checked|Win32.ActiveCfg = checked|Win32
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}.checked|Win32.Build.0 = checked|Win32
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}.profile|Win32.ActiveCfg = profile|Win32
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}.profile|Win32.Build.0 = profile|Win32
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}.release|Win32.ActiveCfg = release|Win32
+		{2C6C10D1-F63D-B7F0-8390-AFC3DC10EC90}.release|Win32.Build.0 = release|Win32
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddins) = postSolution
+	EndGlobalSection
+EndGlobal

@@ -1,0 +1,11 @@
+fullName = "The example of creation add-on for Map Editor"
+componentTypes = "MapEditorAddon"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "ExampleAddonCreationMEAddon.dll"
+	platforms = "Windows"
+	entryPoint = True
+}

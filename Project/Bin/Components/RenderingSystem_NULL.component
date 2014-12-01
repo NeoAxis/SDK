@@ -1,0 +1,17 @@
+fullName = "NULL"
+componentTypes = "RenderingSystem"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\RenderSystem_NULL.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\RenderSystem_NULL.dll"
+	platforms = "Windows"
+	entryPoint = True
+}

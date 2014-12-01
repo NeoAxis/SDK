@@ -1,0 +1,16 @@
+fullName = "Dedicated Server application"
+componentTypes = "Application"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+//reference
+//{
+//	componentName = "RenderSystem_NULL"
+//}
+
+path
+{
+	path = "DedicatedServer.exe"
+	platforms = "Windows"
+	entryPoint = True
+}

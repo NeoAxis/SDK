@@ -1,0 +1,1280 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>PhysicsSystem</name>
+    </assembly>
+    <members>
+        <member name="P:Engine.PhysicsSystem.Joint.Body1">
+            <summary>
+            The first body linked by this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.Body2">
+            <summary>
+            The second body linked by this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.ContactsEnabled">
+            <summary>
+            Setting this to True will allow the joined bodies to contact each other. Setting to False will cause the object to freely intersect without influencing each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.Name">
+            <summary>
+            Name of the joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.BreakMaxForce">
+            <summary>
+            Defines how much force this joint can take on specified axis before breaking. 0 means it is not breakable.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.BreakMaxTorque">
+            <summary>
+            Defines how much torsion force can be applied to this joint before breaking. 0 means it is not breakable.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.RelatedMotors">
+            <summary>
+            Can return null. Don't change list.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.BaseAxis.LimitsEnabled">
+            <summary>
+            Enables you to use LimitHigh and LimitLow if set to True. If set to False above limits will not be taken into account.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.BaseAxis.LimitsRestitution">
+            <summary>
+            Controls the amount of bounce when the joint hits a limit. A restitution value of 1.0 causes the joint to bounce back with the velocity which it hit the limit. A value of zero causes the joint to stop dead.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.BaseAxis.LimitsDamping">
+            <summary>
+            If spring is greater than zero, this is the damping of the limit spring.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.BaseAxis.Direction">
+            <summary>
+            Specifies direction of the axis.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.Joint.RotationAxis.IsDesiredVelocitySupported">
+            <summary>
+            Supported only by ODE.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.Joint.RotationAxis.SetDesiredVelocity(Engine.MathEx.Radian,System.Single)">
+            <summary>
+            Supported only by ODE.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.RotationAxis.LimitLow">
+            <summary>
+            Determines the bottom limit for movement on this axis.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.RotationAxis.LimitHigh">
+            <summary>
+            Determines the upper limit for movement on this axis.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.TranslationAxis.LimitLow">
+            <summary>
+            Determines the bottom limit for movement on this axis.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Joint.TranslationAxis.LimitHigh">
+            <summary>
+            Determines the upper limit for movement on this axis.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.BallJoint.PhysX_SetDrive(Engine.PhysicsSystem.BallJoint.PhysX_Drive,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Set the drive parameters for the specified drive type.
+            </summary>
+            <param name="index"></param>
+            <param name="spring"></param>
+            <param name="damping"></param>
+            <param name="forceLimit"></param>
+            <param name="acceleration"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.BallJoint.PhysX_GetDrive(Engine.PhysicsSystem.BallJoint.PhysX_Drive,System.Single@,System.Single@,System.Single@,System.Boolean@)">
+            <summary>
+            Get the drive parameters for the specified drive type.
+            </summary>
+            <param name="index"></param>
+            <param name="spring"></param>
+            <param name="damping"></param>
+            <param name="forceLimit"></param>
+            <param name="acceleration"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.BallJoint.PhysX_SetDrivePosition(Engine.MathEx.Vec3,Engine.MathEx.Quat)">
+            <summary>
+            Set the drive goal pose.
+            </summary>
+            <param name="position"></param>
+            <param name="rotation"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.BallJoint.PhysX_GetDrivePosition(Engine.MathEx.Vec3@,Engine.MathEx.Quat@)">
+            <summary>
+            Get the drive goal pose.
+            </summary>
+            <param name="position"></param>
+            <param name="rotation"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.BallJoint.PhysX_SetDriveVelocity(Engine.MathEx.Vec3,Engine.MathEx.Vec3)">
+            <summary>
+            Set the target goal velocity for drive.
+            </summary>
+            <param name="linear">The goal velocity for linear drive.</param>
+            <param name="angular">The goal velocity for angular drive.</param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.BallJoint.PhysX_GetDriveVelocity(Engine.MathEx.Vec3@,Engine.MathEx.Vec3@)">
+            <summary>
+            Get the target goal velocity for drive.
+            </summary>
+            <param name="linear">The goal velocity for linear drive.</param>
+            <param name="angular">The goal velocity for angular drive.</param>
+        </member>
+        <member name="P:Engine.PhysicsSystem.BallJoint.Anchor">
+            <summary>
+            Specifies the point where the two bodies are attached.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.BallJoint.Axis1">
+            <summary>
+            Specifies first rotational axis this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.BallJoint.Axis2">
+            <summary>
+            Specifies second rotational axis this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.BallJoint.Axis3">
+            <summary>
+            Specifies third rotational axis this joint.
+            </summary>
+        </member>
+        <member name="T:Engine.PhysicsSystem.BallJoint.PhysX_Drive">
+            <summary>
+            Used to specify which axes of a joint are driven.
+            </summary>
+            <remarks>
+            Each drive is an implicit force-limited damped spring: 
+            force = spring * (target position - position) + damping * (targetVelocity - velocity)
+            Alternatively, the spring may be configured to generate a specified acceleration instead of a force.
+            A linear axis is affected by drive only if the corresponding drive flag is set. There are two possible models
+            for angular drive: swing/twist, which may be used to drive one or more angular degrees of freedom, or slerp,
+            which may only be used to drive all three angular degrees simultaneously.
+            </remarks>
+        </member>
+        <member name="F:Engine.PhysicsSystem.BallJoint.PhysX_Drive.X">
+            <summary>
+            Drive along the X-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.BallJoint.PhysX_Drive.Y">
+            <summary>
+            Drive along the Y-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.BallJoint.PhysX_Drive.Z">
+            <summary>
+            Drive along the Z-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.BallJoint.PhysX_Drive.Swing">
+            <summary>
+            Drive of displacement from the X-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.BallJoint.PhysX_Drive.Twist">
+            <summary>
+            Drive of the displacement around the X-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.BallJoint.PhysX_Drive.Slerp">
+            <summary>
+            Drive of all three angular degrees along a SLERP-path.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.ShapeType">
+            <summary>
+            The shape type of the shape.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Name">
+            <summary>
+            Name of the shape.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Position">
+            <summary>
+            The position of the shape in body space, i.e. relative to the body they are owned by.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Rotation">
+            <summary>
+            The rotation of the shape in body space, i.e. relative to the body they are owned by.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.MaterialName">
+            <summary>
+            Template material lists provide easy configuration of physics properties. Available are: Metal, Wood, Rubber and Ice. You can specify new materials in the Data\\Base\\Constants\\PhysicsSystem.config.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Hardness">
+            <summary>
+            Defines how resistant is the object to shape changes when force is applied. Affects on ODE physics only.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.StaticFriction">
+            <summary>
+            Defines the static friction of the shape. This type of friction occurs between two objects that do not move relatively to each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.DynamicFriction">
+            <summary>
+            Defines the dynamic friction of the shape. This type of friction occurs when two objects are moving relatively to each other and influence each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Restitution">
+            <summary>
+            Defines the coefficient of restitution of the material. Value range is from 0 to 1 and the higher it is the more bouncy will the shape be.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Density">
+            <summary>
+            Density has direct influence on the object's mass.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.SpecialLiquidDensity">
+            <summary>
+            Special density used only in calculation for water buoyancy.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.VehicleDrivableSurface">
+            <summary>
+            Determines if the vehicles can move over the surface.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Shape.Contact">
+            <summary>
+            If set to True, the shape will be able to come into contact with other shapes. Setting this to False will cause the object to pass through other object with no interaction.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.MeshShape.GetData(Engine.MathEx.Vec3[]@,System.Int32[]@)">
+            <summary>
+            Don't modify out data.
+            </summary>
+            <param name="vertices"></param>
+            <param name="indices"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.MeshName">
+            <summary>
+            Path to mesh file that will be used as collision mesh.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.MeshScale">
+            <summary>
+            Scale of current mesh.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.MeshType">
+            <summary>
+            Specifies the type of internal mesh shape. TriangleMesh type can be used only for static bodies. In case of dynamic bodies the physics engine can work only with convex-hull shapes. For dynamic bodies is possible to choose ConvexHull and ConvexHullDecomposition, the latter of which means that the body will automatically be divided into multiple convex-hulls.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.ConvexHullDecompositionMaxTriangles">
+            <summary>
+            Used for convex hull decomposition type only. Specifies the targeted number of triangles of the decimated mesh.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.ConvexHullDecompositionMaxVerticesPerConvexHull">
+            <summary>
+            Used for convex hull decomposition type only. Specifies the maximum number of vertices for each generated convex-hull.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.PerTriangleMaterial.MaterialName">
+            <summary>
+            Template material lists provide easy configuration of physics properties. Available are: Metal, Wood, Rubber and 
+            Ice. You can specify new materials in the Data\\Base\\Constants\\PhysicsSystem.config.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.PerTriangleMaterial.StaticFriction">
+            <summary>
+            Defines the static friction of the shape. This type of friction occurs between two objects that do not move 
+            relatively to each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.PerTriangleMaterial.DynamicFriction">
+            <summary>
+            Defines the dynamic friction of the shape. This type of friction occurs when two objects are moving relatively to 
+            each other and influence each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.PerTriangleMaterial.Restitution">
+            <summary>
+            Defines the coefficient of restitution of the material. Value range is from 0 to 1 and the higher it is the more 
+            bouncy will the shape be.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.MeshShape.PerTriangleMaterial.VehicleDrivableSurface">
+            <summary>
+            Determines if the vehicles can move over the surface.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.HingeJoint.PhysX_SetDrive(System.Single,System.Single,System.Boolean,System.Single)">
+            <summary>
+            Sets drive parameters for the joint.
+            </summary>
+            <param name="targetVelocity">The relative velocity the motor is trying to achieve.</param>
+            <param name="maxForce">The maximum torque the motor can exert. </param>
+            <param name="freeSpin">If true, motor will not brake when it spins faster than target velocity.</param>
+            <param name="driveGearRatio">The gear ratio for the drive.</param>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HingeJoint.Anchor">
+            <summary>
+            Specifies the point where the two bodies are attached.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HingeJoint.Axis">
+            <summary>
+            Specifies rotational axis this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.CylinderShape.Length">
+            <summary>
+            The length of the cylinder.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.CylinderShape.Radius">
+            <summary>
+            The radius of the cylinder.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Name">
+            <summary>
+            Name of the body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Static">
+            <summary>
+            Determines if this object will be dynamic and be affected by gravity or completely static and non-moving.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Shapes">
+            <summary>List of current shapes attached to physics body. Don't change items of the array.</summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body._ShapesAsListForEditor">
+            <summary>
+            List of current shapes attached to physics body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Position">
+            <summary>
+            Position of the body in the world.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Rotation">
+            <summary>
+            Rotation of the body in the world.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Sleepiness">
+            <summary>
+            Determines how responsive this object is in the game world before falling into 'sleep' state by physics engine.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.LinearDamping">
+            <summary>
+            Linear damping coefficient. Determines how quickly this body should return to a state of rest when moving.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.AngularDamping">
+            <summary>
+            Angular damping coefficient. Determines how quickly this body should return to a state of rest when moving.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.CCD">
+            <summary>
+            Continuous collision detection. CCD is a method of calculating collision especially useful for small, fast moving objects.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.MassMethod">
+            <summary>
+            Specifies how this bodies mass in the world is determined (manually by developer or by density).
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.Mass">
+            <summary>
+            Current mass of the body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.CenterOfMassAuto">
+            <summary>
+            When this option is enabled the center of mass will calculated automatically. By default the center of mass coincides with the body position. It is supported only on PhysX.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.CenterOfMassPosition">
+            <summary>
+            Get or sets the position of the center of mass of the body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.CenterOfMassRotation">
+            <summary>
+            Gets or sets the rotation of the center of mass of the body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.InertiaTensorFactor">
+            <summary>
+            Gets of sets the multiplier to calculate the inertia tensor of the body. NVIDIA PhysX only.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.RelatedJoints">
+            <summary>
+            Can return null. Don't change list.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.RelatedMotors">
+            <summary>
+            Can return null. Don't change list.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.EnableGravity">
+            <summary>
+            Determines if this body is affected by world gravity or ignores it completely.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.PhysX_SolverPositionIterations">
+            <summary>
+            Number of position iterations the solver should perform for this body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Body.PhysX_SolverVelocityIterations">
+            <summary>
+            Number of velocity iterations the solver should perform for this body.
+            </summary>
+        </member>
+        <member name="T:Engine.PhysicsSystem.ContactGroup">
+            <summary>
+            Defines physics contacts groups enumeration.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.CastAll">
+            <summary>
+            For ray casts: Checks collisions with all groups.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.Collision">
+            <summary>
+            Static collision group.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.Dynamic">
+            <summary>
+            Physical models for <b>MapObject</b> based objects have this group.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.NoContact">
+            <summary>
+            There are no contacts.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.CastOnlyCollision">
+            <summary>
+            For ray casts: Checks only with <b>Collision</b> group.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.CastOnlyDynamic">
+            <summary>
+            For ray casts: Checks only with <b>Dynamic</b> group.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ContactGroup.CastOnlyContact">
+            <summary>
+            For ray casts: Checks only with <b>Collision</b> and <b>Dynamic</b> groups.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Motor.Name">
+            <summary>
+            Name of the motor.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Motor.Enabled">
+            <summary>
+            Determines if this motor is currently enabled.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.Joint">
+            <summary>
+            Specifies what joint this geared motor is attached to.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.JointAxis">
+            <summary>
+            Specifies what rotational axis of the joint this motor operates on.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.DesiredAngle">
+            <summary>
+            Desired fixed angle that the servo motor will rotate on.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.MaxTorque">
+            <summary>
+            Specifies maximum torque speed of the motor.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.ThresholdAcceleration">
+            <summary>
+            Specifies acceleration limit when need decrease the velocity.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.MaxVelocity">
+            <summary>
+            Specifies maximum speed of the motor.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.ApplyForceToBody1">
+            <summary>
+            Specifies if the force should be applied to the first body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.ServoMotor.ApplyForceToBody2">
+            <summary>
+            Specifies if the force should be applied to the second body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.Sample.MaterialIndex0">
+            <summary>
+            The triangle material index of the quad's lower triangle. Use Sample.HoleMaterialIndex value for the holes.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.Sample.MaterialIndex1">
+            <summary>
+            The triangle material index of the quad's upper triangle. Use Sample.HoleMaterialIndex value for the holes.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.PerTriangleMaterial.MaterialName">
+            <summary>
+            Template material lists provide easy configuration of physics properties. Available are: Metal, Wood, Rubber and 
+            Ice. You can specify new materials in the Data\\Base\\Constants\\PhysicsSystem.config.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.PerTriangleMaterial.StaticFriction">
+            <summary>
+            Defines the static friction of the shape. This type of friction occurs between two objects that do not move 
+            relatively to each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.PerTriangleMaterial.DynamicFriction">
+            <summary>
+            Defines the dynamic friction of the shape. This type of friction occurs when two objects are moving relatively to 
+            each other and influence each other.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.PerTriangleMaterial.Restitution">
+            <summary>
+            Defines the coefficient of restitution of the material. Value range is from 0 to 1 and the higher it is the more 
+            bouncy will the shape be.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.HeightFieldShape.PerTriangleMaterial.VehicleDrivableSurface">
+            <summary>
+            Determines if the vehicles can move over the surface.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsScene.MaxIterationCount">
+            <summary>
+            Affects only for ODE physics.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsWorld.CreateScene(System.String,System.Int32,System.UInt32[])">
+            <summary>
+            
+            </summary>
+            <param name="description"></param>
+            <param name="numThreads">PhysX only.</param>
+            <param name="affinityMasks">PhysX only.</param>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsWorld._MeshGeometry.Vertices">
+            <summary>
+            Don't modify.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsWorld._MeshGeometry.Indices">
+            <summary>
+            Don't modify.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.SphereShape.Radius">
+            <summary>
+            The radius of the sphere.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.BoxShape.Dimensions">
+            <summary>
+            Specifies the box dimensions.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.AttractorMotor.Body1">
+            <summary>
+            First physics body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.AttractorMotor.Body2">
+            <summary>
+            Second physics body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.AttractorMotor.Strength">
+            <summary>
+            The one of parameters of the calculation gravitational force between bodies. Equation: Magnitude = (strength * bodyMass1 * bodyMass2) / distance ^ exponent.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.AttractorMotor.Exponent">
+            <summary>
+            The one of parameters of the calculation gravitational force between bodies. Equation: Magnitude = (strength * bodyMass1 * bodyMass2) / distance ^ exponent.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.AttractorMotor.ApplyForceToBody1">
+            <summary>
+            Specifies if the force should be applied to the first body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.AttractorMotor.ApplyForceToBody2">
+            <summary>
+            Specifies if the force should be applied to the second body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.Joint">
+            <summary>
+            Specifies what joint this geared motor is attached to.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.JointAxis">
+            <summary>
+            Specifies what rotational axis of the joint this motor operates on.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.Throttle">
+            <summary>
+            Specifies throttle coefficient of the motor.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.MaxVelocity">
+            <summary>
+            Specifies maximum speed of the motor.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.MaxTorque">
+            <summary>
+            Specifies maximum torque speed of the motor.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.ApplyForceToBody1">
+            <summary>
+            Specifies if the force should be applied to the first body.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.GearedMotor.ApplyForceToBody2">
+            <summary>
+            Specifies if the force should be applied to the second body.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.SetToRestState">
+            <summary>
+            Set a vehicle to its rest state.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.ForceGearChange(System.Int32)">
+            <summary>
+            Force an immediate gear change to a target gear.
+            </summary>
+            <param name="gear">The number of the gear. Set -1 to for reverse gear, set 0 for neutral gear.</param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.StartGearChange(System.Int32)">
+            <summary>
+            Start a gear change to a target gear.
+            </summary>
+            <param name="gear">The number of the gear. Set -1 to for reverse gear, set 0 for neutral gear.</param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetCurrentGear">
+            <summary>
+            Get the current gear.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetTargetGear">
+            <summary>
+            Get the target gear.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetEngineRotationSpeed">
+            <summary>
+            Return the rotation speed of the engine.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsRotationSpeed">
+            <summary>
+            Return the rotation speed of the wheels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsSteer">
+            <summary>
+            Return the steer angle of the wheels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsRotationAngle">
+            <summary>
+            Return the rotation angle of the wheels about the axis of rolling rotation.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsSuspensionJounce">
+            <summary>
+            Return the suspension jounce of the wheels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsTireLongitudinalSlip">
+            <summary>
+            Return the longitudinal slip of the wheels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsTireLateralSlip">
+            <summary>
+            Return the lateral slip of the wheels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.GetWheelsTireFriction">
+            <summary>
+            Return the friction applied to the wheels.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.PhysicsSystem.PhysicsVehicle.AreWheelsInAir">
+            <summary>
+            Test if wheels are off the ground.
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialType">
+            <summary>
+            Type of differential.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialFrontRearSplit">
+            <summary>
+            Ratio of torque split between front and rear (more than 0.5 means more to front, less than 0.5 means more to rear). 
+            Only applied to LimitedSlipAllWheelDrive and OpenAllWheelDrive differential types.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialFrontLeftRightSplit">
+            <summary>
+            Ratio of torque split between front-left and front-right (more than 0.5 means more to front-left, less than 0.5 
+            means more to front-right). Only applied to LimitedSlipAllWheelDrive, OpenAllWheelDrive and 
+            LimitedSlipFrontWheelDrive differential types.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialRearLeftRightSplit">
+            <summary>
+            Ratio of torque split between rear-left and rear-right (more than 0.5 means more to rear-left, less than 0.5 means 
+            more to rear-right). Only applied to LimitedSlipAllWheelDrive, OpenAllWheelDrive and 
+            LimitedSlipRearWheelDrive differential types.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialCenterBias">
+            <summary>
+            Maximum allowed ratio of average front wheel rotation speed and rear wheel rotation speeds. 
+            Only applied to LimitedSlipAllWheelDrive differential types.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialFrontBias">
+            <summary>
+            Maximum allowed ratio of front-left and front-right wheel rotation speeds. 
+            Only applied to LimitedSlipAllWheelDrive and LimitedSlipFrontWheelDrive differential types.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.DifferentialRearBias">
+            <summary>
+            Maximum allowed ratio of rear-left and rear-right wheel rotation speeds. 
+            Only applied to LimitedSlipAllWheelDrive and LimitedSlipRearWheelDrive differential types.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EnginePeakTorque">
+            <summary>
+            Maximum torque available to apply to the engine, specified in Nm. Please note that to optimize the implementation 
+            the engine has a hard-coded inertia of 1kgm^2. As a consequence the magnitude of the engine's angular acceleration 
+            is exactly equal to the magnitude of the torque driving the engine. To simulate engines with different inertias 
+            (!=1kgm^2) adjust either the entries of EngineTorqueCurve or EnginePeakTorque accordingly.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineMaxRPM">
+            <summary>
+            Maximum rotation speed of the engine, specified in revolutions per minute (RPM).
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineDampingRateFullThrottle">
+            <summary>
+            Damping rate of engine in s^-1 when full throttle is applied. Damping rate applied at run-time is an interpolation 
+            between EngineDampingRateZeroThrottleClutchEngaged and EngineDampingRateFullThrottle if the clutch is engaged.
+            If the clutch is disengaged (in neutral gear) the damping rate applied at run-time is an interpolation between 
+            EngineDampingRateZeroThrottleClutchDisengaged and EngineDampingRateFullThrottle.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineDampingRateZeroThrottleClutchEngaged">
+            <summary>
+            Damping rate of engine in s^-1 at zero throttle when the clutch is engaged. Damping rate applied at run-time is an 
+            interpolation between EngineDampingRateZeroThrottleClutchEngaged and EngineDampingRateFullThrottle if the clutch 
+            is engaged. If the clutch is disengaged (in neutral gear) the damping rate applied at run-time is an interpolation 
+            between EngineDampingRateZeroThrottleClutchDisengaged and EngineDampingRateFullThrottle.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineDampingRateZeroThrottleClutchDisengaged">
+            <summary>
+            Damping rate of engine in s^-1 at zero throttle when the clutch is disengaged (in neutral gear). Damping rate applied 
+            at run-time is an interpolation between EngineDampingRateZeroThrottleClutchEngaged and EngineDampingRateFullThrottle 
+            if the clutch is engaged. If the clutch is disengaged (in neutral gear) the damping rate applied at run-time is an 
+            interpolation between EngineDampingRateZeroThrottleClutchDisengaged and EngineDampingRateFullThrottle.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineTorqueCurve">
+            <summary>
+            Graph of normalized torque (torque/maxTorque) against normalized engine revs (revs/maxRevs).
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.Gears">
+            <summary>
+            The list of gears.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.GearsSwitchTime">
+            <summary>
+            Time it takes to switch gear, specified in seconds.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.ClutchStrength">
+            <summary>
+            Strength of clutch. Torque generated by clutch is proportional to the clutch strength and the velocity difference 
+            between the engine speed and the speed of the driven wheels after accounting for the gear ratio.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.AckermannSteerAccuracy">
+            <summary>
+            Accuracy of Ackermann steer calculation. Accuracy with value 0.0f results in no Ackermann steer-correction. 
+            Accuracy with value 1.0 results in perfect Ackermann steer-correction.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineTorqueCurveItem.NormalizedTorque">
+            <summary>
+            Normalised torque (torque/maxTorque).
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.EngineTorqueCurveItem.NormalizedRev">
+            <summary>
+            Normalised engine revs (revs/maxRevs).
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.GearItem.Number">
+            <summary>
+            The number of the gear. Set -1 to for reverse gear, set 0 for neutral gear.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.GearItem.Ratio">
+            <summary>
+            Gear ratio.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.WheelDampingRate">
+            <summary>
+            Damping rate applied to wheel.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.WheelMaxBrakeTorque">
+            <summary>
+            Max brake torque that can be applied to wheel, specified in Nm.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.WheelMaxHandBrakeTorque">
+            <summary>
+            Max handbrake torque that can be applied to wheel, specified in Nm.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.WheelMaxSteer">
+            <summary>
+            Max steer angle that can be achieved by the wheel, specified in degrees.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.WheelToeAngle">
+            <summary>
+            Wheel toe angle, specified in degrees.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.SuspensionSpringStrength">
+            <summary>
+            Spring strength of suspension unit, specified in N m^-1.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.SuspensionSpringDamperRate">
+            <summary>
+            Spring damper rate of suspension unit, specified in s^-1.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.SuspensionMaxCompression">
+            <summary>
+            Maximum compression allowed by suspension spring, specified in m.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.SuspensionMaxDroop">
+            <summary>
+            Maximum elongation allowed by suspension spring, specified in m.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.SuspensionSprungMassCoefficient">
+            <summary>
+            Mass of vehicle that is supported by suspension spring, specified in coefficient of the chassis mass.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.SuspensionForceApplicationPointOffset">
+            <summary>
+            Gets or sets the application point of the suspension force of the suspension of the wheel. Specified relative to 
+            the centre of the wheel.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.TireForceApplicationPointOffset">
+            <summary>
+            Gets or sets the application point of the tire force of the tire of the wheel. Specified relative to the centre 
+            of the wheel.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.TireLatStiffX">
+            <summary>
+            Tire lateral stiffness is typically a graph of tire load that has linear behaviour near zero load and flattens 
+            at large loads.  mLatStiffX describes the minimum normalised load (load/restLoad) that gives a flat lateral 
+            stiffness response.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.TireLatStiffY">
+            <summary>
+            Tire lateral stiffness is a graph of tire load that has linear behavior near zero load and flattens at large 
+            loads. TireLatStiffY describes the maximum possible lateral stiffness divided by the rest tire load, specified 
+            in "per radian".
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.TireLongitudinalStiffnessPerUnitGravity">
+            <summary>
+            Tire Longitudinal stiffness per unit longitudinal slip per unit gravity, specified in N per radian per unit 
+            gravitational acceleration Longitudinal stiffness of the tire per unit longitudinal slip is calculated as 
+            gravitationalAcceleration * TireLongitudinalStiffnessPerUnitGravity.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.TireCamberStiffness">
+            <summary>
+            Camber stiffness, specified in N per radian.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.FrictionVsSlipGraphZeroLongitudinalSlip">
+            <summary>
+            Graph of friction vs longitudinal slip with 3 points. This is the friction available at zero longitudinal slip.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.FrictionVsSlipGraphLongitudinalSlipWithMaximumFriction">
+            <summary>
+            Graph of friction vs longitudinal slip with 3 points. This is the value of longitudinal slip with maximum 
+            friction.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.FrictionVsSlipGraphMaximumFriction">
+            <summary>
+            Graph of friction vs longitudinal slip with 3 points. This is the maximum friction.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.FrictionVsSlipGraphEndPointOfGraph">
+            <summary>
+            Graph of friction vs longitudinal slip with 3 points. This is the end point of the graph.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.WheelItem.FrictionVsSlipGraphValueOfFrictionForSlipsGreaterThanEndPointOfGraph">
+            <summary>
+            Graph of friction vs longitudinal slip with 3 points. This is the value of friction for slips greater than end 
+            point of the graph.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.TireFrictionMultiplierItem.SurfaceMaterialName">
+            <summary>
+            Gets or sets physical material of the surface. If you specify an empty string, the value will be used for all 
+            materials which are not specified in this list.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InitDataClass.TireFrictionMultiplierItem.Value">
+            <summary>
+            Gets or sets friction value.
+            </summary>
+        </member>
+        <member name="T:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings">
+            <summary>
+            Used to produce smooth vehicle driving control values.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.RiseRateAccel">
+            <summary>
+            Rise rate of accel analog value if digital value is 1.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.RiseRateBrake">
+            <summary>
+            Rise rate of brake analog value if digital value is 1.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.RiseRateSteer">
+            <summary>
+            Rise rate of steer analog value if digital value is 1.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.RiseRateHandbrake">
+            <summary>
+            Rise rate of handbrake analog value if digital value is 1.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.FallRateAccel">
+            <summary>
+            Fall rate of accel analog value if digital value is 0.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.FallRateBrake">
+            <summary>
+            Fall rate of brake analog value if digital value is 0.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.FallRateSteer">
+            <summary>
+            Fall rate of steer analog value if digital value is 0.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsVehicle.InputSmoothingSettings.FallRateHandbrake">
+            <summary>
+            Fall rate of handbrake analog value if digital value is 0.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.Local">
+            <summary>
+            Apply a force in a direction relative to the Body's local 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.Global">
+            <summary>
+            Apply a force in a direction relative to the global 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.LocalTorque">
+            <summary>
+            Apply a torque with the axis specified relative to the Body's 
+            local coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.GlobalTorque">
+            <summary>
+            Apply a torque with the axis specified relative to global 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.LocalAtLocalPos">
+            <summary>
+            Apply a force at a position relative to the Body's local 
+            coordinate system in a direction relative to the Body's local 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.LocalAtGlobalPos">
+            <summary>
+            Apply a force at a position relative to the global 
+            coordinate system in a direction relative to the Body's local 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.GlobalAtLocalPos">
+            <summary>
+            Apply a force at a position relative to the Body's local 
+            coordinate system in a direction relative to the global 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.ForceType.GlobalAtGlobalPos">
+            <summary>
+            Apply a force at a position relative to the global 
+            coordinate system in a direction relative to the global 
+            coordinate system.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.UniversalJoint.PhysX_SetDrive(Engine.PhysicsSystem.UniversalJoint.PhysX_Drive,System.Single,System.Single,System.Single,System.Boolean)">
+            <summary>
+            Set the drive parameters for the specified drive type.
+            </summary>
+            <param name="index"></param>
+            <param name="spring"></param>
+            <param name="damping"></param>
+            <param name="forceLimit"></param>
+            <param name="acceleration"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.UniversalJoint.PhysX_GetDrive(Engine.PhysicsSystem.UniversalJoint.PhysX_Drive,System.Single@,System.Single@,System.Single@,System.Boolean@)">
+            <summary>
+            Get the drive parameters for the specified drive type.
+            </summary>
+            <param name="index"></param>
+            <param name="spring"></param>
+            <param name="damping"></param>
+            <param name="forceLimit"></param>
+            <param name="acceleration"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.UniversalJoint.PhysX_SetDrivePosition(Engine.MathEx.Vec3,Engine.MathEx.Quat)">
+            <summary>
+            Set the drive goal pose.
+            </summary>
+            <param name="position"></param>
+            <param name="rotation"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.UniversalJoint.PhysX_GetDrivePosition(Engine.MathEx.Vec3@,Engine.MathEx.Quat@)">
+            <summary>
+            Get the drive goal pose.
+            </summary>
+            <param name="position"></param>
+            <param name="rotation"></param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.UniversalJoint.PhysX_SetDriveVelocity(Engine.MathEx.Vec3,Engine.MathEx.Vec3)">
+            <summary>
+            Set the target goal velocity for drive.
+            </summary>
+            <param name="linear">The goal velocity for linear drive.</param>
+            <param name="angular">The goal velocity for angular drive.</param>
+        </member>
+        <member name="M:Engine.PhysicsSystem.UniversalJoint.PhysX_GetDriveVelocity(Engine.MathEx.Vec3@,Engine.MathEx.Vec3@)">
+            <summary>
+            Get the target goal velocity for drive.
+            </summary>
+            <param name="linear">The goal velocity for linear drive.</param>
+            <param name="angular">The goal velocity for angular drive.</param>
+        </member>
+        <member name="P:Engine.PhysicsSystem.UniversalJoint.Anchor">
+            <summary>
+            Specifies the point where the two bodies are attached.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.UniversalJoint.Axis1">
+            <summary>
+            Specifies first rotational axis this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.UniversalJoint.Axis2">
+            <summary>
+            Specifies second rotational axis this joint.
+            </summary>
+        </member>
+        <member name="T:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive">
+            <summary>
+            Used to specify which axes of a joint are driven.
+            </summary>
+            <remarks>
+            Each drive is an implicit force-limited damped spring: 
+            force = spring * (target position - position) + damping * (targetVelocity - velocity)
+            Alternatively, the spring may be configured to generate a specified acceleration instead of a force.
+            A linear axis is affected by drive only if the corresponding drive flag is set. There are two possible models
+            for angular drive: swing/twist, which may be used to drive one or more angular degrees of freedom, or slerp,
+            which may only be used to drive all three angular degrees simultaneously.
+            </remarks>
+        </member>
+        <member name="F:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive.X">
+            <summary>
+            Drive along the X-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive.Y">
+            <summary>
+            Drive along the Y-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive.Z">
+            <summary>
+            Drive along the Z-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive.Swing">
+            <summary>
+            Drive of displacement from the X-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive.Twist">
+            <summary>
+            Drive of the displacement around the X-axis.
+            </summary>
+        </member>
+        <member name="F:Engine.PhysicsSystem.UniversalJoint.PhysX_Drive.Slerp">
+            <summary>
+            Drive of all three angular degrees along a SLERP-path.
+            </summary>
+        </member>
+        <member name="M:Engine.PhysicsSystem.Hinge2Joint.SetODESuspension(System.Single,System.Single)">
+            <summary>
+            This ODE specific method for initialization
+            dJointSetHinge2Param( jointID, Ode.dJointParams.dParamSuspensionCFM, cfm ) and
+            dJointSetHinge2Param( jointID, Ode.dJointParams.dParamSuspensionERP, erp ) parameters.
+            </summary>
+            <param name="erp"></param>
+            <param name="cfm"></param>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Hinge2Joint.Anchor">
+            <summary>
+            Specifies the point where the two bodies are attached.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Hinge2Joint.Axis1">
+            <summary>
+            Specifies first rotational axis this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.Hinge2Joint.Axis2">
+            <summary>
+            Specifies second rotational axis this joint.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.CapsuleShape.Length">
+            <summary>
+            The length of the capsule.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.CapsuleShape.Radius">
+            <summary>
+            The radius of the capsule.
+            </summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsModel.Bodies">
+            <summary>Don't modify.</summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsModel.Joints">
+            <summary>Don't modify.</summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.PhysicsModel.Motors">
+            <summary>Don't modify.</summary>
+        </member>
+        <member name="P:Engine.PhysicsSystem.SliderJoint.Axis">
+            <summary>
+            Specifies rotational axis this joint.
+            </summary>
+        </member>
+    </members>
+</doc>

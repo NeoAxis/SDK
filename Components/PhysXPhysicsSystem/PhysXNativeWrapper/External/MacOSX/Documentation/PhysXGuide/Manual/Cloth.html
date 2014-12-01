@@ -1,0 +1,341 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Cloth &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Vehicles" href="Vehicles.html" />
+    <link rel="prev" title="Particles" href="Particles.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Vehicles.html" title="Vehicles"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Particles.html" title="Particles"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="cloth">
+<span id="id1"></span><h1>Cloth<a class="headerlink" href="#cloth" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>PhysX 3 cloth is a rewrite of the PhysX 2 deformables, tailored towards simulating character cloth. Softbodies, tearing, two-way interaction, and world collision have been removed, while behavior and performance for cloth simulation have been improved.</p>
+</div>
+<div class="section" id="creating-cloth-fabric">
+<h2>Creating Cloth Fabric<a class="headerlink" href="#creating-cloth-fabric" title="Permalink to this headline">¶</a></h2>
+<p>The <em>PxClothFabric</em> class describes the constraint structure for a cloth. Constraints, for example a distance constraint, consist of two particle indices and a rest-length. These constraints are chained together as <em>fibers</em>, where two consecutive constraints of a fiber share a particle, multiple fibers are then further grouped into <em>sets</em>. By imposing the restriction that fibers of the same set do not overlap nor contain cycles, the fibers of a set can be solved in parallel. Each fabric may be shared between multiple cloth objects.</p>
+<p>The cloth solver operates on one set of fibers at a time. This is referred as a solver <em>phase</em>, each phase has its own constraint type, such as stretching, bending or shearing, and an associated stiffness value.</p>
+<p>The simplest way to create a fabric is to use the cloth cooking API. Given a <em>PxClothMeshDesc</em>, the cooker will create a set of constraints for a regular manifold triangle or quad mesh. The cooker will assign rest lengths and rest angles from the mesh automatically and it will organise constraints into vertical stretch, horizontal stretch, bending, or shear phases.</p>
+<p>Below is an example function that creates a fabric using the cooking API and memory streams:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxClothFabric</span><span class="o">*</span> <span class="n">createFabric</span><span class="p">(</span><span class="n">PxPhysics</span> <span class="o">&amp;</span><span class="n">physics</span><span class="p">,</span> <span class="n">PxCooking</span> <span class="o">&amp;</span><span class="n">cooking</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxClothMeshDesc</span> <span class="o">&amp;</span><span class="n">desc</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">gravityDir</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="c1">// In this example, we cook the fabric on the fly through a memory stream</span>
+        <span class="c1">// Note that we can also use a file stream and pre-cook the mesh to save the cooking time</span>
+        <span class="n">PxToolkit</span><span class="o">::</span><span class="n">MemoryOutputStream</span> <span class="n">wb</span><span class="p">;</span>
+        <span class="n">PX_ASSERT</span><span class="p">(</span><span class="n">desc</span><span class="p">.</span><span class="n">isValid</span><span class="p">());</span>
+
+        <span class="c1">// Cook the fabric data into memory buffer</span>
+        <span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">cooking</span><span class="p">.</span><span class="n">cookClothFabric</span><span class="p">(</span><span class="n">desc</span><span class="p">,</span> <span class="n">gravityDir</span><span class="p">,</span> <span class="n">wb</span><span class="p">))</span>
+                <span class="k">return</span> <span class="mi">0</span><span class="p">;</span>
+
+        <span class="c1">// Read fabric from memory stream</span>
+        <span class="n">PxToolkit</span><span class="o">::</span><span class="n">MemoryInputData</span> <span class="n">rb</span><span class="p">(</span><span class="n">wb</span><span class="p">.</span><span class="n">getData</span><span class="p">(),</span> <span class="n">wb</span><span class="p">.</span><span class="n">getSize</span><span class="p">());</span>
+        <span class="k">return</span> <span class="n">physics</span><span class="p">.</span><span class="n">createClothFabric</span><span class="p">(</span><span class="n">rb</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note: The direction of gravity is provided as a hint to the cooker, 'vertical' constraints will be placed parallel to this vector.</p>
+</div>
+<div class="section" id="creating-cloth-collision-data">
+<h2>Creating Cloth Collision Data<a class="headerlink" href="#creating-cloth-collision-data" title="Permalink to this headline">¶</a></h2>
+<p>In contrast to PhysX 2 deformables, PhysX 3 cloth does not collide with rigid bodies. Instead, each cloth object supports collision with spheres, capsules, planes and convex shapes (groups of planes), these shapes are all treated separately to the main PhysX rigid body scene.</p>
+<p>Capsules are defined by a pair of indices into the spheres array and each sphere may have a different radius thus forming a tapered capsule. Sharing a sphere between two capsules is supported and can be useful for modelling characters (upper and lower leg made up from capsules can share the sphere at the knee), this sharing is encouraged becaues it helps make the simulation more efficient and robust.</p>
+<p>Sphere and capsule shapes must be specified at cloth construction time. The following example shows how to set up the <em>PxClothCollisionData</em> object for a single capsule consisting of two spheres of radius 0.5 and 0.25:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// Two spheres located on the x-axis</span>
+<span class="n">PxClothCollisionSphere</span> <span class="n">spheres</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span>
+<span class="p">{</span>
+        <span class="p">{</span><span class="n">PxVec3</span><span class="p">(</span><span class="o">-</span><span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span> <span class="mf">0.5f</span><span class="p">},</span>
+        <span class="p">{</span><span class="n">PxVec3</span><span class="p">(</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">),</span> <span class="mf">0.25f</span><span class="p">}</span>
+<span class="p">};</span>
+
+<span class="c1">// A tapered capsule</span>
+<span class="n">PxU32</span> <span class="n">capsulePairs</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span> <span class="p">};</span>
+
+<span class="n">PxClothCollisionData</span> <span class="n">collisionData</span><span class="p">;</span>
+<span class="n">collisionData</span><span class="p">.</span><span class="n">spheres</span> <span class="o">=</span> <span class="n">spheres</span><span class="p">;</span>
+<span class="n">collisionData</span><span class="p">.</span><span class="n">numSpheres</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+<span class="n">collisionData</span><span class="p">.</span><span class="n">pairIndexBuffer</span> <span class="o">=</span> <span class="n">capsulePairs</span><span class="p">;</span>
+<span class="n">collisionData</span><span class="p">.</span><span class="n">numPairs</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Planes can be added through <em>PxCloth::addCollisionPlane()</em> method at any time after creation, but will not be considered for collision unless they are referenced by a convex shape. For example, the following code shows how to setup a typical upward facing ground plane through the origin:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxClothCollisionPlane</span> <span class="n">p</span><span class="p">;</span>
+<span class="n">p</span><span class="p">.</span><span class="n">normal</span> <span class="o">=</span> <span class="n">PxVec3</span><span class="p">(</span><span class="mf">0.0f</span><span class="p">,</span> <span class="mf">1.0f</span><span class="p">,</span> <span class="mf">0.0f</span><span class="p">);</span>
+<span class="n">p</span><span class="p">.</span><span class="n">distance</span> <span class="o">=</span> <span class="mf">0.0f</span><span class="p">;</span>
+
+<span class="n">PxU32</span> <span class="n">convexMask</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span> <span class="c1">// Convex references the first plane only</span>
+
+<span class="n">cloth</span><span class="p">.</span><span class="n">addCollisionPlane</span><span class="p">(</span><span class="n">p</span><span class="p">);</span>
+<span class="n">cloth</span><span class="p">.</span><span class="n">addCollisionConvex</span><span class="p">(</span><span class="n">convexMask</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Planes may be efficiently updated after construction using the <em>PxCloth::setCollisionPlanes()</em> function.</p>
+</div>
+<div class="section" id="continuous-collision-detection">
+<h2>Continuous Collision Detection<a class="headerlink" href="#continuous-collision-detection" title="Permalink to this headline">¶</a></h2>
+<p>Besides discrete collision which resolves particles inside shapes at the end of each iteration, continuous collision detection is supported and can be enabled by calling:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// Enable continuous collision detection</span>
+<span class="n">cloth</span><span class="p">.</span><span class="n">setClothFlag</span><span class="p">(</span><span class="n">PxClothFlag</span><span class="o">::</span><span class="n">eSWEPT_CONTACT</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Continuous collision is around 2x more computationally expensive than discrete collision, but it is necessary to detect collision between fast moving objects. Continuous collision analyzes the trajectory of particles and capsules to determine when a contact occurs. After the first time of contact, the particle is moved with the capsule until the end of the iteration.</p>
+<p>Note: The SIMD collision path handles sets of 4 particles in parallel. It is therefore advantegous to spatially group cloth particles so that they are likely to collide with the same set of shapes.</p>
+</div>
+<div class="section" id="creating-cloth">
+<h2>Creating Cloth<a class="headerlink" href="#creating-cloth" title="Permalink to this headline">¶</a></h2>
+<p>With the fabric and collision data ready the <em>PxCloth</em> object can be created and added to the scene as below:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// Create a cloth object and add to the scene</span>
+<span class="n">PxCloth</span><span class="o">*</span> <span class="n">cloth</span> <span class="o">=</span> <span class="n">physics</span><span class="p">.</span><span class="n">createCloth</span><span class="p">(</span> <span class="n">pose</span><span class="p">,</span> <span class="n">fabric</span><span class="p">,</span> <span class="n">particlePositions</span><span class="p">,</span> <span class="n">collisionData</span><span class="p">,</span> <span class="n">flags</span><span class="p">);</span>
+<span class="n">scene</span><span class="p">.</span><span class="n">addActor</span><span class="p">(</span><span class="n">cloth</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The <em>particlePositions</em> parameter is an array of <em>PxClothParticle</em> structures containing the initial particle position and the reciprocal of the particle mass. The initial positions will typically be the same as those provided during cooking and the mass of the particle may be set uniformly or non-uniformly as appropriate. For fixed position particles the inverse mass should be set to zero.</p>
+</div>
+<div class="section" id="simulation-overview">
+<h2>Simulation Overview<a class="headerlink" href="#simulation-overview" title="Permalink to this headline">¶</a></h2>
+<p>For one PhysX simulation frame, the cloth solver runs for multiple iterations. The number of iterations is determined by the solver frequency parameter and the simulation frame time. Each iteration integrates particle positions and solves distance constraints, motion constraints, and character collision. Local frame, motion constraints and collision shapes are interpolated per iteration from the per-frame values specified by the user.</p>
+</div>
+<div class="section" id="particle-integration">
+<h2>Particle Integration<a class="headerlink" href="#particle-integration" title="Permalink to this headline">¶</a></h2>
+<p>A particle state consists of the current position and the position before the last iteration. The particle velocity can be computed by dividing the position delta by the delta time of the previous iteration.</p>
+<p>Particle positions are stored in local space, and accelerating the local frame affects the particles. The amount by which the local frame acceleration affects the cloth particles can be controlled using an inertia scale, for example to impart half the local frame acceleration to the particles use:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">cloth</span><span class="p">.</span><span class="n">setInertiaScale</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Limiting the amount that local frame changes affect particles can be especially useful for fast moving characters.</p>
+<p>Even though using variable time-steps is generally not recommended, the simulation tries to handle variable time-steps carefully. Change in time-step is taken into account for position integration, and external forces are integrated using a smoothed time-step to avoid jittering.</p>
+</div>
+<div class="section" id="constraint-solving">
+<h2>Constraint Solving<a class="headerlink" href="#constraint-solving" title="Permalink to this headline">¶</a></h2>
+<p>The solver is run for a fixed number of iterations per simulation frame and can only enforce the constraints approximately. Two solver modes are provided with a different balance of speed and convergence rate. A semi-implicit solver, specified with <em>PxClothPhaseSolverConfig::eSTIFF</em> or a Gauss-Seidel style solver, specified with <em>PxClothPhaseSolverConfig::eFAST</em>.</p>
+<p>If the distance constraints are not solved accurately enough, the cloth becomes stretchy. Because stretching cloth is most obvious under gravity, it is wise to pick the more accurate but about 2.5x slower semi-implict solver for vertical stretch phases. If the built in cooking API is used to construct the fabric then these vertical constraints will be placed in the <em>PxClothFabricPhaseType::eSTRETCHING</em> phase according to the direction of gravity specified at cooking time.</p>
+<p>The faster solver is usually good enough for the other phase types because approximate bending constraints for example are much less noticeable. Below is an example setup for multiple solver phases:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxClothPhaseSolverConfig</span> <span class="n">config</span><span class="p">;</span>
+
+<span class="c1">// Use the semi-implicit solver for vertical distance constraints</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">cloth</span><span class="p">.</span><span class="n">getPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eSTRETCHING</span><span class="p">);</span>
+<span class="n">config</span><span class="p">.</span><span class="n">solverType</span> <span class="o">=</span> <span class="n">PxClothPhaseSolverConfig</span><span class="o">::</span><span class="n">eSTIFF</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stiffness</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+<span class="n">cloth</span><span class="p">.</span><span class="n">setPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eSTRETCHING</span><span class="p">,</span> <span class="n">config</span><span class="p">);</span>
+
+<span class="c1">// Use Gauss-Seidel solver for horizontal constraints</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">cloth</span><span class="p">.</span><span class="n">getPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eSTRETCHING_HORIZONTAL</span><span class="p">);</span>
+<span class="n">config</span><span class="p">.</span><span class="n">solverType</span> <span class="o">=</span> <span class="n">PxClothPhaseSolverConfig</span><span class="o">::</span><span class="n">eFAST</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stiffness</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+<span class="n">cloth</span><span class="p">.</span><span class="n">setPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eSTRETCHING_HORIZONTAL</span><span class="p">,</span> <span class="n">config</span><span class="p">);</span>
+
+<span class="c1">// Use Gauss-Seidel solver for shearing constraints</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">cloth</span><span class="p">.</span><span class="n">getPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eSHEARING</span><span class="p">);</span>
+<span class="n">config</span><span class="p">.</span><span class="n">solverType</span> <span class="o">=</span> <span class="n">PxClothPhaseSolverConfig</span><span class="o">::</span><span class="n">eFAST</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stiffness</span> <span class="o">=</span> <span class="mf">1.0f</span><span class="p">;</span>
+<span class="n">cloth</span><span class="p">.</span><span class="n">setPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eSHEARING</span><span class="p">,</span> <span class="n">config</span><span class="p">);</span>
+
+<span class="c1">// Use bending solver for angle based bending constraints</span>
+<span class="n">config</span> <span class="o">=</span> <span class="n">cloth</span><span class="p">.</span><span class="n">getPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eBENDING_ANGLE</span><span class="p">);</span>
+<span class="n">config</span><span class="p">.</span><span class="n">solverType</span> <span class="o">=</span> <span class="n">PxClothPhaseSolverConfig</span><span class="o">::</span><span class="n">eBENDING</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stiffness</span> <span class="o">=</span> <span class="mf">0.5f</span><span class="p">;</span>
+<span class="n">cloth</span><span class="p">.</span><span class="n">setPhaseSolverConfig</span><span class="p">(</span><span class="n">PxClothFabricPhaseType</span><span class="o">::</span><span class="n">eBENDING</span><span class="p">,</span> <span class="n">config</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Sometimes it is even desirable that distance constraints are not enforced rigorously. The stiffness parameter allows only correcting a portion of the edge length residual per iteration, for example to reduce the strength of bending constraints. A separate, lower stiffness can be used for edges that are only moderately stretched or compressed. For example, a dress can be made to stretch when the character is taking large steps, but still behave correctly during pirouettes.</p>
+<p>The following code shows how to set up a phase such that when edges are compressed between 60% and 100% of the rest-length, a stiffness of 0.4 = 0.8 * 0.5 will be used. If the edge is compressed more than 60% or if the edge is stretched, a stiffness of 0.8 will be used:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxClothPhaseSolverConfig</span> <span class="n">config</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">solverType</span> <span class="o">=</span> <span class="n">PxClothPhaseSolverConfig</span><span class="o">::</span><span class="n">eFAST</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stiffness</span> <span class="o">=</span> <span class="mf">0.8f</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stretchStiffness</span> <span class="o">=</span> <span class="mf">0.5f</span><span class="p">;</span>
+<span class="n">config</span><span class="p">.</span><span class="n">stretchLimit</span> <span class="o">=</span> <span class="mf">0.6f</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="virtual-particles">
+<h2>Virtual Particles<a class="headerlink" href="#virtual-particles" title="Permalink to this headline">¶</a></h2>
+<p>Virtual particles provide a way of improving cloth collision without increasing the cloth resolution. They are called 'virtual' particles because they only exist during the collision processing stage and do not have their position, velocity or mass explicitly stored like regular particles, they can be thought of as providing additional samples on the collision surface.</p>
+<p>A virtual particle is defined by 3 particle indices and an index into a weights table, the weights table defines the barycentric coordinates used to create a virtual particle position from a linear combination of the referenced particles. The following is an example weights table that can be used to create a distribution of 4 virtual particles on a triangle:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">PxVec3</span> <span class="n">weights</span><span class="p">[]</span> <span class="o">=</span>
+<span class="p">{</span>
+        <span class="c1">// Center point</span>
+        <span class="n">PxVec3</span><span class="p">(</span><span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span>
+
+        <span class="c1">// Center of sub triangles</span>
+        <span class="n">PxVec3</span><span class="p">(</span><span class="mf">2.0f</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="n">PxVec3</span><span class="p">(</span><span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">2.0f</span> <span class="o">/</span> <span class="mi">3</span><span class="p">,</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">6</span><span class="p">),</span>
+        <span class="n">PxVec3</span><span class="p">(</span><span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">1.0f</span> <span class="o">/</span> <span class="mi">6</span><span class="p">,</span> <span class="mf">2.0f</span> <span class="o">/</span> <span class="mi">3</span><span class="p">),</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>During collision processing each virtual particle is tested for collision like a regular particle and the collision impulse is redistributed back to the original particles using reverse interpolation.</p>
+<p>The code below shows an example of how to set up the virtual particles for a <em>PxClothMeshDesc</em>:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">Test</span><span class="o">::</span><span class="n">ClothHelpers</span><span class="o">::</span><span class="n">createVirtualParticles</span><span class="p">(</span><span class="n">PxCloth</span><span class="o">&amp;</span> <span class="n">cloth</span><span class="p">,</span> <span class="n">PxClothMeshDesc</span><span class="o">&amp;</span> <span class="n">meshDesc</span><span class="p">,</span> <span class="kt">int</span> <span class="n">numSamples</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">numSamples</span><span class="p">)</span>
+                <span class="k">return</span> <span class="kc">false</span><span class="p">;</span>
+
+        <span class="n">PxU32</span> <span class="n">numFaces</span> <span class="o">=</span> <span class="n">meshDesc</span><span class="p">.</span><span class="n">triangles</span><span class="p">.</span><span class="n">count</span><span class="p">;</span>
+        <span class="n">PxU8</span><span class="o">*</span> <span class="n">triangles</span> <span class="o">=</span> <span class="p">(</span><span class="n">PxU8</span><span class="o">*</span><span class="p">)</span><span class="n">meshDesc</span><span class="p">.</span><span class="n">triangles</span><span class="p">.</span><span class="n">data</span><span class="p">;</span>
+
+        <span class="n">PxU32</span> <span class="n">numParticles</span> <span class="o">=</span> <span class="n">numFaces</span> <span class="o">*</span> <span class="n">numSamples</span><span class="p">;</span>
+        <span class="n">SampleArray</span><span class="o">&lt;</span><span class="n">PxU32</span><span class="o">&gt;</span> <span class="n">virtualParticleIndices</span><span class="p">;</span>
+        <span class="n">virtualParticleIndices</span><span class="p">.</span><span class="n">reserve</span><span class="p">(</span><span class="mi">4</span> <span class="o">*</span> <span class="n">numParticles</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numFaces</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="kt">int</span> <span class="n">s</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">s</span> <span class="o">&lt;</span> <span class="n">numSamples</span><span class="p">;</span> <span class="o">++</span><span class="n">s</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="n">PxU32</span> <span class="n">v0</span><span class="p">,</span> <span class="n">v1</span><span class="p">,</span> <span class="n">v2</span><span class="p">;</span>
+
+                        <span class="k">if</span> <span class="p">(</span><span class="n">meshDesc</span><span class="p">.</span><span class="n">flags</span> <span class="o">&amp;</span> <span class="n">PxMeshFlag</span><span class="o">::</span><span class="n">e16_BIT_INDICES</span><span class="p">)</span>
+                        <span class="p">{</span>
+                                <span class="n">PxU16</span><span class="o">*</span> <span class="n">triangle</span> <span class="o">=</span> <span class="p">(</span><span class="n">PxU16</span><span class="o">*</span><span class="p">)</span><span class="n">triangles</span><span class="p">;</span>
+                                <span class="n">v0</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                                <span class="n">v1</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+                                <span class="n">v2</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+                        <span class="p">}</span>
+                        <span class="k">else</span>
+                        <span class="p">{</span>
+                                <span class="n">PxU32</span><span class="o">*</span> <span class="n">triangle</span> <span class="o">=</span> <span class="p">(</span><span class="n">PxU32</span><span class="o">*</span><span class="p">)</span><span class="n">triangles</span><span class="p">;</span>
+                                <span class="n">v0</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                                <span class="n">v1</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">1</span><span class="p">];</span>
+                                <span class="n">v2</span> <span class="o">=</span> <span class="n">triangle</span><span class="p">[</span><span class="mi">2</span><span class="p">];</span>
+                        <span class="p">}</span>
+
+                        <span class="n">virtualParticleIndices</span><span class="p">.</span><span class="n">pushBack</span><span class="p">(</span><span class="n">v0</span><span class="p">);</span>
+                        <span class="n">virtualParticleIndices</span><span class="p">.</span><span class="n">pushBack</span><span class="p">(</span><span class="n">v1</span><span class="p">);</span>
+                        <span class="n">virtualParticleIndices</span><span class="p">.</span><span class="n">pushBack</span><span class="p">(</span><span class="n">v2</span><span class="p">);</span>
+                        <span class="n">virtualParticleIndices</span><span class="p">.</span><span class="n">pushBack</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+                <span class="p">}</span>
+                <span class="n">triangles</span> <span class="o">+=</span> <span class="n">meshDesc</span><span class="p">.</span><span class="n">triangles</span><span class="p">.</span><span class="n">stride</span><span class="p">;</span>
+        <span class="p">}</span>
+
+        <span class="n">cloth</span><span class="p">.</span><span class="n">setVirtualParticles</span><span class="p">(</span><span class="n">numParticles</span><span class="p">,</span> <span class="n">virtualParticleIndices</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">numSamples</span><span class="p">,</span> <span class="n">weights</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="kc">true</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="fricton-and-mass-scaling">
+<h2>Fricton and Mass Scaling<a class="headerlink" href="#fricton-and-mass-scaling" title="Permalink to this headline">¶</a></h2>
+<p>Coloumb friction can be enabled and will be applied for particle and virtual particle collisions by setting a friction coefficient between 0 and 1:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">cloth</span><span class="p">.</span><span class="n">setFrictionCoefficient</span><span class="p">(</span><span class="mf">0.5f</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Additionally, there is an option to artificially increase the mass of colliding particles, this temporary increase in mass can help reduce stretching along edges that are being tightly pulled over a collision shape. The effect is determined by the relative normal velocity of the particle and collision shape and a user defined coefficient. A value of 20 is reasonable starting point but users are encouraged to experiment with this value:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">cloth</span><span class="p">.</span><span class="n">setCollisionMassScale</span><span class="p">(</span><span class="mf">20.0f</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="motion-constraints">
+<h2>Motion Constraints<a class="headerlink" href="#motion-constraints" title="Permalink to this headline">¶</a></h2>
+<p>Motion constraints lock the movement of each particle inside a sphere. For example, an animation system can sketch the global movement of a cloth while the fine scale details are handled by the cloth simulation.</p>
+<p>A global scale and bias is also applied to each sphere radius. If the sphere radius becomes zero or negative, the corresponding particle is locked at the sphere center and the inverse particle mass is set to zero for the next iteration.</p>
+<p>Separation constraints work the opposite way, forcing a particle to stay outside of a sphere. For cloth simulations with moderate particle movement, this can be used to represent the character's shape more accurately than using capsules alone.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Cloth</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#creating-cloth-fabric">Creating Cloth Fabric</a></li>
+<li><a class="reference internal" href="#creating-cloth-collision-data">Creating Cloth Collision Data</a></li>
+<li><a class="reference internal" href="#continuous-collision-detection">Continuous Collision Detection</a></li>
+<li><a class="reference internal" href="#creating-cloth">Creating Cloth</a></li>
+<li><a class="reference internal" href="#simulation-overview">Simulation Overview</a></li>
+<li><a class="reference internal" href="#particle-integration">Particle Integration</a></li>
+<li><a class="reference internal" href="#constraint-solving">Constraint Solving</a></li>
+<li><a class="reference internal" href="#virtual-particles">Virtual Particles</a></li>
+<li><a class="reference internal" href="#fricton-and-mass-scaling">Fricton and Mass Scaling</a></li>
+<li><a class="reference internal" href="#motion-constraints">Motion Constraints</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Particles.html"
+                        title="previous chapter">Particles</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Vehicles.html"
+                        title="next chapter">Vehicles</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Vehicles.html" title="Vehicles"
+             >next</a></li>
+        <li class="right" >
+          <a href="Particles.html" title="Particles"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

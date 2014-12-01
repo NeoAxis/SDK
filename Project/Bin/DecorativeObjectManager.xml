@@ -1,0 +1,125 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>DecorativeObjectManager</name>
+    </assembly>
+    <members>
+        <member name="T:Engine.MapSystem.DecorativeObjectManagerType">
+            <summary>
+            Defines the <see cref="T:Engine.MapSystem.DecorativeObjectManager"/> entity type.
+            </summary>
+        </member>
+        <member name="M:Engine.MapSystem.DecorativeObjectManager.OnLoad(Engine.FileSystem.TextBlock)">
+            <summary>
+            Called while entity type is loading.
+            </summary>
+            <param name="block">The text block from which data of entity will be loaded.</param>
+            <returns><b>true</b> if the entity successfully loaded; otherwise, <b>false</b>.</returns>
+        </member>
+        <member name="M:Engine.MapSystem.DecorativeObjectManager.OnSave(Engine.FileSystem.TextBlock)">
+            <summary>
+            Called while entity type is saving.
+            </summary>
+            <param name="block">The text block in which data of entity will be saved.</param>
+        </member>
+        <member name="M:Engine.MapSystem.DecorativeObjectManager.OnPostCreate(System.Boolean)">
+            <summary>
+            Called after the entity is added into the world.
+            </summary>
+            <param name="loaded"><b>true</b> if the entity has been loaded; otherwise, <b>false</b>.</param>
+            <seealso cref="M:Engine.EntitySystem.Entity.PostCreate"/>
+            <seealso cref="M:Engine.EntitySystem.Entity.OnPostCreate2(System.Boolean)"/>
+        </member>
+        <member name="M:Engine.MapSystem.DecorativeObjectManager.OnDestroy">
+            <summary>
+            Called when the entity is removed from the world.
+            </summary>
+        </member>
+        <member name="M:Engine.MapSystem.DecorativeObjectManager.OnRender(Engine.Renderer.Camera)">
+            <summary>
+            Called before the object it will be rendered.
+            </summary>
+            <param name="camera">The render camera.</param>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectManager.Type">
+            <summary>
+            Gets the entity type.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectManager.Instance">
+            <summary>
+            Gets an instance of the <see cref="T:Engine.MapSystem.DecorativeObjectManager"/>.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectManager.Enabled">
+            <summary>
+            A value indicating whether manager enabled.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectManager.Visible">
+            <summary>
+            A value indicating whether visibility of a manager enabled.
+            </summary>
+        </member>
+        <member name="T:Engine.MapSystem.DecorativeObjectType">
+            <summary>
+            Defines the DecorativeObject entity type.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.BatchSize">
+            <summary>
+            Gets or sets the size of a batch at generating geometry for a videocard.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.DistanceBetweenObjects">
+            <summary>
+            Gets or sets the minimal distance between objects at creation.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.VisibilityDistance">
+            <summary>
+            Gets or sets visible distance. Objects which further from the camera than this distance, will not be rendered. Default: 0.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.DestroyBatchOnDistance">
+            <summary>
+            Batches which are further this distance will be destroyed in memory.
+            </summary>
+            <remarks>
+            <para>
+            Batches will be generated only when are visible. It is necessary for smaller 
+            quantity of used memory.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.StoreObjectsPositionsInVertices">
+            <summary>
+            Gets or sets a value which indicates it is necessary to store objects 
+            positions in the vertices.
+            </summary>
+            <remarks>
+            <para>
+            Usually it is necessary for VegetationMaterial (for waving).
+            </para>
+            <para>
+            Positions will be in Semantic: TextureCoordinates, Index: 4.
+            </para>
+            </remarks>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.Item.MeshName">
+            <summary>
+            Gets or sets the mesh name.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObjectType.Item.Probability">
+            <summary>
+            Gets or sets probability of creation of this mesh. It is dependence on other mesh.
+            </summary>
+        </member>
+        <member name="P:Engine.MapSystem.DecorativeObject.Type">
+            <summary>
+            Gets the entity type.
+            </summary>
+        </member>
+    </members>
+</doc>

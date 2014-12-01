@@ -1,0 +1,75 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+void main_vp(
+	uniform float4x4 worldViewProjMatrix,
+	uniform float4 viewportSize,
+
+	float4 position : POSITION,
+	float4 vertexColor : COLOR0,
+	float2 texCoord : TEXCOORD0,
+
+	out float4 oPosition : POSITION,
+	out float2 oTexCoord : TEXCOORD0,
+	out float4 oVertexColor : TEXCOORD1,
+	out float2 oViewportSizeInPixels : TEXCOORD2,
+	out float2 oScreenPosition : TEXCOORD3
+	)
+{
+	oPosition = mul(worldViewProjMatrix, position);
+	oTexCoord = texCoord;
+	oVertexColor = vertexColor;
+	oViewportSizeInPixels = viewportSize.xy;
+	oScreenPosition = (float2(position.x, -position.y) + 1) / 2;
+}
+
+void main_fp(
+	float2 texCoord : TEXCOORD0,
+	half4 vertexColor : TEXCOORD1,
+	float2 viewportSizeInPixels : TEXCOORD2,
+	float2 screenPosition : TEXCOORD3,
+	
+	uniform sampler2D diffuseMap : register(s0),
+	uniform sampler2D additionalMap : register(s1),
+	
+	uniform float4 testParameter,
+
+	out half4 oColor : COLOR)
+{
+/*
+	//default code
+	oColor = (half4)tex2D(diffuseMap, texCoord) * vertexColor;
+*/
+
+/*
+	//simple example
+	vertexColor *= half4(1, 0, 0, vertexColor.a);
+	oColor = (half4)tex2D(diffuseMap, texCoord) * vertexColor;
+	return;
+*/
+
+	float aspectRatio = viewportSizeInPixels.x / viewportSizeInPixels.y;
+
+	//calculate tex coord for additional map
+	float offsetX = testParameter.x;
+	float2 additionalMapTexCoord = float2(screenPosition.x, (screenPosition.y - .5f) * 2.2f / aspectRatio + .5f);
+	//make scroll and waving
+	additionalMapTexCoord.x += offsetX;
+	additionalMapTexCoord.y += sin((offsetX - screenPosition.x) * 100) * .01f;
+	//clamp by Y
+	additionalMapTexCoord.y = saturate(additionalMapTexCoord.y);
+
+	//circle
+	float2 mouse = testParameter.yz;
+	float2 diff = screenPosition - mouse;
+	float distance = length(float2(diff.x * aspectRatio, diff.y));
+	float alpha = .3f;
+	if(distance < .3f)
+		alpha = 4;
+	if(distance < .29f)
+		alpha = 1;
+	vertexColor.a *= alpha;
+
+	half4 color = (half4)tex2D(diffuseMap, texCoord);
+	color.rgb += tex2D(additionalMap, additionalMapTexCoord).rgb;
+	oColor = color * vertexColor;
+}

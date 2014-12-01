@@ -1,0 +1,5 @@
+highLevelMaterial Black
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 0 0 0
+}

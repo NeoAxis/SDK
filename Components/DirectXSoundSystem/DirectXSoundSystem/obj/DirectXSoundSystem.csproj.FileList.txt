@@ -1,0 +1,5 @@
+..\..\..\..\..\Game\Bin\DirectXSoundSystem.dll
+..\..\..\..\..\Game\Bin\DirectXSoundSystem.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\DirectXSoundSystem.dll
+obj\Release\DirectXSoundSystem.pdb

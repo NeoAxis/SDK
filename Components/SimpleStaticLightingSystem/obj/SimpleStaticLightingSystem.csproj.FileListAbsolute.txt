@@ -1,0 +1,5 @@
+C:\Dev\Game\Bin\SimpleStaticLightingSystem.dll
+C:\Dev\Game\Bin\SimpleStaticLightingSystem.pdb
+C:\Dev\Engine\Src\Tools\SimpleStaticLightingSystem\obj\Release\ResolveAssemblyReference.cache
+C:\Dev\Engine\Src\Tools\SimpleStaticLightingSystem\obj\Release\SimpleStaticLightingSystem.dll
+C:\Dev\Engine\Src\Tools\SimpleStaticLightingSystem\obj\Release\SimpleStaticLightingSystem.pdb

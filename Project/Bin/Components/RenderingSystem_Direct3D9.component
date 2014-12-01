@@ -1,0 +1,39 @@
+fullName = "Direct3D9"
+componentTypes = "RenderingSystem"
+platforms = "Windows"
+enableByDefaultPlatforms = "Windows"
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\RenderSystem_Direct3D9.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\RenderSystem_Direct3D9.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\d3dx9_43.dll"
+	platforms = "Windows"
+}	
+path
+{
+	path = "NativeDlls\\Windows_x64\\d3dx9_43.dll"
+	platforms = "Windows"
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\D3DCompiler_43.dll"
+	platforms = "Windows"
+}	
+path
+{
+	path = "NativeDlls\\Windows_x64\\D3DCompiler_43.dll"
+	platforms = "Windows"
+}	

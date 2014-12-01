@@ -1,0 +1,5 @@
+..\..\..\..\..\Game\Bin\PhysXPhysicsSystem.dll
+..\..\..\..\..\Game\Bin\PhysXPhysicsSystem.pdb
+obj\Release\ResolveAssemblyReference.cache
+obj\Release\PhysXPhysicsSystem.dll
+obj\Release\PhysXPhysicsSystem.pdb

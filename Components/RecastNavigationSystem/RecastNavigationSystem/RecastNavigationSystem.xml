@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>RecastNavigationSystem</name>
+    </assembly>
+    <members>
+        <member name="M:Engine.RecastNavigationSystem.OnPostCreate(System.Boolean)">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="M:Engine.RecastNavigationSystem.OnDestroy">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="P:Engine.RecastNavigationSystem.Type">
+            <summary>
+            Gets the entity type.
+            </summary>
+        </member>
+    </members>
+</doc>

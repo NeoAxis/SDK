@@ -1,0 +1,29 @@
+vertex_program AmbientOneTexture_hlsl hlsl
+{
+	source Base\Shaders\AmbientOneTexture.cg_hlsl
+	entry_point main_vp
+	target vs_3_0
+	default_params
+	{
+		param_named_auto worldViewProjMatrix worldviewproj_matrix
+		param_named_auto ambientLightColor ambient_light_colour
+	}
+}
+
+vertex_program AmbientOneTexture_cg cg
+{
+	source Base\Shaders\AmbientOneTexture.cg_hlsl
+	entry_point main_vp
+	profiles arbvp1
+	default_params
+	{
+		param_named_auto worldViewProjMatrix worldviewproj_matrix
+		param_named_auto ambientLightColor ambient_light_colour
+	}
+}
+
+vertex_program AmbientOneTexture unified
+{
+	delegate AmbientOneTexture_hlsl
+	delegate AmbientOneTexture_cg
+}

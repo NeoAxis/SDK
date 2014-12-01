@@ -1,0 +1,219 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+ProjectType="Visual C++"
+Version="9.00"
+Name="PhysXCharacterKinematic"
+>
+<Platforms>
+<Platform Name="x64"/>
+</Platforms>
+<Configurations>
+  <Configuration
+    Name="checked|x64"
+    OutputDirectory="./../../../bin/win64"
+    IntermediateDirectory="./x64/PhysXCharacterKinematic/checked"
+    ConfigurationType="2"
+    InheritedPropertySheets=""
+    CharacterSet="2"
+    >
+    <Tool
+      Name="VCCLCompilerTool"
+      AdditionalIncludeDirectories="&quot;./../../../Include/foundation&quot;;&quot;./../../foundation/include&quot;;&quot;./../../../Include/physxprofilesdk&quot;;&quot;./../../../Include/physxvisualdebuggersdk&quot;;&quot;./../../../Include/characterkinematic&quot;;&quot;./../../../Include/common&quot;;&quot;./../../../Include/geometry&quot;;&quot;./../../../Include/extensions&quot;;&quot;./../../../Include/pxtask&quot;;&quot;./../../../Include&quot;;&quot;./../../GeomUtils/headers&quot;;&quot;./../../GeomUtils/src&quot;;&quot;./../../Common/src&quot;;"
+      PreprocessorDefinitions="PX_PHYSX_CHARACTER_EXPORTS;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;NDEBUG;PX_CHECKED;PX_SUPPORT_VISUAL_DEBUGGER;PX_PHYSX_DLL_NAME_POSTFIX=CHECKED;"
+      WarningLevel="4"
+      FloatingPointModel="2"
+      StringPooling="true"
+      RuntimeTypeInfo="false"
+      WarnAsError="true"
+      BufferSecurityCheck="false"
+      Optimization="3"
+      AdditionalOptions="/MP"
+      ExceptionHandling="0"
+      RuntimeLibrary="0"
+      />
+    <Tool Name="VCCustomBuildTool"/>
+    <Tool 
+      Name="VCLinkerTool" 
+      OutputFile="$(OutDir)/PhysX3CharacterKinematicCHECKED_x64.dll" 
+      ProgramDatabaseFile="$(OutDir)/PhysX3CharacterKinematicCHECKED_x64.dll.pdb" 
+      AdditionalOptions="/MAP /MACHINE:x64 /MACHINE:X64"
+      AdditionalDependencies="&quot;../../../Lib/win64/PhysX3CommonCHECKED_x64.lib&quot; "
+      AdditionalLibraryDirectories=""
+      ImportLibrary="./../../../Lib/win64/$(TargetName).lib"
+      GenerateMapFile="TRUE"
+      MapFileName="$(OutDir)/PhysX3CharacterKinematicCHECKED_x64.dll.map"
+      SubSystem="1"
+      />
+    <Tool Name="VCMIDLTool"/>
+    <Tool Name="VCPreBuildEventTool"/>
+    <Tool Name="VCPostBuildEventTool"/>
+    <Tool Name="VCPreLinkEventTool"/>
+    <Tool Name="VCResourceCompilerTool"/>
+    <Tool Name="VCWebServiceProxyGeneratorTool"/>
+    <Tool Name="VCXMLDataGeneratorTool"/>
+    <Tool Name="VCWebDeploymentTool"/>
+    <Tool Name="VCManagedWrapperGeneratorTool"/>
+    <Tool Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+  </Configuration>
+  <Configuration
+    Name="profile|x64"
+    OutputDirectory="./../../../bin/win64"
+    IntermediateDirectory="./x64/PhysXCharacterKinematic/profile"
+    ConfigurationType="2"
+    InheritedPropertySheets=""
+    CharacterSet="2"
+    >
+    <Tool
+      Name="VCCLCompilerTool"
+      AdditionalIncludeDirectories="&quot;./../../../Include/foundation&quot;;&quot;./../../foundation/include&quot;;&quot;./../../../Include/physxprofilesdk&quot;;&quot;./../../../Include/physxvisualdebuggersdk&quot;;&quot;./../../../Include/characterkinematic&quot;;&quot;./../../../Include/common&quot;;&quot;./../../../Include/geometry&quot;;&quot;./../../../Include/extensions&quot;;&quot;./../../../Include/pxtask&quot;;&quot;./../../../Include&quot;;&quot;./../../GeomUtils/headers&quot;;&quot;./../../GeomUtils/src&quot;;&quot;./../../Common/src&quot;;"
+      PreprocessorDefinitions="PX_PHYSX_CHARACTER_EXPORTS;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;NDEBUG;PX_PROFILE;PX_SUPPORT_VISUAL_DEBUGGER;_SECURE_SCL=0;_ITERATOR_DEBUG_LEVEL=0;PX_PHYSX_DLL_NAME_POSTFIX=PROFILE;"
+      WarningLevel="4"
+      FloatingPointModel="2"
+      StringPooling="true"
+      RuntimeTypeInfo="false"
+      WarnAsError="true"
+      BufferSecurityCheck="false"
+      Optimization="3"
+      AdditionalOptions="/MP"
+      ExceptionHandling="0"
+      RuntimeLibrary="0"
+      />
+    <Tool Name="VCCustomBuildTool"/>
+    <Tool 
+      Name="VCLinkerTool" 
+      OutputFile="$(OutDir)/PhysX3CharacterKinematicPROFILE_x64.dll" 
+      ProgramDatabaseFile="$(OutDir)/PhysX3CharacterKinematicPROFILE_x64.dll.pdb" 
+      AdditionalOptions="/MAP /MACHINE:x64 /DEBUG /MACHINE:X64"
+      AdditionalDependencies="&quot;../../../Lib/win64/PhysX3CommonPROFILE_x64.lib&quot; "
+      AdditionalLibraryDirectories=""
+      ImportLibrary="./../../../Lib/win64/$(TargetName).lib"
+      GenerateMapFile="TRUE"
+      MapFileName="$(OutDir)/PhysX3CharacterKinematicPROFILE_x64.dll.map"
+      SubSystem="1"
+      />
+    <Tool Name="VCMIDLTool"/>
+    <Tool Name="VCPreBuildEventTool"/>
+    <Tool Name="VCPostBuildEventTool"/>
+    <Tool Name="VCPreLinkEventTool"/>
+    <Tool Name="VCResourceCompilerTool"/>
+    <Tool Name="VCWebServiceProxyGeneratorTool"/>
+    <Tool Name="VCXMLDataGeneratorTool"/>
+    <Tool Name="VCWebDeploymentTool"/>
+    <Tool Name="VCManagedWrapperGeneratorTool"/>
+    <Tool Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+  </Configuration>
+  <Configuration
+    Name="release|x64"
+    OutputDirectory="./../../../bin/win64"
+    IntermediateDirectory="./x64/PhysXCharacterKinematic/release"
+    ConfigurationType="2"
+    InheritedPropertySheets=""
+    CharacterSet="2"
+    >
+    <Tool
+      Name="VCCLCompilerTool"
+      AdditionalIncludeDirectories="&quot;./../../../Include/foundation&quot;;&quot;./../../foundation/include&quot;;&quot;./../../../Include/physxprofilesdk&quot;;&quot;./../../../Include/physxvisualdebuggersdk&quot;;&quot;./../../../Include/characterkinematic&quot;;&quot;./../../../Include/common&quot;;&quot;./../../../Include/geometry&quot;;&quot;./../../../Include/extensions&quot;;&quot;./../../../Include/pxtask&quot;;&quot;./../../../Include&quot;;&quot;./../../GeomUtils/headers&quot;;&quot;./../../GeomUtils/src&quot;;&quot;./../../Common/src&quot;;"
+      PreprocessorDefinitions="PX_PHYSX_CHARACTER_EXPORTS;WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;NDEBUG;_SECURE_SCL=0;_ITERATOR_DEBUG_LEVEL=0;"
+      WarningLevel="4"
+      FloatingPointModel="2"
+      StringPooling="true"
+      RuntimeTypeInfo="false"
+      WarnAsError="true"
+      BufferSecurityCheck="false"
+      Optimization="3"
+      AdditionalOptions="/MP"
+      ExceptionHandling="0"
+      RuntimeLibrary="0"
+      />
+    <Tool Name="VCCustomBuildTool"/>
+    <Tool 
+      Name="VCLinkerTool" 
+      OutputFile="$(OutDir)/PhysX3CharacterKinematic_x64.dll" 
+      ProgramDatabaseFile="$(OutDir)/PhysX3CharacterKinematic_x64.dll.pdb" 
+      AdditionalOptions="/MAP /MACHINE:x64 /MACHINE:X64"
+      AdditionalDependencies="&quot;../../../Lib/win64/PhysX3Common_x64.lib&quot; "
+      AdditionalLibraryDirectories=""
+      ImportLibrary="./../../../Lib/win64/$(TargetName).lib"
+      GenerateMapFile="TRUE"
+      MapFileName="$(OutDir)/PhysX3CharacterKinematic_x64.dll.map"
+      SubSystem="1"
+      />
+    <Tool Name="VCMIDLTool"/>
+    <Tool Name="VCPreBuildEventTool"/>
+    <Tool Name="VCPostBuildEventTool"/>
+    <Tool Name="VCPreLinkEventTool"/>
+    <Tool Name="VCResourceCompilerTool"/>
+    <Tool Name="VCWebServiceProxyGeneratorTool"/>
+    <Tool Name="VCXMLDataGeneratorTool"/>
+    <Tool Name="VCWebDeploymentTool"/>
+    <Tool Name="VCManagedWrapperGeneratorTool"/>
+    <Tool Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+  </Configuration>
+</Configurations>
+<References></References>
+<Files>
+  <Filter Name="include" Filter=""> <!--  -->
+    <File RelativePath="..\..\..\Include\characterkinematic\PxBoxController.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxCapsuleController.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxCharacter.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxController.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxControllerBehavior.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxControllerManager.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxControllerObstacles.h">
+    </File>
+    <File RelativePath="..\..\..\Include\characterkinematic\PxExtended.h">
+    </File>
+  </Filter>
+  <Filter Name="src" Filter=""> <!--  -->
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctBoxController.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCapsuleController.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCharacterController.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCharacterControllerManager.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctController.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctInternalStructs.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctObstacleContext.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctSweptBox.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctSweptCapsule.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctSweptVolume.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctUtils.h">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctBoxController.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCapsuleController.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCharacterController.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCharacterControllerCallbacks.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctCharacterControllerManager.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctController.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctObstacleContext.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctSweptBox.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctSweptCapsule.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXCharacterKinematic\src\CctSweptVolume.cpp">
+    </File>
+  </Filter>
+</Files>
+<Globals></Globals>
+</VisualStudioProject>

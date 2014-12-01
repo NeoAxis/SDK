@@ -1,0 +1,288 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+#include "Base/Shaders/General.cg_hlsl"
+
+//Diffuse map blending
+#if defined(DIFFUSE2_MAP) || defined(DIFFUSE3_MAP) || defined(DIFFUSE4_MAP)
+#include "Base/Shaders/blendFunctions.cg_hlsl"
+#endif
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void shadowCaster_vp(
+	uniform float4x4 worldMatrix, //instancing specific: initialized from instance data.
+	uniform float4x4 viewProjMatrix,
+	
+	float4 position : POSITION,
+	float3 normal : NORMAL,
+	float2 texCoord0 : TEXCOORD0,
+	float2 texCoord1 : TEXCOORD1,
+#ifdef TEXCOORD23
+	float2 texCoord2 : TEXCOORD2,
+	float2 texCoord3 : TEXCOORD3,
+#endif
+#ifdef DIFFUSE_VERTEX_COLOR
+	float4 vertexColor : COLOR0,
+#endif
+
+#ifdef INSTANCING
+	uniform float instancing,
+	//instance data
+	float4 instancingWorldMatrix0 : TEXCOORD5,
+	float4 instancingWorldMatrix1 : TEXCOORD6,
+	float4 instancingWorldMatrix2 : TEXCOORD7,
+#endif
+
+	uniform float3 cameraPosition,
+
+	out float4 oTexCoord01 : TEXCOORD0, //texCoord0 - xy, texCoord1 - zw
+#ifdef TEXCOORD23
+	out float4 oTexCoord23 : TEXCOORD1/*TEXCOORD23_TEXCOORD*/, //texCoord2 - xy, texCoord3 - zw
+#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	out float4 oVertexColor : TEXCOORD2/*VERTEX_COLOR_TEXCOORD*/,
+#endif
+
+	uniform float time,
+
+	//Extension additions
+	#define VERTEX_HEADER_SHADOW_CASTER
+	//This line it will be replaced at loading.
+	_INCLUDE_EXTENSION_FILE
+	#undef VERTEX_HEADER_SHADOW_CASTER
+
+	//shadow caster specific
+	uniform float4 texelOffsets,
+
+	out float2 oDepth : TEXCOORD3,
+	out float4 oPosition : POSITION
+ 	)
+{
+#ifdef INSTANCING
+	if(instancing > 0)
+	{
+		worldMatrix = float4x4(
+			instancingWorldMatrix0,
+			instancingWorldMatrix1,
+			instancingWorldMatrix2,
+			float4(0,0,0,1));
+	}
+#endif
+
+	//Extension additions
+	{
+		#define VERTEX_BODY_SHADOW_CASTER_BEGIN
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef VERTEX_BODY_SHADOW_CASTER_BEGIN
+	}
+
+	//calculate base parameters
+	float4 worldPosition = mul(worldMatrix, position);
+
+	//Extension additions
+	{
+		#define VERTEX_BODY_CHANGE_WORLD_POSITION
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef VERTEX_BODY_CHANGE_WORLD_POSITION
+	}
+
+	oPosition = mul(viewProjMatrix, worldPosition);
+
+	oTexCoord01.xy = texCoord0;
+	oTexCoord01.zw = texCoord1;
+#ifdef TEXCOORD23
+	oTexCoord23.xy = texCoord2;
+	oTexCoord23.zw = texCoord3;
+#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	oVertexColor = vertexColor;
+#endif
+
+	//shadow caster specific
+
+	oPosition.xy += texelOffsets.zw * oPosition.w;
+
+	#ifdef LIGHTTYPE_POINT
+		oDepth = float2(length(worldPosition.xyz - cameraPosition), 0);
+	#else
+		oDepth = float2(oPosition.z, oPosition.w);
+	#endif
+	
+	//Extension additions
+	{
+		#define VERTEX_BODY_SHADOW_CASTER_END
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef VERTEX_BODY_SHADOW_CASTER_END
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void shadowCaster_fp( 
+	uniform float farClipDistance,
+	uniform float2 shadowDirectionalLightBias,
+	uniform float2 shadowSpotLightBias,
+	uniform float2 shadowPointLightBias,
+
+	float4 texCoord01 : TEXCOORD0, //texCoord0 - xy, texCoord1 - zw
+#ifdef TEXCOORD23
+	float4 texCoord23 : TEXCOORD1/*TEXCOORD23_TEXCOORD*/, //texCoord2 - xy, texCoord3 - zw
+#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	half4 vertexColor : TEXCOORD2/*VERTEX_COLOR_TEXCOORD*/,
+#endif
+
+#ifdef DIFFUSE1_MAP
+	uniform sampler2D diffuse1Map : register(DIFFUSE1_MAP_REGISTER),
+	uniform float4 diffuse1MapTransformMul,
+	uniform float2 diffuse1MapTransformAdd,
+#endif
+
+#ifdef DIFFUSE2_MAP
+	uniform sampler2D diffuse2Map : register(DIFFUSE2_MAP_REGISTER),
+	uniform float4 diffuse2MapTransformMul,
+	uniform float2 diffuse2MapTransformAdd,
+#endif
+
+#ifdef DIFFUSE3_MAP
+	uniform sampler2D diffuse3Map : register(DIFFUSE3_MAP_REGISTER),
+	uniform float4 diffuse3MapTransformMul,
+	uniform float2 diffuse3MapTransformAdd,
+#endif
+
+#ifdef DIFFUSE4_MAP
+	uniform sampler2D diffuse4Map : register(DIFFUSE4_MAP_REGISTER),
+	uniform float4 diffuse4MapTransformMul,
+	uniform float2 diffuse4MapTransformAdd,
+#endif
+
+	uniform float time,
+
+	//dynamic parameters
+	uniform half4 dynamicDiffuseScale,
+
+	//shadow caster specific
+	float2 depth : TEXCOORD3,
+	uniform half alphaRejectValue,
+
+	//Extension additions
+	#define FRAGMENT_HEADER_SHADOW_CASTER
+	//This line it will be replaced at loading.
+	_INCLUDE_EXTENSION_FILE
+	#undef FRAGMENT_HEADER_SHADOW_CASTER
+
+#if defined(ATI_HARDWARE_SHADOWS) || defined(NVIDIA_HARDWARE_SHADOWS)
+	out float oDepth : DEPTH,
+#endif
+	out float4 oColor : COLOR )
+{
+	//Extension additions
+	{
+		#define FRAGMENT_BODY_SHADOW_CASTER_BEGIN
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef FRAGMENT_BODY_SHADOW_CASTER_BEGIN
+	}
+
+	float2 texCoord0 = texCoord01.xy;
+	float2 texCoord1 = texCoord01.zw;
+#ifdef TEXCOORD23
+	float2 texCoord2 = texCoord23.xy;
+	float2 texCoord3 = texCoord23.zw;
+#endif
+
+	//Diffuse
+	half4 diffuse;
+#ifdef DIFFUSE1_MAP
+	diffuse = (half4)tex2D(diffuse1Map, DIFFUSE1_MAP_TEXCOORD);
+#else
+	diffuse = half4(1,1,1,1);
+#endif
+#ifdef DIFFUSE2_MAP
+	diffuse = DIFFUSE2_MAP_BLEND((half4)tex2D(diffuse2Map, DIFFUSE2_MAP_TEXCOORD), diffuse);
+#endif
+#ifdef DIFFUSE3_MAP
+	diffuse = DIFFUSE3_MAP_BLEND((half4)tex2D(diffuse3Map, DIFFUSE3_MAP_TEXCOORD), diffuse);
+#endif
+#ifdef DIFFUSE4_MAP
+	diffuse = DIFFUSE4_MAP_BLEND((half4)tex2D(diffuse4Map, DIFFUSE4_MAP_TEXCOORD), diffuse);
+#endif
+
+	#ifdef DYNAMIC_DIFFUSE_SCALE
+		diffuse *= dynamicDiffuseScale;
+	#else
+		diffuse *= DIFFUSE_SCALE;
+	#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	diffuse *= vertexColor;
+#endif
+
+	//shadow caster specific
+
+	half alpha = diffuse.a;
+
+#ifdef ALPHA_REJECT_FUNCTION_LESSEQUAL
+	clip(alphaRejectValue - alpha);
+#endif
+#ifdef ALPHA_REJECT_FUNCTION_LESS
+	clip(alphaRejectValue - alpha);
+#endif
+#ifdef ALPHA_REJECT_FUNCTION_GREATEREQUAL
+	clip(alpha - alphaRejectValue);
+#endif
+#ifdef ALPHA_REJECT_FUNCTION_GREATER
+	clip(alpha - alphaRejectValue);
+#endif
+
+	//bias
+	float2 bias;
+	#ifdef LIGHTTYPE_DIRECTIONAL
+		bias = shadowDirectionalLightBias,
+	#endif
+	#ifdef LIGHTTYPE_SPOT
+		bias = shadowSpotLightBias,
+	#endif
+	#ifdef LIGHTTYPE_POINT
+		bias = shadowPointLightBias,
+	#endif
+
+	#ifdef NVIDIA_HARDWARE_SHADOWS
+		depth.x += bias.x + bias.y * fwidth(depth.x);
+	#elif defined(ATI_HARDWARE_SHADOWS)
+		depth.x += bias.x + bias.y * fwidth(depth.x);
+	#else
+		#if defined(DIRECT3D)
+			depth.x += bias.x + bias.y * fwidth(depth.x);
+		#else
+			depth.x += bias.x;
+		#endif
+	#endif
+
+	//oColor, oDepth
+#ifdef NVIDIA_HARDWARE_SHADOWS
+	oColor = float4(0, 0, 0, 1);
+	oDepth = depth.x / depth.y;
+#elif defined(ATI_HARDWARE_SHADOWS)
+	float normalizedDepth = depth.x / farClipDistance;
+	oColor = float4(normalizedDepth, 0, 0, 1);
+	oDepth = normalizedDepth;
+#else
+	float normalizedDepth = depth.x / farClipDistance;
+	oColor = float4(normalizedDepth, 0, 0, 1);
+#endif
+
+	//Extension additions
+	{
+		#define FRAGMENT_BODY_SHADOW_CASTER_END
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef FRAGMENT_BODY_SHADOW_CASTER_END
+	}
+
+}

@@ -1,0 +1,7 @@
+C:\Dev\Engine\Src\Addons\OpenALSoundSystem\obj\Release\ResolveAssemblyReference.cache
+C:\Game\Bin\OpenALSoundSystem.dll
+C:\Game\Bin\OpenALSoundSystem.pdb
+C:\Dev\Engine\Src\Addons\OpenALSoundSystem\obj\Release\OpenALSoundSystem.dll
+C:\Dev\Engine\Src\Addons\OpenALSoundSystem\obj\Release\OpenALSoundSystem.pdb
+C:\Dev\Game\Bin\OpenALSoundSystem.dll
+C:\Dev\Game\Bin\OpenALSoundSystem.pdb

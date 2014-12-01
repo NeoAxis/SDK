@@ -1,0 +1,14 @@
+type Light
+{
+	class = Light
+	allowEditorCreate = True
+	networkType = ClientOnly
+	attachedObjects
+	{
+		billboard
+		{
+			materialName = Base_LightFlare
+			onlyForEditor = True
+		}
+	}
+}

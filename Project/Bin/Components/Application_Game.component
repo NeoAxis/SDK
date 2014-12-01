@@ -1,0 +1,22 @@
+fullName = "Game application"
+componentTypes = "Application"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+macOSXApplicationName = "Game.app"
+
+path
+{
+	path = "Game.exe"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}
+path
+{
+	path = "Game.exe.config"
+	platforms = "Windows, MacOSX"
+}
+path
+{
+	path = "Game.app/*.*"
+	platforms = "MacOSX"
+}

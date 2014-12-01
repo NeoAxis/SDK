@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>SoundSystem</name>
+    </assembly>
+    <members>
+        <member name="T:Engine.SoundSystem.TriDiagonalMatrixF">
+            <summary>
+            A tri-diagonal matrix has non-zero entries only on the main diagonal, the diagonal above the main (super), and the
+            diagonal below the main (sub).
+            </summary>
+            <remarks>
+            <para>
+            This is based on the wikipedia article: http://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm
+            </para>
+            <para>
+            The entries in the matrix on a particular row are A[i], B[i], and C[i] where i is the row index.
+            B is the main diagonal, and so for an NxN matrix B is length N and all elements are used.
+            So for row 0, the first two values are B[0] and C[0].
+            And for row N-1, the last two values are A[N-1] and B[N-1].
+            That means that A[0] is not actually on the matrix and is therefore never used, and same with C[N-1].
+            </para>
+            </remarks>
+        </member>
+        <member name="F:Engine.SoundSystem.TriDiagonalMatrixF.A">
+            <summary>
+            The values for the sub-diagonal. A[0] is never used.
+            </summary>
+        </member>
+        <member name="F:Engine.SoundSystem.TriDiagonalMatrixF.B">
+            <summary>
+            The values for the main diagonal.
+            </summary>
+        </member>
+        <member name="F:Engine.SoundSystem.TriDiagonalMatrixF.C">
+            <summary>
+            The values for the super-diagonal. C[C.Length-1] is never used.
+            </summary>
+        </member>
+        <member name="M:Engine.SoundSystem.TriDiagonalMatrixF.#ctor(System.Int32)">
+            <summary>
+            Construct an NxN matrix.
+            </summary>
+        </member>
+        <member name="M:Engine.SoundSystem.TriDiagonalMatrixF.Solve(System.Single[])">
+            <summary>
+            Solve the system of equations this*x=d given the specified d.
+            </summary>
+            <remarks>
+            Uses the Thomas algorithm described in the wikipedia article: http://en.wikipedia.org/wiki/Tridiagonal_matrix_algorithm
+            Not optimized. Not destructive.
+            </remarks>
+            <param name="d">Right side of the equation.</param>
+        </member>
+        <member name="P:Engine.SoundSystem.TriDiagonalMatrixF.N">
+            <summary>
+            The width and height of this matrix.
+            </summary>
+        </member>
+        <member name="P:Engine.SoundSystem.TriDiagonalMatrixF.Item(System.Int32,System.Int32)">
+            <summary>
+            Indexer. Setter throws an exception if you try to set any not on the super, main, or sub diagonals.
+            </summary>
+        </member>
+        <member name="T:Engine.SoundSystem.CubicSpline">
+            <summary>
+            Cubic spline interpolation.
+            Call Fit to compute spline coefficients, then Eval to evaluate the spline at other X coordinates.
+            </summary>
+            <remarks>
+            <para>
+            This is implemented based on the wikipedia article:
+            http://en.wikipedia.org/wiki/Spline_interpolation
+            I'm not sure I have the right to include a copy of the article so the equation numbers referenced in 
+            comments will end up being wrong at some point.
+            </para>
+            <para>
+            This is not optimized, and is not MT safe.
+            This can extrapolate off the ends of the splines.
+            You must provide points in X sort order.
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Engine.SoundSystem.CubicSpline.FitAndEval(System.Single[],System.Single[],System.Single[])">
+            <summary>
+            Fit x,y and then eval at points xs and return the corresponding y's.
+            This does the "natural spline" style for ends.
+            This can extrapolate off the ends of the splines.
+            You must provide points in X sort order.
+            </summary>
+            <param name="x">Input. X coordinates to fit.</param>
+            <param name="y">Input. Y coordinates to fit.</param>
+            <param name="xs">Input. X coordinates to evaluate the fitted curve at.</param>
+            <returns>The computed y values for each xs.</returns>
+        </member>
+        <member name="M:Engine.SoundSystem.CubicSpline.FitAndEval(System.Single[],System.Single[],System.Single)">
+            <summary>
+            Fit x,y and then eval at points xs and return the corresponding y's.
+            This does the "natural spline" style for ends.
+            This can extrapolate off the ends of the splines.
+            You must provide points in X sort order.
+            </summary>
+            <param name="x">Input. X coordinates to fit.</param>
+            <param name="y">Input. Y coordinates to fit.</param>
+            <param name="xs">Input. X coordinates to evaluate the fitted curve at.</param>
+            <returns>The computed y values for each xs.</returns>
+        </member>
+        <member name="M:Engine.SoundSystem.CubicSpline.Fit(System.Single[],System.Single[])">
+            <summary>
+            Compute spline coefficients for the specified x,y points.
+            This does the "natural spline" style for ends.
+            This can extrapolate off the ends of the splines.
+            You must provide points in X sort order.
+            </summary>
+            <param name="x">Input. X coordinates to fit.</param>
+            <param name="y">Input. Y coordinates to fit.</param>
+        </member>
+        <member name="M:Engine.SoundSystem.CubicSpline.Eval(System.Single[])">
+            <summary>
+            Evaluate the spline at the specified x coordinates.
+            This can extrapolate off the ends of the splines.
+            You must provide X's in ascending order.
+            </summary>
+            <param name="x">Input. X coordinates to evaluate the fitted curve at.</param>
+            <returns>The computed y values for each x.</returns>
+        </member>
+        <member name="M:Engine.SoundSystem.CubicSpline.Eval(System.Single)">
+            <summary>
+            Evaluate the spline at the specified x coordinates.
+            This can extrapolate off the ends of the splines.
+            You must provide X's in ascending order.
+            </summary>
+            <param name="x">Input. X coordinates to evaluate the fitted curve at.</param>
+            <returns>The computed y values for each x.</returns>
+        </member>
+        <member name="M:Engine.SoundSystem.CubicSpline.GetNextXIndex(System.Single)">
+            <summary>
+            Find where in xOrig the specified x falls, by simultaneous traverse.
+            This allows xs to be less than x[0] and/or greater than x[n-1]. So allows extrapolation.
+            This keeps state, so requires that x be sorted and xs called in ascending order.
+            </summary>
+        </member>
+    </members>
+</doc>

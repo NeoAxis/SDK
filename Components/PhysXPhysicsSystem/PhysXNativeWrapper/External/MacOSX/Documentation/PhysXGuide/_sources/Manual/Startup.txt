@@ -1,0 +1,159 @@
+.. _startup:
+
+-----------------------
+Startup and Shutdown
+-----------------------
+
+Startup functionality is common to all of the samples and is shared in the project *SampleBase*.  Open the main file PhysXSample.cpp and navigate to the function onInit, which the sample calls on startup to initialize PhysX.  
+
+Note that the file includes the entire PhysX API in a single header.  You may also selectively include just the headers you need, but PxPhysicsAPI.h includes everything to help you get started faster::
+
+    #include "PxPhysicsAPI.h"
+
+First, create a *PxFoundation* object::
+
+    static PxDefaultErrorCallback gDefaultErrorCallback;
+    static PxDefaultAllocator gDefaultAllocatorCallback;
+
+    mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, gDefaultAllocatorCallback, gDefaultErrorCallback);
+    if(!mFoundation)
+        fatalError("PxCreateFoundation failed!");
+
+Every PhysX module requires a PxFoundation instance to be available. The required parameters are a version ID, an allocator callback and an error callback. *PX_PHYSICS_VERSION*, is a macro predefined in our headers to enable PhysX to check for a version mismatch between the headers and the corresponding SDK DLLs. Usually, the allocator callback and error callback are specific to the application, but PhysX provides default implementations that make it easy to get started. The sections below will describe these two parameters in more detail. (The actual sample code supports an advanced memory allocator that tracks allocations instead of the default, but we have omitted that detail here.)
+
+Now create the top-level *PxPhysics* object::
+
+    bool recordMemoryAllocations = true;        
+    mProfileZoneManager = &PxProfileZoneManager::createProfileZoneManager(mFoundation);
+    if(!mProfileZoneManager)
+        fatalError("PxProfileZoneManager::createProfileZoneManager failed!");
+    
+    mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *mFoundation, 
+		PxTolerancesScale(), recordMemoryAllocations, mProfileZoneManager );
+    if(!mPhysics)
+        fatalError("PxCreatePhysics failed!");
+
+Again, the version ID has to be passed in. The PxTolerancesScale parameter makes it easier to author content at different scales and still have PhysX work as expected, but to get started simply pass a default object of this type. The recordMemoryAllocations parameter specifies whether to perform memory profiling. The optional profile zone manager, typically created with PxProfileZoneManager::createProfileZoneManager(), enables the performance profiling capabilities of the PhysX Visual Debugger. 
+
+===============================
+The Allocator Callback
+===============================
+
+In order to perform dynamic allocation, the SDK requires an implementation of the *PxAllocatorCallback* interface. PhysX provides default implementations for all supported platforms.  Here is the windows version::
+
+    #include <malloc.h>
+    class PxDefaultAllocator : public PxAllocatorCallback
+    {
+        void* allocate(size_t size, const char*, const char*, int)
+        {
+            return _aligned_malloc(size, 16);    
+        }
+
+        void deallocate(void* ptr)
+        {
+            _aligned_free(ptr);
+        }
+    };
+    
+.. note:: an important change since 2.x:  The SDK now requires that the memory that is returned be 16-byte aligned.  On many platforms malloc() returns memory that is 16-byte aligned, but on Windows the system function _aligned_malloc() provides this capability. 
+
+The three unused parameters to allocate() are an identifier which identifies the type of allocation, and the __FILE__ and __LINE__ location inside the SDK code where the allocation was made. Refer to PxAllocatorCallback::allocate() to find out more about them.
+
+
+===============================
+The Error Callback
+===============================
+
+The error callback *PxErrorCallback* is a user-defined class which the SDK requires in order to pass error messages to the application.  There is only a single function to implement, reportError.  This function should log the passed message, or print it on the application's output console. For the more serious error codes eABORT, eINVALID_PARAMETER, eINVALID_OPERATION, and eOUT_OF_MEMORY, breaking into the debugger may be a more appropriate choice.  Whatever you do, do not just ignore the messages.
+
+Again PhysX provide a complete default implementation, which will print the error message. The error code PxErrorCode::eABORT represents an unrecoverable error. In order that this error not be missed, the default implementation will print the message once every second.
+
+===============================
+Cooking 
+===============================
+
+The PhysX cooking library provides utilities for creating, converting, and serializing bulk data. Depending on your application, you may wish to link to the cooking library in order to process such data at runtime. Alternatively you may be able to process all such data in advance and just load it into memory as required. Initialize the cooking library as follows::
+      
+    mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *mFoundation, PxCookingParams());
+    if (!mCooking)
+        fatalError("PxCreateCooking failed!");
+
+The PxCookingParams struct configures the cooking library to target different platforms, use non-default tolerances or produce optional outputs.
+
+The cooking library generates data though a streaming interface. In the samples, implementations of streams are provided in the PxToolkit library to read and write from files and memory buffers.
+
+===============================
+Extensions
+===============================
+
+The extensions library  contains many functions that may be useful to a large class of users, but which some users may prefer to omit from their application either for code size reasons or to avoid use of certain subsystems, such as those pertaining to networking. Initializing the extensions library requires the PxPhysics object::
+
+    if (!PxInitExtensions(*mPhysics))
+        fatalError("PxInitExtensions failed!");
+
+.. _optionalSDKComponents:
+        
+===============================
+Optional SDK Components
+===============================
+
+
+When linking PhysX as a static library on memory constrained platforms, it is possible to avoid linking the code of some PhysX features that are not always used in order to save memory.  Currently the optional features are:
+	
+	* Articulations
+	* Height Fields
+
+
+If your application requires a subset of this functionality, it is recommended that you call PxCreateBasePhysics as opposed to PxCreatePhysics and then manually register the compoments you require.  Below is an example that registers all of the options::
+
+	physx::PxPhysics* customCreatePhysics(physx::PxU32 version,
+		physx::PxFoundation& foundation,
+		const physx::PxTolerancesScale& scale,
+		bool trackOutstandingAllocations,
+		physx::PxProfileZoneManager* profileZoneManager)
+	{
+		physx::PxPhysics* physics = PxCreateBasePhysics(version, foundation, scale, 
+			trackOutstandingAllocations, profileZoneManager);
+			
+		if(!physics)
+			return NULL;
+
+		PxRegisterArticulations(*physics);
+		PxRegisterHeightFields(*physics);
+		
+		return physics;
+	}
+											
+Note that this will only save memory when linking PhysX as a static library, as we rely on the linker to strip out the unused code.
+
+===============================
+Windows delay load dll
+===============================
+
+The PhysXCommon dll is marked as delay loaded inside of the PhysX and PhysXCooking project. So it is possible to have a delay loaded PhysXCommon, PhysX and PhysXCooking dlls. If you need to load a diffent dll, it is possible to create a PxDelayLoadHook and define the name of PhysXCommon dll that should be loaded by PhysX dll and PhysXCooking dll,please see example::
+
+	class SampleDelayLoadHook: public PxDelayLoadHook
+	{	
+		virtual const char* GetPhysXCommonDEBUGDllName() const { return "PhysX3CommonDEBUG_x64_Test.dll"; }
+		virtual const char* GetPhysXCommonCHECKEDDllName() const { return "PhysX3CommonCHECKED_x64_Test.dll"; }
+		virtual const char* GetPhysXCommonPROFILEDllName() const { return "PhysX3CommonPROFILE_x64_Test.dll"; }
+		virtual const char* GetPhysXCommonDllName() const { return "PhysX3Common_x64_Test.dll"; }
+	} gDelayLoadHook;
+
+Now the hook must be set to PhysX and PhysXCooking::
+
+	PxDelayLoadHook::SetPhysXInstance(&gDelayLoadHook);
+	PxDelayLoadHook::SetPhysXCookingInstance(&gDelayLoadHook);
+		
+===============================
+Shutting Down
+===============================
+
+To dispose of any PhysX object, call its release() method.  This will destroy the object, and all contained objects.  The precise behavior depends on the object type being released, so refer to the reference guide for details.  To shut down physics entirely, simply call release() on the PxPhysics object, and this will clean up all of the physics objects::
+
+    mPhysics->release();
+    
+Do not forget to release the foundation object as well, but only after all other PhysX modules have been released::
+
+    mFoundation->release();
+

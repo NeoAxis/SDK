@@ -1,0 +1,239 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Rigid Body Dynamics &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Data Access and Buffering" href="DataAccess.html" />
+    <link rel="prev" title="Joints" href="Joints.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="DataAccess.html" title="Data Access and Buffering"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Joints.html" title="Joints"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="rigid-body-dynamics">
+<span id="rigiddynamics"></span><h1>Rigid Body Dynamics<a class="headerlink" href="#rigid-body-dynamics" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we cover a number of topics that are also important to understand once you are comfortable with setting up a basic rigid body simulation world.</p>
+<div class="section" id="applying-forces-and-torques">
+<h2>Applying Forces and Torques<a class="headerlink" href="#applying-forces-and-torques" title="Permalink to this headline">¶</a></h2>
+<p>The most physics-friendly way to interact with a body is to apply a force to it. In classical mechanics, most interactions between bodies are typically solved by using forces. Because of the law:</p>
+<blockquote>
+<div>f = m*a (force = mass * acceleration)</div></blockquote>
+<p>Forces directly control a body's acceleration, but its velocity and position only indirectly. For this reason control by force may be inconvenient if you need immediate response. The advantage of forces is that regardless of what forces you apply to the bodies in the scene, the simulation will be able to keep all the defined constraints (joints and contacts) satisfied. For example gravity works by applying a force to bodies.</p>
+<p>Unfortunately applying large forces to articulated bodies at the resonant frequency of a system may lead to ever increasing velocities, and eventually to the failure of the solver to maintain the joint constraints. This is not unlike a real world system, where the joints would ultimately break.</p>
+<p>The forces acting on a body are accumulated before each simulation frame, applied to the simulation, and then reset to zero in preparation for the next frame. The relevant methods of PxRigidBody and PxRigidBodyExt are listed below. Please refer to the API reference for more detail:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidBody</span><span class="o">::</span><span class="n">addForce</span><span class="p">(</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">force</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">Enum</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">autowake</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidBody</span><span class="o">::</span><span class="n">addTorque</span><span class="p">(</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">torque</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">Enum</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">autowake</span><span class="p">);</span>
+
+<span class="kt">void</span> <span class="n">PxRigidBodyExt</span><span class="o">::</span><span class="n">addForceAtPos</span><span class="p">(</span><span class="n">PxRigidBody</span><span class="o">&amp;</span> <span class="n">body</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">force</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">pos</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">Enum</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">wakeup</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidBodyExt</span><span class="o">::</span><span class="n">addForceAtLocalPos</span><span class="p">(</span><span class="n">PxRigidBody</span><span class="o">&amp;</span> <span class="n">body</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">force</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">pos</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">Enum</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">wakeup</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidBodyExt</span><span class="o">::</span><span class="n">addLocalForceAtPos</span><span class="p">(</span><span class="n">PxRigidBody</span><span class="o">&amp;</span> <span class="n">body</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">force</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">pos</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">Enum</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">wakeup</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidBodyExt</span><span class="o">::</span><span class="n">addLocalForceAtLocalPos</span><span class="p">(</span><span class="n">PxRigidBody</span><span class="o">&amp;</span> <span class="n">body</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">force</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">pos</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">Enum</span> <span class="n">mode</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">wakeup</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The PxForceMode member defaults to PxForceMode::eFORCE to apply simple forces. There are other possibilities. For example PxForceMode::eIMPULSE will apply an impulsive force. PxForceMode::eVELOCITY_CHANGE will do the same, but also ignore the mass of the body, effectively leading to an instantaneous velocity change. See the API documentation of PxForceMode for the other possibilities.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">The methods in PxRigidBodyExt support only the force modes eFORCE and eIMPULSE.</p>
+</div>
+</div>
+<div class="section" id="gravity">
+<h2>Gravity<a class="headerlink" href="#gravity" title="Permalink to this headline">¶</a></h2>
+<p>Gravity is such a common force in simulations that PhysX makes it particularly simple to apply. For a scene-wide gravity effect, or any other uniform force field, set the PxScene class' gravity vector using PxScene::setGravity().</p>
+<p>The parameter is the acceleration due to gravity. In meters and seconds, this works out to have a magnitude of about 9.8 on earth, and should point downwards. The force that will be applied at the center of mass of each body in the scene is this acceleration vector times the actor's mass.</p>
+<p>Certain special effects can require that some dynamic actors are not influenced by gravity. To specify this set the flag:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxActor</span><span class="o">::</span><span class="n">setActorFlag</span><span class="p">(</span><span class="n">PxActorFlag</span><span class="o">::</span><span class="n">eDISABLE_GRAVITY</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Be careful when changing gravity (or enabling/disabling it) during the simulation. For performance reasons the change will not wake up sleeping actors automatically. Thus it may be necessary to iterate through all actors and call PxRigidDynamic::wakeUp() manually.</p>
+</div>
+</div>
+<div class="section" id="setting-the-velocity">
+<h2>Setting the Velocity<a class="headerlink" href="#setting-the-velocity" title="Permalink to this headline">¶</a></h2>
+<p>To immediately get a body moving in a certain direction, set its velocity:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidBody</span><span class="o">::</span><span class="n">setLinearVelocity</span><span class="p">(</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">linVel</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">autowake</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidBody</span><span class="o">::</span><span class="n">setAngularVelocity</span><span class="p">(</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">angVel</span><span class="p">,</span> <span class="kt">bool</span> <span class="n">autowake</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>During simulation, PhysX will modify the velocity of an object in accordance with gravity and other applied forces, and override the velocity if it is in conflict with a joint or a collision constraint. For example, if a ball is resting on a table and has a downward velocity, this will be clamped to 0. If you set the velocity of a chain link that is jointed to a bunch of other chain links, that velocity will be diminished, and the other chain links' velocity will be increased, to permit the chain to stay together.</p>
+</div>
+<div class="section" id="kinematic-actors">
+<h2>Kinematic Actors<a class="headerlink" href="#kinematic-actors" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes controlling an actor using forces or constraints is not sufficiently robust, precise or flexible. For example moving platforms or character controllers often need to manipulate an actor's position or have it exactly follow a specific path. Such a control scheme is provided by kinematic actors.</p>
+<p>A kinematic actor is controlled using the PxRigidDynamic::setKinematicTarget() function. Each simulation step PhysX moves the actor to its target position, regardless of external forces, gravity, collision, etc. Thus one must continually call setKinematicTarget(), every time step, for each kinematic actor, to make them move along their desired paths. The movement of a kinematic actor affects dynamic actors with which it collides or to which it is constrained with a joint. The actor will appear to have infinite mass and will push regular dynamic actors out of the way.</p>
+<p>To create a kinematic actor, simply create a regular dynamic actor then set its kinematic flag:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">setRigidDynamicFlag</span><span class="p">(</span><span class="n">PxRigidDynamicFlag</span><span class="o">::</span><span class="n">eKINEMATIC</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Use the same function to transform a kinematic actor back to a regular dynamic actor. While you do need to provide a mass for the kinematic actor as for all dynamic actors, this mass will not actually be used for anything while the actor is in kinematic mode.</p>
+<p>Caveats:</p>
+<ul class="simple">
+<li>It is important to understand the difference between PxRigidDynamic::setKinematicTarget() and PxRigidActor::setGlobalPose() here. While setGlobalPose() would also move the actor to the desired position, it would not make that actor properly interact with other objects. In particular, with setGlobalPose() the kinematic actor would not push away other dynamic actors in its path, instead it would go right through them. The setGlobalPose() function can still be used though, if one simply wants to teleport a kinematic actor to a new position.</li>
+<li>A kinematic actor can push away dynamic objects, but nothing pushes it back. As a result, a kinematic can easily squish a dynamic actor against a static actor, or against another kinematic actor. As a result, the squished dynamic object can deeply penetrate the geometry it has been pushed into.</li>
+<li>There is no interaction or collision between kinematic actors and static actors. However, it is possible to request contact information for these cases if PxSceneFlag::eENABLE_KINEMATIC_PAIRS or ::eENABLE_KINEMATIC_STATIC_PAIRS gets set.</li>
+</ul>
+</div>
+<div class="section" id="sleeping">
+<h2>Sleeping<a class="headerlink" href="#sleeping" title="Permalink to this headline">¶</a></h2>
+<p>When an actor does not move for a period of time, it is assumed that it will not move in the future either until some external force acts on it that throws it out of equilibrium. Until then it is no longer simulated in order to save resources. This state is called sleeping. You can query an actor's sleep state with the following method:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">isSleeping</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>It is however often more convenient to listen for events that the SDK sends when actors fall asleep or wake up.  To receive the following events, PxActorFlag::eSEND_SLEEP_NOTIFIES must be set for the actor:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxSimulationEventCallback</span><span class="o">::</span><span class="n">onWake</span><span class="p">(</span><span class="n">PxActor</span><span class="o">**</span> <span class="n">actors</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">count</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">void</span> <span class="n">PxSimulationEventCallback</span><span class="o">::</span><span class="n">onSleep</span><span class="p">(</span><span class="n">PxActor</span><span class="o">**</span> <span class="n">actors</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">count</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>See the section <a class="reference internal" href="Callbacks.html#callbacks"><em>Callbacks and Customization</em></a> for more information.  An actor goes to sleep when its kinematic energy is below a given threshold for a certain time. This threshold can be manipulated using the following methods:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">setSleepThreshold</span><span class="p">(</span><span class="n">PxReal</span> <span class="n">threshold</span><span class="p">);</span>
+<span class="n">PxReal</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">getSleepThreshold</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">Kinematic actors go to sleep immediately if no target pose is set before a simulation step.</p>
+</div>
+<p>Objects automatically wake up when touched by an awake object, or the application changes the position or velocity. To explicitly wake up a sleeping object, or force an object to sleep, use:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">wakeUp</span><span class="p">(</span><span class="n">PxReal</span> <span class="n">wakeCounterValue</span><span class="o">=</span><span class="n">PX_SLEEP_INTERVAL</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">putToSleep</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>The API reference documents exactly which methods cause an actor to be woken up.</p>
+</div>
+<div class="section" id="solver-accuracy">
+<h2>Solver Accuracy<a class="headerlink" href="#solver-accuracy" title="Permalink to this headline">¶</a></h2>
+<p>When the motion of a rigid body is constrained either by contacts or joints, the constraint solver comes into play. The solver satisfies the constraints on the bodies by iterating over all the constraints restricting the motion of the body a certain number of times. The more iterations, the more accurate the results become. The solver iteration count defaults to 4 position iterations and 1 velocity iteration. Those counts may be set individually for each body using the following function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">setSolverIterationCounts</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">minPositionIters</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">minVelocityIters</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Typically it is only necessary to significantly increase these values for objects with lots of joints and a small tolerance for joint error. If you find a need to use a setting higher than 30, you may wish to reconsider the configuration of your simulation.</p>
+</div>
+<div class="section" id="fast-rotation">
+<h2>Fast Rotation<a class="headerlink" href="#fast-rotation" title="Permalink to this headline">¶</a></h2>
+<p>Objects shaped like a pencil are difficult to simulate because they can store a lot of energy while rotating around a short axis, which is then converted to a very high rotational velocity when they start to rotate around a longer axis. High rotational velocities can lead to problems because certain linear approximations of the rotational motion fail to hold. For this reason the SDK automatically limits the rotational velocity of a body to a user definable maximum value. Because this may prevent intentional fast rotation in objects such as wheels, the user can override it on an per body basis:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">setMaxAngularVelocity</span><span class="p">(</span><span class="n">PxReal</span> <span class="n">maxAngVel</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="mass-properties">
+<h2>Mass Properties<a class="headerlink" href="#mass-properties" title="Permalink to this headline">¶</a></h2>
+<p>A dynamic actor needs mass properties: the mass, moment of inertia, and the center of mass frame which specifies the position of the actor's center of mass and its principal inertia axes. The easiest way to calculate mass properties is to use the PxRigidBodyExt::updateMassAndInertia() helper function, which will set all three properties based on the actor's shapes and a uniform density value. Variants of this function allow combinations of per-shape densites and manual specification of some mass properties. See the reference for PxRigidBodyExt for more details.</p>
+<p>The Wobbly Snowmen in the North Pole Sample illustrate the use of different mass properties.  The snowmen act like roly-poly toys, which are usually just an empty shell with the bottom filled with some heavy material. The low centers of mass cause them to move back to an upright position after they have been tilted. They come in different flavors, depending on how the mass properties are set:</p>
+<p>The first is basically massless. There is just a little sphere with a relatively high mass at the bottom of the Actor. This results in a quite rapid movement due to the small resulting moments of inertia. The snowman feels light.</p>
+<p>The second uses the mass of the bottom snowball only, resulting in a bigger inertia. Later on, the center of mass is moved to the bottom of the actor. This approximation is by no means physically correct, but the resulting snowman feels a bit more filled.</p>
+<p>The third and fourth snowman use shapes to calculate the mass. The difference is that one calculates the moments of inertia first (from the real center of mass) and then the center of mass is moved to the bottom. The other calculates the moments of inertia about the low center of mass that we pass to the calculation routine. Note how much slower the wobbling is for the second case although both have the same mass. This is because the head accounts for much more in the moment of inertia (the distance from the center of mass squared).</p>
+<p>The last snowman's mass properties are set up manually. The sample uses rough values for the moment of inertia to create a specific desired behavior. The diagonal tensor has a low value in X, and high values in Y and Z, producing a low resistance to rotation around the X-axis and high resistance around Y and Z. As a consequence, the snowman will wobble back and forth only around the X axis.</p>
+<p>If you have a 3x3 inertia matrix (for example, you have real-life inertia tensors for your objects) use the PxDiagonalize() function to obtain principal axes and diagonal inertia tensors to initialize PxRigidDynamic actors.</p>
+</div>
+<div class="section" id="damping">
+<h2>Damping<a class="headerlink" href="#damping" title="Permalink to this headline">¶</a></h2>
+<p>The rates at which rigid bodies dissipate angular and linear momentum are governed by damping rates. In the PhysX SDK two damping rates may be specified for a rigid body:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">setLinearDamping</span><span class="p">(</span><span class="n">PxReal</span> <span class="n">linDamp</span><span class="p">);</span>
+<span class="kt">void</span> <span class="n">PxRigidDynamic</span><span class="o">::</span><span class="n">setAngularDamping</span><span class="p">(</span><span class="n">PxReal</span> <span class="n">angDamp</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>With a linear damping value of linDamp a rigid body will experience a damping force each update equal to -linDamp*velocity.  Similarly, a rigid body with damping rate angDamp will experience a damping torque -angDamp*angularVelocity.  The damping forces and torques always act against the velocity and angular velocity and are applied in a way that ensures that a moving and rotating rigid body will asymptotically approach the rest state in the absence of other forces.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Rigid Body Dynamics</a><ul>
+<li><a class="reference internal" href="#applying-forces-and-torques">Applying Forces and Torques</a></li>
+<li><a class="reference internal" href="#gravity">Gravity</a></li>
+<li><a class="reference internal" href="#setting-the-velocity">Setting the Velocity</a></li>
+<li><a class="reference internal" href="#kinematic-actors">Kinematic Actors</a></li>
+<li><a class="reference internal" href="#sleeping">Sleeping</a></li>
+<li><a class="reference internal" href="#solver-accuracy">Solver Accuracy</a></li>
+<li><a class="reference internal" href="#fast-rotation">Fast Rotation</a></li>
+<li><a class="reference internal" href="#mass-properties">Mass Properties</a></li>
+<li><a class="reference internal" href="#damping">Damping</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Joints.html"
+                        title="previous chapter">Joints</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="DataAccess.html"
+                        title="next chapter">Data Access and Buffering</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="DataAccess.html" title="Data Access and Buffering"
+             >next</a></li>
+        <li class="right" >
+          <a href="Joints.html" title="Joints"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

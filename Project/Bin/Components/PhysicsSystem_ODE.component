@@ -1,0 +1,27 @@
+fullName = "Open Dynamic Engine"
+componentTypes = "PhysicsSystem"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "ODEPhysicsSystem.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\ode.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\ode.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls/MacOSX_x86/ode.dylib"
+	platforms = "MacOSX"
+}

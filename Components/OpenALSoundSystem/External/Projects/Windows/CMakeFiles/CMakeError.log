@@ -1,0 +1,463 @@
+Determining if the include file stdint.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'stdint.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Performing C SOURCE FILE Test HAVE_GCC_FORMAT failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "HAVE_GCC_FORMAT" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\src.c"
+1>src.c
+1>.\src.c(1) : error C2061: syntax error : identifier '__attribute__'
+1>.\src.c(1) : error C2059: syntax error : ';'
+1>.\src.c(1) : error C2059: syntax error : ','
+1>.\src.c(1) : error C2143: syntax error : missing ')' before 'constant'
+1>.\src.c(1) : error C2143: syntax error : missing ')' before 'constant'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 5 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+Source file was:
+int foo(const char *str, ...) __attribute__((format(printf, 1, 2)));
+                         int main() {return 0;}
+Determining if the include file fenv.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'fenv.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function powf exists in the m failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=powf" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>LINK : fatal error LNK1104: cannot open file 'm.lib'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function sqrtf exists in the m failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=sqrtf" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>LINK : fatal error LNK1104: cannot open file 'm.lib'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function acosf exists in the m failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=acosf" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>LINK : fatal error LNK1104: cannot open file 'm.lib'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function atanf exists in the m failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=atanf" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>LINK : fatal error LNK1104: cannot open file 'm.lib'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function fabsf exists in the m failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=fabsf" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>LINK : fatal error LNK1104: cannot open file 'm.lib'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function strtof exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=strtof" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>CheckFunctionExists.obj : error LNK2019: unresolved external symbol _strtof referenced in function _main
+1>C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec.exe : fatal error LNK1120: 1 unresolved externals
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 2 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function strcasecmp exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=strcasecmp" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>CheckFunctionExists.obj : error LNK2019: unresolved external symbol _strcasecmp referenced in function _main
+1>C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec.exe : fatal error LNK1120: 1 unresolved externals
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 2 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function strncasecmp exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=strncasecmp" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>CheckFunctionExists.obj : error LNK2019: unresolved external symbol _strncasecmp referenced in function _main
+1>C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec.exe : fatal error LNK1120: 1 unresolved externals
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 2 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function snprintf exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "CHECK_FUNCTION_EXISTS=snprintf" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\..\..\..\..\..\..\..\!betauser\Programming\LeftProgramLibs\cmake\cmake-2.8.4-win32-x86\share\cmake-2.8\Modules\CheckFunctionExists.c"
+1>CheckFunctionExists.c
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>CheckFunctionExists.obj : error LNK2019: unresolved external symbol _snprintf referenced in function _main
+1>C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug\cmTryCompileExec.exe : fatal error LNK1120: 1 unresolved externals
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 2 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the isnan exist failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckSymbolExists.c"
+1>CheckSymbolExists.c
+1>.\CheckSymbolExists.c(8) : error C2065: 'isnan' : undeclared identifier
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+File C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp/CheckSymbolExists.c:
+/* */
+#include <math.h>
+
+void cmakeRequireSymbol(int dummy,...){(void)dummy;}
+int main()
+{
+#ifndef isnan
+  cmakeRequireSymbol(0,&isnan);
+#endif
+  return 0;
+}
+
+Determining if the include file dlfcn.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'dlfcn.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the include file alsa/asoundlib.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'alsa/asoundlib.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the include file sys/soundcard.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'sys/soundcard.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the include file sys/audioio.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'sys/audioio.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the function DirectSoundCreate exists in the dsound failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /D "WIN32" /D "_WINDOWS" /D "_WIN32" /D "ARGSTACK=void*" /D "void*" /D "CALLSTACK=NULL" /D "NULL" /D "CHECK_SHARED_FUNCTION_EXISTS=DirectSoundCreate" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   "..\..\..\..\cmake\CheckSharedFunctionExists.c"
+1>CheckSharedFunctionExists.c
+1>..\..\..\..\cmake\CheckSharedFunctionExists.c(26) : warning C4022: 'DirectSoundCreate' : pointer mismatch for actual parameter 1
+1>Compiling manifest to resources...
+1>Microsoft (R) Windows (R) Resource Compiler Version 6.0.5724.0
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>Linking...
+1>LINK : fatal error LNK1104: cannot open file 'dsound.lib'
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 1 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the include file portaudio.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'portaudio.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+
+Determining if the include file pulse/pulseaudio.h exists failed with the following output:
+Change Dir: C:/Dev/Engine/Src/Addons/OpenALSoundSystem/External/openal-soft-1.13/Projects/Windows/CMakeFiles/CMakeTmp
+
+Run Build Command:c:\PROGRA~2\MICROS~1.0\Common7\IDE\devenv.com CMAKE_TRY_COMPILE.sln /build Debug /project cmTryCompileExec
+
+Microsoft (R) Visual Studio Version 9.0.21022.8.
+Copyright (C) Microsoft Corp. All rights reserved.
+1>------ Build started: Project: cmTryCompileExec, Configuration: Debug Win32 ------
+1>Compiling...
+1>Microsoft (R) 32-bit C/C++ Optimizing Compiler Version 15.00.21022.08 for 80x86
+1>Copyright (C) Microsoft Corporation.  All rights reserved.
+1>cl /Od /I "C:\Program Files (x86)\Microsoft DirectX SDK (June 2010)\Include" /D "WIN32" /D "_WINDOWS" /D "_DEBUG" /D "CMAKE_INTDIR=\"Debug\"" /D "_MBCS" /FD /RTC1 /MDd /Fo"cmTryCompileExec.dir\Debug\\" /Fd"C:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\Debug/cmTryCompileExec.pdb" /W3 /c /Zi /TC   /Zm1000
+1>   ".\CheckIncludeFile.c"
+1>CheckIncludeFile.c
+1>.\CheckIncludeFile.c(1) : fatal error C1083: Cannot open include file: 'pulse/pulseaudio.h': No such file or directory
+1>Build log was saved at "file://c:\Dev\Engine\Src\Addons\OpenALSoundSystem\External\openal-soft-1.13\Projects\Windows\CMakeFiles\CMakeTmp\cmTryCompileExec.dir\Debug\BuildLog.htm"
+1>cmTryCompileExec - 1 error(s), 0 warning(s)
+========== Build: 0 succeeded, 1 failed, 0 up-to-date, 0 skipped ==========
+
+

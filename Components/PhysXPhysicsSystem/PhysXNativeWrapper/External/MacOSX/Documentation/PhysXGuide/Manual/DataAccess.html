@@ -1,0 +1,154 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Data Access and Buffering &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Task Management" href="TaskManager.html" />
+    <link rel="prev" title="Rigid Body Dynamics" href="RigidDynamics.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="TaskManager.html" title="Task Management"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="RigidDynamics.html" title="Rigid Body Dynamics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="data-access-and-buffering">
+<span id="dataaccess"></span><h1>Data Access and Buffering<a class="headerlink" href="#data-access-and-buffering" title="Permalink to this headline">¶</a></h1>
+<p>This chapter will discuss read/write access to PhysX objects which are in a scene, specifically the time frame when access is allowed and how/when the changes will take effect. For objects in different scenes or outside a scene, the restrictions are given in the multithreading guidelines in <a class="reference internal" href="Basics.html#basics"><em>The Basics</em></a>.</p>
+<div class="section" id="general-data-access-rules">
+<h2>General Data Access Rules<a class="headerlink" href="#general-data-access-rules" title="Permalink to this headline">¶</a></h2>
+<p>It is important to distinguish two time slots for data access:</p>
+<ol class="arabic simple">
+<li>After the call to <em>PxScene::fetchResults()</em> has returned and before the next <em>PxScene::simulate()</em> call (see figure below, blue area &quot;1&quot;).</li>
+<li>After the call to <em>PxScene::simulate()</em> has returned and before the corresponding <em>PxScene::fetchResults()</em> call (see figure below, green area &quot;2&quot;).</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/timeSlots.png"><img alt="../_images/timeSlots.png" src="../_images/timeSlots.png" /></a>
+<p>In the first time slot, the simulation is not running and there are no restrictions for reading or writing object properties. Changes to the position of an object, for example, are applied instantaneously and the next scene query or simulation step will take the new state into account.</p>
+<p>In the second time slot the simulation is running and in the process, reading and changing the state of objects. Concurrent access from the user might corrupt the state of the objects or lead to data races or inconsistent views in the simulation code. Hence the simulation code's view of the objects is protected from API writes, and any attributes the simulation updates are buffered to allow API reads. The consequences will be discussed in detail in the next section.</p>
+<p>Note that <em>simulate()</em> and <em>fetchResults()</em> are write calls on the scene, and as such it is illegal to access any object in the scene while these functions are running.</p>
+</div>
+<div class="section" id="double-buffering">
+<h2>Double Buffering<a class="headerlink" href="#double-buffering" title="Permalink to this headline">¶</a></h2>
+<p>While a simulation is running, PhysX supports read and write access to objects in the scene (with some exceptions, see further below). This includes adding/removing them to/from a scene.</p>
+<p>From the user perspective, API changes are reflected immediately. For example, if the velocity of a rigid body is set and then queried, the new velocity will be returned. Similarly, if an object is created while the simulation is running, it can be accessed/modified as any other object. However, these changes are buffered so that the simulation code sees the object state as it was when <em>PxScene::simulate()</em> was called.  For instance, changes to the filter data of an object while the simulation is running are ignored for collision pair generation of the running step, and will only affect for the next simulation step.</p>
+<p>When  <em>PxScene::fetchResults()</em> is called, any buffered changes are flushed: changes made by the simulation are reflected in API view of the objects, and API changes are made visible to the simulation code for the next step. User changes take precedence: for example, a user change to the position of an object while the simulation is running will overwrite the position which resulted from the simulation.</p>
+<p>The delayed application of updates does not affect scene queries, which always take into account the latest changes.</p>
+<div class="section" id="events-involving-removed-objects">
+<h3>Events involving removed objects<a class="headerlink" href="#events-involving-removed-objects" title="Permalink to this headline">¶</a></h3>
+<p>Deleting objects or removing them from the scene while the simulation is in process will affect the simulation events sent out at <em>PxScene::fetchResults()</em>. The behavior is as follows:</p>
+<ul class="simple">
+<li><em>PxSimulationEventCallback::onWake(), ::onSleep()</em> events will not get fired if an object is involved which got deleted/removed during the running simulation.</li>
+<li><em>PxSimulationEventCallback::onContact(), ::onTrigger()</em> events will get fired if an object is involved which got deleted/removed during the running simulation. The deleted/removed object will be marked as such (see <em>PxContactPairHeaderFlag::eDELETED_ACTOR_0</em>, <em>PxContactPairFlag::eDELETED_SHAPE_0, PxTriggerPairFlag::eDELETED_SHAPE_TRIGGER</em>). Furthermore, if <em>PxPairFlag::eNOTIFY_TOUCH_LOST, ::eNOTIFY_THRESHOLD_FORCE_LOST</em> events were requested for the pair containing the deleted/removed object, then these events will be created.</li>
+</ul>
+</div>
+<div class="section" id="support">
+<h3>Support<a class="headerlink" href="#support" title="Permalink to this headline">¶</a></h3>
+<p>Not all PhysX objects have full buffering support. Operations which can not run while the simulation is in process are mentioned in the API documentation and the SDK aborts such operations and reports an error. The most important exceptions are as follows:</p>
+<ul class="simple">
+<li>Particles: The particle bulk data can not be read or modified while the simulation is running, this includes operations like reading/writing particle positions/velocities, creating/deleting particles, adding forces, etc.</li>
+<li>Cloth: The only allowed double buffered operation is to create/delete a cloth and add/remove it to/from the scene.</li>
+</ul>
+</div>
+<div class="section" id="memory-considerations">
+<h3>Memory Considerations<a class="headerlink" href="#memory-considerations" title="Permalink to this headline">¶</a></h3>
+<p>The buffers to store the object changes while the simulation is running are created on demand. If memory usage concerns outweigh the advantage of reading/writing objects in parallel with simulation, do not write to objects while the simulation is running.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Data Access and Buffering</a><ul>
+<li><a class="reference internal" href="#general-data-access-rules">General Data Access Rules</a></li>
+<li><a class="reference internal" href="#double-buffering">Double Buffering</a><ul>
+<li><a class="reference internal" href="#events-involving-removed-objects">Events involving removed objects</a></li>
+<li><a class="reference internal" href="#support">Support</a></li>
+<li><a class="reference internal" href="#memory-considerations">Memory Considerations</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="RigidDynamics.html"
+                        title="previous chapter">Rigid Body Dynamics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="TaskManager.html"
+                        title="next chapter">Task Management</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="TaskManager.html" title="Task Management"
+             >next</a></li>
+        <li class="right" >
+          <a href="RigidDynamics.html" title="Rigid Body Dynamics"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

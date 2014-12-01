@@ -1,0 +1,22 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+#include "Base/Shaders/General.cg_hlsl"
+
+sampler rt : register(s0);
+sampler depthMap : register(s1);
+
+float4 main_fp(	
+	uniform float farClipDistance,
+	uniform float4 viewportSize,
+	uniform float multiplier,
+	float2 texCoord : TEXCOORD0 
+	) : COLOR
+{
+	//float3 sceneColor = tex2D(rt, texCoord).rgb;
+
+	float normalizedDepth = tex2D(depthMap, texCoord).r;
+	//float normalizedDepth = unpackNormalized3(tex2D(depthMap, texCoord).rgb);
+	float depth = normalizedDepth * farClipDistance;
+
+	float value = normalizedDepth * multiplier;
+	return float4(value, value, value, 1);
+}

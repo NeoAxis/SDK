@@ -1,0 +1,81 @@
+compositor LDRBloom
+{
+	technique
+	{
+		// Fullsize source render target, used as tone mapping source
+		texture scene target_width target_height PF_R8G8B8
+		
+		// Bright-pass filtered target
+		// Texture size will be changed from code.
+		texture rt_brightPass 1 1 PF_R8G8B8
+		
+		// Bloom filter targets
+		// Texture size will be changed from code.
+		texture rt_bloomBlur 1 1 PF_R8G8B8
+		texture rt_bloomHorizontal 1 1 PF_R8G8B8
+		texture rt_bloomVertical 1 1 PF_R8G8B8
+
+		target scene
+		{
+			input previous
+		}
+
+		target rt_brightPass
+		{
+			input none
+			pass render_quad
+			{
+				// Down scale using a 4x4 filter, hi-pass and tone map
+				material Compositor/LDRBloom/BrightPass
+				input 0 scene
+				identifier 800
+			}
+		}
+
+		target rt_bloomBlur
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/LDRBloom/GaussianBlur5x5
+				input 0 rt_brightPass
+				identifier 700
+			}
+		}
+		target rt_bloomHorizontal
+		{
+			input none
+			pass render_quad
+			{
+				// Horizontal blur
+				material Compositor/LDRBloom/Bloom
+				input 0 rt_bloomBlur
+				identifier 701
+			}
+		}
+		target rt_bloomVertical
+		{
+			input none
+			pass render_quad
+			{
+				// Vertical blur
+				material Compositor/LDRBloom/Bloom
+				input 0 rt_bloomHorizontal
+				identifier 702
+			}
+		}
+
+		// Final output combines original scene and an additive bloom effect
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/LDRBloom/Final
+				input 0 scene
+				input 1 rt_bloomVertical
+				identifier 600
+			}
+		}
+	}
+}

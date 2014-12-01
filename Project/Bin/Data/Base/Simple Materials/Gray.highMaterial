@@ -1,0 +1,5 @@
+highLevelMaterial Gray
+{
+	template = ShaderBaseMaterial
+	diffuseScale = .5 .5 .5
+}

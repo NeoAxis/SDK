@@ -1,0 +1,30 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+void main_vp(
+	uniform float4x4 worldViewProjMatrix,
+	uniform float4 lightPositionObjectSpace,
+
+	float4 position : POSITION,
+	float4 texCoord0 : TEXCOORD0,
+
+	out float4 oPosition : POSITION )
+{
+
+	float4 pos;
+
+	#ifdef LIGHTTYPE_DIRECTIONAL
+		float4 diff = position + lightPositionObjectSpace;
+		pos = texCoord0.x * diff - lightPositionObjectSpace;
+	#else
+		float4 diff = float4(position.xyz - lightPositionObjectSpace.xyz, 0);
+		pos = texCoord0.x * lightPositionObjectSpace + diff;
+	#endif
+
+	oPosition = mul(worldViewProjMatrix, pos);
+}
+
+void main_fp(
+	out float4 oColor : COLOR )
+{
+	oColor = float4(0,0,0,0);
+}

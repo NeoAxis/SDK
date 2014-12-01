@@ -1,0 +1,57 @@
+fragment_program Compositor/LDRBloom/BrightPass_hlsl hlsl
+{
+	source Base\FullScreenEffects\LDRBloom\LDRBloom.cg_hlsl
+	entry_point brightPass
+	target ps_3_0
+}
+
+fragment_program Compositor/LDRBloom/BrightPass_cg cg
+{
+	source Base\FullScreenEffects\LDRBloom\LDRBloom.cg_hlsl
+	entry_point brightPass
+	profiles arbfp1
+}
+
+fragment_program Compositor/LDRBloom/BrightPass unified
+{
+	delegate Compositor/LDRBloom/BrightPass_hlsl
+	delegate Compositor/LDRBloom/BrightPass_cg
+}
+
+material Compositor/LDRBloom/BrightPass
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+			fragment_program_ref Compositor/LDRBloom/BrightPass
+			{
+			}
+
+			// Source
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering linear linear none
+				//filtering none
+			}
+
+			// Luminance 
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering none
+			}
+		}
+	}
+}

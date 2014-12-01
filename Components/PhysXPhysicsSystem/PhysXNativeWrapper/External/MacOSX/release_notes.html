@@ -1,0 +1,722 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<title>Release Notes - NVIDIA PhysX SDK 3.2.1</title>
+</head>
+
+<body>
+<h1 style="TEXT-ALIGN: center">Release Notes - NVIDIA PhysX SDK 3.2.1</h1>
+
+<h2 style="TEXT-ALIGN: center">June 2012</h2>
+
+<h2>What's New In NVIDIA PhysX 3.2.1</h2>
+
+<blockquote>
+	<h4>General</h4>
+	<ul>
+		<li><i>Note: PS3 platform specific changes can be found in the PS3 readme file.</i></li>
+		<li>Added GRB hooks for APEX 1.2.1.</li>
+		<li>Some incorrect usages of __restrict have been fixed.</li>
+		<li>A crash when the user's code had FPU exceptions enabled has been fixed.</li>
+		<li>A rare crash on Win64 has been fixed.</li>
+		<li>Removed no longer needed RapidXML library from distribution.</li>
+		<li>Binary serialization can now save the names of actors and shapes.</li>
+		<li>Removed a RepXUtility.h reinterpret_cast compile warning that happened on some platforms.</li>
+		<li>Fixed a spurious overlapping read/write error report when using simulation call backs in checked builds.</li>
+	</ul>
+
+	<h4>Documentation</h4>
+	<ul>
+		<li>Clarified documentation regarding use of eSEND_SLEEP_NOTIFIES flag.</li>
+		<li>Clarified documentation regarding using different CRT libraries.</li>
+		<li>Removed some confusing statements about meta data from the documentation.</li>
+		<li>Updated PsPool, PsSort so they can use the user allocator.</li>
+	</ul>
+
+	<h4>Mesh Cooking</h4>
+	<ul>
+		<li>A warning message about negative volumes in the convex mesh cooker could cause a crash.</li>
+		<li>The convex mesh cooking has been made more robust and properly outputs some error messages that were previously missing.</li>
+		<li>Fixed crash bug in x64 version of ClothEdgeQuadifier.</li>
+		<li>New cooking parameter for triangle meshes buildTriangleAdjacencies can be used to build the adjacency triangle information, which you can get in getTriangle.</li>
+	</ul>
+
+	<h4>Broad Phase</h4>
+	<ul>
+		<li>The sdk gracefully handles the case of more than 65536 broadphase pairs and reports a warning that some contacts will be dropped in the event that this limit is exceeded.  This affects all platforms except win32/win64/linux/linux64, which support a maximum number of 4294967296 pairs.</li>
+	</ul>
+
+	<h4>Collision Detection</h4>
+	<ul>
+		<li>Fixed a memory corruption bug in heightfield code.</li>
+		<li>Added a flag to enable or disable contact caching, to permit users to make a performance vs memory tradeoff.</li>
+	</ul>
+	
+	<h4>Rigid Bodies</h4>
+	<ul>
+		<li>The simultaneous raising of both the PxShapeFlag::eSIMULATION_SHAPE and PxShapeFlag::eTRIGGER_SHAPE flags is now explicitly forbidden by the sdk.  If any of the two is raised then any attempt to raise the other is rejected by the sdk and an error is passed to the error stream. </li>
+	</ul>
+
+	<h4>Articulations</h4>
+	<ul>
+		<li>The API stubbed in 3.2.0 for applying an impulse to an entire articulation is now implemented.</li>
+	</ul>
+
+	<h4>Scene Queries</h4>
+	<ul>
+		<li>Resolved poor GJK sweep convergence.</li>
+		<li>Batched queries accept sphere geometry for sweeps.</li>
+		<li>An internal limit of 65536 objects in the scene-query subsytem has been lifted.</li>
+	</ul>
+
+	<h4>Character Controller</h4>
+	<ul>
+		<li>Calling reportSceneChanged() every frame now works properly.</li>
+		<li>PhysX CCT code no longer sets PxShape::userData.  </li>
+		<li>Intersection of pairs of CCTs now uses the supplied filter data and the supplied callback prefilter.  The callback postfilter is not yet hooked up.</li>
+		<li>A bug has been fixed whereby the filterData was ignored in one of the scene queries initiated by the PhysX CCT code.</li>
+		<li>PxController::reportSceneChanged() has been renamed to PxController::invalidateCache().</li>
+		<li>A new helper function, PxController::resize(), has been added to facilitate character controller resizing.</li>
+		<li>PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT is not the default behavior anymore.</li>
+		<li>The slope limit is only observed when walking on static convex meshes, static triangle meshes, static boxes and static heightfields.  The slope limit is not observed when walking on dynamic or kinematic rigid bodies or static capsules or static spheres.  This partially fixes a bug where the slope limit was inadvertently considered for shapes attached to dynamic rigid bodies and inadvertently ignored for boxes attached to static shapes.</li>
+	</ul>
+
+	<h4>Vehicles</h4>
+	<ul>
+		<li>The vehicle sdk now reports an error to the error stream and exits from PxVehicleUpates if PxInitVehicleSdk has not been called in advance.  This avoids a divide-by-zero error that can arise if the vehicle sdk has not been initialised correctly.</li>
+	</ul>
+
+	<h4>Visual Debugger</h4>
+	<ul>
+		<li>SDK has two new messages for Visual Debugger, 'cloth fabric destroyed' and 'actors of joint changed'.</li>
+	</ul>
+</blockquote>
+
+<h2><br>Supported Platforms</h2>
+
+<blockquote>
+	Unchanged from <a href="#platforms320"> from 3.2</a>.
+</blockquote>
+
+<h2><br>
+<a name="knownissues321">Known Issues And Limitations</a></h2>
+
+<blockquote>
+	Unchanged from <a href="#knownissues320"> from 3.2</a>.
+</blockquote>
+<br>
+
+
+
+<h1 style="TEXT-ALIGN: center">Release Notes - NVIDIA PhysX SDK 3.2</h1>
+
+<h2 style="TEXT-ALIGN: center">April 2012</h2>
+
+<h2>What's New In NVIDIA PhysX 3.2</h2>
+
+<blockquote>
+	<h4>General</h4>
+	<ul>
+		<li>Added migration guide page from 3.1 to 3.2 to user's guide.</li>
+		<li>Three new sample applications:  SampleCharacterCloth (character with cloth cape and cloth flags), SampleBridges (character controller walking on dynamic bridges and moving platforms), SampleCustomGravity (character controller with arbitrary up vector).</li>
+		<li>On Windows, the PxFoundation instance is now a process wide singleton and part of the new PhysX3Common.dll library</li>
+		<li>PxCreatePhysics() does not create a PxFoundation instance any longer. The PxFoundation instance has to be created in advance through PxCreateFoundation().</li>
+		<li>Calls to PxCreatePhysics() are not valid anymore if a PxPhysics instance already exists.</li>
+		<li>If profiling information should be sent to the PhysX Visual Debugger, a PxProfileZoneManager instance has to be provided when creating the PxPhysics instance.</li>
+		<li>The version number constant PX_PUBLIC_FOUNDATION_VERSION has been replaced with PX_PHYSICS_VERSION. Both PxFoundation and PxPhysics use the same version number now.</li>
+		<li>The API now distinguishes between input and output stream types.</li>
+		<li>Added mechanism to reduce code size by not linking optional components.  See PxCreateBasePhysics() and the PxRegister*() functions.</li>
+		<li>Added getConcreteTypeName() to API classes to provide run time type information.</li>
+		<li>Added PxScene::getTimestamp() to retrieve the simulation counter.</li>
+		<li>PxGetFoundation has been moved to PxGetFoundation.h</li>
+		<li>The signature of PxCreatePhysics has changed:  The Foundation SDK instance must be passed in explicitly.  One can also hook profiling information by passing a PxProfileZoneManager.</li>
+		<li>contact data block allocation now provides statistics on usage and max usage</li>
+		<li>On all platforms except PS3, contact data blocks can be progressively allocated</li>
+		<li>PxExtensionVisualDebugger has been renamed to PxVisualDebuggerExt, PxExtensionsConnectionType renamed to PxVisualDebuggerConnectionFlag</li>
+		<li>Default implementations of memory and file streams added in PxDefaultStreams.h</li>
+		<li>Renamed PxPhysics::getMetaData() to ::PxGetSDKMetaData().</li>
+		<li>Scene::simulate() now takes a memory block which is used for allocation of temporary data during simulation</li>
+		<li>On Windows, CudaContextManagerDesc support appGUID now. It only works on release build. If your application employs PhysX modules that use CUDA you need to use a GUID so that patches for new architectures can be released for your game.You can obtain a GUID for your application from Nvidia.</li>
+	</ul>
+
+	<h4>Rigid Bodies</h4>
+	<ul>
+		<li>Introduced a new contact generation mode, see eENABLE_PCM.  Note that this is an experimental feature that still shows simulation artifacts in some scenarios.</li>
+		<li>Introduced two new friction simulation modes, see eENABLE_ONE_DIRECTIONAL_FRICTION and eENABLE_TWO_DIRECTIONAL_FRICTION.</li>
+		<li>Introduced a new scene query flag PxSceneQueryFlag::eINITIAL_OVERLAP_KEEP to control how initial overhaps are treated in scene queries.</li>
+		<li>Per-triangle materials have been implemented.</li>
+		<li>Changes to material properties are automatically reflected in contact resolution.</li>
+		<li>New helper methods to compute mass properties for a dynamic rigid body taking per shape density/mass values into account (see documentation on PxRigidBodyExt for details).</li>
+		<li>A new set of methods for overlap, sweep and raycast tests based on PxGeometry objects has been introduced. See documentation on PxMeshQuery and PxGeometryQuery for details).</li>
+		<li>The contact report API has changed (for details see the documentation on PxSimulationEventCallback::onContact()). Among the changes are:
+		<ul>
+			<li>Reports only get sent for shape pairs which request them. Previously, reports were sent for an actor pair even if the requested shape pair event was not triggered (for example because other shapes of the same actors started colliding etc.)</li>
+			<li>The following PxPairFlags have been removed eNOTIFY_CONTACT_FORCES, eNOTIFY_CONTACT_FORCE_PER_POINT, eNOTIFY_CONTACT_FEATURE_INDICES_PER_POINT. Forces and feature indices are now always provided if applicable.</li>
+			<li>It is much easier now to skip shape pairs or contact point information when traversing the contact report data.</li>
+			<li>The memory footprint of contact reports has been reduced.</li>
+		</ul>
+		</li>
+		<li>The members featureIndex0/1 of PxContactPoint have been renamed to internalFaceIndex0/1 for consistency.</li>
+		<li>For trigger reports, the eNOTIFY_TOUCH_PERSISTS event has been deprecated and will be removed in the next release. For performance and flexibility reasons it is recommended to use eNOTIFY_TOUCH_FOUND and eNOTIFY_TOUCH_LOST only and manage the persistent state separately.</li>
+		<li>Added PxConstraintVisualizer interface and code to visualize joint frames and limits.</li>
+		<li>Improved PxBatchQuery API.</li>
+		<li>PxPhysics::getProfileZoneManager() now returns a pointer rather than a reference.</li>
+		<li>PxRigidDynamic::moveKinematic() has been renamed to setKinematicTarget() to underline its precise semantics.</li>
+		<li>Added new function PxShape::getGeometry and class PxGeometryHolder to improve Geometry APIs.</li>
+		<li>PxCreatePlane now takes a PxPlane equation as a parameter. Note that the interpretation of the distance value is negated relative to 3.1</li>
+		<li>Added new actor creation helpers PxCloneStatic, PxCloneDynamic, PxScaleActor.</li>
+		<li>Added new functions PxTransformFromSegment, PxTransformFromPlaneEquation to simplify creation of planes and capsules.</li>
+		<li>added PxJoint::getConstraint() to access the underlying constraint object, from which the constraint force can be read</li>
+		<li>Some methods of PxAggregate have been renamed for consistency or replaced for extended functionality.
+		<ul>
+			<li>getMaxSize() is now called getMaxNbActors().</li>
+			<li>getCurrentSize() is now called getNbActors().</li>
+			<li>getActor() has been replaced by getActors() which copies the actor pointers to a user buffer.</li>
+		</ul>
+		</li>
+		<li>Added support for kinematic triangle meshes, planes and heighfields.</li>
+	</ul>
+
+	<h4>Scene queries</h4>
+	<ul>
+		<li>Dynamic AABBTree has been set as the default dynamic pruning structure.</li>
+	</ul>
+
+	<h4>Particles</h4>
+	<ul>
+		<li>Removed descriptors from particle API: The properties maxParticles and PxParticleBaseFlag::ePER_PARTICLE_REST_OFFSET need to be specified when calling PxPhysics::createParticleSystem() and createParticleFluid(). All other properties can be adjusted after creation through set methods.</li>
+	</ul>
+
+	<h4>Cloth</h4>
+	<ul>
+		<li>Added convex collision shapes, see PxCloth::addCollisionConvex()</li>
+		<li>Added friction support, see PxCloth::setFrictionCoefficient()</li>
+		<li>Added angle based bending constraints, see PxClothPhaseSolverConfig::SolverType::eBENDING</li>
+		<li>Added separation constraints, a spherical volume that particles should stay outside of, see PxCloth::setSeparationConstraints()</li>
+		<li>Added drag, see PxCloth::setDragCoefficient()</li>
+		<li>Added inertia scaling, controls how much movement due to PxCloth::setTargetPose() will affect the cloth</li>
+		<li>Added support for setting particle previous positions, see PxCloth::setParticles()</li>
+		<li>Added controls for scaling particle mass during collision, this can help reduce edge stretching around joints on characters, see PxCloth::setCollisionMassScale()</li>
+		<li>Particle data is now copied asynchronously from the GPU after simulate (rather than on demand)</li>
+		<li>Improved fabric layout, you can now share fabric data across multiple phases to reduce memory usage, see PxClothFabric</li>
+		<li>Fixed bug in collision when capsules are tapered at a slope > 1</li>
+	</ul>
+
+	<h4>Vehicles</h4>
+	<ul>
+		<li>Added PxVehicleDriveTank, a vehicle class that enables tank behaviors.</li>
+		<li>Support for vehicles with more than 4 wheels, see PxVehicleDrive4W, PxVehicleDriveTank.</li>
+		<li>Significant refactor of vehicle api to allow further types of vehicle to be added.</li>
+		<li>Americal English spelling used in vehicle api.</li>
+		<li>PxVehicle4W replaced with PxVehicleDrive4W, PxVehicle4WSimulationData replaced with PxVehicleDriveSimData4W.</li>
+		<li>Removal of scene query helper functions and structs: PxVehicle4WSceneQueryData, PxVehicle4WSetUpSceneQuery, PxWheelRaycastPreFilter, PxSetupDrivableShapeQueryFilterData, PxSetupNonDrivableShapeQueryFilterData, PxSetupVehicleShapeQueryFilterData. See SampleVehicle_SceneQuery.h for their implementation in SampleVehicle.</li>
+		<li>PxVehicle4WSimpleSetup and PxCreateVehicle4WSimulationData have been removed and replaced with default values in vehicle components, see PxVehicleComponents.h.</li>
+		<li>PxVehicle4WTelemetryData has been replaced with PxVehicleTelemetryData, a class that supports vehicles with any number of wheels, see PxVehicleTelemetryData</li>
+		<li>PxVehicleDrivableSurfaceType no longer stored in PxMaterial::userData.  A hash table of PxMaterial pointers is instead used to associate each PxMaterial with a PxVehicleDrivableSurfaceType, see PxVehicleDrivableSurfaceToTireFrictionPairs.</li>
+		<li>PxVehicleTyreData::mLongitudinalStiffness has been replaced with PxVehicleTireData::mLongitudinalStiffnessPerUnitGravity, see PxVehicleTireData.</li>
+		<li>Tire forces now computed from a shader to allow user-specified tire force functions, see PxVehicleTireForceCalculator.</li>
+		<li>Added helper functions to quickly configure 3-wheeled cars, see PxVehicle4WEnable3WTadpoleMode, PxVehicle4WEnable3WDeltaMode.</li>
+	</ul>
+
+    <h4>Serialization</h4>
+    <ul>
+        <li>Changed the functions PxPhysics::releaseUserReferences(), releaseCollection(), addCollection() and releaseCollected() to now take a reference rather than a pointer.</li>
+		<li>Platform conversion for serialized data has been moved from the ConvX command line tool to the PxBinaryConverter interface in the cooking library.</li>
+		<li>Changed some functions in RepXUtility.h and RepX.h to take a reference rather than a pointer.</li>
+    </ul>
+
+
+	<h4>What we removed:</h4>
+	<ul>
+		<li>Deformables have been removed. Use the optimized solution for clothing simulation instead (see documentation on PxCloth for details).</li>
+		<li>PxSweepCache is deprecated.</li>
+		<li>PVD is no longer enabled in the release build.</li>
+		<li>Removed anisotropic friction.</li>
+		<li>Removed the CCD mode eSWEPT_CONTACT_PAIRS.</li>
+		<li>PxActorDesc has been removed.</li>
+		<li>The ConvX tool has been removed.</li>
+		<li>Removed empty default implementations of functions in PxSimulationEventCallback for consistency and because it can create bugs in user code if function prototypes change between releases.  Users must now supply (eventually blank) implementations for all functions.</li>
+		<li>Octree and quadtree pruning structures have been removed.</li>
+		<li>PxScene.overlapAny has been removed. overlapMultiple with maxNumHits 1 does the same.</li>
+	</ul>
+
+	<h4>Fixed Bugs</h4>
+	<ul>
+		<li>PxScene::getActors() might not work properly when the startIndex parameter is used.</li>
+		<li>Improved the doc-comment of PxConvexMesh::getMassInformation().</li>
+        <li>RepX instantiation can lose all internal references when addOriginalIdsToObjectMap is false.</li>
+        <li>PxSetGroup crashed when used on a compound.</li>
+        <li>PhysXCommon.dll can be delay loaded.</li>
+        <li>ContactReportStream can now handle huge report numbers and size (resize-able flag) can be set in PxSceneDesc.h.</li>
+        <li>Fixed assert in sweep tests.</li>
+		<li>Concurrent read/write operations during a PxScene::fetchResults() call were not detected properly and no warning message got sent in checked builds. Forbidden write operations during callbacks triggered by PxScene::fetchResults() (contact/trigger reports etc.) were not covered either.</li>
+        <li>Fixed crash bug that occurred during collision detection when more than 16K of contact data was generated.  Contacts that generate more than 16K of contact data are now fully supported.</li>
+		<li>Fixed crash bug when PhysX Visual Debugger is connected and an object gets modified and then released while the simulation is running.</li>
+	</ul>
+
+</blockquote>
+
+<h2><br><a name="platforms320">Supported Platforms</a></h2>
+
+<blockquote>
+    <h4>Runtime</h4>
+    <ul>
+		<li>Apple iOS</li>
+		<li>Apple Mac OS X</li>
+		<li>Google Android (version 2.2 or later for SDK, 2.3 or later required for samples)</li>
+		<li>Linux (tested on Ubuntu)</li>
+		<li>Microsoft Windows XP or later (NVIDIA Driver ver 295.73 or later is required for GPU acceleration)</li>
+        <li>Microsoft XBox 360</li>
+        <li>Sony Playstation 3</li>
+		<li>Sony Playstation Vita</li>
+    </ul>
+    <h4>Development</h4>
+    <ul>
+        <li>Microsoft Windows XP or later</li>
+        <li>Microsoft Visual Studio 2008, 2010</li>
+		<li>Xcode 4.2</li>
+    </ul>
+</blockquote>
+
+<h2><br>
+<a name="knownissues320">Known Issues And Limitations</a></h2>
+
+<blockquote>
+
+	<h4>Binary Serialization</h4>
+	<ul>
+	    <li>Meta data generation for PxParticleFluid and PxParticleSystem serializables currently fails.</li>
+		<li>For collections that contain jointed rigid bodies all corresponding joints need to be added as well, otherwise deserialization will fail.
+	</ul>
+	<h4>Rigid Body Simulation</h4>
+	<ul>
+	    <li>Capsules and spheres can struggle to come to rest on even perfectly flat surfaces. To ensure these objects come to rest, it is necessary to increase angular damping on rigid bodies made of these shapes. In addition, flagging the capsule/sphere's material with physx::PxMaterialFlag::eDISABLE_STRONG_FRICTION can help bring these shapes to rest.</li>
+	</ul>
+	<h4>Character Cloth Sample</h4>
+	<ul>
+	    <li>An NVIDIA GPU with Compute Capability 2.0 or higher is required for GPU accelerated simulation in the SampleCharacterCloth sample, if no such device is present then simulation will be performed on the CPU.</li>
+		<li>Note that this is not a general SDK requirement, the clothing SDK supports cards with Compute Capability < 2.0 but with limitations on mesh size.</li>
+	</ul>
+
+</blockquote>
+
+<blockquote>
+	Please also see the previous lists <a href="#knownissues311"> from 3.1.1</a> and earlier.
+</blockquote>
+<br>
+
+
+
+<h1 style="TEXT-ALIGN: center">Release Notes - NVIDIA PhysX SDK 3.1.2</h1>
+
+<h2 style="TEXT-ALIGN: center">December 2011</h2>
+
+<h2>What's New In NVIDIA PhysX 3.1.2</h2>
+
+<blockquote>
+	<h4>General</h4>
+	<ul>
+		<li>Fixed wrong write/read clash checks.</li>
+		<li>Removed some compiler warnings from public header files.</li>
+		<li>Fixed PxScene::getActors() returning wrong actors when a start index is specified.</li>
+	</ul>
+
+
+	<h4>Rigid Bodies</h4>
+	<ul>
+		<li>Fixed broken joint projection in connection with kinematics.</li>
+		<li>Fixed inaccurate normals returned from height field scene queries.</li>
+		<li>Fixed a crash when the geometry of a shape changes and then the actor gets removed from the scene while the simulation is running.</li>
+		<li>Fixed a crash when re-adding scene-query shape actors to scene.</li>
+	</ul>
+
+
+	<h4>Particles</h4>
+	<ul>
+		<li>Fixed crash bug in particle simulation code on GPU.</li>
+	</ul>
+
+
+	<h4>Cloth</h4>
+	<ul>
+		<li>Fixed a crash when GPU fabrics are shared between cloths.</li>
+		<li>Fixed a hang in cloth fiber cooker when handed non-manifold geometry.</li>
+	</ul>
+
+	<h4>Samples</h4>
+	<ul>
+		<li>Fixed SampleVehicles doing an invalid write.</li>
+		<li>Fixed SampleVehicle jitter in profile build.</li>
+	</ul>
+
+</blockquote>
+
+<h2><br>Supported Platforms (available in separate packages)</h2>
+
+<blockquote>
+	Unchanged from <a href="#platforms311"> from 3.1.1</a>.
+</blockquote>
+
+<h2><br>Known Issues And Limitations</h2>
+
+<blockquote>
+	Unchanged from <a href="#knownissues310"> from 3.1</a>.
+</blockquote>
+<br>
+
+
+
+
+<h1 style="TEXT-ALIGN: center">Release Notes - NVIDIA PhysX SDK 3.1.1</h1>
+
+<h2 style="TEXT-ALIGN: center">November 2011</h2>
+
+<h2>What's New In NVIDIA PhysX 3.1.1</h2>
+
+<blockquote>
+	<h4>General</h4>
+	<ul>
+		<li>Ported samples to Linux.</li>
+		<li>Fixed crash bug in ConvX.</li>
+		<li>Fixed crash bug in the allocator code of PXC_NP_MEM_BLOCK_EXTENSIBLE.</li>
+		<li>Fixed crash bug when connected to PVD on various platforms.</li>
+		<li>Fixed bogus asserts due to overly strict validation of quaternions.</li>
+		<li>Fixed one frame lag in PVD scene statistics.</li>
+		<li>Fixed a number of OSX PVD sockets issues.</li>
+		<li>Fixed SampleSubmarine code that violated concurrent read/writes restriction.</li>
+		<li>Added warnings about read/write hazards to the checked build.</li>
+		<li>Fixed RepX not reading joint properties.</li>
+		<li>Fixed support for concurrent scene queries.</li>
+		<li>Fixed PhysX GPU Visual Indicator support.</li>
+		<li>Made it more clear in documentation that simulate(0) is not allowed.</li>
+	</ul>
+
+	<h4>Rigid Bodies</h4>
+	<ul>
+		<li>eNOTIFY_TOUCH_LOST trigger events do now get reported if one of the objects in contact gets deleted (see documentation of PxTriggerPair for details).</li>
+		<li>Dynamic rigid bodies with trigger shapes only do not wake up other touching bodies anymore.</li>
+		<li>Added lost touch events for trigger reports when objects get deleted.</li>
+		<li>Fixed dynamic triggers waking up actors they are triggered by.</li>
+		<li>Removed an inapropriate assert from articulation code.</li>
+		<li>Fixed problem with the angular momentum conservation of articulations.</li>
+		<li>Fixed articulation sleep problems.</li>
+		<li>Fixed a linear velocity related bug in CCD.</li>
+		<li>Fixed crash bug CCD.</li>
+		<li>Optimized performance of joint information being sent to PVD.</li>
+	</ul>
+
+</blockquote>
+
+<h2><br><a name="platforms311">Supported Platforms (available in separate packages)</a></h2>
+
+<blockquote>
+    <h4>Runtime</h4>
+    <ul>
+		<li>Microsoft Windows XP or later</li>
+        <li>Microsoft XBox 360</li>
+        <li>Sony Playstation 3</li>
+		<li>Android 2.2 or later for SDK, 2.3 or later required for samples</li>
+		<li>Linux (tested on Ubuntu)</li>
+		<li>Mac OS X</li>
+    </ul>
+    <h4>Development</h4>
+    <ul>
+        <li>Microsoft Windows XP or later</li>
+        <li>Microsoft Visual Studio 2008, 2010</li>
+		<li>Xcode 3</li>
+    </ul>
+</blockquote>
+
+<h2><br><a name="knownissues311">Known Issues And Limitations</a></h2>
+
+<blockquote>
+	Unchanged from <a href="#knownissues310"> from 3.1</a>.
+</blockquote>
+<br>
+
+
+
+<h1 style="TEXT-ALIGN: center">Release Notes - NVIDIA PhysX SDK 3.1</h1>
+
+<h2 style="TEXT-ALIGN: center">September 2011</h2>
+
+<h2>What's New In NVIDIA PhysX 3.1</h2>
+
+<blockquote>
+	<h4>General</h4>
+	<ul>
+		<li>VC10 support has been introduced.</li>
+		<li>VC8 support has been discontinued.</li>
+		<li>Namespaces cleaned up.</li>
+		<li>Extensions, Character Controller and Vehicle source code made available in binary distribution.</li>
+		<li>Added x86,x64 suffix to PxTaskCUDA.dll</li>
+		<li>Removed boolean return value from PxScene::addActor(...), and similar API calls.</li>
+		<li>Added MacOS, Android and Linux to the list of supported platforms.  See Supported Platforms below for details.</li>
+		<li>Upgraded GPU tech to CUDA 4.</li>
+		<li>Cleaned up a large number of warnings at C++ warning level 4, and set SDK to compile with warnings as errors.</li>
+		<li>Removed individual sample executables in favor of one Samples executable from PC and console builds.</li>
+		<li>Fixed alpha blending in samples.</li>
+		<li>Simplified some code in samples.</li>
+		<li>Improved ambient lighting in samples.</li>
+		<li>Made samples work with older graphics cards.</li>
+		<li>Improved and added more content the user's guide.</li>
+		<li>No longer passing NULL pointers to user allocator to deallocate.</li>
+		<li>Various improvements to Foundation and classes shared with APEX.</li>
+	</ul>
+	<h4>Rigid Bodies</h4>
+	<ul>
+		<li>Rigid Body: High performance alternative convex narrow phase code available to source licensees. See PERSISTENT_CONTACT_MANIFOLD in the code.</li>
+		<li>Significant advancements in the continuous collision detection algorithm.</li>
+		<li>Optimizations and robustness improvements for articulations.</li>
+		<li>Added some helper code to the API.</li>
+		<li>Added sleep code for articulations.</li>
+		<li>Added support for vehicles with more than one chassis shape.</li>
+		<li>Solver iteration count for articulations.</li>
+		<li>Articulation limit padding configurable.</li>
+		<li>The reference count of meshes does now take the application's reference into acount as well and thus has increased by 1 (it used to count the number of objects referencing the mesh only). Note that a mesh does only get destroyed and removed from the list of meshes once the reference count reaches 0.</li>
+		<li>Fixed autowake parameter sometimes being ignored.</li>
+		<li>Constraint solver optimizations.</li>
+		<li>Improved behavior of character controller on steep slopes.</li>
+		<li>Binary serialization now saves names.</li>
+		<li>Removed some descriptors from API.</li>
+		<li>Removed the angular velocity term in the joint positional drive error formula.</li>
+		<li>Fixed bug in capsule sweep versus mesh.</li>
+		<li>Fixed a crash bug in the tire model.</li>
+		<li>Fixed crashing of single link articulations.</li>
+		<li>Fixed bug related to removing elements of an aggregate.</li>
+		<li>Fixed swapped wheel graphs in sample vehicle.</li>
+		<li>Fixed some slow moving bodies falling asleep in midair.</li>
+		<li>Fixed missing collisions after a call to resetFiltering.</li>
+		<li>Fixed broken autowake option in setAngularVelocity.</li>
+		<li>Fixed D6 joint linear limits being uninitialized.</li>
+		<li>A large number of misc. bug fixes and optimizations.</li>
+		<li>Improved documentation and error messages associated with running out of narrow phase buffer blocks.</li>
+		<li>Added articulation documentation.</li>
+		<li>Expanded manual sections on joints.</li>
+		<li>Improved reference doc for PxSceneQueryHitType.</li>
+		<li>Added reference doc for PxSerializable.</li>
+	</ul>
+
+	<h4>Particles</h4>
+	<ul>
+	   <li>Particle index allocation removed from SDK. Added index allocation pool to extensions.</li>
+	   <li>Replaced GPU specific side band API PxPhysicsGpu and PxPhysics::getPhysicsGpu() with PxParticleGpu.</li>
+	   <li>Memory optimizations on all platforms and options to reduce memory usage according to use case with new per particle system flags:
+	   <ul>
+		   <li>PxParticleBaseFlag::eCOLLISION_WITH_DYNAMIC_ACTORS</li>
+		   <li>PxParticleBaseFlag::ePER_PARTICLE_COLLISION_CACHE_HINT</li>
+	   </ul></li>
+	   <li>Fixed rare crash appearing with multi-threaded non-GPU particle systems and rigid bodies.</li>
+	   <li>Fixed particles leaking through triangle mesh geometry on GPU.</li>
+	   <li>Fixed fast particles tunneling through scene geometry in some cases.</li>
+	   <li>Fixed erroneous collision of particles with teleporting rigid shapes (setGlobalPose).</li>
+	   <li>Fixed particle sample behavior with some older GPU models.</li>
+		<li>Fixed a GPU particle crash bug.</li>
+	</ul>
+
+
+	<h4>Cloth</h4>
+	<ul>
+		<li>A new solution for simulating cloth and clothing.</li>
+	</ul>
+
+
+	<h4>Deformables</h4>
+	<ul>
+		<li>Deformables are deprecated and will be removed in the next release. There is a new optimized solution for clothing simulation (see documentation on PxCloth for details).</li>
+	</ul>
+</blockquote>
+
+<h2><br>Supported Platforms (available in separate packages)</h2>
+
+<blockquote>
+    <h4>Runtime</h4>
+    <ul>
+		<li>Microsoft Windows XP or later</li>
+        <li>Microsoft XBox 360</li>
+        <li>Sony Playstation 3</li>
+		<li>Android 2.2 or later for SDK, 2.3 or later required for samples</li>
+		<li>Linux (SDK tested on Ubuntu, samples not yet ported) </li>
+		<li>Mac OS X</li>
+    </ul>
+    <h4>Development</h4>
+    <ul>
+        <li>Microsoft Windows XP or later</li>
+        <li>Microsoft Visual Studio 2008, 2010</li>
+		<li>Xcode 3</li>
+    </ul>
+</blockquote>
+
+<h2><br>
+<a name="knownissues310">Known Issues And Limitations</a></h2>
+
+<blockquote>
+	<h4>General</h4>
+	<ul>
+	    <li>Under VC10, you may get warnings due to conflicting build configuration flags.  Workaround: Clear the "Inherit from parent or project defaults" flag for all projects in Project->Properties->C/C++->Command Line.  We plan to fix this for the 3.1 general availability release.</li>
+	</ul>
+	<h4>Scene Query</h4>
+	<ul>
+	    <li>Querying the scene (e.g. using raycastSingle()) from multiple threads simultaneously is not safe.</li>
+	</ul>
+	<h4>Cloth</h4>
+	<ul>
+	    <li>Even simple parameters of a PxCloth can not be set or accessed while the simulation is running.</li>
+	</ul>
+	<h4>RepX</h4>
+	<ul>
+	    <li>RepX fails to load elements of aggregate joint parameters (PxD6JointDrive etc.)</li>
+	</ul>
+</blockquote>
+
+<blockquote>
+	Please also see the previous lists <a href="#knownissues300"> from 3.0</a>.
+</blockquote>
+
+
+
+
+<h1 style="TEXT-ALIGN: center"><br>Release Notes - NVIDIA PhysX SDK 3.0</h1>
+
+<h2 style="TEXT-ALIGN: center">February 14<sup>th</sup>2011</h2>
+
+<h2>What's New In NVIDIA PhysX 3.0</h2>
+
+<blockquote>
+	<h4>General</h4>
+
+	This third major version of the SDK is a significant rewrite of the entire technology.  We did away with a large amount of legacy clutter and replaced them with a wealth of new features and improvements.
+	Because even the API changes are so significant, it is easier to see it as a whole new product rather than a long list of changes.
+
+	<h4>What we removed:</h4>
+	<ul>
+		<li>The dedicated NVIDIA PhysX PPU hardware is not supported any more.</li>
+		<li>Scene compartments are not supported anymore. All created physical objects are now part of one and the same compartment.</li>
+		<li>Force fields are not part of the NVIDIA PhysX SDK anymore.</li>
+		<li>Splitting a simulation timestep into multiple substeps is not a functionality of the NVIDIA PhysX SDK any longer and has to be implemented above the SDK.</li>
+	</ul>
+
+	<h4>Key new features:</h4>
+	<ul>
+		<li>Articulations: A way to create very stiff joint assemblies.</li>
+		<li>Serialization: Save objects in a binary format and load them back quickly!</li>
+		<li>Broad Phase Clustering: Put objects that belong together into a single broadphase volume.</li>
+		<li>Driverless Model: No need to worry about system software on PC anymore.</li>
+		<li>Dynamic Character Controller: A character controller that can robustly walk on dynamic objects.</li>
+		<li>Vehicle Library: A toolkit to make vehicles, including an all new tire model.</li>
+		<li>Non-Simulation Objects: A staging are outside of the simulation from where you can add things into the simulation at high speed.</li>
+		<li>Simulation Task Manager: Take control of the management of simulation tasks.</li>
+		<li>Stable Depenetration: Large penetrations can be gracefully recovered from.</li>
+		<li>Double Buffering: You can read from and write to the simulated objects while the simulation is running on another thread.</li>
+		<li>Mesh Scaling: Create different nonuniformly scaled instances of your meshes and convexes without duplicating the memory.</li>
+		<li>Distance Based Collision Detection: Have the simulation create contacts before objects touch, and do away with unsightly overlaps.</li>
+		<li>Fast Continuous Collision Detection: Have small and high speed objects collide correctly without sacrificing performance.</li>
+		<li>Significantly increased performance and memory footprint, especially on consoles.</li>
+		<li>Unified solver for deformables and rigid bodies for great interaction.</li>
+		<li>Triangle collision detection with deformables.</li>
+		<li>Support for our new Physics Visual Debugger, including integrated profiling.</li>
+	</ul>
+
+
+	<h4>Math classes</h4>
+	<ul>
+		<li>Matrix based transforms have been replaced by quaternions.</li>
+		<li>All angles are now expressed in radians. IN PARTICULAR the PxQuat constructor from
+			axis and angle as well as the getAngleAxis and fromAngleAxis methods now use radians rather than degrees.</li>
+	</ul>
+
+	<h4>Rigid Bodies</h4>
+	<ul>
+		<li>Capsules are now defined to extend along the x rather than the y axis.</li>
+		<li>Triangle meshes do not support heightfield functionality anymore. Use the dedicated PxHeightField class instead.</li>
+		<li>Dynamic triangle mesh actors are not supported any longer. However, you can decompose your mesh into convex parts and create a dynamic actor consisting of these convex parts.</li>
+		<li>The deprecated heightfield property NxHeightFieldDesc::verticalExtent is not supported any longer. Please use the PxHeightFieldDesc::thickness parameter instead.</li>
+		<li>NxSpringAndDamperEffector is not supported anymore. Use PxDistanceJoint instead.</li>
+		<li>Joints are now part of the PhysX extensions library (PhysXExtensions).</li>
+		<li>Wheel shapes have been replaced by the more flexible entity PxWheel. A default wheel implementation, encapsulating most of the old wheel functionality, can be found in the PhysX extensions library (see PxDefaultWheel).</li>
+		<li>The NxUtilLib library has been removed. Sweep/overlap/raycast tests and other helper methods can be found in the new GeomUtils library.</li>
+		<li>Materials can no longer be accessed through indices. Per triangle material meshes need a material table which can be specified per shape (see PxShape::setMaterials() for details).</li>
+		<li>The default material is not available anymore.</li>
+	</ul>
+
+	<h4>Particle Systems, Particle Fluids</h4>
+	<ul>
+		<li>The NxFluid class has been replaced with two classes for separation of functionality and ease of use.
+			<ul>
+				<li>PxParticleSystem: Particles colliding against the scene.</li>
+				<li>PxParticleFluid: Particles simulating a fluid (sph).</li>
+			</ul>
+		</li>
+		<li>Simplified parameterization for particle systems.
+			<ul>
+				<li>Using absolute distances instead of relative multipliers to rest spacing</li>
+				<li>Simplified sph parameters</li>
+				<li>Unified collision parameters with deformable and rigid body features</li>
+			</ul>
+		</li>
+		<li>Creating and releasing particles is now fully controlled by the application.
+			<ul>
+				<li>Particle lifetime management isn't provided through the SDK anymore.</li>
+				<li>Emitters have been removed from the SDK.</li>
+				<li>Drain shapes don't cause particles to be deleted directly, but to be flagged instead.</li>
+				<li>Initial particle creation from the particle system descriptor isn't supported anymore.</li>
+			</ul>
+		</li>
+		<li>Particle data buffer handling has been moved to the SDK.</li>
+		<li>Per particle collision rest offset.</li>
+		<li>GPU accelerated particle systems.
+			<ul>
+				<li>Application controllable mesh mirroring to device memory.</li>
+				<li>Runtime switching between software and GPU accelerated implementation.</li>
+			</ul>
+		</li>
+	</ul>
+</blockquote>
+
+<h2><br>Supported Platforms (available in separate packages)</h2>
+
+<blockquote>
+    <h4>Runtime</h4>
+    <ul>
+		<li>Microsoft Windows XP or and later</li>
+        <li>Microsoft XBox360</li>
+        <li>Sony Playstation 3</li>
+    </ul>
+    <h4>Development</h4>
+    <ul>
+        <li>Microsoft Windows XP or and later</li>
+        <li>Microsoft Visual Studio 2008</li>
+    </ul>
+</blockquote>
+
+<h2><br>
+<a name="knownissues300">Known Issues And Limitations</a></h2>
+
+<blockquote>
+	<h4>Rigid Bodies</h4>
+	<ul>
+	    <li>Adding or removing a PxAggregate object to the scene is not possible while the simulation is running.</li>
+	</ul>
+	<h4>Particle Systems</h4>
+	<ul>
+	    <li>Releasing the Physics SDK may result in a crash when using GPU accelerated particle systems. </br>
+		This can be avoided by doing the following before releasing the Physics SDK:
+			<ul>
+				<li>Releasing the PxScene objects that contain the GPU accelerated particle systems.</li>
+				<li>Releasing application mirrored meshes by calling PxPhysicsGpu::releaseTriangleMeshMirror(...), PxPhysicsGpu::releaseHeightFieldMirror(...) or PxPhysicsGpu::releaseConvexMeshMirror(...).</li>
+			</ul>
+		</li>
+	</ul>
+</blockquote>
+
+
+
+
+
+
+<p><br>
+Copyright (C) 2008-2012 NVIDIA Corporation, 2701 San Thomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved. <A href="http://www.nvidia.com">www.nvidia.com</A>
+</p>
+</body>
+</html>

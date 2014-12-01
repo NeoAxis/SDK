@@ -1,0 +1,6 @@
+highLevelMaterial ModelImportEditor_SourceFree
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	diffuseColor = 0.3 0.3 0.3
+}

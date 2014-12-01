@@ -1,0 +1,449 @@
+.. _scenequery:
+
+------------------------
+Scene Queries
+------------------------
+
+PhysX provides methods in PxScene to perform collision queries against the actors in the scene. The queries come in three types: raycasts, sweeps and overlaps.  Moreover, each query type has several variants. The API supports batching of queries via the *PxBatchQuery* interface, which may provide significant speedups for some platforms and scenarios. In particular, on PS3 only batched queries are SPU-accelerated.
+
+=================
+Raycast queries
+=================
+
+A raycast intersects a user-defined ray with the whole scene. PhysX supports three types of raycasts.
+
+* *raycastAny*
+* *raycastSingle*
+* *raycastMultiple*
+
+*raycastAny* returns a single boolean result. It is optimized for cases where the hit shape and impact point are not important. A typical use case would be AI line-of-sight queries. 
+
+The simplest *raycastAny* call looks like this::
+
+    PxScene* scene;
+    PxVec3 origin = ...;                 // [in] Ray origin
+    PxVec3 unitDir = ...;                // [in] Normalized ray direction
+    PxReal maxDistance = ...;            // [in] Raycast max distance
+    PxSceneQueryHit hit;                 // [out] Raycast results
+
+    // Raycast against all static & dynamic objects (no filtering)
+    // The main result from this call is the boolean 'status'
+    bool status = scene->raycastAny(origin, unitDir, maxDistance, hit);
+
+*raycastSingle* returns a single result: the closest touched shape along the ray, if any, along with the exact hit information. This might be used for simple bullets, for example. 
+
+The simplest *raycastSingle* call looks like this::
+
+    PxScene* scene;
+    PxVec3 origin = ...;                 // [in] Ray origin
+    PxVec3 unitDir = ...;                // [in] Normalized ray direction
+    PxReal maxDistance = ...;            // [in] Raycast max distance
+    PxRaycastHit hit;                    // [out] Raycast results
+
+    // [in] Define what parts of PxRaycastHit we're interested in
+    const PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
+
+    // Raycast against all static & dynamic objects (no filtering)
+    // The main result from this call is the closest hit, stored in the 'hit' structure
+    bool status = scene->raycastSingle(origin, unitDir, maxDistance, outputFlags, hit);
+
+*raycastMultiple* finds all the objects touched by the ray, along with all the corresponding hits. For example this could be used for armor-piercing bullets. 
+
+The simplest *raycastMultiple* call looks like this::
+
+    PxScene* scene;
+    PxVec3 origin = ...;                 // [in] Ray origin
+    PxVec3 unitDir = ...;                // [in] Normalized ray direction
+    PxReal maxDistance = ...;            // [in] Raycast max distance
+
+    // [in] Define what parts of PxRaycastHit we're interested in
+    const PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
+
+    bool blockingHit;                    // [out] Tells whether hitBuffer contains a blocking hit
+    const PxU32 bufferSize = 256;        // [in] size of 'hitBuffer'
+    PxRaycastHit hitBuffer[bufferSize];  // [out] Results will be stored here
+    
+    // Raycast against all static & dynamic objects (no filtering)
+    // The main result from this call are all hits along the ray, stored in 'hitBuffer'
+    PxI32 nbHits = scene->raycastMultiple(origin, unitDir, maxDistance, outputFlags,
+                                          hitBuffer, bufferSize, blockingHit);
+
+Notes:
+
+* Solid objects (sphere, capsule, box, convex) are defined as closed (i.e. they include their boundaries.) 
+* A plane is a closed half-space
+* Heightfields are also closed and solid
+
+When raycasting against solid objects, the rays include their endpoints. Any intersection between a ray and a solid object results in a hit report. 
+
+For solid objects (sphere, capsule, box, convex) and heightfields PhysX will report a hit:
+
+1. if the start point or the end point is inside a solid object or heightfield.
+2. if the start point or the end point is on the surface of a solid object or heightfield.
+
+In the case that the start point is inside a solid object or heightfield:
+
+1. the reported hit distance is set to zero.
+2. the hit normal is in the opposite direction to the ray. 
+3. the hit impact position is the start point of the ray.
+
+
+For Planes:
+If the start point is behind the plane's surface, no hit will be reported even in the case that the ray intersects the plane.
+If the start point is on the plane, a hit with zero distance will be reported.
+
+There are two kinds of meshes: double-sided meshes and single-sided meshes. Backface culling is enabled for single-sided meshes, disabled for double-sided ones. A double-sided mesh is defined with the PxMeshGeometryFlag::eDOUBLE_SIDED flag.
+
+If the start point or end point is on the surface for both kinds of meshes, PhysX will report a hit.
+If the start point is on the back of a mesh triangle, and the ray intersects the triangle, PhysX will:
+
+1. report a hit for the double-sided mesh.
+2. report no hit for the single-sided mesh.
+
+
+To summarize, here are the tables for the definition of raycast behavior.
+
+
+**Solid Shape & Heightfield**
+
+.. csv-table::
+   :header: ,Start Pt Inside,Start Pt On the Surface,Start Pt Outside
+   :stub-columns: 1
+   
+   End Pt Inside,           HIT,HIT,HIT
+   End Pt On the Surface,   HIT,HIT,HIT
+   End Pt Outside,          HIT,HIT,MISS
+
+|
+
+**Plane**
+
+.. csv-table::
+   :header: ,Start Pt Behind,Start Pt On the Plane,Start Pt in Front
+   :stub-columns: 1
+   
+   End Pt Behind,         MISS,HIT,HIT
+   End Pt On the Plane,   MISS,HIT,HIT
+   End Pt in Front,       MISS,HIT,MISS
+
+|
+
+**Double-Sided Mesh**
+
+.. csv-table::
+   :header: ,Start Pt Behind Triangle,Start Pt On the Triangle,Start Pt in Front of Triangle
+   :stub-columns: 1
+   
+   End Pt Behind Triangle,        MISS, MISS,HIT
+   End Pt On the Triangle,        HIT,MISS,HIT
+   End Pt in Front of Triangle,   HIT,MISS,MISS
+
+|
+
+**Single-Sided Mesh**
+
+.. csv-table::
+   :header: ,Start Pt Behind Triangle,Start Pt On the Triangle,Start Pt in Front of Triangle
+   :stub-columns: 1
+   
+   End Pt Behind Triangle,        MISS,MISS,HIT
+   End Pt On the Triangle,        MISS,MISS,HIT
+   End Pt in Front of Triangle,   MISS,MISS,MISS
+
+|
+
+=================
+Sweep Queries
+=================
+
+A sweep query sweeps a shape from a given point along a given direction, and collisions with scene objects are reported. As with raycasts, PhysX supports three kinds of sweep tests with the same distinctions and limitations:
+
+* *sweepAny*
+* *sweepSingle*
+* *sweepMultiple*
+
+Each kind of sweep test has two versions: geometry sweeping and compound geometry sweeping. The compound version sweeps all specified geometry objects through space and finds all rigid actors that get hit along the sweep. Each result contains data as specified by the outputFlags field. A typical use case would be character sweeping queries.
+
+The distance of sweep must be larger than 0. It will be clamped to PX_MAX_SWEEP_DISTANCE which is defined in file PxScene.h.
+
+*sweepAny* is optimized for cases in which a simple boolean result is enough. All that matters is that there was a hit, and the exact impact point or which shape has been touched is not important.
+
+The simplest *sweepAny* call looks like this::
+
+    PxScene* scene;
+    PxGeometry geometry = ...;           // [in] Geometry of object to check for sweep
+    PxTransform pose = ...;              // [in] Pose of the object
+    PxVec3 unitDir = ...;                // [in] Normalized sweep direction
+    PxReal maxDistance = ...;            // [in] Sweep max distance
+    PxSweepHit hit;                      // [out] Sweep results
+
+    // [in] Define what parts of PxSweepHit we're interested in
+    const PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
+  
+    // Sweep against all static & dynamic objects (no filtering)
+    // The main result from this call is the boolean 'status', return True if an hit was found, vice versa.
+    bool status = scene->sweepAny(geometry, pose, unitDir, maxDistance, outputFlags, hit);
+
+*sweepSingle* returns a single result: the closest touched shape along the sweep direction, if any, along with the exact hit information. 
+
+The simplest *sweepSingle* call looks like this::
+
+    PxScene* scene;
+    PxGeometry geometry = ...;           // [in] Geometry of object to check for sweep
+    PxTransform pose = ...;              // [in] Pose of the object
+    PxVec3 unitDir = ...;                // [in] Normalized sweep direction
+    PxReal maxDistance = ...;            // [in] Sweep max distance
+    PxSweepHit hit;                      // [out] Sweep results
+
+    // [in] Define what parts of PxSweepHit we're interested in
+    const PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
+  
+    // Sweep against all static & dynamic objects (no filtering)
+    // The main result from this call is the boolean 'status', return True if an hit was found, vice versa.
+    bool status = scene->sweepSingle(geometry, pose, unitDir, maxDistance, outputFlags, hit);
+
+*sweepMultiple* finds all the objects touched by the sweep volume, along with all the corresponding hits. 
+
+The simplest *sweepMultiple* call looks like this::
+
+    PxScene* scene;
+    PxGeometry geometry = ...;           // [in] Geometry of object to check for sweep
+    PxTransform pose = ...;              // [in] Pose of the object
+    PxVec3 unitDir = ...;                // [in] Normalized sweep direction
+    PxReal maxDistance = ...;            // [in] Sweep max distance
+    PxSweepHit hit;                      // [out] Sweep results
+
+    // [in] Define what parts of PxSweepHit we're interested in
+    const PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
+
+    bool blockingHit;                    // [out] Tells whether hitBuffer contains a blocking hit
+    const PxU32 bufferSize = 256;        // [in] size of 'hitBuffer'
+    PxSweepHit hitBuffer[bufferSize];    // [out] Results will be stored here
+    
+    // Sweep against all static & dynamic objects (no filtering)
+    // The return value is the number of hits in the buffer, or -1 if the buffer overflowed.
+    PxI32 nbHits = scene->sweepMultiple((geometry, pose, unitDir, maxDistance, outputFlags, hitBuffer,bufferSize,blockingHit);
+
+The currently supported input shapes are boxes, spheres, capsules and convex. 
+
+Notes:
+
+* Solid objects (sphere, capsule, box, convex) are defined as closed (i.e. they include their boundaries.) 
+* A plane is a closed half-space
+* Triangle Mesh is defined as thin triangle surface.
+* Heightfield is defined as thin triangle surface, the thickness of heightfield is ignored for sweeping test.
+* Sweeping volumes are defined as closed (i.e. they include their boundaries.) 
+
+PhysX does not use tolerance when sweeping. Instead, users can add their own tolerance to the sweeping volume by using a larger sweeping geometry or longer sweeping distance before filling the query for PhysX. For example, use a large tolerance to get more broad results, use a small tolerance to get more accurate results.
+
+++++++++++++++++++++++++++++++++
+Sweeps with Initial Intersection
+++++++++++++++++++++++++++++++++
+
+By default PhysX sweeps return an undefined result if the initial position of the swept volume intersects another shape. Setting the *PxSceneQueryFlag::eINITIAL_OVERLAP* flag specifies that additional tests will be performned to ensure a defined result in this case. When this flag is set and an initial overlap is found, the *PxSceneQueryFlag::eINITIAL_OVERLAP_KEEP* flag determines whether the overlap generates a hit result or is ignored. If a hit result is generated, the distance is set to zero, and the returned normal is set to the opposite of the sweep direction.  If none of the flags are set the behaviour is undefined.
+
+There is a slight performance hit for initial overlap checks.
+
+=================
+Overlap Queries
+=================
+
+In overlap queries, a shape is collided against the objects in the scene, and any touching object is reported. PhysX only supports two kinds of overlap tests:
+
+* *overlapAny*
+* *overlapMultiple*
+
+*overlapAny* returns a single boolean, and is optimized for testing whether a given volume of space is empty or not.
+
+The simplest *overlapAny* call looks like this::
+
+    PxScene* scene;
+    PxGeometry geometry = ...;           // [in] Geometry of object to check for overlap
+    PxTransform pose = ...;              // [in] Pose of the object
+    PxShape* hit;                        // [out] Overlap results
+
+    // Overlap against all static & dynamic objects (no filtering)
+    // The main result from this call is the boolean 'status', return True if an overlap hit was found, vice versa.
+    bool status = scene->overlapAny(geometry, pose, hit);
+
+*overlapMultiple* returns the set of all overlapping objects.
+
+The simplest *overlapMultiple* call looks like this::
+
+    PxScene* scene;
+    PxGeometry geometry = ...;           // [in] Geometry of object to check for overlap
+    PxTransform pose = ...;              // [in] Pose of the object
+    const PxU32 bufferSize = 256;        // [in] size of 'hitBuffer'
+    PxShape* hitBuffer[bufferSize];      // [out] Results will be stored here
+
+    // Overlap against all static & dynamic objects (no filtering)
+    // The return value is the number of hits in the buffer, or -1 if the buffer overflowed.
+    PxI32 hitNum = scene->overlapMultiple(geometry, pose, hitBuffer, bufferSize);
+
+There is no "overlapSingle" case here because overlap queries do not have a given direction, and thus we cannot define a "closest" or "first" hit in this case.
+
+The currently supported input shapes are boxes, spheres, capsules and convex.
+
+Notes:
+
+* Solid objects (sphere, capsule, box, convex) are defined as closed (i.e. they include their boundaries.) 
+* A plane is a closed half-space
+* Triangle Mesh is defined as thin triangle surface.
+* Heightfield is defined as extruded triangle surface with thickness. Overlap geometries who do not intersect with heightfield surface but are within the extruded space also report a overlap hit.
+* Overlapping volumes are defined as closed.
+
+PhysX does not use tolerance when overlapping. Instead, users can add their own tolerance to the overlapping volume by using a larger overlapping geometry before fill the query for PhysX. For example, use a large tolerance to get more broad results, use a small tolerance to get more accurate results.
+
+=================
+Filtering
+=================
+
+There are several ways to filter out undesired shapes from scene queries. Each scene query accepts the following filtering-related parameters:
+
+- a *PxSceneQueryFilterData* structure, containing both *PxSceneQueryFilterFlags* and *PxFilterData*
+- an optional *PxSceneQueryFilterCallback*
+
+The first level of filtering is given by the *PxSceneQueryFilterFlag::eSTATIC* and *PxSceneQueryFilterFlag::eDYNAMIC* flags. These flags control whether the query takes static and/or dynamic shapes into account. This is the most efficient way to filter out all static shapes. For example an explosion effect which applies forces within a region could use the *overlapMultiple* query with a sphere shape, and the *PxSceneQueryFilterFlag::eDYNAMIC* flag to only consider dynamic objects, since it is useless to apply forces to static objects.
+
+Returning to the initial raycast code snippets, a *raycastAny* call against static shapes only would be written like this::
+
+    PxScene* scene;
+    PxVec3 origin = ...;                 // [in] Ray origin
+    PxVec3 unitDir = ...;                // [in] Normalized ray direction
+    PxReal maxDistance = ...;            // [in] Raycast max distance
+    PxSceneQueryHit hit;                 // [out] Raycast results
+
+    // [in] Define filter for static objects only
+    PxSceneQueryFilterData filterData(PxSceneQueryFilterFlag::eSTATIC);
+
+    // Raycast against static objects only
+    // The main result from this call is the boolean 'status'
+    bool status = scene->raycastAny(origin, unitDir, maxDistance, hit, filterData);
+    
+In case of triangle meshes it is possible to receive multiple hits per mesh. To enable triangle mesh multiple hits set *PxSceneQueryFilterFlag::eMESH_MULTIPLE* flag. This flag can be set in the scene query filter data and can be also set/cleared in pre-filter shader.
+
+The second level of filtering is controlled by the *PxFilterData*, a 128-bit bitmask used in a built-in filtering equation. Each shape has a bitmask, set using PxShape::setQueryFilterData(), and the query also has a bitmask. 
+
+
+The query data is used differently by batched and unbatched queries (see below for batched queries.) For unbatcher queries, the following rules are applied:
+
+* If the query's bitmask is all zero, the shape is kept
+* Otherwise, if the bitwise-AND value of the query's bitmask and the shape's bitmask is zero, the shape is skipped
+
+Or in other words::
+
+    PxU32 keep = (query.word0 & object.word0) | (query.word1 & object.word1) | (query.word2 & object.word2) | (query.word3 & object.word3);
+
+The hardcoded filtering equation avoids the function call overhead of the filtering callback, while still providing reasonable filtering capabilities. This is similar to the "active groups" from previous versions of PhysX. For example, one can simply use the first word of filterData (word0) to emulate the behavior of previous PhysX versions. The active groups could be defined like this::
+
+    enum ActiveGroup
+    {
+        GROUP1    = (1<<0),
+        GROUP2    = (1<<1),
+        GROUP3    = (1<<2),
+        GROUP4    = (1<<3),
+        ...
+    };
+
+When shapes are created, they can be put in a single group, for example GROUP1::
+
+    PxShape* shape;                      // Previously created shape
+
+    PxFilterData filterData;
+    filterData.word0 = GROUP1;
+    shape->setQueryFilterData(filterData);
+
+Or in several groups, for example GROUP1 and GROUP3::
+
+    PxShape* shape;                      // Previously created shape
+
+    PxFilterData filterData;
+    filterData.word0 = GROUP1|GROUP3;
+    shape->setQueryFilterData(filterData);
+
+Then when performing a scene query, select which groups are active for the query - for example GROUP2 and GROUP3 here::
+
+    PxScene* scene;
+    PxVec3 origin = ...;                 // [in] Ray origin
+    PxVec3 unitDir = ...;                // [in] Normalized ray direction
+    PxReal maxDistance = ...;            // [in] Raycast max distance
+    PxRaycastHit hit;                    // [out] Raycast results
+
+    // [in] Define what parts of PxRaycastHit we're interested in
+    const PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
+
+    // [in] Raycast against GROUP2 and GROUP3
+    PxSceneQueryFilterData filterData = PxSceneQueryFilterData();
+    filterData.data.word0 = GROUP2|GROUP3;
+
+    bool status = scene->raycastSingle(origin, unitDir, maxDistance, outputFlags, hit, filterData);
+	
+A built-in equation is never flexible enough, so the last level of filtering is provided by a filtering callback. The filtering callback must be passed to the query as a *PxSceneQueryFilterCallback*. Set the *PxSceneQueryFilterFlag::ePREFILTER* and *PxSceneQueryFilterFlag::ePOSTFILTER* flags to determine whether to filter before accurate per-shape collision, afterward, or both. Filtering early allows shapes to be efficiently discarded before the potentially expensive collision test. On the other hand, the results of that test may be required in order to determine whether a shape should be discarded or not. 
+
+The implementation of the filtering callback must return a *PxSceneQueryHitType*. These types define three different kinds of behavior:
+
+* *eNONE* indicates that the shape must simply be discarded from any further processing
+* *eBLOCK* indicates that the shape is a "blocking hit", and any shapes located further away can be ignored
+* *eTOUCH* indicates that the shape is a "touching hit", and while this shape will be recorded and included in the query's report, the query will continue to seek hits further away
+
+The *eNONE* and *eBLOCK* types correspond to the intuitive definition of a standard filtering mechanism: discard the shape (eNONE) or keep it (eBLOCK). *eTOUCH* provides support for scenarios such as bullets going through windows (breaking them on their way), or through the leaves of a tree (making them rustle). That is, cases where it is useful to apply various effects to touched objects, without actually blocking the bullet. Note that eTOUCH is only useful for scene queries reporting multiple hits. For queries returning a single result, touching hits are simply ignored (similar to eNONE).
+
+To use filter-style querying in unbatched queries, similar to that performed by the simulation filter shader and for batched queries, add a filterData field to the query callback object and call your filter function there.
+
+
+=================
+Caching
+=================
+
+Scene queries can sometimes be accelerated using *PxSceneQueryCache* objects. This is especially true for *raycastAny*, *raycastSingle* and *sweepSingle* queries. The cache object defines which shape - or even, in the case of triangle meshes, which triangle - should be tested first. For queries with high temporal coherence, this can provide significant performance gains. A good strategy to capture that coherence is simply to fill the cache object of a given query with the results (last touched shape, last touched triangle) from the previous frame.
+
+For example there is a high probability that an AI visibility query will return the same vision-blocking shape for several frames. Using *raycastAny* with a properly filled *PxSceneQueryCache* object will allow PhysX to test a single shape - or a single triangle! - before traversing internal pruning structures, and in the case of a "cache hit" the pruning structures can be bypassed entirely. Caching in such a scenario works like this::
+
+    PxScene* scene;
+    PxVec3 origin = ...;                 // [in] Ray origin
+    PxVec3 unitDir = ...;                // [in] Normalized ray direction
+    PxReal maxDistance = ...;            // [in] Raycast max distance
+    PxSceneQueryHit hit;                 // [out] Raycast results
+
+    // Per-raycast persistent cache, valid from one frame to the next
+    static PxSceneQueryCache persistentCache;
+
+    // Define cache for current frame:
+    // - if there was a hit in the previous frame, use the cache.
+    // - otherwise do not (PhysX requires given cache has a valid shape pointer)
+    const PxSceneQueryCache* cache = persistentCache.shape ? &persistentCache : NULL;
+
+    // Perform raycast query using the cache
+    PxSceneQueryHit hit;
+    const bool status = scene->raycastAny(origin, unitDir, maxDistance, hit, PxSceneQueryFilterData(), NULL, cache);
+    if(status)
+    {
+        // We hit a shape. Cache it for next frame.
+        persistentCache.shape = hit.shape;
+        persistentCache.faceIndex = hit.faceIndex;
+    }
+    else
+    {
+        // We did not hit anything. Reset the cache for next frame.
+        persistentCache = PxSceneQueryCache();
+    }
+
+Caching can also be useful in queries looking for the "closest" hit. Here, testing the previously closest object first can allow PhysX to shorten the query distance very early, leading to fewer collision tests overall.
+
+PhysX cannot detect stale pointers, so the application is responsible for updating caches when shapes are deleted.
+
+=================
+Batched queries
+=================
+
+Batched queries provide an interface, *PxBatchQuery*, where queries can be batched together and executed all at once. PxBatchQuery buffers the raycast, overlap and sweep queries until PxBatchQuery::execute() is called.
+
+Use PxScene::createBatchQuery to create PxBatchQuery object. 
+
+The hardcoded filtering equation is not used for batched queries. Instead it is replaced with two filter shaders, respectively running before (*PxBatchQueryPreFilterShader*) and after (*PxBatchQueryPostFilterShader*) the accurate collision tests. Set the preFilterShader and postFilterShader in PxBatchQueryDesc correspondingly. 
+
+The filterShaderData will be copied into PhysX and passed to the filter shader by the constantBlock parameter.
+
+Results are written to the user-defined buffers in *PxBatchQueryDesc*, in the same order the queries were given to the *PxBatchQuery* object. The results buffer and hits buffer for the needed query type must be set. The SDK ignores batched queries with NULL results buffer or NULL hits buffer.
+
+PS3 specific limitations and how to write an SPU Query Filter Shader are captured in the User's PS3 Guide "SPU Simulation Restrictions" and "SPU Query Filter Shaders" chapters respectively.

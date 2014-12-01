@@ -1,0 +1,227 @@
+.. _scenesandactors:
+
+-----------------------------
+Scenes, Materials, and Actors
+-----------------------------
+
+The most important PhysX objects are *scenes* and *actors*. A scene is PhysX' representation of the world, and actors are the individual elements of that world. To simulate a physical world, create a scene and populate it with actors. A scene also supports geometric queries, such as raycasts and volume overlap checks, against the actors it contains. See :ref:`scenequery` for more details.
+
+The basic use of rigid actors is outlined below and discussed further in :ref:`rigidDynamics`, see the chapters :ref:`cloth` and :ref:`particles` for other types of actors.  
+
+===============================
+The Scene
+===============================
+
+The PxScene object is the representation of the world in PhysX. Creating the scene requires a number of immutable parameters to be specified in the PxSceneDesc struct. The values of these parameters may vary between samples, so each sample has the opportunity to set values using the customizeSceneDesc() function::
+
+    static PxDefaultSimulationFilterShader gDefaultFilterShader;
+
+    PxScene* mScene;
+    
+    PxSceneDesc sceneDesc(mPhysics->getTolerancesScale());
+    sceneDesc.gravity = PxVec3(0.0f, -9.81f, 0.0f);
+    customizeSceneDesc(sceneDesc);
+
+    if(!sceneDesc.cpuDispatcher)
+    {
+        mCpuDispatcher = PxDefaultCpuDispatcherCreate(mNbThreads);
+        if(!mCpuDispatcher)
+            fatalError("PxDefaultCpuDispatcherCreate failed!");
+        sceneDesc.cpuDispatcher    = mCpuDispatcher;
+    }
+    if(!sceneDesc.filterShader)
+        sceneDesc.filterShader    = &gDefaultFilterShader;
+
+    #ifdef PX_WINDOWS
+    if(!sceneDesc.gpuDispatcher && mCudaContextManager)
+    {
+        sceneDesc.gpuDispatcher = mCudaContextManager->getGpuDispatcher();
+    }
+    #endif
+
+    mScene = mPhysics->createScene(sceneDesc);
+    if (!mScene)
+        fatalError("createScene failed!");
+    
+For mandatory fields, default values are set if not supplied by the application:
+
+* a realistic gravity vector to act along the -y axis of the world.
+* the SDK's default implementation of the CpuDispatcher object, which maps simulation tasks to threads.  mNbThreads is the number of threads that it should use -- in this sample we set it to 1.  
+* on windows, a GpuDispatcher to use for CUDA-accelerated features.
+* the SDK's default implementation of PxSimulationFilterShader, a user-definable collision filtering mechanism.
+
+PxPhysics::createScene() then creates the scene object.
+
+===============================
+The Simulation Loop
+===============================
+
+Now use the method PxScene::simulate() to advance the world forward in time. Here is simplified code from the samples' fixed stepper class::
+
+    mAccumulator = 0.0f;
+    mStepSize = 1.0f / 60.0f;
+
+    virtual bool advance(PxReal dt)
+    {
+        mAccumulator  += dt;
+        if(mAccumulator < mStepSize)
+            return false;
+        
+        mAccumulator -= mStepSize;
+
+        mScene->simulate(mStepSize);
+        return true;
+    }
+
+This is called from the sample framework whenever the app is done with processing events and is starting to idle.  It accumulates elapsed real time until it is greater than a sixtieth of a second, and then calls simulate(), which  moves all objects in the scene forward by that interval. This is probably the simplest of very many different ways to deal with time when stepping the simulation forward.   
+
+To allow the simulation to finish and return the results, simply call::
+
+    mScene->fetchResults(true);
+
+True indicates that the simulation should block until it is finished, so that on return the results are guaranteed to be available. When fetchResults completes, any simulation event callback functions that you defined will also be called.  See the chapter :ref:`callbacks`. 
+
+It is possible to read and write from the scene during simulation. The samples take advantage of this to perform rendering work in parallel with physics. Until fetchResults() returns, the results of the current simulation step are not available. So running rendering in parallel with simulation renders the actors as they were when simulate() was called. After fetchResults() returns, all these functions will return the new, post-simulate state. See the chapter :ref:`dataaccess` for more details about reading and writing while the simulation is running.
+
+
+For the human eye to perceive animated motion as smooth, use at least twenty discrete frames per second, with each frame corresponding to a physics time step.  To have smooth, realistic simulation of more complex physical scenes, use at least fifty frames per second. 
+
+.. note:: If you are making a real-time interactive simulation, you may be tempted to take different sized time steps which correspond to the amount of real time that has elapsed since the last simulation frame.  Be very careful if you do this, rather than taking constant-sized time steps:  The simulation code is sensitive to both very small and large time steps, and also to too much variation between time steps.  In these cases it will likely produce jittery simulation.
+
+===============================
+Simulation Memory
+===============================
+Much of the memory PhysX uses for simulation is held in a pool of blocks, each 16K in size. You can control the current and maximum size of the pool with the nbContactDataBlocks and maxNbContactDataBlocks members of PxSceneDesc. PhysX will never allocate more than the maximum number of blocks specified, and if there is insufficient memory it will instead simply drop contact or joint constraints. You can reclaim unused blocks with the scene's flush() method, find out how many blocks are currently in use with the getNbContactBlocksUsed() method, and find out the maximum number that have ever been used with the getMaxNbContactDataBlocksUsed() method.
+
+In order to minimize the allocations performed during simulation, you may provide physx with a memory block in the simulate() call. This block will be used for
+allocation of temporary data during simulation. Its size must be a multiple of 16K, and it must be 16-byte aligned.
+
+Note that there are currently special restrictions for PS3, which are discussed in the platform-specific section of this guide.
+
+===============================
+Materials
+===============================
+  
+All physical objects have at least one material, which defines the friction and restitution properties used to resolve a collision with the objects. To create a material, call PxPhysics::createMaterial()::
+  
+    PxMaterial* mMaterial;
+      
+    mMaterial = mPhysics->createMaterial(0.5f, 0.5f, 0.1f);    //static friction, dynamic friction, restitution
+    if(!mMaterial)
+        fatalError("createMaterial failed!");
+
+Materials are owned by the PxPhysics object, and can be shared among objects in multiple scenes. The material properties of two objects involved in a collision may be combined in various ways. See the reference documentation for PxMaterial for more details.
+
+PhysX objects whose collision geometry is a triangle mesh or a heightfield (see :ref:`shapes`) can have a material per triangle.
+		
+===================
+Rigid Actors
+===================
+
+Rigid actors are of two principal kinds: *static* and *dynamic*, corresponding to the PhysX classes PxRigidStatic and PxRigidDynamic. Static actors are immovable by the 
+simulation, whereas dynamic actors have their positions updated by the simulation when simulate() is called. Dynamic actors may be controlled either directly by the application updating their position on a frame-by-frame basis (such actors are called *kinematic*), or by the simulation engine according to Newton's Laws of Motion.
+
+PhysX provides helper methods in PxSimpleFactory.h to quickly create simple actors. Actors may also be imported using a binary serialization mechanism (see chapter :ref:`serialization`) which bypasses much of the processing involved in actor creation. To procedurally create and simulate more complex actors, follow these steps:
+
+#. create a PxRigidStatic or PxRigidDynamic object through the PxPhysics object, specifying its pose (orientation and position) in the world
+#. create one or more PxShapes to define the collision geometry of the actor
+#. for dynamics, update the mass and inertia properties of the actor
+#. customize the properties of the actor and shapes as necessary
+#. add the actor to the scene
+
+For example, to throw a simulated sphere from a specific position with an initial speed, create a dynamic actor following the first three steps above::
+
+    PxRigidDynamic* aSphereActor = thePhysics->createRigidDynamic(PxTransform(position));
+    PxShape* aSphereShape = aSphereActor->createShape(PxSphereGeometry(radius), aMaterial);
+    PxRigidBodyExt::updateMassAndInertia(*aSphereActor, sphereDensity);
+
+or equivalently::
+
+    PxRigidDynamic* aSphereActor =  PxCreateDynamic(*thePhysics, PxTransform(position), PxSphereGeometry(radius), 
+		aMaterial, sphereDensity);
+	
+Then specify an initial linear velocity vector::
+
+    aSphereActor->setLinearVelocity(velocity);
+
+And add the actor to a scene::
+
+    aScene->addActor(*aSphereActor);
+
+To create a static ground plane and add it to the simulation::
+
+    PxRigidStatic* plane = PxCreatePlane(*mPhysics, PxPlane(PxVec3(0,1,0), 0), aMaterial)
+    if (!plane)
+        fatalError("create shape failed!");    
+    mScene->addActor(*plane);
+
+PxShape and PxGeometry classes are described in more detail in :ref:`shapes`. For more about specifying mass properties, see :ref:`rigidDynamics`.
+
+===================
+Simulation Clients
+===================
+
+The so-called multi-client functionality of the SDK strives to solve problems that can arise if the PhysX SDK is used in an environment with multiple distinct software components.  It makes it possible to selectively hide simulated objects from all but the component that has created them, to avoid confusing and in the worst case crashing the other components that have been written without anticipating the presence of "foreign" simulation objects.
+
+For example, imagine a game that is written with the convention that all PxActors store an index into an array in their userData fields at creation time, that is then used to look up the game entity object that is among other things responsible for rendering the physics actor.  This game could have code that queries the PxScene for all the actors contained, and then casts the userData of each retrieved actor into an index, which it uses to do an array lookup.  Further, imagine that the author of the game decides to make use of a third party library which provides some physical special effect.  This library also creates PxActors in the same scene as the game, so that they will automatically interact with the game's actors.  Unfortunately the actors belonging to the library do not use the convention of the game when it comes to the userData field -- in fact the library uses the userData field to some other number.  One can easily imagine that unless the game code is changed, this could lead to the game trying to index into its entity array using userData values that it did not create, resulting in undefined behavior.  The solution in this case would be to let the game mark its own actors in a distinct way from the actors of the library so that the foreign actors could be efficiently skipped when performing the userData lookups.  Clearly one needs to guard against this problem any time the application receives actors back from the SDK, including for example notifications and scene queries.  In theory the game could achieve this without dedicated PhysX support by doing a hash table lookup of any PxActor pointers it receives back from the SDK, but this is less efficient than putting a little bit of logic into the PhysX SDK.
+
+Each middleware library or application component that uses the PhysX SDK for simulation is referred to as a 'client'.  Each client is identified with a PxClientID, which is an 8 bit scalar value.  The PhysX SDK supports up to PX_MAX_CLIENTS clients, which is currently defined to be 128, though we only foresee needing a few clients at most.  The main client in a multi-client context, or the sole client in an application that was not written to be multi-client aware, is the default client with a PxClientID of PX_DEFAULT_CLIENT.   
+
+Additional clients can be created by calling::
+
+	PxClientID myClient = PxScene::createClient();
+
+This generates a new client identifier.  In the above example, the game would implicitly be the default client, and the third party library would generate an additional clientID for itself like this.  If multiple scenes exist, this client creation and all additional book keeping described below must be performed independently for each scene.
+
+Any actor that is created can now be assigned to a client right after creation using::
+
+	PxActor::setOwnerClient(PxClientID ownerClient);
+
+If this is not done, the PX_DEFAULT_CLIENT is the owner by default.  Thus, in our example above, the third party library would need to mark all of the actors it creates as part of its special effect in this way.  Actors created by the game are thus marked correctly by default, no change to the game code is needed.
+
+Many object retrieval methods of the PhysX SDK employ a clientID parameter so that the actors retrieved are limited to the ones belonging to the PX_DEFAULT_CLIENT by default, so that foreign actors are automatically omitted.  For example, if the game had used the efficient active transforms method to retrieve updated actors for rendering, it would need no further changes.  The method::
+
+	virtual PxActiveTransform*	PxScene::getActiveTransforms(PxU32& nbTransformsOut, PxClientID client = PX_DEFAULT_CLIENT) = 0;
+	
+limits the returned actor scope to the default client unless another client is specified explicitly.  If on the other hand the game used the simple method PxScene::getActors(), a simple change is needed because getActors does not filter its results by client::
+
+	void retrieveGameActors()
+	{
+		PxActorTypeSelectionFlags desiredTypes = PxActorTypeSelectionFlag::eRIGID_STATIC 
+			| PxActorTypeSelectionFlag::eRIGID_DYNAMIC;
+		PxU32 count = sharedScene->getNbActors(desiredTypes);
+		PxActor** buffer = new PxActor*[count];
+		sharedScene->getActors(desiredTypes, buffer, count);
+		for(PxU32 i = 0; i < count; i++)
+		{
+			if (buffer[i]->getOwnerClient() == PX_DEFAULT_CLIENT)	//skip actors owned by foreign clients
+			{
+			// further process this actor
+			
+			...
+			
+			}
+		}
+		delete buffer;
+	}
+
+A further key method by which components using the PhysX SDK receive objects back is the use of callbacks.  The main callback class of the SDK is PxSimulationEventCallback.  A derived class can be implemented by each client and passed to the SDK using::
+
+	PxScene::setSimulationEventCallback(PxSimulationEventCallback* callback, PxClientID client = PX_DEFAULT_CLIENT) = 0;
+	
+This is in contrast to specifying the callback using::
+
+	PxSimulationEventCallback*	PxSceneDesc::simulationEventCallback;
+
+which does not permit the flexibility to specify a client explicitly and is thus equivalent to calling setSimulationEventCallback() with the default client parameter.  In our example, the game would set the callback for its own event listener class using either method, and the third party library could set an additional listener with its own client ID as the parameter.  Such a setup would guarantee that each component only receives events related to its own actors.  
+
+In more complex scenarios, the need may arise to loosen this strict segregation of events.  It is plausible for example to imagine that the third party
+middleware library needs to receive notification that its special effect objects got in contact with the game's collision environment because in this case it wants to spawn some additional graphical or audible contact effect.  To do this, the library must ask the SDK to send foreign contact events to its own event callback::
+
+	sharedScene->setClientBehaviorBits(libraryClient, PxClientBehaviorBit::eREPORT_FOREIGN_OBJECTS_TO_CONTACT_NOTIFY);
+
+In addition, the game must opt in all the actors that could be sent to the libraryClient::
+
+	gameActor->setClientBehaviorBits(PxActorClientBehaviorBit::eREPORT_TO_FOREIGN_CLIENTS_CONTACT_NOTIFY);
+	
+In both function calls, flags for multiple event types can of course be OR-ed together.  Besides contacts, flags are available for triggers, scene queries and constraint break events.  Scene queries deserve special attention because they don't reach the user through the PxSimulationEventCallback.  Instead, the owner of a synchronous scene query is defined by a parameter, for example as in PxScene::raycastAny().  For batched queries the owner is specified in the batch query creation descriptor:  PxBatchQueryDesc::ownerClient.  

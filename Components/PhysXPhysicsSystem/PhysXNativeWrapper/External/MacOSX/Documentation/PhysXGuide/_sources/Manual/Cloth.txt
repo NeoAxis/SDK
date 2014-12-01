@@ -1,0 +1,267 @@
+.. _cloth:
+
+----------------------------------------------------
+Cloth
+----------------------------------------------------
+
+.. |pi| unicode:: U+003C0
+
+
+====================================================
+Introduction
+====================================================
+
+PhysX 3 cloth is a rewrite of the PhysX 2 deformables, tailored towards simulating character cloth. Softbodies, tearing, two-way interaction, and world collision have been removed, while behavior and performance for cloth simulation have been improved.
+
+====================================================
+Creating Cloth Fabric
+====================================================
+
+The *PxClothFabric* class describes the constraint structure for a cloth. Constraints, for example a distance constraint, consist of two particle indices and a rest-length. These constraints are chained together as *fibers*, where two consecutive constraints of a fiber share a particle, multiple fibers are then further grouped into *sets*. By imposing the restriction that fibers of the same set do not overlap nor contain cycles, the fibers of a set can be solved in parallel. Each fabric may be shared between multiple cloth objects.
+
+The cloth solver operates on one set of fibers at a time. This is referred as a solver *phase*, each phase has its own constraint type, such as stretching, bending or shearing, and an associated stiffness value.
+
+The simplest way to create a fabric is to use the cloth cooking API. Given a *PxClothMeshDesc*, the cooker will create a set of constraints for a regular manifold triangle or quad mesh. The cooker will assign rest lengths and rest angles from the mesh automatically and it will organise constraints into vertical stretch, horizontal stretch, bending, or shear phases.
+
+Below is an example function that creates a fabric using the cooking API and memory streams::
+
+	PxClothFabric* createFabric(PxPhysics &physics, PxCooking &cooking, const PxClothMeshDesc &desc, const PxVec3& gravityDir)
+	{
+		// In this example, we cook the fabric on the fly through a memory stream
+		// Note that we can also use a file stream and pre-cook the mesh to save the cooking time
+		PxToolkit::MemoryOutputStream wb;
+		PX_ASSERT(desc.isValid());
+
+		// Cook the fabric data into memory buffer
+		if (!cooking.cookClothFabric(desc, gravityDir, wb))
+			return 0;
+
+		// Read fabric from memory stream
+		PxToolkit::MemoryInputData rb(wb.getData(), wb.getSize());
+		return physics.createClothFabric(rb);
+	}
+
+Note: The direction of gravity is provided as a hint to the cooker, 'vertical' constraints will be placed parallel to this vector.
+       
+====================================================
+Creating Cloth Collision Data
+====================================================
+
+In contrast to PhysX 2 deformables, PhysX 3 cloth does not collide with rigid bodies. Instead, each cloth object supports collision with spheres, capsules, planes and convex shapes (groups of planes), these shapes are all treated separately to the main PhysX rigid body scene.
+
+Capsules are defined by a pair of indices into the spheres array and each sphere may have a different radius thus forming a tapered capsule. Sharing a sphere between two capsules is supported and can be useful for modelling characters (upper and lower leg made up from capsules can share the sphere at the knee), this sharing is encouraged becaues it helps make the simulation more efficient and robust.
+
+Sphere and capsule shapes must be specified at cloth construction time. The following example shows how to set up the *PxClothCollisionData* object for a single capsule consisting of two spheres of radius 0.5 and 0.25::
+
+	// Two spheres located on the x-axis
+	PxClothCollisionSphere spheres[2] = 
+	{ 
+		{PxVec3(-1.0f, 0.0f, 0.0f), 0.5f},
+		{PxVec3( 1.0f, 0.0f, 0.0f), 0.25f}
+	};
+	
+	// A tapered capsule
+	PxU32 capsulePairs[] = { 0, 1 };
+
+	PxClothCollisionData collisionData;
+	collisionData.spheres = spheres;
+	collisionData.numSpheres = 2;
+	collisionData.pairIndexBuffer = capsulePairs;
+	collisionData.numPairs = 1;
+
+Planes can be added through *PxCloth::addCollisionPlane()* method at any time after creation, but will not be considered for collision unless they are referenced by a convex shape. For example, the following code shows how to setup a typical upward facing ground plane through the origin::
+
+	PxClothCollisionPlane p;
+	p.normal = PxVec3(0.0f, 1.0f, 0.0f);
+	p.distance = 0.0f;
+	
+	PxU32 convexMask = 1; // Convex references the first plane only
+
+	cloth.addCollisionPlane(p);
+	cloth.addCollisionConvex(convexMask);
+	
+
+Planes may be efficiently updated after construction using the *PxCloth::setCollisionPlanes()* function.
+
+====================================================
+Continuous Collision Detection
+====================================================
+
+
+Besides discrete collision which resolves particles inside shapes at the end of each iteration, continuous collision detection is supported and can be enabled by calling::
+
+	// Enable continuous collision detection
+	cloth.setClothFlag(PxClothFlag::eSWEPT_CONTACT, true);
+
+Continuous collision is around 2x more computationally expensive than discrete collision, but it is necessary to detect collision between fast moving objects. Continuous collision analyzes the trajectory of particles and capsules to determine when a contact occurs. After the first time of contact, the particle is moved with the capsule until the end of the iteration. 
+
+Note: The SIMD collision path handles sets of 4 particles in parallel. It is therefore advantegous to spatially group cloth particles so that they are likely to collide with the same set of shapes. 
+	
+====================================================
+Creating Cloth
+====================================================
+
+With the fabric and collision data ready the *PxCloth* object can be created and added to the scene as below::
+
+	// Create a cloth object and add to the scene
+	PxCloth* cloth = physics.createCloth( pose, fabric, particlePositions, collisionData, flags);	
+	scene.addActor(cloth);
+
+The *particlePositions* parameter is an array of *PxClothParticle* structures containing the initial particle position and the reciprocal of the particle mass. The initial positions will typically be the same as those provided during cooking and the mass of the particle may be set uniformly or non-uniformly as appropriate. For fixed position particles the inverse mass should be set to zero.
+
+====================================================
+Simulation Overview
+====================================================
+
+For one PhysX simulation frame, the cloth solver runs for multiple iterations. The number of iterations is determined by the solver frequency parameter and the simulation frame time. Each iteration integrates particle positions and solves distance constraints, motion constraints, and character collision. Local frame, motion constraints and collision shapes are interpolated per iteration from the per-frame values specified by the user. 
+
+====================================================
+Particle Integration
+====================================================
+
+A particle state consists of the current position and the position before the last iteration. The particle velocity can be computed by dividing the position delta by the delta time of the previous iteration.
+
+Particle positions are stored in local space, and accelerating the local frame affects the particles. The amount by which the local frame acceleration affects the cloth particles can be controlled using an inertia scale, for example to impart half the local frame acceleration to the particles use::
+
+	cloth.setInertiaScale(0.5f);
+
+Limiting the amount that local frame changes affect particles can be especially useful for fast moving characters.
+	
+Even though using variable time-steps is generally not recommended, the simulation tries to handle variable time-steps carefully. Change in time-step is taken into account for position integration, and external forces are integrated using a smoothed time-step to avoid jittering.
+
+=====================================================
+Constraint Solving
+=====================================================
+
+The solver is run for a fixed number of iterations per simulation frame and can only enforce the constraints approximately. Two solver modes are provided with a different balance of speed and convergence rate. A semi-implicit solver, specified with *PxClothPhaseSolverConfig::eSTIFF* or a Gauss-Seidel style solver, specified with *PxClothPhaseSolverConfig::eFAST*.
+
+If the distance constraints are not solved accurately enough, the cloth becomes stretchy. Because stretching cloth is most obvious under gravity, it is wise to pick the more accurate but about 2.5x slower semi-implict solver for vertical stretch phases. If the built in cooking API is used to construct the fabric then these vertical constraints will be placed in the *PxClothFabricPhaseType::eSTRETCHING* phase according to the direction of gravity specified at cooking time.
+
+The faster solver is usually good enough for the other phase types because approximate bending constraints for example are much less noticeable. Below is an example setup for multiple solver phases::
+
+	PxClothPhaseSolverConfig config;
+
+	// Use the semi-implicit solver for vertical distance constraints
+	config = cloth.getPhaseSolverConfig(PxClothFabricPhaseType::eSTRETCHING);
+	config.solverType = PxClothPhaseSolverConfig::eSTIFF;
+	config.stiffness = 1.0f;
+	cloth.setPhaseSolverConfig(PxClothFabricPhaseType::eSTRETCHING, config);
+
+	// Use Gauss-Seidel solver for horizontal constraints
+	config = cloth.getPhaseSolverConfig(PxClothFabricPhaseType::eSTRETCHING_HORIZONTAL);
+	config.solverType = PxClothPhaseSolverConfig::eFAST;
+	config.stiffness = 1.0f;
+	cloth.setPhaseSolverConfig(PxClothFabricPhaseType::eSTRETCHING_HORIZONTAL, config);
+
+	// Use Gauss-Seidel solver for shearing constraints
+	config = cloth.getPhaseSolverConfig(PxClothFabricPhaseType::eSHEARING);
+	config.solverType = PxClothPhaseSolverConfig::eFAST;
+	config.stiffness = 1.0f;
+	cloth.setPhaseSolverConfig(PxClothFabricPhaseType::eSHEARING, config);
+	
+	// Use bending solver for angle based bending constraints
+	config = cloth.getPhaseSolverConfig(PxClothFabricPhaseType::eBENDING_ANGLE);
+	config.solverType = PxClothPhaseSolverConfig::eBENDING;
+	config.stiffness = 0.5f;
+	cloth.setPhaseSolverConfig(PxClothFabricPhaseType::eBENDING, config);
+
+Sometimes it is even desirable that distance constraints are not enforced rigorously. The stiffness parameter allows only correcting a portion of the edge length residual per iteration, for example to reduce the strength of bending constraints. A separate, lower stiffness can be used for edges that are only moderately stretched or compressed. For example, a dress can be made to stretch when the character is taking large steps, but still behave correctly during pirouettes. 
+
+The following code shows how to set up a phase such that when edges are compressed between 60% and 100% of the rest-length, a stiffness of 0.4 = 0.8 * 0.5 will be used. If the edge is compressed more than 60% or if the edge is stretched, a stiffness of 0.8 will be used::
+
+	PxClothPhaseSolverConfig config;
+	config.solverType = PxClothPhaseSolverConfig::eFAST;
+	config.stiffness = 0.8f;
+	config.stretchStiffness = 0.5f;
+	config.stretchLimit = 0.6f;
+	
+=====================================================
+Virtual Particles
+=====================================================
+
+Virtual particles provide a way of improving cloth collision without increasing the cloth resolution. They are called 'virtual' particles because they only exist during the collision processing stage and do not have their position, velocity or mass explicitly stored like regular particles, they can be thought of as providing additional samples on the collision surface.
+
+A virtual particle is defined by 3 particle indices and an index into a weights table, the weights table defines the barycentric coordinates used to create a virtual particle position from a linear combination of the referenced particles. The following is an example weights table that can be used to create a distribution of 4 virtual particles on a triangle::
+
+	static PxVec3 weights[] = 
+	{ 
+		// Center point
+		PxVec3(1.0f / 3, 1.0f / 3, 1.0f / 3),
+
+		// Center of sub triangles
+		PxVec3(2.0f / 3, 1.0f / 6, 1.0f / 6),
+		PxVec3(1.0f / 6, 2.0f / 3, 1.0f / 6),
+		PxVec3(1.0f / 6, 1.0f / 6, 2.0f / 3),
+	};
+
+During collision processing each virtual particle is tested for collision like a regular particle and the collision impulse is redistributed back to the original particles using reverse interpolation.
+
+The code below shows an example of how to set up the virtual particles for a *PxClothMeshDesc*::
+
+	bool Test::ClothHelpers::createVirtualParticles(PxCloth& cloth, PxClothMeshDesc& meshDesc, int numSamples)
+	{
+		if(!numSamples)
+			return false;
+
+		PxU32 numFaces = meshDesc.triangles.count;
+		PxU8* triangles = (PxU8*)meshDesc.triangles.data;
+
+		PxU32 numParticles = numFaces * numSamples;
+		SampleArray<PxU32> virtualParticleIndices;
+		virtualParticleIndices.reserve(4 * numParticles);
+
+		for (PxU32 i = 0; i < numFaces; i++)
+		{
+			for (int s = 0; s < numSamples; ++s)
+			{
+				PxU32 v0, v1, v2;
+
+				if (meshDesc.flags & PxMeshFlag::e16_BIT_INDICES)
+				{
+					PxU16* triangle = (PxU16*)triangles;
+					v0 = triangle[0];
+					v1 = triangle[1];
+					v2 = triangle[2];
+				}
+				else
+				{
+					PxU32* triangle = (PxU32*)triangles;
+					v0 = triangle[0];
+					v1 = triangle[1];
+					v2 = triangle[2];
+				}
+				
+				virtualParticleIndices.pushBack(v0);
+				virtualParticleIndices.pushBack(v1);
+				virtualParticleIndices.pushBack(v2);
+				virtualParticleIndices.pushBack(s);
+			}
+			triangles += meshDesc.triangles.stride;
+		}
+
+		cloth.setVirtualParticles(numParticles, virtualParticleIndices.begin(), numSamples, weights);
+
+		return true;
+	}
+
+====================================================
+Fricton and Mass Scaling
+====================================================
+	
+Coloumb friction can be enabled and will be applied for particle and virtual particle collisions by setting a friction coefficient between 0 and 1::
+
+	cloth.setFrictionCoefficient(0.5f);
+
+Additionally, there is an option to artificially increase the mass of colliding particles, this temporary increase in mass can help reduce stretching along edges that are being tightly pulled over a collision shape. The effect is determined by the relative normal velocity of the particle and collision shape and a user defined coefficient. A value of 20 is reasonable starting point but users are encouraged to experiment with this value::
+
+	cloth.setCollisionMassScale(20.0f);
+	
+====================================================
+Motion Constraints
+====================================================
+
+Motion constraints lock the movement of each particle inside a sphere. For example, an animation system can sketch the global movement of a cloth while the fine scale details are handled by the cloth simulation. 
+
+A global scale and bias is also applied to each sphere radius. If the sphere radius becomes zero or negative, the corresponding particle is locked at the sphere center and the inverse particle mass is set to zero for the next iteration.
+
+Separation constraints work the opposite way, forcing a particle to stay outside of a sphere. For cloth simulations with moderate particle movement, this can be used to represent the character's shape more accurately than using capsules alone.

@@ -1,0 +1,11 @@
+fullName = "Path finding system based on a Navigation Mesh technology"
+componentTypes = "EntityClasses"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "RecastNavigationSystem.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

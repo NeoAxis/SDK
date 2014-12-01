@@ -1,0 +1,43 @@
+#!/usr/bin/env python
+
+Import('GLOBALS')
+Import(GLOBALS)
+
+OPENAL_DIR = DEV_ROOT+'/Components/OpenALSoundSystem/External'
+OPENAL32_DIR = OPENAL_DIR + '/OpenAL32'
+OPENAL32_INCLUDE_DIR = OPENAL32_DIR + '/Include'
+ALC_DIR = OPENAL_DIR + '/Alc'
+INCLUDE_DIR = OPENAL_DIR + '/include'
+# OPENAL_ANDROID_JNI_DIR = OPENAL_DIR + '/android/jni'
+ANDROID_DIR = OPENAL_DIR+'/Android'
+NATIVE_MEMORY_MANAGER_DIR = SRC_CORE_DIR+'/NativeMemoryManager/'
+
+OPENAL32_SOURCE_FILES = Glob(OPENAL32_DIR+'/*.c')
+ALC_SOURCE_FILES = GetDirFiles(ALC_DIR, ['*.c'], 
+	excludes=['alsa.c', 'dsound.c', 'oss.c', 'portaudio.c',
+		'pulseaudio.c', 'solaris.c', 'wave.c', 'winmm.c',
+		'coreaudio.c'])
+
+sources = [OPENAL32_SOURCE_FILES, ALC_SOURCE_FILES]
+includes = [INCLUDE_DIR, ALC_DIR, ANDROID_DIR, OPENAL32_INCLUDE_DIR]
+# includes = [INCLUDE_DIR, ALC_DIR, OPENAL_ANDROID_JNI_DIR, OPENAL32_INCLUDE_DIR]
+
+env = g_env.Clone()
+
+env.Append(CPPPATH=includes)
+env.Append(LIBS=['log'])
+env.Append(CPPDEFINES=['AL_BUILD_LIBRARY', 'AL_ALEXT_PROTOTYPES'])
+
+if not env.GetOption('clean'):
+	CreateDir(OUT_DIR+'/openal')
+
+openAL = CreateLibrary(env, 'OpenAL32', sources)
+env.Install(LIB_DIR, openAL)
+if not env.GetOption('clean'):
+	InstallLib(env, 'install', LIB_DIR+'/libOpenAL32.so', ANDROID_BIN_DIR+'/libOpenAL32.so')
+	env.Command('strip', [], ANDROID_STRIP+' --strip-unneeded  '+ANDROID_BIN_DIR+'/libOpenAL32.so')
+
+
+
+
+

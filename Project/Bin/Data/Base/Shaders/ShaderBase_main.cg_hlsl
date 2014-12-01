@@ -1,0 +1,884 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+#include "Base/Shaders/General.cg_hlsl"
+
+//Fog
+#ifdef FOG_ENABLED
+#include "Base/Shaders/getFogValue.cg_hlsl"
+#endif
+
+//Diffuse map blending
+#if defined(DIFFUSE2_MAP) || defined(DIFFUSE3_MAP) || defined(DIFFUSE4_MAP)
+#include "Base/Shaders/blendFunctions.cg_hlsl"
+#endif
+
+//Shadows
+#if LIGHT_COUNT >= 1
+	#ifdef SHADOW_MAP
+#include "Base/Shaders/ShadowReceiverFunctions.cg_hlsl"
+	#endif
+#endif
+
+//ParallaxOcclusionMapping
+#if defined(HEIGHT_MAP) || defined(HEIGHT_FROM_NORMAL_MAP_ALPHA)
+	#ifdef DISPLACEMENT_TECHNIQUE_PARALLAXOCCLUSIONMAPPING
+		#include "Base/Shaders/ParallaxOcclusionMapping.cg_hlsl"
+	#endif
+#endif
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_vp(
+	uniform float4x4 worldMatrix, //instancing specific: initialized from instance data.
+	uniform float4x4 viewProjMatrix,
+	uniform float4x4 textureViewProjMatrix0,
+	uniform float4x4 textureViewProjMatrix1,
+	uniform float4x4 textureViewProjMatrix2,
+	uniform float3 cameraPositionObjectSpace, //instancing specific: initialized from instance data.
+	uniform float3 cameraPosition,
+	uniform float time,
+	uniform float depthOffset,
+
+	float4 position : POSITION,
+	float3 normal : NORMAL,
+	float2 texCoord0 : TEXCOORD0,
+	float2 texCoord1 : TEXCOORD1,
+#ifdef TEXCOORD23
+	float2 texCoord2 : TEXCOORD2,
+	float2 texCoord3 : TEXCOORD3,
+#endif
+#ifdef NORMAL_MAP
+	float4 tangent : TANGENT,
+#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	float4 vertexColor : COLOR0,
+#endif
+
+#ifdef INSTANCING
+	uniform float instancing,
+	//instance data
+	float4 instancingWorldMatrix0 : TEXCOORD5,
+	float4 instancingWorldMatrix1 : TEXCOORD6,
+	float4 instancingWorldMatrix2 : TEXCOORD7,
+	float4 instancingCameraPositionObjectSpace : TEXCOORD8,
+	float4 instancingLightPositionObjectSpace0 : TEXCOORD9,
+#endif
+
+#ifdef PROJECTIVE_TEXTURING
+	uniform float4 texViewProjImageMatrix0,
+	uniform float4 texViewProjImageMatrix1,
+	uniform float4 texViewProjImageMatrix2,
+	uniform float4 texViewProjImageMatrix3,
+#endif
+
+	out float4 oTexCoord01 : TEXCOORD0, //texCoord0 - xy, texCoord1 - zw
+	out float3 oNormal : TEXCOORD1,
+	out float4 oEyeDirectionAndDepth : TEXCOORD2,
+	out float4 oWorldPositionAndCameraDistance : TEXCOORD3,
+#ifdef TEXCOORD23
+	out float4 oTexCoord23 : TEXCOORD23_TEXCOORD, //texCoord2 - xy, texCoord3 - zw
+#endif
+#ifdef PROJECTIVE_TEXTURING
+	out float4 oTexCoordProjective : TEXCOORD_PROJECTIVE_TEXCOORD,
+#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	out float4 oVertexColor : VERTEX_COLOR_TEXCOORD,
+#endif
+
+#ifdef REFLECTION
+	out float3 oReflectDirection : REFLECTION_TEXCOORD,
+#endif
+
+#ifdef AMBIENT_PASS
+#ifdef NORMAL_MAP
+	out float3 oAmbientLightDirection : AMBIENT_LIGHT_DIRECTION_TEXCOORD,
+#endif
+#endif
+
+#if LIGHT_COUNT >= 1
+	uniform float4 lightPositionArray[LIGHT_COUNT],
+	uniform float4 lightPositionObjectSpaceArray[LIGHT_COUNT],//instancing specific: initialized from instance data.
+	uniform float4 lightDirectionArray[LIGHT_COUNT],
+	uniform float4 lightAttenuationArray[LIGHT_COUNT],
+	uniform float4 spotLightParamsArray[LIGHT_COUNT],
+	uniform float4 lightCustomShaderParameterArray[LIGHT_COUNT],
+
+	out float4 oObjectLightDirectionAndAttenuation0 : OBJECT_LIGHT_DIRECTION_AND_ATTENUATION_0_TEXCOORD,//direction - xyz, attenuation - w
+
+	#ifdef SHADOW_MAP
+		uniform float3 shadowFarDistance,
+		uniform float3 shadowTextureSizes,
+
+		out float4 oShadowUV0 : SHADOW_UV0_TEXCOORD,
+		#ifdef SHADOW_PSSM
+			uniform float4 shadowDirectionalLightSplitDistances,
+			out float4 oShadowUV1 : SHADOW_UV1_TEXCOORD,
+			out float4 oShadowUV2 : SHADOW_UV2_TEXCOORD,
+		#endif
+
+	#endif
+#endif
+
+	//Extension additions
+	#define VERTEX_HEADER
+	//This line it will be replaced at loading.
+	_INCLUDE_EXTENSION_FILE
+	#undef VERTEX_HEADER
+
+	out float4 oPosition : POSITION
+ 	)
+{
+
+#ifdef INSTANCING
+	if(instancing > 0)
+	{
+		worldMatrix = float4x4(
+			instancingWorldMatrix0,
+			instancingWorldMatrix1,
+			instancingWorldMatrix2,
+			float4(0,0,0,1));
+
+		cameraPositionObjectSpace = instancingCameraPositionObjectSpace;
+
+		#if LIGHT_COUNT >= 1
+			lightPositionObjectSpaceArray[0] = instancingLightPositionObjectSpace0;
+		#endif
+
+		//you can add more instance data in the modified OGRE sources. Only for advanced developers.
+	}
+#endif
+
+	//Extension additions
+	{
+		#define VERTEX_BODY_BEGIN
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef VERTEX_BODY_BEGIN
+	}
+
+	//calculate base parameters
+	float4 worldPosition = mul(worldMatrix, position);
+#ifdef DEPTH_OFFSET
+	if(depthOffset != 0)
+	{
+		float3 dir = normalize(worldPosition.xyz - cameraPosition);
+		worldPosition.xyz += dir * depthOffset;
+	}
+#endif
+
+	//Extension additions
+	{
+		#define VERTEX_BODY_CHANGE_WORLD_POSITION
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef VERTEX_BODY_CHANGE_WORLD_POSITION
+	}
+
+	oPosition = mul(viewProjMatrix, worldPosition);
+
+	oTexCoord01.xy = texCoord0;
+	oTexCoord01.zw = texCoord1;
+#ifdef TEXCOORD23
+	oTexCoord23.xy = texCoord2;
+	oTexCoord23.zw = texCoord3;
+#endif
+#ifdef PROJECTIVE_TEXTURING
+	float4x4 texViewProjImageMatrix = float4x4(
+		texViewProjImageMatrix0,
+		texViewProjImageMatrix1,
+		texViewProjImageMatrix2,
+		texViewProjImageMatrix3);
+	oTexCoordProjective = mul(texViewProjImageMatrix, worldPosition);
+#endif
+
+	float3 normalizedNormal = normalize(normal);
+	oNormal = normal;
+
+	float cameraDistance = length(cameraPosition - worldPosition.xyz);
+
+	oWorldPositionAndCameraDistance.xyz = worldPosition.xyz;
+	oWorldPositionAndCameraDistance.w = cameraDistance;
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	oVertexColor = vertexColor;
+#endif
+
+	//Calculate eye direction and depth
+	oEyeDirectionAndDepth.xyz = cameraPositionObjectSpace - position.xyz;
+	oEyeDirectionAndDepth.w = oPosition.z;
+
+#ifdef NORMAL_MAP
+	oNormal = normalizedNormal;
+	float3 tangentNormalized = normalize(tangent.xyz);
+	float3 binormal = normalize(cross(tangentNormalized, oNormal)) * tangent.www;
+	float3x3 rotation = float3x3(tangentNormalized, binormal, oNormal);
+	oEyeDirectionAndDepth.xyz = mul(rotation, oEyeDirectionAndDepth.xyz);
+#endif
+
+	//Reflection
+#ifdef REFLECTION
+	float3 worldEyeDirection = worldPosition.xyz - cameraPosition;
+	float3 worldNormal = mul((float3x3)worldMatrix, normalizedNormal);
+	oReflectDirection = reflect(worldEyeDirection, worldNormal);
+	//flipped cubemaps
+	oReflectDirection = half3(-oReflectDirection.y, oReflectDirection.z, oReflectDirection.x);
+#endif
+
+	//Ambient light direction for normal map
+#ifdef AMBIENT_PASS
+#ifdef NORMAL_MAP
+	oAmbientLightDirection = mul(rotation, normalizedNormal);
+#endif
+#endif
+
+	//Light direction and attenuation
+#if LIGHT_COUNT >= 1
+{
+	float3 direction;
+	#ifdef LIGHTTYPE_DIRECTIONAL
+		direction = lightPositionObjectSpaceArray[0].xyz;
+	#else
+		direction = lightPositionObjectSpaceArray[0].xyz - position.xyz;
+	#endif
+
+	#ifdef NORMAL_MAP
+		direction = mul(rotation, direction);
+	#endif
+
+	oObjectLightDirectionAndAttenuation0.xyz = direction;
+	oObjectLightDirectionAndAttenuation0.w = 1;
+//	//calculate light attenuation. for SM2 light attenuation calculated in the vertex shader.
+//	#if defined(LIGHTTYPE_SPOT) || defined(LIGHTTYPE_POINT)
+//		float lightDistance = length(lightPositionArray[0].xyz - worldPosition.xyz);
+//		oObjectLightDirectionAndAttenuation0.w = getLightAttenuation(
+//			lightAttenuationArray[0], lightDistance);
+//	#else
+//		oObjectLightDirectionAndAttenuation0.w = 1;
+//	#endif
+
+	//Shadows
+	#ifdef SHADOW_MAP
+
+		#ifdef SHADOW_PSSM
+			getShadowUV(textureViewProjMatrix0, textureViewProjMatrix1, textureViewProjMatrix2, 
+				lightPositionArray[0].xyz, lightDirectionArray[0].xyz, worldPosition.xyz, 
+				spotLightParamsArray[0], shadowTextureSizes, oShadowUV0, 
+				oShadowUV1, oShadowUV2, shadowDirectionalLightSplitDistances, 
+				oEyeDirectionAndDepth.w);
+		#else
+			getShadowUV(textureViewProjMatrix0, lightPositionArray[0].xyz, 
+				lightDirectionArray[0].xyz, worldPosition.xyz, spotLightParamsArray[0], 
+				shadowFarDistance, shadowTextureSizes, oShadowUV0);
+		#endif
+
+	#endif
+}
+#endif
+
+	//Extension additions
+	{
+		#define VERTEX_BODY_END
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef VERTEX_BODY_END
+	}
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_fp( 
+	uniform float farClipDistance,
+	uniform half4 viewportSize,
+
+#ifdef AMBIENT_PASS
+	uniform half4 ambientLightColor,
+#endif
+
+#if LIGHT_COUNT >= 1
+	uniform float4 lightPositionArray[LIGHT_COUNT],
+	uniform half4 lightAttenuationArray[LIGHT_COUNT],
+	uniform half4 lightDiffuseColorPowerScaledArray[LIGHT_COUNT],
+	uniform half4 lightSpecularColorPowerScaledArray[LIGHT_COUNT],
+
+#ifdef LIGHTTYPE_SPOT
+	uniform half4 lightDirectionArray[LIGHT_COUNT],
+	uniform half4 spotLightParamsArray[LIGHT_COUNT],
+#endif
+	uniform half lightCastShadowsArray[LIGHT_COUNT],
+	uniform float4 lightCustomShaderParameterArray[LIGHT_COUNT],
+#endif
+
+	float4 texCoord01 : TEXCOORD0, //texCoord0 - xy, texCoord1 - zw
+	half3 normal : TEXCOORD1,
+	float4 eyeDirectionAndDepth : TEXCOORD2,
+	float4 worldPositionAndCameraDistance : TEXCOORD3,
+#ifdef TEXCOORD23
+	float4 texCoord23 : TEXCOORD23_TEXCOORD, //texCoord2 - xy, texCoord3 - zw
+#endif
+#ifdef PROJECTIVE_TEXTURING
+	float4 texCoordProjective : TEXCOORD_PROJECTIVE_TEXCOORD,
+#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	half4 vertexColor : VERTEX_COLOR_TEXCOORD,
+#endif
+
+#ifdef FOG_ENABLED
+	uniform half4 fogColor,
+	uniform half4 fogParams,
+#endif
+
+#ifdef REFLECTION
+	half3 reflectDirection : REFLECTION_TEXCOORD,
+#endif
+
+#ifdef AMBIENT_PASS
+#ifdef NORMAL_MAP
+	half3 ambientLightDirection : AMBIENT_LIGHT_DIRECTION_TEXCOORD,
+#endif
+#endif
+
+#ifdef LIGHTMAP
+	uniform sampler2D lightmap : register(LIGHTMAP_REGISTER),
+	uniform half4 lightmapUVTransform,
+#endif
+
+#ifdef SOFT_PARTICLES
+	uniform sampler2D depthMap : register(DEPTH_MAP_REGISTER),
+	uniform float softParticlesFadingLength,
+#endif
+
+#if LIGHT_COUNT >= 1
+	half4 objectLightDirectionAndAttenuation0 : OBJECT_LIGHT_DIRECTION_AND_ATTENUATION_0_TEXCOORD,//direction - xyz, attenuation - w
+	
+	#ifdef SHADOW_MAP
+
+		float4 shadowUV0 : SHADOW_UV0_TEXCOORD,
+		#ifdef SHADOW_PSSM
+			float4 shadowUV1 : SHADOW_UV1_TEXCOORD,
+			float4 shadowUV2 : SHADOW_UV2_TEXCOORD,
+		#endif
+		
+		#ifdef LIGHTTYPE_POINT
+			uniform samplerCUBE shadowMap0 : register(SHADOW_MAP0_REGISTER),
+		#else
+			uniform sampler2D shadowMap0 : register(SHADOW_MAP0_REGISTER),
+		#endif
+		
+		#ifdef SHADOW_PSSM
+			uniform sampler2D shadowMap1 : register(SHADOW_MAP1_REGISTER),
+			uniform sampler2D shadowMap2 : register(SHADOW_MAP2_REGISTER),
+		#endif
+
+		uniform float lightShadowFarClipDistance,
+		uniform half3 shadowFarDistance,
+		uniform float3 shadowTextureSizes,
+		uniform half shadowColorIntensity,
+		#ifdef SHADOW_PSSM
+			uniform float4 shadowDirectionalLightSplitDistances,
+		#endif
+	#endif
+#endif
+
+#ifdef DIFFUSE1_MAP
+	uniform sampler2D diffuse1Map : register(DIFFUSE1_MAP_REGISTER),
+	uniform float4 diffuse1MapTransformMul,
+	uniform float2 diffuse1MapTransformAdd,
+#endif
+
+#ifdef DIFFUSE2_MAP
+	uniform sampler2D diffuse2Map : register(DIFFUSE2_MAP_REGISTER),
+	uniform float4 diffuse2MapTransformMul,
+	uniform float2 diffuse2MapTransformAdd,
+#endif
+
+#ifdef DIFFUSE3_MAP
+	uniform sampler2D diffuse3Map : register(DIFFUSE3_MAP_REGISTER),
+	uniform float4 diffuse3MapTransformMul,
+	uniform float2 diffuse3MapTransformAdd,
+#endif
+
+#ifdef DIFFUSE4_MAP
+	uniform sampler2D diffuse4Map : register(DIFFUSE4_MAP_REGISTER),
+	uniform float4 diffuse4MapTransformMul,
+	uniform float2 diffuse4MapTransformAdd,
+#endif
+
+#ifdef REFLECTION
+	#ifdef REFLECTION_MAP
+		uniform sampler2D reflectionMap : register(REFLECTION_MAP_REGISTER),
+		uniform float4 reflectionMapTransformMul,
+		uniform float2 reflectionMapTransformAdd,
+	#endif
+	uniform samplerCUBE reflectionCubeMap : register(REFLECTION_CUBEMAP_REGISTER),
+#endif
+
+#ifdef EMISSION_MAP
+	uniform sampler2D emissionMap : register(EMISSION_MAP_REGISTER),
+	uniform float4 emissionMapTransformMul,
+	uniform float2 emissionMapTransformAdd,
+#endif
+
+#ifdef SPECULAR_MAP
+	uniform sampler2D specularMap : register(SPECULAR_MAP_REGISTER),
+	uniform float4 specularMapTransformMul,
+	uniform float2 specularMapTransformAdd,
+#endif
+
+#ifdef NORMAL_MAP
+	uniform sampler2D normalMap : register(NORMAL_MAP_REGISTER),
+	uniform float4 normalMapTransformMul,
+	uniform float2 normalMapTransformAdd,
+#endif
+
+#ifdef HEIGHT_MAP
+	uniform sampler2D heightMap : register(HEIGHT_MAP_REGISTER),
+	uniform float4 heightMapTransformMul,
+	uniform float2 heightMapTransformAdd,
+#endif
+
+//SodanKerjuu: translucency
+#ifdef TRANSLUCENCY_MAP
+	uniform sampler2D translucencyMap : register(TRANSLUCENCY_MAP_REGISTER),
+	uniform float4 translucencyMapTransformMul,
+	uniform float2 translucencyMapTransformAdd,
+#endif
+
+	uniform float time,
+
+	//dynamic parameters
+	uniform half4 dynamicDiffuseScale,
+	uniform half3 dynamicEmissionScale,
+	uniform half3 dynamicReflectionScale,
+	uniform half4 dynamicSpecularScaleAndShininess,
+	uniform half4 translucencyScaleAndClearness, //SodanKerjuu: translucency
+
+#ifdef FADING_BY_DISTANCE
+	uniform half2 fadingByDistanceRange,
+#endif
+
+#ifdef OPENGL
+	uniform float4 clipPlane0,
+	uniform float4 clipPlane1,
+	uniform float4 clipPlane2,
+	uniform float4 clipPlane3,
+	uniform float4 clipPlane4,
+	uniform float4 clipPlane5,
+#endif
+
+#ifdef OPENGL_ES
+	uniform half alphaRejectValue,
+#endif
+
+#if defined(DIRECT3D)
+	half vFace : VFACE,
+#endif
+
+#ifdef SOFT_PARTICLES
+	#if defined(DIRECT3D)
+		float4 vPos : VPOS,
+	#else
+		float4 vPos : WPOS,
+	#endif
+#endif
+
+	uniform half drawShadowDebugging,
+	uniform float heightScale,
+
+	//Extension additions
+	#define FRAGMENT_HEADER
+	//This line it will be replaced at loading.
+	_INCLUDE_EXTENSION_FILE
+	#undef FRAGMENT_HEADER
+
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	out float4 oColorDepth : COLOR1,
+#endif
+	out half4 oColor : COLOR
+ )
+//	out half4 oColor : COLOR )
+{
+	//Extension additions
+	{
+		#define FRAGMENT_BODY_BEGIN
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef FRAGMENT_BODY_BEGIN
+	}
+
+	float2 texCoord0 = texCoord01.xy;
+	float2 texCoord1 = texCoord01.zw;
+#ifdef TEXCOORD23
+	float2 texCoord2 = texCoord23.xy;
+	float2 texCoord3 = texCoord23.zw;
+#endif
+	float3 eye = normalize(eyeDirectionAndDepth.xyz);
+	float depth = eyeDirectionAndDepth.w;
+
+	float3 worldPosition = worldPositionAndCameraDistance.xyz;
+	float cameraDistance = worldPositionAndCameraDistance.w;
+
+	half3 n;
+	half3 lightColor = half3(0,0,0);
+	
+	half3 normalizedNormal = (half3)normalize(normal);
+	
+//Height map
+#if defined(HEIGHT_MAP) || defined(HEIGHT_FROM_NORMAL_MAP_ALPHA)
+
+	#ifdef DISPLACEMENT_TECHNIQUE_PARALLAXMAPPING
+	{
+		float height;
+		#ifdef HEIGHT_MAP
+			height = tex2D(heightMap, HEIGHT_MAP_TEXCOORD).r;
+		#elif defined(HEIGHT_FROM_NORMAL_MAP_ALPHA)
+			height = tex2D(normalMap, NORMAL_MAP_TEXCOORD).a;
+		#else
+			#error height
+		#endif
+
+		float displacement = (height * heightScale) - heightScale * .5;
+	float2 offset = eye.xy * displacement;
+
+	texCoord0 += offset;
+	texCoord1 += offset;
+	#ifdef TEXCOORD23
+		texCoord2 += offset;
+		texCoord3 += offset;
+	#endif
+	}
+	#elif defined(DISPLACEMENT_TECHNIQUE_PARALLAXOCCLUSIONMAPPING)
+	{
+		float2 offset;
+		#ifdef HEIGHT_MAP
+			offset = getParallaxOcclusionMappingOffset(heightMap, heightScale, HEIGHT_MAP_TEXCOORD, eye, normalizedNormal);
+		#elif defined(HEIGHT_FROM_NORMAL_MAP_ALPHA)
+			offset = getParallaxOcclusionMappingOffset(normalMap, heightScale, NORMAL_MAP_TEXCOORD, eye, normalizedNormal);
+		#else
+			#error offset
+		#endif
+
+		texCoord0 -= offset;
+		texCoord1 -= offset;
+		#ifdef TEXCOORD23
+			texCoord2 -= offset;
+			texCoord3 -= offset;
+		#endif
+	}
+	#else
+	{
+		#error Unknown displacement technique
+	}
+	#endif
+
+#endif
+
+	//Calculate normal
+#ifdef NORMAL_MAP
+	half3 normalMapValue = expand((half3)tex2D(normalMap, NORMAL_MAP_TEXCOORD).rgb);
+	normalMapValue.z = (half)sqrt(1.0h - dot(normalMapValue.xy, normalMapValue.xy));
+	n = (half3)normalize(normalMapValue);
+#else
+	n = normalizedNormal;
+#endif 
+
+	//Calculate light color for ambient pass
+#ifdef AMBIENT_PASS
+	#ifdef LIGHTING
+		#ifdef AMBIENT_LIGHTING
+			lightColor = ambientLightColor.rgb;
+		#endif
+	#else
+		lightColor = half3(1,1,1);
+	#endif
+	#ifdef NORMAL_MAP
+		lightColor *= saturate(dot(n, normalize(ambientLightDirection)));
+	#endif
+#endif
+
+#if LIGHT_COUNT >= 1
+	bool frontFace = true;
+	#ifdef DOUBLE_SIDED
+		#if defined(OPENGL) || defined(OPENGL_ES)
+			#ifdef DOUBLE_SIDED_TWO_PASS_MODE_BACK_FACE
+				frontFace = false;
+			#endif
+		#else
+			frontFace = vFace < 0;
+		#endif
+	#endif
+#endif
+
+	//Calculate light color for light pass
+#if LIGHT_COUNT >= 1
+	half3 objectLightDirection0 = (half3)normalize(objectLightDirectionAndAttenuation0.xyz);
+
+	//calculate light attenuation. for SM3 light attenuation calculated in the pixel shader.
+	half lightAttenuationMultiplier = 1;
+	#if defined(LIGHTTYPE_SPOT) || defined(LIGHTTYPE_POINT)
+		float lightDistance = length(lightPositionArray[0].xyz - worldPosition.xyz);
+		lightAttenuationMultiplier = getLightAttenuation(lightAttenuationArray[0], (half)lightDistance);
+	#endif
+	#ifdef LIGHTTYPE_SPOT
+		float3 objectWorldLightDirection0 = normalize(lightPositionArray[0].xyz - worldPosition.xyz);
+		// factor in spotlight angle
+		half rho0 = (half)saturate(dot(-lightDirectionArray[0].xyz, objectWorldLightDirection0));
+		// factor = (rho - cos(outer/2)) / (cos(inner/2) - cos(outer/2)) ^ falloff 
+		half spotFactor0 = (half)saturate(pow(saturate(rho0 - spotLightParamsArray[0].y) / 
+			(spotLightParamsArray[0].x - spotLightParamsArray[0].y), spotLightParamsArray[0].z));
+		lightAttenuationMultiplier *= spotFactor0;
+	#endif
+
+	//Shadows
+	half shadowMultiplier = 1;
+	#ifdef SHADOW_MAP
+		#ifdef SHADOW_PSSM
+			shadowMultiplier = getShadowmapReceiveValue( shadowUV0, shadowUV1, shadowUV2,
+				shadowMap0, shadowMap1, shadowMap2, cameraDistance, lightCastShadowsArray[0], 
+				lightShadowFarClipDistance, shadowFarDistance, shadowTextureSizes, 
+				shadowColorIntensity, shadowDirectionalLightSplitDistances, 
+				depth, drawShadowDebugging);
+		#else
+			shadowMultiplier = getShadowmapReceiveValue( shadowUV0, shadowMap0, cameraDistance, 
+				lightCastShadowsArray[0], lightShadowFarClipDistance, shadowFarDistance,
+				shadowTextureSizes, shadowColorIntensity);
+		#endif
+	#endif
+
+	half lightAttenuationShadowMultiplier = lightAttenuationMultiplier * shadowMultiplier;
+
+	//calculate coefficient of normals
+	half normalCoef0;
+	#ifdef USE_NORMALS
+		#ifdef HALF_LAMBERT
+			normalCoef0 = (half)dot(frontFace ? n : -n, objectLightDirection0) * .5h + .5h;
+		#else
+			normalCoef0 = (half)saturate(dot(frontFace ? n : -n, objectLightDirection0));
+		#endif
+	#else
+		normalCoef0 = 1;
+	#endif
+
+	#ifdef LIGHTMAP
+		half2 lightmapUV = lightmapUVTransform.xy + lightmapUVTransform.zw * LIGHTMAP_TEXCOORD;
+		half3 lightmapColor = (half3)tex2D(lightmap, lightmapUV).rgb;
+		#ifdef SHADOW_MAP
+			lightmapColor = min(lightmapColor, 1.0h - sqrt(1.0h - shadowMultiplier));
+		#endif
+		lightColor += lightmapColor;
+	#else
+		lightColor += lightDiffuseColorPowerScaledArray[0].rgb * (lightAttenuationShadowMultiplier * normalCoef0);
+	#endif
+
+	//SodanKerjuu: translucency
+	#ifdef TRANSLUCENCY
+		half4 translucencyScale;
+		#ifdef DYNAMIC_TRANSLUCENCY_SCALE
+			translucencyScale = translucencyScaleAndClearness;
+		#else
+			translucencyScale = TRANSLUCENCY_SCALE_AND_CLEARNESS;
+		#endif
+		#ifdef TRANSLUCENCY_MAP
+			translucencyScale *= (half4)tex2D(translucencyMap, TRANSLUCENCY_MAP_TEXCOORD);
+		#endif
+		//we use half lambertian for the translucency (SodanKerjuu)
+		lightColor += translucencyScale.rgb * pow((half)dot((half3)eye, -objectLightDirection0) * .5h + .5h, translucencyScale.a);
+	#endif
+
+#endif
+
+	//Calculate pixel color
+	half4 color = half4(0,0,0,0);
+
+	//Diffuse
+	half4 diffuse;
+#ifdef DIFFUSE1_MAP
+	#ifdef DIFFUSE1_MAP_PROJECTIVE
+		diffuse = (half4)tex2Dproj(diffuse1Map, texCoordProjective);
+	#else
+		diffuse = (half4)tex2D(diffuse1Map, DIFFUSE1_MAP_TEXCOORD);
+	#endif
+#else
+	diffuse = half4(1,1,1,1);
+#endif
+#ifdef DIFFUSE2_MAP
+	#ifdef DIFFUSE2_MAP_PROJECTIVE
+		diffuse = DIFFUSE2_MAP_BLEND((half4)tex2Dproj(diffuse2Map, texCoordProjective));
+	#else
+		diffuse = DIFFUSE2_MAP_BLEND((half4)tex2D(diffuse2Map, DIFFUSE2_MAP_TEXCOORD), diffuse);
+	#endif
+#endif
+#ifdef DIFFUSE3_MAP
+	#ifdef DIFFUSE3_MAP_PROJECTIVE
+		diffuse = DIFFUSE2_MAP_BLEND((half4)tex2Dproj(diffuse3Map, texCoordProjective));
+	#else
+		diffuse = DIFFUSE3_MAP_BLEND((half4)tex2D(diffuse3Map, DIFFUSE3_MAP_TEXCOORD), diffuse);
+	#endif
+#endif
+#ifdef DIFFUSE4_MAP
+	#ifdef DIFFUSE4_MAP_PROJECTIVE
+		diffuse = DIFFUSE4_MAP_BLEND((half4)tex2Dproj(diffuse4Map, texCoordProjective));
+	#else
+		diffuse = DIFFUSE4_MAP_BLEND((half4)tex2D(diffuse4Map, DIFFUSE4_MAP_TEXCOORD), diffuse);
+	#endif
+#endif
+
+	#ifdef DYNAMIC_DIFFUSE_SCALE
+		diffuse *= dynamicDiffuseScale;
+	#else
+		diffuse *= DIFFUSE_SCALE;
+	#endif
+
+#ifdef DIFFUSE_VERTEX_COLOR
+	diffuse *= vertexColor;
+#endif
+
+	color += diffuse * half4(lightColor, 1);
+
+	//Reflection
+#ifdef REFLECTION
+
+	half3 reflection;
+	#ifdef DYNAMIC_REFLECTION_SCALE
+		reflection = dynamicReflectionScale;
+	#else
+		reflection = REFLECTION_SCALE;
+	#endif
+
+	#ifdef REFLECTION_MAP
+		reflection *= (half3)tex2D(reflectionMap, REFLECTION_MAP_TEXCOORD).rgb;
+	#endif
+	half3 cubeMapTexCoord = reflectDirection;//half3 cubeMapTexCoord = reflect(-eye, n);
+	reflection *= (half3)texCUBE(reflectionCubeMap, cubeMapTexCoord).rgb;
+	color.xyz += reflection * lightColor;
+
+#endif
+
+	//Emission
+#ifdef EMISSION
+#ifdef AMBIENT_PASS
+	half3 emission;
+	#ifdef DYNAMIC_EMISSION_SCALE
+		emission = dynamicEmissionScale;
+	#else
+		emission = EMISSION_SCALE;
+	#endif
+
+	#ifdef EMISSION_MAP
+		emission *= (half3)tex2D(emissionMap, EMISSION_MAP_TEXCOORD).rgb;
+	#endif
+	color.xyz += emission;
+#endif
+#endif
+
+	//Specular
+#ifdef SPECULAR
+#if LIGHT_COUNT >= 1
+#ifdef USE_NORMALS
+	half3 specular;
+	#ifdef DYNAMIC_SPECULAR_SCALE
+		specular = dynamicSpecularScaleAndShininess.rgb;
+	#else
+		specular = SPECULAR_SCALE;
+	#endif
+	#ifdef SPECULAR_MAP
+		specular *= (half3)tex2D(specularMap, SPECULAR_MAP_TEXCOORD).rgb;
+	#endif
+
+	half3 halfAngle0 = (half3)normalize(objectLightDirection0 + (half3)eye);
+	half normalSpecCoef0 = (half)saturate(dot(frontFace ? n : -n, halfAngle0));
+	color.rgb += specular * lightSpecularColorPowerScaledArray[0].rgb * 
+		((half)pow(normalSpecCoef0, dynamicSpecularScaleAndShininess.a) * lightAttenuationShadowMultiplier);
+#endif
+#endif
+#endif
+
+	//fix negative color components
+	color = max(color, half4(0,0,0,0));
+
+	//Fog
+#ifdef FOG_ENABLED
+	half4 oldColor = color;
+	half fog = getFogValue((half)cameraDistance, fogParams);
+	color.rgb *= fog;
+
+	#ifdef AMBIENT_PASS
+		#ifdef BLENDING_OPAQUE
+			color.rgb += fogColor.rgb * (1.0h - fog);
+		#endif
+	#endif
+
+	#ifdef BLENDING_ALPHABLEND
+		color.rgb += fogColor.rgb * (1.0h - fog);
+	#endif
+
+#endif
+
+#ifdef SOFT_PARTICLES
+	float2 screenPosition;
+	#if defined(DIRECT3D)
+		screenPosition = (half2)vPos.xy * viewportSize.zw;
+	#else
+		//!!!!!not true
+		screenPosition = (half2)vPos.xy * viewportSize.zw;
+	#endif
+	float sceneDepth = tex2D(depthMap, screenPosition).r * farClipDistance;
+	//float sceneDepth = unpackNormalized3(tex2D(depthMap, screenPosition).rgb) * farClipDistance;
+
+	float coef = saturate((sceneDepth - depth) / softParticlesFadingLength);
+	#ifdef BLENDING_ALPHAADD
+		color.rgb *= coef;
+	#endif
+	#ifdef BLENDING_ALPHABLEND
+		color.a *= coef;
+	#endif
+#endif
+
+#ifdef FADING_BY_DISTANCE
+	//fadingByDistanceRange.x: min
+	//fadingByDistanceRange.y: 1 / (max - min)
+	color.a *= 1.0h - saturate(((half)cameraDistance - fadingByDistanceRange.x) * fadingByDistanceRange.y);
+#endif
+
+	oColor = color;
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	oColorDepth = float4(depth / farClipDistance, 0, 0, 0);
+	//oColorDepth = float4(packNormalized3(depth / farClipDistance), 0);
+#endif
+
+	//OpenGL clip plane support. Direct3D is already support clip planes without this code.
+#ifdef OPENGL
+	clip(dot(clipPlane0, float4(worldPosition, 1)));
+	//uncomment it for support more than 1 clip plane
+	//clip(dot(clipPlane1, float4(worldPosition, 1)));
+	//clip(dot(clipPlane2, float4(worldPosition, 1)));
+	//clip(dot(clipPlane3, float4(worldPosition, 1)));
+	//clip(dot(clipPlane4, float4(worldPosition, 1)));
+	//clip(dot(clipPlane5, float4(worldPosition, 1)));
+#endif
+
+#ifdef OPENGL_ES
+	half alpha = diffuse.a;
+	#ifdef ALPHA_REJECT_FUNCTION_LESSEQUAL
+		clip(alphaRejectValue - alpha);
+	#endif
+	#ifdef ALPHA_REJECT_FUNCTION_LESS
+		clip(alphaRejectValue - alpha);
+	#endif
+	#ifdef ALPHA_REJECT_FUNCTION_GREATEREQUAL
+		clip(alpha - alphaRejectValue);
+	#endif
+	#ifdef ALPHA_REJECT_FUNCTION_GREATER
+		clip(alpha - alphaRejectValue);
+	#endif
+#endif
+
+	//Extension additions
+	{
+		#define FRAGMENT_BODY_END
+		//This line it will be replaced at loading.
+		_INCLUDE_EXTENSION_FILE
+		#undef FRAGMENT_BODY_END
+	}
+}

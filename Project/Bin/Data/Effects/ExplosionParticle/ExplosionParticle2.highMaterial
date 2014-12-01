@@ -1,0 +1,15 @@
+highLevelMaterial ExplosionParticle2
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 2
+	depthOffset = -2
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Effects/ExplosionParticle/Fire.png"
+	}
+}

@@ -1,0 +1,13 @@
+type MapCamera
+{
+	class = MapCamera
+	creatableInMapEditor = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\MapCamera.mesh"
+			onlyForEditor = True
+		}
+	}
+}

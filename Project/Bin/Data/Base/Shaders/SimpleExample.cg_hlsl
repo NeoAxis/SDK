@@ -1,0 +1,155 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+#include "Base/Shaders/General.cg_hlsl"
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_vp(
+	uniform float4x4 worldMatrix,
+	uniform float4x4 worldViewProjMatrix,
+	uniform float3 cameraPosition,
+
+	float4 position : POSITION,
+	float3 normal : NORMAL,
+	float2 texCoord0 : TEXCOORD0,
+
+	out float2 oTexCoord0 : TEXCOORD0,
+	out float3 oNormal : TEXCOORD1,
+	out float4 oWorldPositionAndCameraDistance : TEXCOORD2,
+	out float oDepth : TEXCOORD3,
+
+#if LIGHT_COUNT >= 1
+	uniform float4 lightPositionArray[LIGHT_COUNT],
+	uniform float4 lightPositionObjectSpaceArray[LIGHT_COUNT],
+
+	out float3 oObjectLightDirection0 : TEXCOORD4,
+	#ifdef LIGHTTYPE_SPOT
+		out float3 oObjectWorldLightDirection0 : TEXCOORD5,
+	#endif
+#endif
+
+	out float4 oPosition : POSITION
+ 	)
+{
+	//Calculate base parameters
+	oPosition = mul(worldViewProjMatrix, position);
+	oDepth = oPosition.z;
+	oTexCoord0.xy = texCoord0;
+	oNormal = normal;
+
+	float4 worldPosition = mul(worldMatrix, position);
+
+	float cameraDistance = length(cameraPosition - worldPosition.xyz);
+
+	oWorldPositionAndCameraDistance.xyz = worldPosition.xyz;
+	oWorldPositionAndCameraDistance.w = cameraDistance;
+
+	//Light direction and attenuation
+#if LIGHT_COUNT >= 1
+{
+	float3 direction = lightPositionObjectSpaceArray[0].xyz - 
+		position.xyz * lightPositionObjectSpaceArray[0].w;
+	oObjectLightDirection0 = direction;
+
+	#ifdef LIGHTTYPE_SPOT
+		oObjectWorldLightDirection0 = lightPositionArray[0].xyz - worldPosition.xyz;
+	#endif
+}
+#endif
+
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_fp( 
+	uniform float farClipDistance,
+
+#ifdef AMBIENT_PASS
+	uniform half4 ambientLightColor,
+#endif
+
+#if LIGHT_COUNT >= 1
+	uniform float4 lightPositionArray[LIGHT_COUNT],
+	uniform half4 lightDirectionArray[LIGHT_COUNT],
+	uniform half4 lightDiffuseColorPowerScaledArray[LIGHT_COUNT],
+	uniform half4 lightAttenuationArray[LIGHT_COUNT],
+	uniform half4 spotLightParamsArray[LIGHT_COUNT],
+#endif
+
+	float2 texCoord0 : TEXCOORD0,
+	half3 normal : TEXCOORD1,
+	float4 worldPositionAndCameraDistance : TEXCOORD2,
+	float depth : TEXCOORD3,
+#if LIGHT_COUNT >= 1
+	half3 objectLightDirection0 : TEXCOORD4,
+	#ifdef LIGHTTYPE_SPOT
+		half3 objectWorldLightDirection0 : TEXCOORD5,
+	#endif
+#endif
+
+#ifdef DIFFUSE_MAP
+	uniform sampler2D diffuseMap : register(s0),
+#endif
+
+#ifdef DIRECT3D
+	out float4 oColorDepth : COLOR1,
+#endif
+	out half4 oColor : COLOR
+)
+{
+	float3 worldPosition = worldPositionAndCameraDistance.xyz;
+	half3 n = (half3)normalize(normal);
+
+	half3 lightColor = half3(0,0,0);
+	
+	//Calculate light color for ambient pass
+#ifdef AMBIENT_PASS
+	#ifdef LIGHTING
+		lightColor = ambientLightColor.rgb;
+	#else
+		lightColor = half3(1,1,1);
+	#endif
+#endif
+
+	//Calculate light color for light pass
+#if LIGHT_COUNT >= 1
+
+	half objectLightAttenuation0 = 1;
+	#if defined(LIGHTTYPE_SPOT) || defined(LIGHTTYPE_POINT)
+		float lightDistance = length(lightPositionArray[0].xyz - worldPosition.xyz);
+		objectLightAttenuation0 = getLightAttenuation(lightAttenuationArray[0], (half)lightDistance);
+	#endif
+
+	#ifdef LIGHTTYPE_SPOT
+		// factor in spotlight angle
+		half rho0 = saturate(dot(-lightDirectionArray[0].xyz, normalize(objectWorldLightDirection0)));
+		// factor = (rho - cos(outer/2)) / (cos(inner/2) - cos(outer/2)) ^ falloff 
+		half spotFactor0 = saturate(pow(saturate(rho0 - spotLightParamsArray[0].y) / 
+			(spotLightParamsArray[0].x - spotLightParamsArray[0].y), spotLightParamsArray[0].z));
+		objectLightAttenuation0 *= spotFactor0;
+	#endif
+
+	half normalCoef0 = saturate(dot(n, objectLightDirection0));
+
+	lightColor += lightDiffuseColorPowerScaledArray[0].rgb * (objectLightAttenuation0 * normalCoef0);
+
+#endif
+
+	//Calculate pixel color
+	half4 color = half4(0,0,0,0);
+
+	//Diffuse
+	half4 diffuse;
+#ifdef DIFFUSE_MAP
+	diffuse = (half4)tex2D(diffuseMap, texCoord0);
+#else
+	diffuse = half4(1,1,1,1);
+#endif
+
+	color += diffuse * half4(lightColor, 1);
+
+	oColor = color;
+#ifdef DIRECT3D
+	oColorDepth = float4(depth / farClipDistance, 0, 0, 0);
+	//oColorDepth = float4(packNormalized3(depth / farClipDistance), 0);
+#endif
+}

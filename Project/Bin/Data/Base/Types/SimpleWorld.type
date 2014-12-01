@@ -1,0 +1,5 @@
+type SimpleWorld
+{
+	class = World
+	networkType = Synchronized
+}

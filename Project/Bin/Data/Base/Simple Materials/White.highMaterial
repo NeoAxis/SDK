@@ -1,0 +1,4 @@
+highLevelMaterial White
+{
+	template = ShaderBaseMaterial
+}

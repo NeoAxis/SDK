@@ -1,0 +1,25 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2010
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "PhysXVehicle", "PhysXVehicle.vcxproj", "{BC4778D3-142F-31D0-46EC-77203F28C874}"
+	ProjectSection(ProjectDependencies) = postProject
+	EndProjectSection
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		checked|x64 = checked|x64
+		profile|x64 = profile|x64
+		release|x64 = release|x64
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BC4778D3-142F-31D0-46EC-77203F28C874}.checked|x64.ActiveCfg = checked|x64
+		{BC4778D3-142F-31D0-46EC-77203F28C874}.checked|x64.Build.0 = checked|x64
+		{BC4778D3-142F-31D0-46EC-77203F28C874}.profile|x64.ActiveCfg = profile|x64
+		{BC4778D3-142F-31D0-46EC-77203F28C874}.profile|x64.Build.0 = profile|x64
+		{BC4778D3-142F-31D0-46EC-77203F28C874}.release|x64.ActiveCfg = release|x64
+		{BC4778D3-142F-31D0-46EC-77203F28C874}.release|x64.Build.0 = release|x64
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+	EndGlobalSection
+	GlobalSection(ExtensibilityAddins) = postSolution
+	EndGlobalSection
+EndGlobal

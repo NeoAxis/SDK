@@ -1,0 +1,59 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+fragment_program Compositor/LightScattering/Final_hlsl hlsl
+{
+	source Base\FullScreenEffects\LightScattering\LightScattering.cg_hlsl
+	entry_point final
+	target ps_3_0
+}
+
+fragment_program Compositor/LightScattering/Final_cg cg
+{
+	source Base\FullScreenEffects\LightScattering\LightScattering.cg_hlsl
+	entry_point final
+	profiles arbfp1
+}
+
+fragment_program Compositor/LightScattering/Final unified
+{
+	delegate Compositor/LightScattering/Final_hlsl
+	delegate Compositor/LightScattering/Final_cg
+}
+
+material Compositor/LightScattering/Final
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+
+			fragment_program_ref Compositor/LightScattering/Final
+			{
+			}
+
+			// scene texture
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering none
+			}
+
+			// blurred scattering texture
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering linear linear none
+			}
+		}
+	}
+}

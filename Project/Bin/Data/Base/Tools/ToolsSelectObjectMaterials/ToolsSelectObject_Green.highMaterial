@@ -1,0 +1,11 @@
+highLevelMaterial ToolsSelectObject_Green
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	lighting = False
+	receiveShadows = False
+	allowFog = False
+	depthWrite = False
+	depthTest = False
+	diffuseColor = 0 1 0 0.4
+}

@@ -1,0 +1,114 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+#include "Base/Shaders/blendFunctions.cg_hlsl"
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_vp(
+	uniform float4x4 worldViewProjMatrix,
+
+	float4 position : POSITION,
+	float2 uv : TEXCOORD0,
+
+#ifdef HORIZON_MAP
+	out float2 oHorizonUV : TEXCOORD0,
+#endif
+#ifdef DIFFUSE1_MAP
+	out float2 oDiffuse1MapUV : TEXCOORD1,
+#endif
+#ifdef DIFFUSE2_MAP
+	out float2 oDiffuse2MapUV : TEXCOORD2,
+#endif
+#ifdef DIFFUSE3_MAP
+	out float2 oDiffuse3MapUV : TEXCOORD3,
+#endif
+#ifdef DIFFUSE4_MAP
+	out float2 oDiffuse4MapUV : TEXCOORD4,
+#endif
+
+	uniform float time,
+
+	out float4 oPosition : POSITION
+	)
+{
+	oPosition = mul(worldViewProjMatrix, position);
+
+#ifdef HORIZON_MAP
+	float horizontal = length(position.xy);
+	float coef = atan2(position.z + .001, horizontal) / (3.14159 / 2);
+	oHorizonUV = float2(0, 1 - coef);
+#endif
+
+#ifdef DIFFUSE1_MAP
+	oDiffuse1MapUV = uv * DIFFUSE1_MAP_TILING + DIFFUSE1_MAP_SCROLL_SPEED * time;
+#endif
+
+#ifdef DIFFUSE2_MAP
+	oDiffuse2MapUV = uv * DIFFUSE2_MAP_TILING + DIFFUSE2_MAP_SCROLL_SPEED * time;
+#endif
+
+#ifdef DIFFUSE3_MAP
+	oDiffuse3MapUV = uv * DIFFUSE3_MAP_TILING + DIFFUSE3_MAP_SCROLL_SPEED * time;
+#endif
+
+#ifdef DIFFUSE4_MAP
+	oDiffuse4MapUV = uv * DIFFUSE4_MAP_TILING + DIFFUSE4_MAP_SCROLL_SPEED * time;
+#endif
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_fp(
+	uniform half3 colorScale,
+
+#ifdef HORIZON_MAP
+	uniform sampler2D horizonMap : register(s0),
+	float2 horizonUV : TEXCOORD0,
+#endif
+#ifdef DIFFUSE1_MAP
+	uniform sampler2D diffuse1Map : register(s1),
+	float2 diffuse1MapUV : TEXCOORD1,
+#endif
+#ifdef DIFFUSE2_MAP
+	uniform sampler2D diffuse2Map : register(s2),
+	float2 diffuse2MapUV : TEXCOORD2,
+#endif
+#ifdef DIFFUSE3_MAP
+	uniform sampler2D diffuse3Map : register(s3),
+	float2 diffuse3MapUV : TEXCOORD3,
+#endif
+#ifdef DIFFUSE4_MAP
+	uniform sampler2D diffuse4Map : register(s4),
+	float2 diffuse4MapUV : TEXCOORD4,
+#endif
+
+	out half4 oColor : COLOR
+	)
+{
+	half4 color = half4(0,0,0,0);
+
+#ifdef DIFFUSE1_MAP
+	color = (half4)tex2D(diffuse1Map, diffuse1MapUV);
+#endif
+
+#ifdef DIFFUSE2_MAP
+	color = DIFFUSE2_MAP_BLEND((half4)tex2D(diffuse2Map, diffuse2MapUV), color);
+#endif
+
+#ifdef DIFFUSE3_MAP
+	color = DIFFUSE3_MAP_BLEND((half4)tex2D(diffuse3Map, diffuse3MapUV), color);
+#endif
+
+#ifdef DIFFUSE4_MAP
+	color = DIFFUSE4_MAP_BLEND((half4)tex2D(diffuse4Map, diffuse4MapUV), color);
+#endif
+
+	color.rgb *= colorScale;
+
+#ifdef HORIZON_MAP
+	half4 horizon = (half4)tex2D(horizonMap, horizonUV);
+	color = horizon * horizon.a + color * (1 - horizon.a);
+#endif
+
+	oColor = color;
+}

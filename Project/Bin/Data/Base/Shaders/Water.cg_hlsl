@@ -1,0 +1,233 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+//Fog
+#ifdef FOG_ENABLED
+#include "Base/Shaders/getFogValue.cg_hlsl"
+#endif
+
+//half3 expand(half3 v)
+float3 expand(float3 v)
+{
+	return v * 2 - 1;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+struct a2v
+{
+	float4 position : POSITION;   // in object space
+	//float2 texCoord : TEXCOORD0;
+};
+
+struct v2f
+{
+	float4 position  : POSITION;  // in clip space
+
+	float3 rotMatrix1 : TEXCOORD0; // first row of the 3x3 transform from tangent to obj space
+	float3 rotMatrix2 : TEXCOORD1; // second row of the 3x3 transform from tangent to obj space
+	float3 rotMatrix3 : TEXCOORD2; // third row of the 3x3 transform from tangent to obj space
+
+	float3 bumpCoord0 : TEXCOORD3;
+	float3 bumpCoord1 : TEXCOORD4;
+
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	float depth : TEXCOORD5;
+#endif
+
+	float4 eyeVectorAndCameraDistance : TEXCOORD6;
+
+#ifdef REFLECTION_MAP
+	float4 projectionCoord : TEXCOORD7;
+#endif
+};
+
+//wave functions
+struct Wave {
+  float freq;  // 2*PI / wavelength
+  float amp;   // amplitude
+  float phase; // speed * 2*PI / wavelength
+  float2 dir;
+};
+
+v2f main_vp(
+	a2v IN,
+	uniform float4x4 worldViewProjMatrix,
+	uniform float4x4 worldViewMatrix,
+	uniform float3 cameraPositionObjectSpace,
+	uniform float time0X,
+	uniform float renderTargetFlipping
+)
+{
+	float bumpScale = 0.7; // amount bump on waves
+	float2 textureScale = float2(20, 20); // scaling of normal texture
+	float2 bumpSpeed = float2(0.025, 0.025); // speed of normalmap waves
+	float2 waveDirection0 = float2(-1, 0); // direction of wave 0
+	float2 waveDirection1 = float2(-0.7, 0.7); // direction of wave 1
+	float waveFrequency = 0.28;
+	float waveAmplitude = 0;//0.3;
+
+	v2f OUT;
+
+	#define WAVE_COUNT 2
+	Wave wave[WAVE_COUNT] =
+	{
+		{ 1.0, 1.0, 0.5, waveDirection0 },
+		{ 2.0, 0.5, 1.7, waveDirection1 }
+	};
+
+	wave[0].freq = waveFrequency;
+	wave[0].amp = waveAmplitude;
+	wave[1].freq = waveFrequency * 3.0;
+	wave[1].amp = waveAmplitude * 0.33;
+
+	float4 modifiedPosition = IN.position;
+
+	float2 texCoord = IN.position.xy / 1000.0;
+
+	// sum waves
+	float ddx = 0.0, ddy = 0.0;
+	float deriv;
+	float angle;
+
+	// wave synthesis using two sine waves at different frequencies and phase shift
+	for(int i = 0; i < WAVE_COUNT; i++)
+	{
+		angle = dot(wave[i].dir, modifiedPosition.xy) * wave[i].freq + time0X * wave[i].phase;
+		modifiedPosition.z += wave[i].amp * sin(angle);
+		// calculate derivate of wave function
+		deriv = wave[i].freq * wave[i].amp * cos(angle);
+		ddx -= deriv * wave[i].dir.x;
+		ddy -= deriv * wave[i].dir.y;
+	}
+
+	// compute the 3x3 tranform from tangent space to object space
+	// first rows are the tangent and binormal scaled by the bump scale
+	OUT.rotMatrix1.xyz = bumpScale * normalize(float3(1, ddy, 0)); // Binormal
+	OUT.rotMatrix2.xyz = bumpScale * normalize(float3(0, ddx, 1)); // Tangent
+	OUT.rotMatrix3.xyz = normalize(float3(ddx, 1, ddy)); // Normal
+
+	OUT.position = mul(worldViewProjMatrix, modifiedPosition);
+
+	// calculate texture coordinates for normal map lookup
+	OUT.bumpCoord0.xy = texCoord * textureScale + time0X * bumpSpeed;
+	//invert bumpSpeed for opposite wave directions
+	OUT.bumpCoord1.xy = texCoord * textureScale * 2.0 + time0X * (-bumpSpeed) * 2.0;
+	//OUT.bumpCoord1.xy = texCoord * textureScale * 2.0 + time0X * bumpSpeed * 4.0;
+
+	//OUT.bumpCoord2.xy = texCoord * textureScale * 4.0 + time0X * bumpSpeed * 8.0;
+
+	OUT.eyeVectorAndCameraDistance.xyz = IN.position.xyz - cameraPositionObjectSpace;// eye position in vertex space
+	OUT.eyeVectorAndCameraDistance.w = -mul(worldViewMatrix, IN.position).z;
+
+	OUT.bumpCoord0.z = IN.position.x;
+	OUT.bumpCoord1.z = IN.position.y;
+	//OUT.bumpCoord2.z = IN.position.z;
+
+#ifdef REFLECTION_MAP
+
+	float4 projectionCoord = OUT.position;
+	projectionCoord.xy /= projectionCoord.w;
+
+	//small offset for correct rendering at border of water and not water.
+	if(renderTargetFlipping > 0)
+		projectionCoord.y -= .01;
+	else
+		projectionCoord.y += .01;
+		
+	projectionCoord.xy *= float2(.5,.5);
+	projectionCoord.xy += float2(.5,.5);
+
+	if(renderTargetFlipping > 0)
+		projectionCoord.y = 1 - projectionCoord.y;
+	
+	OUT.projectionCoord = float4(projectionCoord.x * projectionCoord.w,
+		projectionCoord.y * projectionCoord.w, projectionCoord.z, projectionCoord.w);
+		
+#endif
+
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	OUT.depth = OUT.position.z;
+#endif
+
+	return OUT;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_fp(
+	v2f IN,
+
+	uniform float farClipDistance,
+
+#ifdef FOG_ENABLED
+	uniform half4 fogColor,
+	uniform half4 fogParams,
+#endif
+
+	uniform sampler2D noiseMap,
+	uniform sampler2D reflectionMap,
+	uniform float3 cameraPositionObjectSpace,
+
+	uniform half4 deepColor,
+	uniform half4 shallowColor,
+	uniform half4 reflectionColor,
+
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	out float4 oColorDepth : COLOR1,
+#endif
+	out half4 oColor : COLOR
+	)
+{
+	half reflectionAmount = 1; // reflection factor
+	half waterAmount = 0.3; // "Amount of water color"
+	float fresnelPower = 5; // fresnel fresnel effect
+	float fresnelBias = 0.328; // fresnel coefficient
+
+	// sum 3 normals
+	float3 t0 = expand(tex2D(noiseMap, IN.bumpCoord0.xy).xyz);
+	float3 t1 = expand(tex2D(noiseMap, IN.bumpCoord1.xy).xyz);
+	//float3 t2 = expand(tex2D(noiseMap, IN.bumpCoord2.xy).xyz);
+	float3 normal = t0 + t1;// + t2;
+
+	float3x3 m; // tangent to world matrix
+	m[0] = IN.rotMatrix1;
+	m[1] = IN.rotMatrix2;
+	m[2] = IN.rotMatrix3;
+
+	normal = normalize( mul( normal, m ) );
+	normal = float3( normal.x, normal.z, normal.y ); // flip z and y 
+
+	float3 eyeVector = normalize(IN.eyeVectorAndCameraDistance.xyz);
+	float cameraDistance = IN.eyeVectorAndCameraDistance.w;
+
+	half4 reflection = half4(1,1,1,1);
+#ifdef REFLECTION_MAP
+	IN.projectionCoord.xy += normal.xy;
+	reflection = (half4)tex2Dproj(reflectionMap, IN.projectionCoord);
+#endif
+
+	//fresnel coefficient
+	float facing = 1.0 - max(dot(-eyeVector, normal), 0);
+	float fresnel = saturate(fresnelBias + pow(facing, fresnelPower));
+
+	half4 waterColor = lerp(shallowColor, deepColor, (half)facing) * waterAmount;
+	reflection = lerp(waterColor, reflection * reflectionColor, (half)fresnel) * reflectionAmount;
+
+	half4 resultColor = waterColor + reflection;
+
+#ifdef TRANSPARENT
+	resultColor.a = saturate(resultColor.a);
+#endif
+
+	//Fog
+#ifdef FOG_ENABLED
+	half fog = getFogValue(cameraDistance, fogParams);
+	resultColor.rgb *= fog;
+	resultColor.rgb += fogColor.rgb * (1.0h - fog);
+#endif
+
+	oColor = resultColor;
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	oColorDepth = float4(IN.depth / farClipDistance, 0, 0, 0);
+#endif
+}

@@ -1,0 +1,161 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Aggregates &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Serialization" href="Serialization.html" />
+    <link rel="prev" title="Callbacks and Customization" href="Callbacks.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Serialization.html" title="Serialization"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Callbacks.html" title="Callbacks and Customization"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="aggregates">
+<span id="id1"></span><h1>Aggregates<a class="headerlink" href="#aggregates" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>An aggregate is a collection of actors. Aggregates do not provide extra simulation or query features, but allow you to tell the SDK that a set of actors will be clustered together, which in turn allows the SDK to optimize its spatial data operations. A typical use case is a ragdoll, made of N different body parts, with each part a PhysX actor. Without aggregates, this gives rise to N broad-phase entries for the ragdoll. It is typically more efficient to represent the rag doll in the broad phase as a single entity, and do internal collisions in a second pass if necessary.</p>
+</div>
+<div class="section" id="creating-an-aggregate">
+<h2>Creating an Aggregate<a class="headerlink" href="#creating-an-aggregate" title="Permalink to this headline">¶</a></h2>
+<p>Create an aggregate from the <em>PxPhysics</em> object:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span><span class="p">;</span>     <span class="c1">// The physics SDK object</span>
+
+<span class="n">PxU32</span> <span class="n">nbActors</span><span class="p">;</span> <span class="c1">// Max number of actors expected in the aggregate</span>
+<span class="kt">bool</span> <span class="n">selfCollisions</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+
+<span class="n">PxAggregate</span><span class="o">*</span> <span class="n">aggregate</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createAggregate</span><span class="p">(</span><span class="n">nbActors</span><span class="p">,</span> <span class="n">selfCollisions</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The maximum number of actors is currently limited to 128, and for efficiency should be set as low as possible.</p>
+<p>If you will never need collisions between the actors of the aggregate, disable them at creation time. This is much more efficient than using the scene filtering mechanism, as it bypasses all internal filtering logic. A typical use case would be an aggregate of static or kinematic actors.</p>
+<p>Note that both the maximum number of actors and the self-collision attribute are immutable.</p>
+</div>
+<div class="section" id="populating-an-aggregate">
+<h2>Populating an Aggregate<a class="headerlink" href="#populating-an-aggregate" title="Permalink to this headline">¶</a></h2>
+<p>Adds an actor to an aggregate as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxActor</span><span class="o">&amp;</span> <span class="n">actor</span><span class="p">;</span> <span class="c1">// Some actor, previously created</span>
+<span class="n">aggregate</span><span class="o">-&gt;</span><span class="n">addActor</span><span class="p">(</span><span class="n">actor</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Note that if the actor already belongs to a scene, the call is ignored. Either add the actors to an aggregate and then add the aggregate to the scene, or add the aggregate to the scene and then the actors to the aggregate.</p>
+<p>To add the aggregate to a scene (before or after populating it):</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">scene</span><span class="o">-&gt;</span><span class="n">addAggregate</span><span class="p">(</span><span class="o">*</span><span class="n">aggregate</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Similarly, to remove the aggregate from the scene:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">scene</span><span class="o">-&gt;</span><span class="n">removeAggregate</span><span class="p">(</span><span class="o">*</span><span class="n">aggregate</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="releasing-an-aggregate">
+<h2>Releasing an Aggregate<a class="headerlink" href="#releasing-an-aggregate" title="Permalink to this headline">¶</a></h2>
+<p>To release an aggregate:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxAggregate</span><span class="o">*</span> <span class="n">aggregate</span><span class="p">;</span> <span class="c1">// The aggregate we previously created</span>
+<span class="n">aggregate</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Releasing the PxAggregate does not release the aggregated actors. If the PxAggregate belongs to a scene, the actors are automatically re-inserted in that scene. If you intend to delete both the PxAggregate and its actors, it is most efficient to release the actors first, then release the PxAggregate when it is empty.</p>
+</div>
+<div class="section" id="amortizing-insertion">
+<h2>Amortizing Insertion<a class="headerlink" href="#amortizing-insertion" title="Permalink to this headline">¶</a></h2>
+<p>Adding many objects to a scene in one frame can be a costly operation. This can be the case for a ragdoll, which as discussed is a good candidate for PxAggregate. Another case is localized debris, for which self-collisions are often disabled. To amortize the cost of object insertion into the broad-phase structure over several, spawn the debris in a PxAggregate, then remove each actor from the aggregate and and re-insert it into the scene over those frames.</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Aggregates</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#creating-an-aggregate">Creating an Aggregate</a></li>
+<li><a class="reference internal" href="#populating-an-aggregate">Populating an Aggregate</a></li>
+<li><a class="reference internal" href="#releasing-an-aggregate">Releasing an Aggregate</a></li>
+<li><a class="reference internal" href="#amortizing-insertion">Amortizing Insertion</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Callbacks.html"
+                        title="previous chapter">Callbacks and Customization</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Serialization.html"
+                        title="next chapter">Serialization</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Serialization.html" title="Serialization"
+             >next</a></li>
+        <li class="right" >
+          <a href="Callbacks.html" title="Callbacks and Customization"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,50 @@
+fragment_program Compositor/Grayscale_fp_hlsl hlsl
+{
+	source Base\FullScreenEffects\Grayscale\Grayscale.cg_hlsl
+	entry_point main_fp
+	target ps_3_0	
+}
+
+fragment_program Compositor/Grayscale_fp_cg cg
+{
+	source Base\FullScreenEffects\Grayscale\Grayscale.cg_hlsl
+	entry_point main_fp
+	profiles arbfp1
+}
+
+fragment_program Compositor/Grayscale_fp unified
+{
+	delegate Compositor/Grayscale_fp_hlsl
+	delegate Compositor/Grayscale_fp_cg
+}
+
+material Compositor/Grayscale
+{
+	technique
+	{
+
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+
+			fragment_program_ref Compositor/Grayscale_fp
+			{
+			}
+
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering none
+			}
+		}
+	}
+}

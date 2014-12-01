@@ -1,0 +1,55 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+compositor LightScattering
+{
+	technique
+	{
+		//source scene
+		texture scene target_width target_height PF_R8G8B8
+
+		//precompute scatter values
+		//texture size will be changed from code.
+		texture rt_scattering 1 1 PF_R8G8B8
+		texture rt_blur 1 1 PF_R8G8B8
+
+		target scene
+		{
+			input previous
+		}
+
+		target rt_scattering
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/LightScattering/Scattering
+				//input 0 - depth buffer
+				identifier 100
+			}
+		}
+
+		target rt_blur
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/LightScattering/Blur
+				input 0 rt_scattering
+				identifier 200
+			}
+		}
+
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/LightScattering/Final
+				input 0 scene
+				input 1 rt_blur
+				//input 1 rt_scattering
+				identifier 300
+			}
+		}
+	}
+}

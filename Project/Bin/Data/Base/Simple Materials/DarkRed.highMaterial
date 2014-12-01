@@ -1,0 +1,5 @@
+highLevelMaterial DarkRed
+{
+	template = ShaderBaseMaterial
+	diffuseScale = .5 0 0
+}

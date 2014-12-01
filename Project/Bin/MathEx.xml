@@ -1,0 +1,289 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>MathEx</name>
+    </assembly>
+    <members>
+        <member name="P:Engine.MathEx.Curve.Times">
+            <summary>
+            <b>Don't modify</b>.
+            </summary>
+        </member>
+        <member name="P:Engine.MathEx.Curve.Values">
+            <summary>
+            <b>Don't modify</b>.
+            </summary>
+        </member>
+        <member name="M:Engine.MathEx.ConvexPolygon.GetFromPoints(System.Collections.Generic.IList{Engine.MathEx.Vec2},System.Single)">
+            <summary>
+            Convex Hull Graham algorithm.
+            </summary>
+            <param name="points"></param>
+            <param name="epsilon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.ConvexPolygon.GetFromPoints(System.Collections.Generic.IList{Engine.MathEx.Vec2D},System.Double)">
+            <summary>
+            Convex Hull Graham algorithm.
+            </summary>
+            <param name="points"></param>
+            <param name="epsilon"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Mat3D.QDUDecomposition(Engine.MathEx.Mat3D@,Engine.MathEx.Vec3D@,Engine.MathEx.Vec3D@)">
+            <summary>
+            Decomposites the matrix by Gram-Schmidt orthogonalization algorithm (the QR algorithm).
+            </summary>
+            <param name="kQ">Orthogonal.</param>
+            <param name="kD">Diagonal.</param>
+            <param name="kU">Upper triangular.</param>
+        </member>
+        <member name="M:Engine.MathEx.Plane.GetSide(Engine.MathEx.Vec3@,Engine.MathEx.Vec3@)">
+            <summary>
+            Returns which side of the plane that the given box lies on.
+            The box is defined as centre/half-size pairs for effectively.
+            </summary>
+            <param name="boundsCenter"></param>
+            <param name="boundsHalfSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Plane.GetSide(Engine.MathEx.Vec3,Engine.MathEx.Vec3)">
+            <summary>
+            Returns which side of the plane that the given box lies on.
+            The box is defined as centre/half-size pairs for effectively.
+            </summary>
+            <param name="boundsCenter"></param>
+            <param name="boundsHalfSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Mat3.QDUDecomposition(Engine.MathEx.Mat3@,Engine.MathEx.Vec3@,Engine.MathEx.Vec3@)">
+            <summary>
+            Decomposites the matrix by Gram-Schmidt orthogonalization algorithm (the QR algorithm).
+            </summary>
+            <param name="kQ">Orthogonal.</param>
+            <param name="kD">Diagonal.</param>
+            <param name="kU">Upper triangular.</param>
+        </member>
+        <member name="T:Engine.MathEx.ExpressionCalculator">
+            <summary>
+            Class for calculation math expressions defined as string.
+            </summary>
+            <remarks>
+            <para>
+            Features:
+            - Operators: * / + - ^.
+            - Brackets support.
+            - Basic math functions: Abs( x ), Acos( x ), Asin( x ), Atan( x ), Atan2( y, x ), Ceiling( x ), Cos( x ), Cosh( x ), Exp( x ), Floor( x ), Log( x ), Log10( x ), Max( v1, v2 ), Min( v1, v2 ), Pow( x, y ), Round( x ), Sign( x ), Sin( x ), Sqrt( x ), Tan( x ), Tanh( x ).
+            - User defined functions.
+            - Parameters.
+            </para>
+            <para>
+            Examples:
+            "5 + 3 * 2"
+            "(5 + 3) * -2"
+            "x * (5 + y)"
+            "Pow(2, 3) + Sin(1)"
+            </para>
+            </remarks>
+        </member>
+        <member name="M:Engine.MathEx.ExpressionCalculator.GetFunction(System.String)">
+            <summary>
+            Get function by the name.
+            </summary>
+            <param name="name"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.ExpressionCalculator.RegisterFunction(System.String,Engine.MathEx.ExpressionCalculator.FunctionDelegate,System.Int32)">
+            <summary>
+            Registers function.
+            </summary>
+            <param name="name"></param>
+            <param name="body"></param>
+            <param name="parameterCount"></param>
+        </member>
+        <member name="M:Engine.MathEx.ExpressionCalculator.Prepare(System.String,System.Collections.Generic.ICollection{System.String},System.String@)">
+            <summary>
+            Prepares expression for faster calculation. Use when you need calculate one expression with different parameters many times.
+            </summary>
+            <param name="expression"></param>
+            <param name="parameterNames"></param>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.ExpressionCalculator.Calculate(System.String,System.Collections.Generic.Dictionary{System.String,System.Double},System.Double@,System.String@)">
+            <summary>
+            Calculates expression. Example: "1 + (2 * 3)", "5 * x + y".
+            </summary>
+            <param name="expression"></param>
+            <param name="parameters"></param>
+            <param name="result"></param>
+            <param name="error"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.ExpressionCalculator.RegisterBasicMathFunctions">
+            <summary>
+            Registers basic math functions.
+            </summary>
+            <remarks>
+            Supported functions:
+            Abs( x ),
+            Acos( x ),
+            Asin( x ),
+            Atan( x ),
+            Atan2( y, x ),
+            Ceiling( x ),
+            Cos( x ),
+            Cosh( x ),
+            Exp( x ),
+            Floor( x ),
+            Log( x ),
+            Log10( x ),
+            Max( v1, v2 ),
+            Min( v1, v2 ),
+            Pow( x, y ),
+            Round( x ),
+            Sign( x ),
+            Sin( x ),
+            Sqrt( x ),
+            Tan( x ),
+            Tanh( x ).
+            </remarks>
+        </member>
+        <member name="P:Engine.MathEx.ExpressionCalculator.Functions">
+            <summary>
+            Gets list of defined functions.
+            </summary>
+        </member>
+        <member name="T:Engine.MathEx.ColorValueNoAlphaChannelAttribute">
+            <summary>
+            Helper for toolset.
+            </summary>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersects(Engine.MathEx.Vec3)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersectsFast(Engine.MathEx.Bounds@)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersectsFast(Engine.MathEx.Bounds)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersectsFast(Engine.MathEx.Box@)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="box"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersectsFast(Engine.MathEx.Box)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="box"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersects(Engine.MathEx.Bounds@)">
+            <summary>
+            Exact intersection test.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.Frustum.IsIntersects(Engine.MathEx.Bounds)">
+            <summary>
+            Exact intersection test.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.MathEx.Frustum._Axis">
+            <summary>
+            Bug here. Inverted Y axis. Better to use <see cref="P:Engine.MathEx.Frustum.Rotation"/> property.
+            </summary>
+        </member>
+        <member name="M:Engine.MathEx.PlaneD.GetSide(Engine.MathEx.Vec3D@,Engine.MathEx.Vec3D@)">
+            <summary>
+            Returns which side of the plane that the given box lies on.
+            The box is defined as centre/half-size pairs for effectively.
+            </summary>
+            <param name="boundsCenter"></param>
+            <param name="boundsHalfSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.PlaneD.GetSide(Engine.MathEx.Vec3D,Engine.MathEx.Vec3D)">
+            <summary>
+            Returns which side of the plane that the given box lies on.
+            The box is defined as centre/half-size pairs for effectively.
+            </summary>
+            <param name="boundsCenter"></param>
+            <param name="boundsHalfSize"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersects(Engine.MathEx.Vec3D)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="point"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersectsFast(Engine.MathEx.BoundsD@)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersectsFast(Engine.MathEx.BoundsD)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersectsFast(Engine.MathEx.BoxD@)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="box"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersectsFast(Engine.MathEx.BoxD)">
+            <summary>
+            Fast culling. Not cull everything outside the frustum.
+            </summary>
+            <param name="box"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersects(Engine.MathEx.BoundsD@)">
+            <summary>
+            Exact intersection test.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.MathEx.FrustumD.IsIntersects(Engine.MathEx.BoundsD)">
+            <summary>
+            Exact intersection test.
+            </summary>
+            <param name="bounds"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.MathEx.FrustumD._Axis">
+            <summary>
+            Bug here. Inverted Y axis. Better to use <see cref="P:Engine.MathEx.FrustumD.Rotation"/> property.
+            </summary>
+        </member>
+    </members>
+</doc>

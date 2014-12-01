@@ -1,0 +1,39 @@
+sampler RT : register(s0);
+
+float4 main_fp(float2 texCoord : TEXCOORD0) : COLOR
+{	
+	half numTiles = 75;
+	half threshold = .15;
+	half3 edgeColor = half3(0.7, 0.7, 0.7);
+
+	half size = 1.0 / numTiles;
+	half2 pBase = texCoord - fmod(texCoord, size.xx);
+	half2 pCenter = pBase + (size / 2.0).xx;
+	half2 st = ( texCoord - pBase ) / size;
+
+	half4 c1 = (half4)0;
+	half4 c2 = (half4)0;
+	half4 invOff = half4(1 - edgeColor, 1);
+	if (st.x > st.y)
+		c1 = invOff;
+	half thresholdB =  1.0 - threshold;
+	if(st.x > thresholdB)
+		c2 = c1;
+	if(st.y > thresholdB)
+		c2 = c1;
+	half4 cBottom = c2;
+
+	c1 = (half4)0;
+	c2 = (half4)0;
+	if (st.x > st.y)
+		c1 = invOff;
+	if(st.x < threshold)
+		c2 = c1;
+	if(st.y < threshold)
+		c2 = c1;
+	half4 cTop = c2;
+
+	half4 tileColor = tex2D(RT, pCenter);
+	half4 result = tileColor + cTop - cBottom;
+	return result;
+}

@@ -1,0 +1,42 @@
+sampler Image: register(s0);
+sampler Rand: register(s1);
+sampler Noise: register(s2);
+
+float4 main_fp(
+	float2 pos: TEXCOORD1,
+	float2 img: TEXCOORD0,
+
+	uniform float distortionFreq,
+	uniform float distortionScale,
+	uniform float distortionRoll,
+	uniform float interference,
+	uniform float frameLimit,
+	uniform float frameShape,
+	uniform float frameSharpness,
+	uniform float time_0_X,
+	uniform float sin_time_0_X
+) : COLOR {
+   // Define a frame shape
+   float f = (1 - pos.x * pos.x) * (1 - pos.y * pos.y);
+   float frame = saturate(frameSharpness * (pow(f, frameShape) - frameLimit));
+
+   // Interference ... just a texture filled with rand()
+   float rand = tex3D(Rand, float3(1.5 * pos, time_0_X)).r - 0.2;
+
+   // Some signed noise for the distortion effect
+	float noisy = tex2D(Noise, float2(0.5 * pos.y, 0.1 * time_0_X)).r - 0.5;
+   //float noisy = tex3D(Noise, float3(0, 0.5 * pos.y, 0.1 * time_0_X)) - 0.5;
+
+   // Repeat a 1 - x^2 (0 < x < 1) curve and roll it with sinus.
+   float dst = frac(pos.y * distortionFreq + distortionRoll * sin_time_0_X);
+   dst *= (1 - dst);
+   // Make sure distortion is highest in the center of the image
+   dst /= 1 + distortionScale * abs(pos.y);
+
+   // ... and finally distort
+   img.x += distortionScale * noisy * dst;
+   float4 image = tex2D(Image, img);
+
+   // Combine frame, distorted image and interference
+   return frame * (interference * rand + image);
+}

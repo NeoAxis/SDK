@@ -1,0 +1,328 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Callbacks and Customization &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Aggregates" href="Aggregates.html" />
+    <link rel="prev" title="Geometry Queries" href="GeometryQuery.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Aggregates.html" title="Aggregates"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="GeometryQuery.html" title="Geometry Queries"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="callbacks-and-customization">
+<span id="callbacks"></span><h1>Callbacks and Customization<a class="headerlink" href="#callbacks-and-customization" title="Permalink to this headline">¶</a></h1>
+<p>In this chapter we will look at a number of callback functions the SDK provides that let the user listen to simulation events and even customize some parts of the simulation.  The callback functions are implemented as member functions of classes which the user is expected to subclass, providing custom implementations for the functions.  This is the same mechanism that we already explained in the chapter <a class="reference internal" href="Basics.html#basics"><em>The Basics</em></a>, to let the user provide custom allocators and error notification.</p>
+<div class="section" id="simulation-events">
+<h2>Simulation Events<a class="headerlink" href="#simulation-events" title="Permalink to this headline">¶</a></h2>
+<p>The simplest type of simulation callbacks are the events.  The application may simply listen in on these without needing to react in any way.  There is only one restriction on the code you may put in the callbacks:  Any SDK state change from them is disallowed.  This may be a bit surprising given that normally the SDK is set up to be double buffered, and writes are permitted while the simulation is running in the background, as any new state is written to an inactive state backbuffer.  However, these event callbacks are not called from within the simulation thread, but rather from inside fetchResults().  At that point some buffered operations have already been processed, so the situation is more fragile.  All write operations to the scene should be buffered and carried out after fetchResults() returns.</p>
+<p>Inside fetchResults() among other things we 'swap the buffers'.  This means that we copy the objects' simulation results to their API-visible state.  Some event callbacks happen before this swap, and some after.  The events that happen before are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>onTrigger</li>
+<li>onContact</li>
+<li>onConstraintBreak</li>
+</ul>
+</div></blockquote>
+<p>When these events get received, the shapes, actors, etc. will still be in the state they were in before the simulation ran.  This is preferable, because these events were detected early on during the simulation, before objects were integrated (moved) forward.  For example, a pair of shapes that get an onContact() to report that they are in contact will still be in contact when the call is made, even though after fetchResults() returns, they may have bounced apart again.</p>
+<p>On the other hand, these events are sent after the swap:</p>
+<blockquote>
+<div><ul class="simple">
+<li>onSleep</li>
+<li>onWake</li>
+</ul>
+</div></blockquote>
+<p>Sleep information is updated after objects have been integrated, so it makes sense to send these events after the swap.</p>
+<p>You 'listen' to any of these events by doing two things:  First, define a callback function by subclassing PxSimulationEventCallback.  Not all of its member functions have to be implemented, only the ones to be overwritten.  For constraint break events, this is the only thing that needs to be done.  For sleep and wake events, you must raise the flag PxActorFlag::eSEND_SLEEP_NOTIFIES on all actors from which notifies are desired.  To get onContact and onTrigger events, in the filter shader callback, set a flag for all pairs of interacting objects for which you wish to receive these events.  See the section on using collision filtering below for details.</p>
+<p>Here is an example for a contact event function from SampleSubmarine:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">SampleSubmarine</span><span class="o">::</span><span class="n">onContact</span><span class="p">(</span><span class="k">const</span> <span class="n">PxContactPairHeader</span><span class="o">&amp;</span> <span class="n">pairHeader</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxContactPair</span><span class="o">*</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">nbPairs</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nbPairs</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="k">const</span> <span class="n">PxContactPair</span><span class="o">&amp;</span> <span class="n">cp</span> <span class="o">=</span> <span class="n">pairs</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+
+                <span class="k">if</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="n">events</span> <span class="o">&amp;</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eNOTIFY_TOUCH_FOUND</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="k">if</span><span class="p">((</span><span class="n">pairHeader</span><span class="p">.</span><span class="n">actors</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span> <span class="o">==</span> <span class="n">mSubmarineActor</span><span class="p">)</span> <span class="o">||</span> <span class="p">(</span><span class="n">pairHeader</span><span class="p">.</span><span class="n">actors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">==</span> <span class="n">mSubmarineActor</span><span class="p">))</span>
+                        <span class="p">{</span>
+                                <span class="n">PxActor</span><span class="o">*</span> <span class="n">otherActor</span> <span class="o">=</span> <span class="p">(</span><span class="n">mSubmarineActor</span> <span class="o">==</span> <span class="n">pairHeader</span><span class="p">.</span><span class="n">actors</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span> <span class="o">?</span>
+                                        <span class="n">pairHeader</span><span class="p">.</span><span class="n">actors</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span> <span class="o">:</span> <span class="n">pairHeader</span><span class="p">.</span><span class="n">actors</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span>
+                                <span class="n">Seamine</span><span class="o">*</span> <span class="n">mine</span> <span class="o">=</span>  <span class="k">reinterpret_cast</span><span class="o">&lt;</span><span class="n">Seamine</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">otherActor</span><span class="o">-&gt;</span><span class="n">userData</span><span class="p">);</span>
+                                <span class="c1">// insert only once</span>
+                                <span class="k">if</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">find</span><span class="p">(</span><span class="n">mMinesToExplode</span><span class="p">.</span><span class="n">begin</span><span class="p">(),</span> <span class="n">mMinesToExplode</span><span class="p">.</span><span class="n">end</span><span class="p">(),</span> <span class="n">mine</span><span class="p">)</span> <span class="o">==</span> <span class="n">mMinesToExplode</span><span class="p">.</span><span class="n">end</span><span class="p">())</span>
+                                        <span class="n">mMinesToExplode</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">mine</span><span class="p">);</span>
+
+                                <span class="k">break</span><span class="p">;</span>
+                        <span class="p">}</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>SampleSubmarine is a subclass of PxSimulationEventCallback.  onContact receives the pair for which the requested contact events have been triggered.  The above function is only interested in eNOTIFY_TOUCH_FOUND events, which are raised whenever two shapes start to touch.  In fact it is only interested in touch events of the submarine -- which is checked in the second if-statement.  It then goes on to assume that the second actor is a mine (which works in this example because the sample is configured such that no other contact reports will get sent when a submarine actor is involved).  After that, it adds the mine to a set of mines that should explode during the next update.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">By default collisions between kinematic rigid bodies and kinematic and static rigid bodies will not get reported. To enable these reports raise the PxSceneFlag::eENABLE_KINEMATIC_PAIRS or ::eENABLE_KINEMATIC_STATIC_PAIRS flag respectively by calling PxScene::setFlag().</p>
+</div>
+<p>Frequently, users are only interested in contact reports, if the force of impact is larger than a certain threshold. This allows to reduce the amount of reported pairs which need to get processed. To take advantage of this option the following additional configurations are necessary:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Use PxPairFlag::eNOTIFY_THRESHOLD_FORCE_FOUND, ::eNOTIFY_THRESHOLD_FORCE_PERSISTS, ::eNOTIFY_THRESHOLD_FORCE_LOST instead of ::eNOTIFY_TOUCH_FOUND etc.</li>
+<li>Specify the threshold force for a dynamic rigid body through PxRigidDynamic::setContactReportThreshold(). If the body collides with an other object and the contact force is above the threshold, a report will get sent (if enabled according to the PxPairFlag setting of the pair). If two colliding dynamic bodies both have a force threshold specified then the lower threshold will be used.</li>
+</ul>
+</div></blockquote>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If a dynamic rigid body collides with multiple static objects, then the impact force of all those contacts will get summed up and used to compare against the force threshold. In other words, even if the impact force against each individual static object is below the threshold, the contact reports will still get sent for each pair if the sum of those forces exceeds the threshold.</p>
+</div>
+</div>
+<div class="section" id="collision-filtering">
+<h2>Collision Filtering<a class="headerlink" href="#collision-filtering" title="Permalink to this headline">¶</a></h2>
+<p>In almost all applications beyond the trivial, the need arises to exempt certain pairs of objects from interacting, or to configure the SDK collision detection behavior in a particular way for an interacting pair.  In the submarine sample, like indicated above, we need to be notified when the submarine touched a mine, or the chain of a mine, so that we can have them blow up.  The crab's AI also needs to know when crabs touch the heightfield.</p>
+<p>Before we can understand what the sample does to achieve this, we need to understand the possibilities of the SDK filtering system.  Because filtering potentially interacting pairs happens in the deepest parts of the simulation engine, and needs to be applied to all pairs of objects that come near each other, it is particularly performance sensitive.  The simplest way to implement it would be to always call a callback function to each potentially interacting pair, where the application, based on the two object pointers could determine, using some custom logic -- like consulting its game data base -- whether the pair should interact.  Unfortunately this quickly becomes too slow if done for a very large game world, especially if the collision detection processing happens on a remote processor like the GPU or an other kind of vector processor with local memory, which would have to suspend its parallel computations, interrupt the main processor that runs game code, and have it execute the callback before it can continue.  Even if it were to be executed on a CPU, it would likely be done so simultaneously on multiple cores or hyperthreads, and thread safe code would have to be put in place to make sure that concurrent access to shared data is safe.  Far better is to use some kind of fixed function logic that can execute on the remote processor.  This is what we did in PhysX 2.x -- unfortunately the simple group based filtering rules we provided were not flexible enough to cover all applications.  In 3.0, we introduce both a shader system, which lets the developer implement an arbitrary system of rules using code that runs on the vector processor (and is therefore not able to access any eventual game data base in main memory), which is more flexible than 2.x fixed function filtering, but just as efficient, and a totally flexible callback mechanism where the filter shader calls a CPU callback function that is able to access any application data, at the cost of performance -- see PxSimulationFilterCallback for details.  The best part is that an application can decide on a per-pair basis to make this speed vs. flexibility tradeoff.</p>
+<p>Let us look at the shader system first:  Here is the filter shader implemented by SampleSubmarine:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxFilterFlags</span> <span class="n">SampleSubmarineFilterShader</span><span class="p">(</span>
+        <span class="n">PxFilterObjectAttributes</span> <span class="n">attributes0</span><span class="p">,</span> <span class="n">PxFilterData</span> <span class="n">filterData0</span><span class="p">,</span>
+        <span class="n">PxFilterObjectAttributes</span> <span class="n">attributes1</span><span class="p">,</span> <span class="n">PxFilterData</span> <span class="n">filterData1</span><span class="p">,</span>
+        <span class="n">PxPairFlags</span><span class="o">&amp;</span> <span class="n">pairFlags</span><span class="p">,</span> <span class="k">const</span> <span class="kt">void</span><span class="o">*</span> <span class="n">constantBlock</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">constantBlockSize</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="c1">// let triggers through</span>
+        <span class="k">if</span><span class="p">(</span><span class="n">PxFilterObjectIsTrigger</span><span class="p">(</span><span class="n">attributes0</span><span class="p">)</span> <span class="o">||</span> <span class="n">PxFilterObjectIsTrigger</span><span class="p">(</span><span class="n">attributes1</span><span class="p">))</span>
+        <span class="p">{</span>
+                <span class="n">pairFlags</span> <span class="o">=</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eTRIGGER_DEFAULT</span><span class="p">;</span>
+                <span class="k">return</span> <span class="n">PxFilterFlag</span><span class="o">::</span><span class="n">eDEFAULT</span><span class="p">;</span>
+        <span class="p">}</span>
+        <span class="c1">// generate contacts for all that were not filtered above</span>
+        <span class="n">pairFlags</span> <span class="o">=</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eCONTACT_DEFAULT</span><span class="p">;</span>
+
+        <span class="c1">// trigger the contact callback for pairs (A,B) where</span>
+        <span class="c1">// the filtermask of A contains the ID of B and vice versa.</span>
+        <span class="k">if</span><span class="p">((</span><span class="n">filterData0</span><span class="p">.</span><span class="n">word0</span> <span class="o">&amp;</span> <span class="n">filterData1</span><span class="p">.</span><span class="n">word1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">filterData1</span><span class="p">.</span><span class="n">word0</span> <span class="o">&amp;</span> <span class="n">filterData0</span><span class="p">.</span><span class="n">word1</span><span class="p">))</span>
+                <span class="n">pairFlags</span> <span class="o">|=</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eNOTIFY_TOUCH_FOUND</span><span class="p">;</span>
+
+        <span class="k">return</span> <span class="n">PxFilterFlag</span><span class="o">::</span><span class="n">eDEFAULT</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>SampleSubmarineFilterShader is a simple shader function that is an implementation of the PxSimulationFilterShader prototype declared in PxFiltering.h.  The shader filter function (called SampleSubmarineFilterShader above) may not reference any memory other than arguments of the function and its own local stack variables -- because the function may be compiled and executed on a remote processor.</p>
+<p>SampleSubmarineFilterShader() will be called for all pairs of shapes that come near each other -- more precisely:  for all pairs of shapes whose axis aligned bounding boxes in world space are found to intersect for the first time.  All behavior beyond that is determined by what SampleSubmarineFilterShader() returns.</p>
+<p>The arguments of SampleSubmarineFilterShader() include PxFilterObjectAttributes and PxFilterData for the two objects, and a constant block of memory.  Note that the pointers to the two objects are NOT passed, because those pointers refer to the computer's main memory, and that may, as we said, not be available to the shader, so the pointers would not be very useful, as dereferencing them would likely cause a crash.  PxFilterObjectAttributes and PxFilterData are intended to contain all the useful information that one could quickly glean from the pointers.  PxFilterObjectAttributes are 32 bits of data, that encode the type of object: For example PxFilterObjectType::eRIGID_STATIC, ::eRIGID_DYNAMIC, or even ::ePARTICLE_SYSTEM.  Additionally, it lets you find out if the object is kinematic, or a trigger.</p>
+<p>Each PxShape and PxParticleBase object in PhysX has a member variable of type PxFilterData.  This is 128 bits of user defined data that can be used to store application specific information related to collision filtering.  This is the other variable that is passed to SampleSubmarineFilterShader() for each object.</p>
+<p>There is also the constant block.  This is a chunk of per-scene global information that the application can give to the shader to operate on.  You will want to use this to encode rules about what to filter and what not.</p>
+<p>Finally, SampleSubmarineFilterShader() also has a PxPairFlags parameter.  This is an output, like the return value PxFilterFlags, though used slightly differently.  PxFilterFlags tells the SDK if it should ignore the pair for good (eKILL), ignore the pair while it is overlapping, but ask again, when filtering related data changes for one of the objects (eSUPPRESS), or call the low performance but more flexible CPU callback if the shader cannot decide (eCALLBACK).</p>
+<p>PxPairFlags specifies additional flags that stand for actions that the simulation should take in the future for this pair.  For example, eNOTIFY_TOUCH_FOUND means notify the user when the pair really starts to touch, not just potentially.</p>
+<p>Let us look at what the above shader does:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// let triggers through</span>
+<span class="k">if</span><span class="p">(</span><span class="n">PxFilterObjectIsTrigger</span><span class="p">(</span><span class="n">attributes0</span><span class="p">)</span> <span class="o">||</span> <span class="n">PxFilterObjectIsTrigger</span><span class="p">(</span><span class="n">attributes1</span><span class="p">))</span>
+<span class="p">{</span>
+        <span class="n">pairFlags</span> <span class="o">=</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eTRIGGER_DEFAULT</span><span class="p">;</span>
+        <span class="k">return</span> <span class="n">PxFilterFlag</span><span class="o">::</span><span class="n">eDEFAULT</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This means that if either object is a trigger, then perform default trigger behavior (notify the application about start and end of touch), and otherwise perform 'default' collision detection between them.</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// generate contacts for all that were not filtered above</span>
+<span class="n">pairFlags</span> <span class="o">=</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eCONTACT_DEFAULT</span><span class="p">;</span>
+
+<span class="c1">// trigger the contact callback for pairs (A,B) where</span>
+<span class="c1">// the filtermask of A contains the ID of B and vice versa.</span>
+<span class="k">if</span><span class="p">((</span><span class="n">filterData0</span><span class="p">.</span><span class="n">word0</span> <span class="o">&amp;</span> <span class="n">filterData1</span><span class="p">.</span><span class="n">word1</span><span class="p">)</span> <span class="o">&amp;&amp;</span> <span class="p">(</span><span class="n">filterData1</span><span class="p">.</span><span class="n">word0</span> <span class="o">&amp;</span> <span class="n">filterData0</span><span class="p">.</span><span class="n">word1</span><span class="p">))</span>
+        <span class="n">pairFlags</span> <span class="o">|=</span> <span class="n">PxPairFlag</span><span class="o">::</span><span class="n">eNOTIFY_TOUCH_FOUND</span><span class="p">;</span>
+
+<span class="k">return</span> <span class="n">PxFilterFlag</span><span class="o">::</span><span class="n">eDEFAULT</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This says that for all other objects, perform 'default' collision handling.  In addition, there is a rule based on the filterDatas that determines particular pairs where we ask for touch notifications.  To understand what this means, we need to know the special meaning that the sample gives to the filterDatas.</p>
+<p>The needs of the sample are very basic, so we will use a very simple scheme to take care of it.  The sample first gives named codes to the different object types using a custom enumeration:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">struct</span> <span class="n">FilterGroup</span>
+<span class="p">{</span>
+        <span class="k">enum</span> <span class="n">Enum</span>
+        <span class="p">{</span>
+                <span class="n">eSUBMARINE</span>     <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">0</span><span class="p">),</span>
+                <span class="n">eMINE_HEAD</span>     <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">1</span><span class="p">),</span>
+                <span class="n">eMINE_LINK</span>     <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">2</span><span class="p">),</span>
+                <span class="n">eCRAB</span>          <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">3</span><span class="p">),</span>
+                <span class="n">eHEIGHTFIELD</span>   <span class="o">=</span> <span class="p">(</span><span class="mi">1</span> <span class="o">&lt;&lt;</span> <span class="mi">4</span><span class="p">),</span>
+        <span class="p">};</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<p>The sample identifies each shape's type by assigning its PxFilterData::word0 to this FilterGroup type.  Then, it puts a bit mask that specifies each type of object that should generate a report when touched by an object of type word0 into word1.  This could be done in the samples whenever a shape is created, but because shape creation is a bit encapsulated in SampleBase, it is done after the fact, using this function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">setupFiltering</span><span class="p">(</span><span class="n">PxRigidActor</span><span class="o">*</span> <span class="n">actor</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">filterGroup</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">filterMask</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">PxFilterData</span> <span class="n">filterData</span><span class="p">;</span>
+        <span class="n">filterData</span><span class="p">.</span><span class="n">word0</span> <span class="o">=</span> <span class="n">filterGroup</span><span class="p">;</span> <span class="c1">// word0 = own ID</span>
+        <span class="n">filterData</span><span class="p">.</span><span class="n">word1</span> <span class="o">=</span> <span class="n">filterMask</span><span class="p">;</span>  <span class="c1">// word1 = ID mask to filter pairs that trigger a contact callback;</span>
+        <span class="k">const</span> <span class="n">PxU32</span> <span class="n">numShapes</span> <span class="o">=</span> <span class="n">actor</span><span class="o">-&gt;</span><span class="n">getNbShapes</span><span class="p">();</span>
+        <span class="n">PxShape</span><span class="o">**</span> <span class="n">shapes</span> <span class="o">=</span> <span class="p">(</span><span class="n">PxShape</span><span class="o">**</span><span class="p">)</span><span class="n">SAMPLE_ALLOC</span><span class="p">(</span><span class="k">sizeof</span><span class="p">(</span><span class="n">PxShape</span><span class="o">*</span><span class="p">)</span><span class="o">*</span><span class="n">numShapes</span><span class="p">);</span>
+        <span class="n">actor</span><span class="o">-&gt;</span><span class="n">getShapes</span><span class="p">(</span><span class="n">shapes</span><span class="p">,</span> <span class="n">numShapes</span><span class="p">);</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">numShapes</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="n">PxShape</span><span class="o">*</span> <span class="n">shape</span> <span class="o">=</span> <span class="n">shapes</span><span class="p">[</span><span class="n">i</span><span class="p">];</span>
+                <span class="n">shape</span><span class="o">-&gt;</span><span class="n">setSimulationFilterData</span><span class="p">(</span><span class="n">filterData</span><span class="p">);</span>
+        <span class="p">}</span>
+        <span class="n">SAMPLE_FREE</span><span class="p">(</span><span class="n">shapes</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This sets up the PxFilterDatas of each shape belonging to the passed actor.  Here are some examples how this is used in SampleSubmarine:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">setupFiltering</span><span class="p">(</span><span class="n">mSubmarineActor</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eSUBMARINE</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eMINE_HEAD</span> <span class="o">|</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eMINE_LINK</span><span class="p">);</span>
+<span class="n">setupFiltering</span><span class="p">(</span><span class="n">link</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eMINE_LINK</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eSUBMARINE</span><span class="p">);</span>
+<span class="n">setupFiltering</span><span class="p">(</span><span class="n">mineHead</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eMINE_HEAD</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eSUBMARINE</span><span class="p">);</span>
+
+<span class="n">setupFiltering</span><span class="p">(</span><span class="n">heightField</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eHEIGHTFIELD</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eCRAB</span><span class="p">);</span>
+<span class="n">setupFiltering</span><span class="p">(</span><span class="n">mCrabBody</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eCRAB</span><span class="p">,</span> <span class="n">FilterGroup</span><span class="o">::</span><span class="n">eHEIGHTFIELD</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>This scheme is probably too simplistic to use in a real game, but it shows the basic usage of the filter shader, and it will ensure that SampleSubmarine::onContact() is called for all interesting pairs.</p>
+<p>An alternative group based filtering mechanism is provided with source in the extensions function PxDefaultSimulationFilterShader.  And, again, if this shader based system is too inflexible, consider using the callback approach provided with PxSimulationFilterCallback.</p>
+</div>
+<div class="section" id="contact-modification">
+<h2>Contact Modification<a class="headerlink" href="#contact-modification" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes users would like to have special contact behavior. For example to implement sticky contacts, give objects the appearance of floating or swimming inside each other, or making objects go through apparent holes in walls.  A simple approach to achieve such effects is to let the user change the properties of contacts after they have been generated by collision detection, but before the contact solver.  Because both of these steps occur within the scene simulate() function, a callback must be used.</p>
+<p>The callback occurs for all pairs of colliding shapes for which the user has specified the pair flag PxPairFlag::eMODIFY_CONTACTS in the filter shader.</p>
+<p>To listen to these modify callbacks, derive from the class PxContactModifyCallback:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">MyContactModification</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PxContactModifyCallback</span>
+        <span class="p">{</span>
+        <span class="p">...</span>
+        <span class="kt">void</span> <span class="n">onContactModify</span><span class="p">(</span><span class="n">PxContactModifyPair</span><span class="o">*</span> <span class="k">const</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">count</span><span class="p">);</span>
+        <span class="p">};</span>
+</pre></div>
+</div>
+<p>And then implement the function onContactModify of PxContactModifyCallback:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">MyContactModification</span><span class="o">::</span><span class="n">onContactModify</span><span class="p">(</span><span class="n">PxContactModifyPair</span> <span class="o">*</span><span class="k">const</span> <span class="n">pairs</span><span class="p">,</span> <span class="n">PxU32</span> <span class="n">count</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">count</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="p">...</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Basically, every pair of shapes comes with an array of contact points, that have a number of properties that can be modified, such as position, contact normal, and separation.  For the time being, friction properties of the contacts cannot be modified.  See PxContactPoint and PxContactPointAux for properties that can be modified.</p>
+<p>There are a couple of special requirements for the callback due to the fact that it is coming from deep inside the SDK. In particular, the callback should be thread safe and reentrant. In other words, the SDK may call onContactModify() from any thread and it may be called concurrently (i.e., asked to process sets of contact modification pairs simultaneously).</p>
+<p>The contact modification callback can be set using the contactModifyCallback member of PxSceneDesc or the setContactModifyCallback() method of PxScene.</p>
+</div>
+<div class="section" id="active-transforms">
+<h2>Active Transforms<a class="headerlink" href="#active-transforms" title="Permalink to this headline">¶</a></h2>
+<p>The active transforms API provides an efficient way to reflect actor transform changes in a PhysX scene to an associated external object such as a render mesh.</p>
+<p>When a scene's fetchResults() method is called an array of <em>PxActiveTransform</em> structs is generated, each entry in the array contains a pointer to the actor that moved, its user data and its new transform. Because only actors that have moved will be included in the list this approach is potentially much more efficient than, for example, analyzing each actor in the scene individually.</p>
+<p>The example below shows how to use active transforms to update a render object:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// update scene</span>
+<span class="n">scene</span><span class="p">.</span><span class="n">simulate</span><span class="p">(</span><span class="n">dt</span><span class="p">);</span>
+<span class="n">scene</span><span class="p">.</span><span class="n">fetchResults</span><span class="p">();</span>
+
+<span class="c1">// retrieve array of actors that moved</span>
+<span class="n">PxU32</span> <span class="n">nbActiveTransforms</span><span class="p">;</span>
+<span class="n">PxActiveTransform</span><span class="o">*</span> <span class="n">activeTransforms</span> <span class="o">=</span> <span class="n">scene</span><span class="p">.</span><span class="n">getActiveTransforms</span><span class="p">(</span><span class="n">nbActiveTransforms</span><span class="p">);</span>
+
+<span class="c1">// update each render object with the new transform</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">nbActiveTransforms</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">MyRenderObject</span><span class="o">*</span> <span class="n">renderObject</span> <span class="o">=</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">MyRenderObject</span><span class="o">*&gt;</span><span class="p">(</span><span class="n">activeTransforms</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">userData</span><span class="p">);</span>
+        <span class="n">renderObject</span><span class="o">-&gt;</span><span class="n">setTransform</span><span class="p">(</span><span class="n">activeTransforms</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">actor2World</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">PxSceneFlag::eENABLE_ACTIVETRANSFORMS must be set on the scene for the active transforms array to be generated.</p>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Callbacks and Customization</a><ul>
+<li><a class="reference internal" href="#simulation-events">Simulation Events</a></li>
+<li><a class="reference internal" href="#collision-filtering">Collision Filtering</a></li>
+<li><a class="reference internal" href="#contact-modification">Contact Modification</a></li>
+<li><a class="reference internal" href="#active-transforms">Active Transforms</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="GeometryQuery.html"
+                        title="previous chapter">Geometry Queries</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Aggregates.html"
+                        title="next chapter">Aggregates</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Aggregates.html" title="Aggregates"
+             >next</a></li>
+        <li class="right" >
+          <a href="GeometryQuery.html" title="Geometry Queries"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

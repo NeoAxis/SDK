@@ -1,0 +1,496 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Serialization &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Simulation Statistics" href="Statistics.html" />
+    <link rel="prev" title="Aggregates" href="Aggregates.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Statistics.html" title="Simulation Statistics"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Aggregates.html" title="Aggregates"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="serialization">
+<span id="id1"></span><h1>Serialization<a class="headerlink" href="#serialization" title="Permalink to this headline">¶</a></h1>
+<p>Serialization is the process by which a collection of PhysX objects is stored in a persistent form outside the PhysX runtime, such as on disk. Deserialization is the reverse process, i.e. the loading of those objects into another instance of the PhysX runtime. PhysX 3 features two serialization APIs:</p>
+<ul class="simple">
+<li>API-level serialization to RepX, a versioned XML data format.</li>
+<li>Binary serialization, which serializes objects into a block of memory from which the PhysX runtime can later load them without allocation or copying.</li>
+</ul>
+<p>Both serialization systems use their own meta data representation of PhysX data structures. The meta data used by RepX captures the PhysX objects at the API-level. It allows forward conversions of serialized data from earlier PhysX 3 versions to later ones. The binary serialization meta data captures the internal data structures of PhysX objects and can be used to convert binary representations between different platforms.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last"><em>cooking</em> also generates a binary output stream. However the primary purpose of cooking is to translate from a user format to a format suitable for the SDK runtime, and so it is not considered a serialization mechanism. Loading a cooked mesh from a stream involves allocation and endian conversion, so is much less efficient than PhysX' binary serialization mechanism.  See <a class="reference internal" href="Shapes.html#shapes"><em>Shapes and Geometries</em></a> for more details about cooking.</p>
+</div>
+<div class="section" id="binary-serialization">
+<h2>Binary Serialization<a class="headerlink" href="#binary-serialization" title="Permalink to this headline">¶</a></h2>
+<p>Binary Serialization allows the creation of memory blocks from which PhysX can later construct objects. The PhysX runtime constructs the objects in place, making this an efficient mechanism for loading objects. You may instance collections of objects simply by making multiple copies of a memory block and deserializing them.</p>
+<p>The data is specific to a platform and SDK version. When exported from the runtime it is always targeted at the platform on which it was created, although PhysX can retarget it at another platform in a post-processing step. This allows the conversion of binary assets from authoring platforms (Windows, MacOs and Linux) to other platforms.</p>
+<div class="section" id="framework-classes">
+<h3>Framework Classes<a class="headerlink" href="#framework-classes" title="Permalink to this headline">¶</a></h3>
+<ul class="simple">
+<li><em>PxSerializable</em> is the base class for the objects that can be serialized.</li>
+<li><em>PxCollection</em> is a collection of PxSerializable objects.</li>
+<li><em>PxSerialObjectRef</em> is a 64 bit type, which is used as a reference to a serialized object.</li>
+<li><em>PxUserReferences</em> is a map from object references to serializable objects.</li>
+</ul>
+</div>
+<div class="section" id="serializing-objects">
+<span id="serializingobjects"></span><h3>Serializing Objects<a class="headerlink" href="#serializing-objects" title="Permalink to this headline">¶</a></h3>
+<p>The simplest scenario is serializing a complete object graph (for example, an actor, its shapes, and the materials and meshes they reference.)</p>
+<p>To serialize objects, add them to a collection:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxRigidDynamic</span><span class="o">*</span> <span class="n">dynamic</span> <span class="o">=</span> <span class="n">PxCreateDynamic</span><span class="p">(...);</span>                <span class="c1">// create a rigid dynamic</span>
+
+<span class="p">...</span>
+
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">dynamic</span><span class="o">-&gt;</span><span class="n">collectForExport</span><span class="p">(</span><span class="o">*</span><span class="n">collection</span><span class="p">);</span>                        <span class="c1">// add it to the collection</span>
+
+<span class="p">...</span>
+
+<span class="n">material</span><span class="o">-&gt;</span><span class="n">collectForExport</span><span class="p">(</span><span class="o">*</span><span class="n">collection</span><span class="p">);</span>                       <span class="c1">// for each material referenced by an actor in the collection</span>
+
+<span class="p">...</span>
+
+<span class="n">mesh</span><span class="o">-&gt;</span><span class="n">collectForExport</span><span class="p">(</span><span class="o">*</span><span class="n">collection</span><span class="p">);</span>                           <span class="c1">// for each mesh referenced by an actor in the collection</span>
+</pre></div>
+</div>
+<p>In general, you need to manually add to a collection all of the objects which you want serialized. However, for certain objects collectForExport() automatically adds other objects to the collection</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="44%" />
+<col width="56%" />
+</colgroup>
+<tbody valign="top">
+<tr><td>Rigid Actors</td>
+<td>shapes owned by the actor</td>
+</tr>
+<tr><td>Articulations</td>
+<td>links and joints owned by the articulation</td>
+</tr>
+<tr><td>Cloth</td>
+<td>the cloth fabric</td>
+</tr>
+</tbody>
+</table>
+<p>When all the objects have been added, create an implementation of the PxOutputStream interface, then serialize the collection:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxOutputStream</span><span class="o">&amp;</span> <span class="n">s</span> <span class="o">=</span> <span class="p">...;</span>                                       <span class="c1">// implemented by the application</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">serialize</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>To deserialize, first create a collection, then populate it by deserializing from a memory block:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span><span class="o">*</span> <span class="n">memory128</span> <span class="o">=</span> <span class="p">...;</span>                                         <span class="c1">// a 128-byte aligned buffer previously loaded from disk by the user</span>
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">deserialize</span><span class="p">(</span><span class="n">memory128</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>To add all the objects to the scene and release the collection:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">physics</span><span class="o">-&gt;</span><span class="n">addCollection</span><span class="p">(</span><span class="o">*</span><span class="n">collection</span><span class="p">,</span> <span class="n">scene</span><span class="p">);</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="memory-management">
+<h3>Memory Management<a class="headerlink" href="#memory-management" title="Permalink to this headline">¶</a></h3>
+<p>Management of memory blocks containing deserialized objects is left to users. It is the user's responsibility to:</p>
+<ul class="simple">
+<li>allocate the memory block. Note that it must be properly aligned, to a <em>PX_SERIAL_FILE_ALIGN</em> (128) bytes boundary.</li>
+<li>fill the block with serialized data, typically by loading it from disk.</li>
+<li>deallocate the memory block when the objects within have been released by PhysX.</li>
+</ul>
+<p>Although the user owns the memory block, the PhysX runtime owns any deserialized objects it contains. Concretely, calling release() on an object that was created by deserialization will cause its destructor to run, but will not deallocate its memory. If you deallocate the block before the destructors have run for all the objects it contains, the PhysX runtime will likely crash.</p>
+</div>
+<div class="section" id="traversing-collections">
+<h3>Traversing Collections<a class="headerlink" href="#traversing-collections" title="Permalink to this headline">¶</a></h3>
+<p>You can iterate over a collection, for example to ensure the objects you intend to serialize have all been added by collectForExport(). When doing so you can use PhysX' dynamic typing mechanism to classify the objects:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span><span class="p">;</span>
+<span class="n">PxU32</span> <span class="n">size</span> <span class="o">=</span> <span class="n">collection</span><span class="o">-&gt;</span><span class="n">getNbObjects</span><span class="p">();</span>
+<span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span> <span class="n">i</span><span class="o">&lt;</span><span class="n">size</span><span class="p">;</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">PxSerializable</span><span class="o">*</span> <span class="n">object</span> <span class="o">=</span> <span class="n">collection</span><span class="o">-&gt;</span><span class="n">getObject</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>
+    <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">object</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">PxActor</span><span class="o">&gt;</span><span class="p">())</span>
+       <span class="k">continue</span><span class="p">;</span>
+
+    <span class="k">switch</span><span class="p">((</span><span class="n">PxConcreteType</span><span class="p">)</span><span class="n">object</span><span class="o">-&gt;</span><span class="n">getConcreteType</span><span class="p">())</span>
+    <span class="p">{</span>
+    <span class="k">case</span> <span class="n">PxConcreteType</span><span class="o">::</span><span class="nl">eRIGID_DYNAMIC:</span>
+    <span class="p">...</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="partial-serialization">
+<h3>Partial Serialization<a class="headerlink" href="#partial-serialization" title="Permalink to this headline">¶</a></h3>
+<p>The above code in (<a class="reference internal" href="#serializingobjects">serializingObjects</a>) serializes complete object graphs.  Another common use case is where a collection of actors and joints - say, a rag doll - will be deserialized multiple times, with each instance sharing the same materials and meshes. To achieve this, serialize two collections:</p>
+<ul class="simple">
+<li>a collection of the materials and meshes that will be deserialized just once</li>
+<li>a collection of actors and joints which will be copied and deserialized multiple times</li>
+</ul>
+<p>The second of these will be a <em>partial</em> object graph: there will be some objects which are not serialized with the collection, but to which the collection will contain references.</p>
+<p>The application has to take two steps in order to deal with partial object graphs:</p>
+<ol class="arabic simple">
+<li>On serialization: Provide consistent reference identities (<em>PxSerialObjectRef</em>) to serializable objects for the referencing and referenced collections.</li>
+<li>On deserialization: Provide the referencing collections with appropriate information to reestablish the references to the deserialized objects in referenced collections.</li>
+</ol>
+<p><em>PxCollection</em> provides two functions for declaring object references before serializing:</p>
+<ul class="simple">
+<li><em>PxCollection::setObjectRef</em> specifies a reference to an object that is in the collection. The reference will be serialized along with the collection and recreated when it is deserialized to support lookup for objects within the collection.</li>
+<li><em>PxCollection::addExternalRef</em> specifies a reference for an object that will not be serialized with the collection, but is referenced by an object the collection contains. You must provide a lookup for this reference when deserializing the collection.</li>
+</ul>
+<p>They are used as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxConvexMesh</span><span class="o">**</span> <span class="n">convexes</span><span class="p">;</span>        <span class="c1">// An array of mNbConvexes convexes</span>
+<span class="n">PxRigidDynamic</span><span class="o">**</span> <span class="n">actors</span><span class="p">;</span>        <span class="c1">// An array of mNbConvexes actors referencing the convexes</span>
+
+<span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span><span class="p">;</span>             <span class="c1">// The physics SDK object</span>
+<span class="n">PxOutputStream</span><span class="o">&amp;</span> <span class="n">convexStream</span><span class="p">;</span>   <span class="c1">// Output stream for the convex collection</span>
+<span class="n">PxOutputStream</span><span class="o">&amp;</span> <span class="n">actorStream</span><span class="p">;</span>    <span class="c1">// Output stream for the actor collection</span>
+
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">convexCollection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">actorCollection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+
+<span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">mNbConvexes</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">convexes</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">collectForExport</span><span class="p">(</span><span class="o">*</span><span class="n">convexCollection</span><span class="p">);</span>
+    <span class="n">convexCollection</span><span class="o">-&gt;</span><span class="n">setObjectRef</span><span class="p">(</span><span class="n">convexes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="n">PxSerialObjectRef</span><span class="p">)</span><span class="n">i</span><span class="p">);</span>        <span class="c1">// a &#39;name&#39; for the convex in the convex collection</span>
+    <span class="n">actorCollection</span><span class="o">-&gt;</span><span class="n">addExternalRef</span><span class="p">(</span><span class="n">convexes</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="p">(</span><span class="n">PxSerialObjectRef</span><span class="p">)</span><span class="n">i</span><span class="p">);</span>       <span class="c1">// a &#39;resolve-on-deserialization&#39; reference to the convex in the actor collection</span>
+<span class="p">}</span>
+
+<span class="c1">// serialize the convexes and the references in their collection</span>
+<span class="n">convexCollection</span><span class="o">-&gt;</span><span class="n">serialize</span><span class="p">(</span><span class="n">convexStream</span><span class="p">);</span>
+<span class="n">convexCollection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+
+<span class="c1">// Add actors to collection</span>
+<span class="k">for</span><span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="n">mNbConvexes</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span>
+    <span class="n">actors</span><span class="p">[</span><span class="n">i</span><span class="p">]</span><span class="o">-&gt;</span><span class="n">collectForExport</span><span class="p">(</span><span class="o">*</span><span class="n">actorCollection</span><span class="p">);</span>
+<span class="n">actorCollection</span><span class="o">-&gt;</span><span class="n">serialize</span><span class="p">(</span><span class="n">actorStream</span><span class="p">);</span>
+<span class="n">actorCollection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>PhysX 3 expects references (<em>PxSerialObjectRef</em>) to be unique per collection. The application has to make sure they are consistent across different collections for making partial object graphs deserialize correctly.
+On deserialization <em>PxUserReferences</em> container objects can be used to handle associations between references and deserialized objects.
+When you deserialize a collection you may supply</p>
+<ul class="simple">
+<li>a <em>PxUserReferences</em> object to the deserializer to resolve the collection's external references.</li>
+<li>a <em>PxUserReferences</em> object which the deserializer populates with the object references that were serialized with the collection.</li>
+</ul>
+<p>The two <em>PxUserReferences</em> objects are optional arguments to the deserializer, and may be the same. To deserialize the collections:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span><span class="p">;</span>             <span class="c1">// The physics SDK object</span>
+<span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>                 <span class="c1">// the scene into which the objects will be inserted</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">convexMemory128</span><span class="p">;</span>          <span class="c1">// aligned memory containing serialized convexes</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">actorMemory128</span><span class="p">;</span>           <span class="c1">// aligned memory containing serialized actors</span>
+
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">convexCollection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">actorCollection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxUserReferences</span><span class="o">*</span> <span class="n">convexRefs</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createUserReferences</span><span class="p">();</span>
+
+<span class="c1">// deserialize the convexes, populating convexRefs with the serialized references</span>
+<span class="c1">// that where specified with PxCollection::setObjectRef</span>
+
+<span class="n">convexCollection</span><span class="o">-&gt;</span><span class="n">deserialize</span><span class="p">(</span><span class="n">convexMemory128</span><span class="p">,</span> <span class="n">convexRefs</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">physics</span><span class="o">-&gt;</span><span class="n">addCollection</span><span class="p">(</span><span class="o">*</span><span class="n">convexCollection</span><span class="p">,</span> <span class="n">scene</span><span class="p">);</span>
+<span class="n">convexCollection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+
+<span class="c1">// deserialize the actors, using convexRefs to resolve references</span>
+<span class="c1">// that where specified with PxCollection::addExternalRef</span>
+
+<span class="n">actorCollection</span><span class="o">-&gt;</span><span class="n">deserialize</span><span class="p">(</span><span class="n">actorMemory128</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="n">convexRefs</span><span class="p">);</span>
+<span class="n">physics</span><span class="o">-&gt;</span><span class="n">addCollection</span><span class="p">(</span><span class="o">*</span><span class="n">actorCollection</span><span class="p">,</span> <span class="n">scene</span><span class="p">);</span>
+<span class="n">actorCollection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+
+<span class="n">convexRefs</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>If there are references in the collection to objects not contained within it, and they cannot be resolved using the <em>PxUserReferences</em> passed at deserialization time, an error occurs and deserialization is aborted.</p>
+<p>You can add references to a <em>PxUserReferences</em> object manually with <em>PxUserReferences::setObjectRef(...)</em>, as well as via deserialization. This may be useful, for example, if you are using a mixture of serialized and procedurally created objects - for example, a predefined material library for your application that is not itself serialized but which serialized objects must reference.</p>
+<p>You can also use <em>PxUserReferences</em> to find objects in a collection in order to fix up references with gameplay objects:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span><span class="p">;</span>             <span class="c1">// The physics SDK object</span>
+<span class="kt">void</span><span class="o">*</span> <span class="n">memory128</span><span class="p">;</span>                <span class="c1">// aligned memory containing serialized objects</span>
+
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxUserReferences</span><span class="o">*</span> <span class="n">userRefs</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createUserReferences</span><span class="p">();</span>
+
+<span class="c1">// deserialize objects and fill userRefs with objects for which</span>
+<span class="c1">// PxCollection::setObjectRef was called before serialization</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">deserialize</span><span class="p">(</span><span class="n">memory128</span><span class="p">,</span> <span class="n">userRefs</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+
+<span class="cp">// receive a list of all deserialized objects which have user references</span>
+<span class="cp">#define MAX_USER_REFS 100</span>
+<span class="n">PxSerialObjectAndRef</span> <span class="n">userRefBuffer</span><span class="p">[</span><span class="n">MAX_USER_REFS</span><span class="p">];</span>
+<span class="n">userRefs</span><span class="o">-&gt;</span><span class="n">getObjectRefs</span><span class="p">(</span><span class="n">userRefBuffer</span><span class="p">,</span> <span class="n">MAX_USER_REFS</span><span class="p">);</span>
+
+<span class="c1">// iterate over the list to path up gameplay objects</span>
+<span class="k">for</span> <span class="p">(</span><span class="n">PxU32</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">userRefs</span><span class="o">-&gt;</span><span class="n">getNbObjectRefs</span><span class="p">();</span> <span class="n">i</span><span class="o">++</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="n">PxActor</span><span class="o">*</span> <span class="n">actor</span> <span class="o">=</span> <span class="n">userRefBuffer</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">serializable</span><span class="o">-&gt;</span><span class="n">is</span><span class="o">&lt;</span><span class="n">PxActor</span><span class="o">&gt;</span><span class="p">();</span>
+    <span class="k">if</span> <span class="p">(</span><span class="n">actor</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="c1">// this assumes that findGamePlayObjectFromRef is able to locate</span>
+        <span class="c1">// the corresponding game play object from a PxSerialObjectRef</span>
+        <span class="n">actor</span><span class="o">-&gt;</span><span class="n">userData</span> <span class="o">=</span> <span class="n">findGamePlayObjectFromRef</span><span class="p">(</span><span class="n">userRefBuffer</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">ref</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>In order to iterate over user references and external references of a collection the following two methods can be used:</p>
+<ul class="simple">
+<li><em>PxCollection::getObjectRefs</em> creates a <em>PxUserReferences</em> instance containing all the user references that where set with <em>PxCollection::setObjectRef(...)</em>.</li>
+<li><em>PxCollection::getExternalRefs</em> creates a <em>PxUserReferences</em> instance containing all the external references that where added with <em>PxCollection::addExternalRef(...)</em>.</li>
+</ul>
+<p>Note that both methods don't provide the corresponding references for deserialized collections. Serialized user references can only be obtained by the first <em>PxUserReferences</em> argument to <em>PxCollection::deserialize(...)</em>. The set of external references that are needed to deserialize a collection is expected to be managed by the application. There is currently no support to query the external references needed to deserialize a collection.</p>
+</div>
+<div class="section" id="serializing-everything">
+<h3>Serializing Everything<a class="headerlink" href="#serializing-everything" title="Permalink to this headline">¶</a></h3>
+<p>PhysX provides two utility functions for serializing the entirety of the PhysX runtime: <em>PxCollectForExportSDK</em> and <em>PxCollectForExportScene</em>:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span><span class="p">;</span>    <span class="c1">// The physics SDK object</span>
+<span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>        <span class="c1">// The physics scene</span>
+<span class="n">PxOutputStream</span><span class="o">&amp;</span> <span class="n">s</span><span class="p">;</span>     <span class="c1">// The user-defined stream doing the actual write to disk</span>
+
+<span class="c1">// 1) create a collection</span>
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+
+<span class="c1">// 2) collect objects to serialize</span>
+<span class="n">PxCollectForExportSDK</span><span class="p">(</span><span class="o">*</span><span class="n">physics</span><span class="p">,</span> <span class="o">*</span><span class="n">collection</span><span class="p">);</span>    <span class="c1">// Collects all objects from the physics SDK.</span>
+<span class="n">PxCollectForExportScene</span><span class="p">(</span><span class="o">*</span><span class="n">scene</span><span class="p">,</span> <span class="o">*</span><span class="n">collection</span><span class="p">);</span>    <span class="c1">// Collects all objects from the scene.</span>
+
+<span class="c1">// 3) serialize collection and release it</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">serialize</span><span class="p">(</span><span class="n">s</span><span class="p">);</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Deserialization is as previously:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span><span class="p">;</span>        <span class="c1">// The physics SDK object</span>
+<span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span>            <span class="c1">// The physics scene</span>
+
+<span class="kt">void</span><span class="o">*</span> <span class="n">memory128</span> <span class="o">=</span> <span class="p">...;</span>     <span class="c1">// a 128-byte aligned buffer previously loaded from disk by the user</span>
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">physics</span><span class="o">-&gt;</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">deserialize</span><span class="p">(</span><span class="n">memory128</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">,</span> <span class="nb">NULL</span><span class="p">);</span>
+<span class="n">physics</span><span class="o">-&gt;</span><span class="n">addCollection</span><span class="p">(</span><span class="o">*</span><span class="n">collection</span><span class="p">,</span> <span class="n">scene</span><span class="p">);</span>
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="object-names">
+<h3>Object Names<a class="headerlink" href="#object-names" title="Permalink to this headline">¶</a></h3>
+<p>Some objects, such as shapes and actors, can be given names using the <em>PxShape::setName()</em> and <em>PxActor::setName()</em> functions. The SDK does not own those names, i.e. the strings remain in user memory. When serializing objects, you may choose whether to preserve those names in the serialized data, or to discard them to create smaller data.
+If you choose to preserve the names, they will be serialized along with the objects themselves when calling PxCollection::serialize(). On deserialization, the names will live within the user-provided memory block.</p>
+<p>Use the 'exportNames' parameter of the <em>PxCollection::serialize()</em> function to control this behavior.</p>
+</div>
+<div class="section" id="retargeting">
+<h3>Retargeting<a class="headerlink" href="#retargeting" title="Permalink to this headline">¶</a></h3>
+<p>Binary serialized data is platform-specific, and when serialized it always targets the platform on which it was created. The binary converter in the cooking library retargets data from one platform to another. So to deploy data for PS3, XBox etc, typically you will serialize on PC, then use the converter to retarget for each platform.</p>
+<p>The converter requires meta-data for the source and target platforms, which contains information about the binary layout of objects for that platform. To obtain metadata, use the function provided in the extensions library for each platform:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxDumpMetaData</span><span class="p">(</span><span class="n">PxOutputStream</span><span class="o">&amp;</span> <span class="n">stream</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxPhysics</span><span class="o">&amp;</span> <span class="n">physics</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>On each target platform, run it once and keep generated data around.</p>
+<p>Assuming you have initialized the cooking library, convert data as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxErrorCallback</span><span class="o">*</span> <span class="n">myErrorCallback</span><span class="p">;</span>       <span class="c1">// an error callback implemented by the application</span>
+<span class="n">PxInputStream</span><span class="o">&amp;</span> <span class="n">srcMetadata</span><span class="p">;</span>             <span class="c1">// metadata for the &#39;from&#39; platform</span>
+<span class="n">PxInputStream</span><span class="o">&amp;</span> <span class="n">dstMetadata</span><span class="p">;</span>             <span class="c1">// metadata for the &#39;to&#39; platform</span>
+
+<span class="n">PxInputStream</span><span class="o">&amp;</span> <span class="n">srcAsset</span><span class="p">;</span>                <span class="c1">// stream containing source asset</span>
+<span class="n">PxU32</span> <span class="n">srcAssetSize</span><span class="p">;</span>                     <span class="c1">// size of the source asset</span>
+<span class="n">PxOutputStream</span><span class="o">&amp;</span> <span class="n">dstAsset</span><span class="p">;</span>               <span class="c1">// output stream for retargeted asset</span>
+
+<span class="n">PxBinaryConverter</span><span class="o">*</span> <span class="n">converter</span> <span class="o">=</span> <span class="n">cooking</span><span class="o">-&gt;</span><span class="n">createBinaryConverter</span><span class="p">(</span><span class="n">myErrorCallback</span><span class="p">);</span>
+<span class="n">converter</span><span class="o">-&gt;</span><span class="n">setMetaData</span><span class="p">(</span><span class="n">srcMetadata</span><span class="p">,</span> <span class="n">dstMetadata</span><span class="p">);</span>
+<span class="n">converter</span><span class="o">-&gt;</span><span class="n">convert</span><span class="p">(</span><span class="n">srcAsset</span><span class="p">,</span> <span class="n">srcAssetSize</span><span class="p">,</span> <span class="n">dstAsset</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="api-level-serialization-with-repx">
+<h2>API-level Serialization with RepX<a class="headerlink" href="#api-level-serialization-with-repx" title="Permalink to this headline">¶</a></h2>
+<p>RepX stands for Representation X and is the XML serialization format for PhysX 3.  This format is intended to be a user-level format meaning the data is in a format that matches the public API.  It is also intended to be backwards compatible, thus assets saved in RepX for version 3.0 of PhysX will load in version 3.1, 3.2, etc.  We do not intend for RepX to be used in performance critical or memory constrained situations.</p>
+<p>RepX itself consist of a core module with a set of extensions.  Extensions are responsible for transforming objects coming from the outside world (called 'live' objects) into a sort of key-value pair format.  The library takes care of serializing/deserializing this format.  A RepX collection is a set of objects that are transformed into the key-value pair format but still held in memory.</p>
+<p>RepX collections may depend on objects in other collections in order to be fully realized into live objects.  To facilitate this, RepX, similar to the binary serialization system, has an Id assignment system where 64 bit identifiers are assigned to objects.  This happens when a live object is added to a collection and the id defaults to the memory address of the object.  This design was intended so that one would serialize various buffers (convex mesh, triangle mesh, height field, etc.) into one collection file, and then using the same id map serialize a set of scene objects into another RepX file.  Then the user could deserialize the buffer collection using the original ids once, but deserialize the scene RepX collection multiple times requesting RepX to generate new ids upon deserialization into live objects.</p>
+<p>To use RepX, there are two headers you need.  The first is RepX.h and this is absolutely required as it describes the base types.  The second is RepXUtility.h and this makes using RepX <em>much</em> easier, but requires the PhysX extensions to be loaded to work.  Even if you do not intend to use RepXUtility.h we recommend you use it for examples on how to do things like:</p>
+<ol class="arabic simple">
+<li>Create a collection with the various extensions loaded.</li>
+<li>Copy objects into the collection.</li>
+<li>Instantiate a collection into a scene.</li>
+<li>Convert a RepX collection into a binary collection.</li>
+<li>Upgrade a RepX collection from a past version to the current version (requires RepXUpgrader project).</li>
+</ol>
+<p>Here is an example:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">RepXCollection</span><span class="o">*</span> <span class="n">theCollection</span> <span class="o">=</span> <span class="n">createCollection</span><span class="p">(</span><span class="n">physics</span><span class="p">.</span><span class="n">getTolerancesScale</span><span class="p">(),</span> <span class="n">PxGetFoundation</span><span class="p">().</span><span class="n">getAllocatorCallback</span><span class="p">());</span>
+<span class="n">RepXIdToRepXObjectMap</span><span class="o">*</span> <span class="n">theIdMap</span> <span class="o">=</span>  <span class="n">RepXIdToRepXObjectMap</span><span class="o">::</span><span class="n">create</span><span class="p">(</span><span class="n">PxGetFoundation</span><span class="p">().</span><span class="n">getAllocatorCallback</span><span class="p">());</span>
+<span class="n">addToRepXCollectionNF</span><span class="p">(</span> <span class="n">theCollection</span><span class="p">,</span> <span class="n">theIdMap</span><span class="p">,</span> <span class="n">thePhysicsObject</span> <span class="p">);</span> <span class="c1">//add physcis object</span>
+<span class="n">addObjectsToScene</span><span class="p">(</span><span class="n">theCollection</span><span class="p">,</span> <span class="n">physics</span><span class="p">,</span> <span class="n">cooking</span><span class="p">,</span> <span class="n">scene</span><span class="p">,</span> <span class="n">mStringTable</span> <span class="p">);</span>
+<span class="n">theCollection</span><span class="o">-&gt;</span><span class="n">destroy</span><span class="p">();</span>
+<span class="n">theIdMap</span><span class="o">-&gt;</span><span class="n">destroy</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>A RepX (Representation X) collection is PhysX's forward-compatible storage format.  Using RepX you can store PhysX assets in a way that we guarantee support for them in future versions of PhysX.  RepX also includes facilities for instantiating a set of assets multiple times into a scene and for of course upgrading a RepX collection from an older version to a newer version as well as converting a RepX collection to a PhysX binary collection.  Currently RepX's storage format is ASCII-XML.</p>
+<p>RepX.h contains the base collection definitions and RepXUtility.h contains functionality that cannot be included in RepX because it relies on PhysXExtensions.  Users who have PhysXExtensions compiled into their SDK should use RepXUtility wherever possible and users who do not should still look to the RepXUtility header for examples on how to do the base operations.</p>
+<p>RepX is a base key-value data store that is specialized towards the various PhysX datatypes via extensions.  An extension needs to provide the capability to go from a 'live' object to a RepX data store value and back.  Extensions are created and registered when the collection is created an destroyed when the collection is destroyed.  So, to extend RepX to store a different datatype, be it a custom joint or specific game information users will need to implement a RepX extension.</p>
+<p>RepX identifies live types via a 'fat pointer' combination of a void* and a const char* type name.  This name is used to link the void* pointer to the appropriate extension necessary to serialize the pointer.  RepX types also have a user-supplied id that is used to link dependent types to other objects in the collection.  This id defaults to the memory address of the object if not supplied.  All of the world-to-RepX functions along with the RepX-to-world functions take an id map.  One constraint that RepX has is that a base object needs to be added to the collection before any dependent object.  Thus PxConvexMesh needs to be added before the PxConvexMeshGeometry that refers to it.</p>
+<p>To create a RepX collection, we have provided a few createCollection functions in RepXUtility.h.  These functions create all known extensions for both the core RepX types and types that rely on PhysXExtensions.h and then create a new collection.  The various overloads are for passing in custom allocators and for creating a collection and immediately deserializing a data source back to a RepX collection.</p>
+<p>Saving to RepX involves making a decision about whether to save the PxPhysics objects (which I will later refer to as 'buffers') separate from the scene objects.  Saving them separate adds complexity but gives you the option of instantiating the scene objects, perhaps with different global transforms several times into the PhysX scene.</p>
+<p>In any case, we provide three functions in RepXUtility.h which allow various combinations of use cases.  These functions build the RepX collection using the object's base address as its id.</p>
+<ol class="arabic simple">
+<li>addSDKItemsToRepX - add all the buffers present in the PxPhysics object (PxConvexMesh, PxHeightField, PxTriangleMesh and PxMaterial) to the RepX collection.</li>
+<li>addSceneItemsToRepX - add all the objects in a given PxScene (PxRigidDynamic, PxRigidStatic, PxArticulation, any PxJoints, etc.), to a RepX collection.</li>
+<li>addItemsToRepX - calls addSDKItemsToRepX followed by addSceneItemsToRepX.</li>
+</ol>
+<p>When RepX instantiates an object it asks the appropriate extension to create a live object.  This is achieved through use of the given key-value data object.  RepX then calls a callback passed into the instantiation function with the newly created object.  It is then the responsibility of the callback to add the object to a PxScene if desired.  We have wrapped up the common case of this operation with a function addObjectsToScene.</p>
+<p>For the use case where you want to instantiate buffer and scene RepXCollections separately, you would need to call a more low level function (also available in RepXUtility.h), instantiateCollection for the scene objects with a flag, inAddOriginalIdsToObjectMap set to false.  This tells RepX to just use the newly generated object's address as its id.  You could call this several times with the same scene RepX collection safely but you need to share the id map between all instantiations so that RepX can find the buffers instantiated with inAddOriginalIdsToObjectMap set to true.</p>
+<p>Upgrading a RepX collection from an older version to a newer one is easy.  You need to link with the RepXUpgrader static library and call the appropriate physx::repx::RepXUpgrader::upgradeCollection function.</p>
+<p>Implementing your own custom extension is a bit more involved.  You need to assign an ascii name to your extension and implement the RepXExtension interface.  You will then need to add that extension to the rest of the extensions when a RepX collection is created.  When your target objects are added to the RepXCollection, they will need to be tagged with your extension's ascii name.</p>
+<div class="section" id="converting-between-repx-and-binary-serializable-collections">
+<h3>Converting between RepX and Binary Serializable Collections<a class="headerlink" href="#converting-between-repx-and-binary-serializable-collections" title="Permalink to this headline">¶</a></h3>
+<p>PhysX provides a couple of convenience functions in RepXUtility.h to easen the conversion between binary and RepX data.</p>
+<ul class="simple">
+<li><em>addObjectsToPxCollection(...)</em> takes a <em>RepXCollection</em> and instantiates the objects contained in the physics SDK. In the process it creates two <em>PxCollection</em> instances, one for <em>PxPhysics</em> serializables and one for <em>PxScene</em> serializables. Optionally a <em>PxUserReferences</em> can be provided that is populated with RepX ids of <em>PxPhysics</em> serializables. Note that unlike with <em>PxCollection::deserialize(...)</em> the resulting PxCollection instances will also have the deserialized ids available with <em>PxCollection::getObjectRefs(...)</em>. Additionally, the <em>PxCollection</em> containing the <em>PxScene</em> serializables will have the external references added, that can be queried with <em>PxCollection::getExternalRefs</em>.</li>
+<li><em>deserializeFromRepX(...)</em> does the same as <em>addObjectsToPxCollection(...)</em> but takes a repX stream as input.</li>
+<li><em>pxCollectionToRepXCollection(...)</em> takes a <em>PxCollection</em> and returns a RepXCollection on success. The in/out parameter <em>inAnonymousNameStart</em> serves as the first value used for 64 bit RepX Ids assigned to the resulting RepX objects and is incremented as needed.</li>
+<li><em>serializeToRepX(...)</em> does the same as <em>pxCollectionToRepXCollection(...)</em> but additionally serializes the collection to an output stream in RepX format.</li>
+</ul>
+<p>Example for serializing a PxCollection to a RepX stream:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">physics</span><span class="p">.</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxCollectForExportSDK</span><span class="p">(</span><span class="n">physics</span><span class="p">,</span> <span class="o">*</span><span class="n">collection</span><span class="p">);</span> <span class="c1">//collect buffer objects in physics</span>
+<span class="n">PxCollectForExportScene</span><span class="p">(</span><span class="n">scene</span><span class="p">,</span> <span class="o">*</span><span class="n">collection</span><span class="p">);</span> <span class="c1">//collect scene level objects</span>
+
+<span class="n">PxDefaultFileOutputStream</span> <span class="n">outStream</span><span class="p">(</span><span class="n">pathToRepXFile</span><span class="p">);</span>
+<span class="n">PxU64</span> <span class="n">start</span> <span class="o">=</span> <span class="mh">0x80000000</span><span class="p">;</span> <span class="c1">//start of reference ids for exported collection objects</span>
+<span class="n">serializeToRepX</span><span class="p">(</span><span class="n">outStream</span><span class="p">,</span> <span class="n">collection</span><span class="p">,</span> <span class="n">start</span><span class="p">);</span>
+
+<span class="n">collection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Example for deserializing a PxCollection from a RepX stream:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxDefaultFileInputData</span> <span class="n">data</span><span class="p">(</span><span class="n">pathToRepXFile</span><span class="p">);</span>
+
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">bufferCollection</span> <span class="o">=</span> <span class="n">physics</span><span class="p">.</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxCollection</span><span class="o">*</span> <span class="n">sceneCollection</span> <span class="o">=</span> <span class="n">physics</span><span class="p">.</span><span class="n">createCollection</span><span class="p">();</span>
+<span class="n">PxStringTable</span><span class="o">*</span> <span class="n">stringTable</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">//we are not interested in object names here</span>
+<span class="n">PxUserReferences</span><span class="o">*</span> <span class="n">externalRefs</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">//we assume there are no external references</span>
+<span class="n">PxUserReferences</span><span class="o">*</span> <span class="n">userRefs</span> <span class="o">=</span> <span class="nb">NULL</span><span class="p">;</span> <span class="c1">//would be used to receive references and then pass to dependent deserialization calls</span>
+
+<span class="n">deserializeFromRepX</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">physics</span><span class="p">,</span> <span class="n">cooking</span><span class="p">,</span> <span class="n">stringTable</span><span class="p">,</span> <span class="n">externalRefs</span><span class="p">,</span> <span class="o">*</span><span class="n">bufferCollection</span><span class="p">,</span> <span class="o">*</span><span class="n">sceneCollection</span><span class="p">,</span> <span class="n">userRefs</span><span class="p">);</span>
+<span class="n">physics</span><span class="p">.</span><span class="n">addCollection</span><span class="p">(</span><span class="o">*</span><span class="n">sceneCollection</span><span class="p">,</span> <span class="n">scene</span><span class="p">);</span> <span class="c1">//add the scene level objects to the PxScene scene.</span>
+
+<span class="n">bufferCollection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+<span class="n">sceneCollection</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Example for upgrading a RepX stream:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxDefaultFileInputData</span> <span class="n">data</span><span class="p">(</span><span class="n">pathTo30RepXFile</span><span class="p">);</span> <span class="c1">//load an older 3.x repx file</span>
+<span class="n">RepXCollection</span><span class="o">*</span> <span class="n">collection</span> <span class="o">=</span> <span class="n">createCollection</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">foundation</span><span class="p">.</span><span class="n">getAllocatorCallback</span><span class="p">());</span>
+<span class="n">RepXCollection</span><span class="o">*</span> <span class="n">upgraded</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">RepXUpgrader</span><span class="o">::</span><span class="n">upgradeCollection</span><span class="p">(</span><span class="o">*</span><span class="n">collection</span><span class="p">);</span> <span class="c1">//upgrade repx file to current sdk version format</span>
+<span class="n">PxDefaultFileOutputStream</span> <span class="n">outStream</span><span class="p">(</span><span class="n">pathToNewRepXFile</span><span class="p">);</span>
+<span class="n">upgraded</span><span class="o">-&gt;</span><span class="n">save</span><span class="p">(</span><span class="n">outStream</span><span class="p">);</span> <span class="c1">//save the result to file</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Serialization</a><ul>
+<li><a class="reference internal" href="#binary-serialization">Binary Serialization</a><ul>
+<li><a class="reference internal" href="#framework-classes">Framework Classes</a></li>
+<li><a class="reference internal" href="#serializing-objects">Serializing Objects</a></li>
+<li><a class="reference internal" href="#memory-management">Memory Management</a></li>
+<li><a class="reference internal" href="#traversing-collections">Traversing Collections</a></li>
+<li><a class="reference internal" href="#partial-serialization">Partial Serialization</a></li>
+<li><a class="reference internal" href="#serializing-everything">Serializing Everything</a></li>
+<li><a class="reference internal" href="#object-names">Object Names</a></li>
+<li><a class="reference internal" href="#retargeting">Retargeting</a></li>
+</ul>
+</li>
+<li><a class="reference internal" href="#api-level-serialization-with-repx">API-level Serialization with RepX</a><ul>
+<li><a class="reference internal" href="#converting-between-repx-and-binary-serializable-collections">Converting between RepX and Binary Serializable Collections</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Aggregates.html"
+                        title="previous chapter">Aggregates</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Statistics.html"
+                        title="next chapter">Simulation Statistics</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Statistics.html" title="Simulation Statistics"
+             >next</a></li>
+        <li class="right" >
+          <a href="Aggregates.html" title="Aggregates"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

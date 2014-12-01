@@ -1,0 +1,12 @@
+sampler RT : register(s0);
+
+float4 main_fp(
+	uniform float intensity,
+	float2 texCoord : TEXCOORD0
+	) : COLOR
+{
+	float3 sourceColor = tex2D(RT, texCoord).rgb;
+	float value = dot(sourceColor, float3(0.3, 0.59, 0.11));
+	float3 color = lerp(sourceColor, value, intensity);
+	return float4(color, 1.0);
+}

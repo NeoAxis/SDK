@@ -1,0 +1,81 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+half4 scattering(
+	uniform float3 color,
+	uniform float2 screenLightPosition,
+	uniform float decay,
+	uniform float density,
+
+	half2 texCoord : TEXCOORD0,
+	uniform sampler2D depthMap : register(s0)
+	) : COLOR
+{
+	//constants
+	const int iterations = 20;
+
+	//calculate vector from pixel to light source in screen space.  
+	float2 deltaTexCoord = screenLightPosition - texCoord;
+	deltaTexCoord *= density / (float)iterations;
+
+	float scatter = 0;
+	float2 newTexCoord = texCoord;
+	float fallOff = 1.0;
+	for( int n = 0; n < iterations; n++ )
+	{
+		float normalizedDepth = tex2D(depthMap, newTexCoord).r;		
+		if(normalizedDepth > .98f) // detect the sky pixel
+			scatter += fallOff;
+		fallOff *= decay;
+
+		newTexCoord += deltaTexCoord;
+	}
+	scatter /= (float)iterations;
+
+	return float4(scatter, 0, 0, 0);
+}
+
+float4 blur(
+	uniform float3 color,
+	uniform float2 screenLightPosition,
+//	uniform float intensity,
+	uniform float blurFactor,
+
+	half2 texCoord : TEXCOORD0,
+	uniform sampler2D scatteringTexture : register(s0)
+	) : COLOR
+{
+	//constants
+	const int blurIterations = 20;
+
+	//calculate vector from pixel to light source in screen space.
+	float2 deltaTexCoord =  screenLightPosition - texCoord;
+	deltaTexCoord *= blurFactor / (float)blurIterations;
+
+	float scatter = 0;
+	float2 newTexCoord = texCoord;
+	for( int n = 0; n < blurIterations; n++ )
+	{		
+		scatter += tex2D(scatteringTexture, newTexCoord).r;
+		newTexCoord += deltaTexCoord;
+	}
+	scatter /= (float)blurIterations;
+	
+	float3 scatteringColor = color * scatter;// * intensity;
+
+	return float4(scatteringColor, 1);
+}
+
+half4 final(
+	//we can apply intensity in the Blur pass, but when it here, 
+	//we can completely skip Scattering and Blur passes for disabled effect (intensity == 0).
+	uniform half intensity,
+
+	half2 texCoord : TEXCOORD0,
+	uniform sampler2D sceneTexture : register(s0),
+	uniform sampler2D blurTexture : register(s1)
+	) : COLOR
+{
+	half4 color = (half4)tex2D(sceneTexture, texCoord);
+	color.rgb += (half3)tex2D(blurTexture, texCoord).rgb * intensity;
+	return color;
+}

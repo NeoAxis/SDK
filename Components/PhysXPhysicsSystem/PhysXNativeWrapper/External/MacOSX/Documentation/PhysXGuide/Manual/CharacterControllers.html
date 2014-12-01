@@ -1,0 +1,327 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Character Controllers &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="PhysX Visual Debugger (PVD)" href="PhysXVisualDebugger.html" />
+    <link rel="prev" title="Vehicles" href="Vehicles.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="PhysXVisualDebugger.html" title="PhysX Visual Debugger (PVD)"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Vehicles.html" title="Vehicles"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="character-controllers">
+<span id="character"></span><h1>Character Controllers<a class="headerlink" href="#character-controllers" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>The goal of the character controller SDK is to provide users with a default character controller built on top of the NVIDIA PhysX SDK. Roughly it has to support two things:</p>
+<ul class="simple">
+<li>Character control</li>
+<li>Character interactions</li>
+</ul>
+<p>This covers a very high number of features, which can be implemented in numerous ways. The goal is not to implement all of them (which would be a daunting task), the goal is to give a default/sample implementation that people can use as a starting point. For example the character's bounding volume could in theory be anything, from a box to an inverted pyramid. We will not implement all of them. In our initial implementation we support two common bounding volumes: an AABB and a capsule.</p>
+</div>
+<div class="section" id="kinematic-character-controller">
+<h2>Kinematic Character Controller<a class="headerlink" href="#kinematic-character-controller" title="Permalink to this headline">¶</a></h2>
+<p>One might wonder why we did not use the physics engine directly to implement the character controller. Here is the story.</p>
+<p>In the past games did not use 'real' physics engines. However they still used a character controller to move a player in a level. These games, such as Quake or even Doom, had a dedicated, customized piece of code to implement collision detection and response, which was often the only piece of physics in the whole game. It actually had little physics, but a lot of carefully tweaked values to provide a good feeling while controlling the player. The particular behavior it implemented is often called the 'collide and slide' algorithm, and it has been 'tweaked for more than a decade'. The result is that players expect to find the same well-known behavior in new games, and providing them with anything else is often dangerous. This is especially true if provided behavior is not as robust and stable as before. And this is exactly what happens if you use a typical physics engine directly, to control players.</p>
+<p>In particular, here is a (non exhaustive) list of typical problems you run into when using a physics engine for character controllers:</p>
+<ul>
+<li><p class="first">(lack of) continuous collision detection: Typical physics engines use discrete collision checks, leading to the notorious 'tunneling effect' that has plagued various commercial &amp; non-commercial physics packages for years. This leads to three main problems:</p>
+<blockquote>
+<div><ul class="simple">
+<li>the tunneling effect itself : if your character goes too fast it might tunnel through a wall</li>
+<li>as a consequence, the maximum velocity of your character might be limited (hence also limiting the game play possibilities)</li>
+<li>even if you do not tunnel, the character might jitter when pushed forward in a corner for example, because the engine keeps moving it back and forth to slightly different positions.</li>
+</ul>
+</div></blockquote>
+</li>
+<li><p class="first">No direct control: a rigid body is typically controlled with impulses or forces. It is usually not possible to move it directly to its final position, you first have to convert the delta position vector to impulses/forces, apply them, and hope that the character will be where you wanted it to be as a result. Usually it does not work too well, in particular when the physics engine uses an imperfect linear solver.</p>
+</li>
+<li><p class="first">Trouble with friction: When the character is standing on a ramp, you do not want it to slide. You want infinite friction here. When the character is moving forward on that same ramp, you do not want it to slow down. You want no friction here. When the character is sliding against a wall, you do not want it to slow down either. You want no friction here as well. Usually it is either 0 or infinite. However the friction model might not be perfect, and what you actually get is very little friction (you can still feel the character slowing down) or a very-big-but-not-infinite one (the character slides very slowly on that ramp no matter how artificially big the friction parameters are). The conflicting requirements for ramps also mean that usually there is simply no way to perfectly model desired behavior.</p>
+</li>
+<li><p class="first">Trouble with restitution: You should avoid restitution. When the character moves fast and collides with a wall, you do not want it to bounce away from it. When the character falls from a height and lands on the ground, flexing his legs, you definitely do not want any bounce to happen. But once again, even when the restitution is exactly zero, you can nonetheless sometimes get a small bump. This is not only related to the imperfect nature of the linear solver, it also has to do with how typical penetration-depth-based engines recover from overlap situations, sometimes applying excessive forces that separate the objects too much.</p>
+</li>
+<li><p class="first">Undesired jumps: You often want a character to stick to the ground, no matter what the physical behavior should be. For example characters in action games tend to move fast, at unrealistic speeds. When they reach the top of a ramp, the physics engine often makes them jump a bit, in the same way a fast car would jump in the streets of San Francisco. But that is often not what you want: you want the character to stick to the ground regardless of its current velocity. This is sometimes implemented using fixed joints, which is an excessively complex solution to a very simple problem that can been solved without the complexity of a physics engine.</p>
+</li>
+<li><p class="first">Undesired rotations: Finally, a character is always standing up and never rotating. However physics engines often have poor support for that sort of constraints, and a great deal of effort is often put into preventing a capsule around the character from falling (it should always stands up on its tip). This is again often implemented using artificial joints, and the resulting system is neither very robust nor very fast.</p>
+</li>
+</ul>
+<p>To summarize, a lot of effort can be spent on tweaking and disabling the physics engine's features simply to emulate what's otherwise a much less complex piece of custom code. It is natural to instead keep using that simple piece of custom code.</p>
+</div>
+<div class="section" id="creating-a-character-controller">
+<h2>Creating a character controller<a class="headerlink" href="#creating-a-character-controller" title="Permalink to this headline">¶</a></h2>
+<p>You first have to decide what bounding volume you want around your characters. At the time of writing, only boxes (<em>PxBoxController</em>) and capsules (<em>PxCapsuleController</em>) are supported.</p>
+<p>Then you need to create a controller manager somewhere in your app. You only need one of them; it will keep track of all created controllers and allow your character to interact with other characters created by the same manager. You can create this manager using the <em>PxCreateControllerManager</em> function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxFoundation</span><span class="o">*</span> <span class="n">foundation</span><span class="p">;</span>       <span class="c1">// Previously created Foundation object</span>
+<span class="n">PxControllerManager</span><span class="o">*</span> <span class="n">manager</span> <span class="o">=</span> <span class="n">PxCreateControllerManager</span><span class="p">(</span><span class="o">*</span><span class="n">foundation</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Then you create one controller for each movable character in the game. This is done like this, for a capsule controller:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxPhysics</span><span class="o">&amp;</span> <span class="n">sdk</span><span class="p">;</span> <span class="c1">// Previously created PxPhysics object</span>
+<span class="n">PxScene</span><span class="o">*</span> <span class="n">scene</span><span class="p">;</span> <span class="c1">// Previously created scene</span>
+<span class="n">PxCapsuleControllerDesc</span> <span class="n">desc</span><span class="p">;</span>
+<span class="o">&lt;</span><span class="n">fill</span> <span class="n">the</span> <span class="n">descriptor</span> <span class="n">here</span><span class="o">&gt;</span>
+<span class="n">PxController</span><span class="o">*</span> <span class="n">c</span> <span class="o">=</span> <span class="n">manager</span><span class="o">-&gt;</span><span class="n">createController</span><span class="p">(</span><span class="n">sdk</span><span class="p">,</span> <span class="n">scene</span><span class="p">,</span> <span class="n">desc</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-a-character-controller">
+<h2>Updating a character controller<a class="headerlink" href="#updating-a-character-controller" title="Permalink to this headline">¶</a></h2>
+<p>Each frame, move your characters using the following function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxU32</span> <span class="n">collisionFlags</span> <span class="o">=</span> <span class="n">PxController</span><span class="o">::</span><span class="n">move</span><span class="p">(</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">disp</span><span class="p">,</span> <span class="n">PxF32</span> <span class="n">minDist</span><span class="p">,</span> <span class="n">PxF32</span> <span class="n">elapsedTime</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxControllerFilters</span><span class="o">&amp;</span> <span class="n">filters</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxObstacleContext</span><span class="o">*</span> <span class="n">obstacles</span><span class="o">=</span><span class="nb">NULL</span><span class="p">);</span>
+</pre></div>
+</div>
+<p><em>disp</em> is the displacement vector for current frame. It is typically a combination of vertical motion due to gravity and lateral motion when your character is moving. Note that this is a displacement vector, i.e. a first order control. This is not an impulse vector (2nd order control) or a force (3rd order control). Please also note that users are responsible for applying gravity to characters here.</p>
+<p><em>minDist</em> is a minimal length used to stop the recursive displacement algorithm early when remaining distance to travel goes below this limit.</p>
+<p><em>elapsedTime</em> is the amount of time that passed since the last call to the move function.</p>
+<p><em>filters</em> are filtering parameters similar to the ones used in the SDK. These allow customization of filtering and control what the character is colliding with.</p>
+<p><em>obstacles</em> are optional, additional obstacles that the character should collide with. Those objects are fully controlled by users and do not need to have counterpart SDK objects.</p>
+<p><em>collisionFlags</em> is a bit mask returned to users to define collision events that happened during the move. This is a combination of PxControllerFlag flags. It can be used to trigger various character animations. For example your character might be falling while playing a falling idle animation, and you might start the land animation as soon as PxControllerFlag::eCOLLISION_DOWN is returned.</p>
+</div>
+<div class="section" id="obstacle-objects">
+<h2>Obstacle objects<a class="headerlink" href="#obstacle-objects" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes it is convenient to create additional obstacles for the CCT to collide with, without creating an actual SDK object. This is useful in a number of situations. For example:</p>
+<ul class="simple">
+<li>the obstacles might only exist for a couple of frames, in which case creating and deleting SDK objects is not always efficient.</li>
+<li>the obstacles might only exist for stopping the characters, not the SDK's dynamic objects. This would be for example invisible walls around geometry, that only the characters should collide with. In this case it may not be very efficient to create the invisible walls as SDK objects, since their interactions would then have to be filtered out for everything except the characters. It is probably more efficient to create those additional invisible walls as external obstacles, that only characters can interact with.</li>
+<li>the obstacles might be dynamic and updated with a variable timestep, while the SDK uses a fixed timestep. This could be for example a moving platform on which the characters can stand.</li>
+</ul>
+<p>At the time of writing the character controller supports box and capsule <em>PxObstacle</em> objects, namely <em>PxBoxObstacle</em> and <em>PxCapsuleObstacle</em>. To create those, first create a <em>PxObstacleContext</em> object using the following function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxObstacleContext</span><span class="o">*</span> <span class="n">PxControllerManager</span><span class="o">::</span><span class="n">createObstacleContext</span><span class="p">()</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Then manage obstacles with:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">ObstacleHandle</span> <span class="n">PxObstacleContext</span><span class="o">::</span><span class="n">addObstacle</span><span class="p">(</span><span class="k">const</span> <span class="n">PxObstacle</span><span class="o">&amp;</span> <span class="n">obstacle</span><span class="p">)</span>                       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">PxObstacleContext</span><span class="o">::</span><span class="n">removeObstacle</span><span class="p">(</span><span class="n">ObstacleHandle</span> <span class="n">handle</span><span class="p">)</span>                                   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">PxObstacleContext</span><span class="o">::</span><span class="n">updateObstacle</span><span class="p">(</span><span class="n">ObstacleHandle</span> <span class="n">handle</span><span class="p">,</span> <span class="k">const</span> <span class="n">PxObstacle</span><span class="o">&amp;</span> <span class="n">obstacle</span><span class="p">)</span>       <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Typically <em>updateObstacle</em> is called right before the controllers' <em>move</em> calls.</p>
+</div>
+<div class="section" id="graphics-update">
+<h2>Graphics update<a class="headerlink" href="#graphics-update" title="Permalink to this headline">¶</a></h2>
+<p>Each frame, you need to keep your graphics object in sync with the position of the character controller. You can access a controller's position using:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">const</span> <span class="n">PxExtendedVec3</span><span class="o">&amp;</span> <span class="n">PxController</span><span class="o">::</span><span class="n">getPosition</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>This function returns the position from the center of the collision shape, since this is what is used internally both within the PhysX SDK and by usual graphics APIs. So if you just use this position in your world matrix and pass this to the renderer, the character should collide and slide smoothly against the world. This is illustrated in SampleBridges. Note that the position uses double-accuracy, to make the CCT module work well with large worlds. Also note that a controller never rotates so you can only access its position.</p>
+<p>Alternative helper functions are provided if you need to work using the character's bottom position, a.k.a. the foot position:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">const</span> <span class="n">PxExtendedVec3</span><span class="o">&amp;</span> <span class="n">PxController</span><span class="o">::</span><span class="n">getFootPosition</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">PxController</span><span class="o">::</span><span class="n">setFootPosition</span><span class="p">(</span><span class="k">const</span> <span class="n">PxExtendedVec3</span><span class="o">&amp;</span> <span class="n">position</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="character-volume">
+<h2>Character Volume<a class="headerlink" href="#character-volume" title="Permalink to this headline">¶</a></h2>
+<p>The character uses a bounding volume that is independent from already existing shapes in the SDK. That way we are free to implement a dedicated collision volume for the character controller (e.g. an ellipsoid), even if the corresponding physics shape does not exist.</p>
+<p>We currently support two different shapes around the character:</p>
+<ul class="simple">
+<li>An AABB, defined by a position and an extents vector. The AABB does not rotate. It always has a fixed rotation even when the player is (visually) rotating. This avoids getting stuck in places too tight to let the AABB rotate, for example.</li>
+<li>A capsule, defined by a position, a height and a radius. The capsule has a better behavior when climbing stairs for example. However it might be slightly more expensive in terms of CPU time.</li>
+</ul>
+<p>Note: In versions prior to 2.3 there was an PxSphereController, this has been removed since the PxCapsuleController is more robust and provides the same functionality (zero length capsule).</p>
+<p>A small skin is maintained around the character's volume, to avoid numerical issues that would otherwise happen if we let it touch other shapes. The size of this skin is user-defined. If you render the character's volume for debug purpose, remember to expand the volume by the size of this skin to get accurate debug visualization. This skin is defined in <em>PxControllerDesc::contactOffset</em> and later available through the <em>PxController::getContactOffset()</em> function.</p>
+</div>
+<div class="section" id="auto-stepping">
+<h2>Auto Stepping<a class="headerlink" href="#auto-stepping" title="Permalink to this headline">¶</a></h2>
+<p>Without auto-stepping it is easy for a box-controlled character to get stuck against slight elevations of the ground mesh. In the following picture the small step would stop the character completely. It feels unnatural because in the real world you would just cross this small obstacle without thinking about it.</p>
+<img alt="../_images/cctStep1.PNG" src="../_images/cctStep1.PNG" />
+<p>This is what auto-stepping enables us to do. Without any intervention from the player (i.e. without him thinking about it) the box correctly steps above the minor obstacle.</p>
+<img alt="../_images/cctStep2.PNG" src="../_images/cctStep2.PNG" />
+<p>However if the obstacle is too big, i.e. its height is greater than the stepOffset parameter, the controller can not climb automatically, and the character gets stuck (correctly this time):</p>
+<img alt="../_images/cctStep3.PNG" src="../_images/cctStep3.PNG" />
+<p>'Climbing' (over this bigger obstacle, for example) may also be implemented in the future, as an extension of auto-stepping. The step offset is defined in <em>PxControllerDesc::stepOffset</em> and later available through the <em>PxController::getStepOffset()</em> function.</p>
+<p>In order to implement the auto-stepping feature, the SDK needs to know about your 'up' vector. The up vector is defined in <em>PxControllerDesc::upDirection</em> and later available through the <em>PxController::getUpDirection()</em> function.</p>
+</div>
+<div class="section" id="walkable-parts">
+<h2>Walkable Parts<a class="headerlink" href="#walkable-parts" title="Permalink to this headline">¶</a></h2>
+<p>By default the character can move anywhere. This is not what you usually want. In particular, you often want to disallow walking on polygons whose slope is high. The SDK can do this automatically thanks to a user-defined slope limit. All polygons whose slope is higher than the limit slope will be marked as non walk-able, and the SDK will not let characters go there.</p>
+<p>In the future it may be possible to tag each triangle of a mesh as walk-able or not. (This is not implemented yet)</p>
+<p>Two modes are available to select what happens when touching a non walk-able part. The desired mode is selected with the <em>PxControllerDesc::nonWalkableMode</em> enum. <em>PxCCTNonWalkableMode::ePREVENT_CLIMBING</em> prevents the character from moving up a slope, but does not move the character otherwise. <em>PxCCTNonWalkableMode::eFORCE_SLIDING</em> forces characters to slide down non walk-able slopes.</p>
+<p>The slope limit is defined in <em>PxControllerDesc::slopeLimit</em> and later available through the <em>PxController::getSlopeLimit()</em> function.</p>
+<p>The limit is expressed as the cosine of desired limit angle. For example this uses a slope limit of 45 degrees:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">slopeLimit</span> <span class="o">=</span> <span class="n">cosf</span><span class="p">(</span><span class="n">PxMath</span><span class="o">::</span><span class="n">degToRad</span><span class="p">(</span><span class="mf">45.0f</span><span class="p">));</span>
+</pre></div>
+</div>
+<p>If you use slopeLimit = 0.0f, the feature is automatically disabled (i.e. you can go anywhere).</p>
+<p>This feature is not always needed. A common strategy is to disable it and place invisible walls in the level, to restrict player's movements. The character module can also create those walls for you, if <em>PxControllerDesc::invisibleWallHeight</em> is non-zero. In this case the library creates those extra triangles on the fly, and that parameter controls their height (extruded in the user-defined up direction). A common problem is that those invisible walls are only created when non-walkable triangles are found. It is possible for a jumping character to go over them, if its bounding volume is too small and does not collide with the non-walkable triangles below him. The <em>PxControllerDesc::maxJumpHeight</em> parameter addresses this issue, by extending the size of the bounding volume downward. That way all potentially non-walkable triangles are properly returned by the collision queries, and invisible walls are properly created - preventing the character from jumping on them.</p>
+<p>The slope limit is ignored if the touched shape is attached to a dynamic or kinematic rigid body.  Further, the slope limit is ignored if the touched shape is a sphere or capsule attached to a static body.  Extraction of a contact normal from heightfields, triangle meshes, convex meshes and boxes is more readily supported than with spheres and capsules so these shape types are all involved in the slope limit calculations, provided they are attached to a static body.</p>
+</div>
+<div class="section" id="volume-update">
+<h2>Volume Update<a class="headerlink" href="#volume-update" title="Permalink to this headline">¶</a></h2>
+<p>Sometimes it is useful to change the size of the character's volume at runtime. For example if your character can crouch, you might want to reduce the height of its bounding volume so that it can then move to places he could not reach otherwise.</p>
+<p>The character library supports runtime volume updates. However volumes are directly modified without any extra tests, so it might happen that the resulting volume overlaps some geometry nearby. To avoid this you must first use the already existing 'placement API' from the SDK, to check that the volume of space you want to occupy is actually empty. Only then can you increase the size of the character's volume.</p>
+<p>Related functions for the AABB:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">PxBoxController</span><span class="o">::</span><span class="n">setHalfHeight</span><span class="p">(</span><span class="n">PxF32</span> <span class="n">halfHeight</span><span class="p">)</span>                   <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">PxBoxController</span><span class="o">::</span><span class="n">setHalfSideExtent</span><span class="p">(</span><span class="n">PxF32</span> <span class="n">halfSideExtent</span><span class="p">)</span>           <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">PxBoxController</span><span class="o">::</span><span class="n">setHalfForwardExtent</span><span class="p">(</span><span class="n">PxF32</span> <span class="n">halfForwardExtent</span><span class="p">)</span>     <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Related functions for the capsule:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">PxCapsuleController</span><span class="o">::</span><span class="n">setRadius</span><span class="p">(</span><span class="n">PxF32</span> <span class="n">radius</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">PxCapsuleController</span><span class="o">::</span><span class="n">setHeight</span><span class="p">(</span><span class="n">PxF32</span> <span class="n">height</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Related 'placement API' function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">PxScene</span><span class="o">::</span><span class="n">overlapAny</span><span class="p">(...)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>It is important to keep in mind that changing the size of a controller using those functions does not actually change its position. So if your character is standing on the ground (touching it), and you suddenly reduce its height without updating its position, the character will end up levitating above the ground for a few frames until gravity makes it fall and touch the ground again. This happens because the controllers positions are located at the center of the shapes, rather than the bottom. Thus, to modify a controller's height and preserve its bottom position, one must change both the height and position of a controller. The following helper function does that automatically:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxController</span><span class="o">::</span><span class="n">resize</span><span class="p">(</span><span class="n">PxF32</span> <span class="n">height</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Updating the character's volume at runtime to implement a 'crouch' motion is illustrated in SampleNorthPole.</p>
+</div>
+<div class="section" id="hit-callback">
+<h2>Hit callback<a class="headerlink" href="#hit-callback" title="Permalink to this headline">¶</a></h2>
+<p>You can define a <em>PxUserControllerHitReport</em> callback that will let you retrieve some information about controller's evolution. In particular, it is possible to get called when the character hits a shape, another character, or a user-defined obstacle object.</p>
+<p>When the character hits a shape, the <em>onShapeHit</em> callback is called - for both static and dynamic shapes. Various impact parameters are sent to the callback, and they can then be used in your application to do various things like playing sounds, rendering trails, applying forces, and so on.</p>
+<p>When the character hits another character, i.e. another object controlled by a character controller, the <em>onControllerHit</em> callback is called. This happens when the player collides with an NPC, for example.</p>
+<p>When the character hits a user-defined obstacle, the <em>onObstacleHit</em> callback is called.</p>
+</div>
+<div class="section" id="behavior-callback">
+<h2>Behavior callback<a class="headerlink" href="#behavior-callback" title="Permalink to this headline">¶</a></h2>
+<p>You can define a <em>PxControllerBehaviorCallback</em> callback that will let you customize the character's behavior after touching a <em>PxShape</em>, a <em>PxController</em>, or a <em>PxObstacle</em>. This is done using the following functions:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxU32</span> <span class="n">PxControllerBehaviorCallback</span><span class="o">::</span><span class="n">getBehaviorFlags</span><span class="p">(</span><span class="k">const</span> <span class="n">PxShape</span><span class="o">&amp;</span> <span class="n">shape</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">PxU32</span> <span class="n">PxControllerBehaviorCallback</span><span class="o">::</span><span class="n">getBehaviorFlags</span><span class="p">(</span><span class="k">const</span> <span class="n">PxController</span><span class="o">&amp;</span> <span class="n">controller</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+<span class="n">PxU32</span> <span class="n">PxControllerBehaviorCallback</span><span class="o">::</span><span class="n">getBehaviorFlags</span><span class="p">(</span><span class="k">const</span> <span class="n">PxObstacle</span><span class="o">&amp;</span> <span class="n">obstacle</span><span class="p">)</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Returned PxU32 should be a combination of <em>PxControllerBehaviorFlag</em>. At the time of writing the following flags are supported:</p>
+<p><em>PxControllerBehaviorFlag::eCCT_CAN_RIDE_ON_OBJECT</em> defines if the character can effectively travel with the object it is standing on. For example a character standing on a dynamic bridge should follow the motion of the PxShape it is standing on. But it should not be the case if the character stands on, say a PxShape bottle rolling on the ground.</p>
+<p><em>PxControllerBehaviorFlag::eCCT_SLIDE</em> defines if the character should slide or not when standing on the object. This can be used as an alternative to the previously discussed slope limit feature, to define non walk-able objects rather than non-walkable parts. It can also be used to make a capsule character fall off a platform's edge automatically, when the center of the capsule crosses the platform's edge.</p>
+</div>
+<div class="section" id="character-interactions">
+<h2>Character interactions<a class="headerlink" href="#character-interactions" title="Permalink to this headline">¶</a></h2>
+<p>It is tempting to let the physics engine push objects by applying forces at contact points. However it is often not good for game play. The bounding volume around characters are artificial (boxes, spheres, etc) and you do not want the pushing effect to change when you switch from a box controller to a capsule controller. You usually want a pushing effect dictated by game play. So it might actually be better to apply artificial forces to objects in the <em>onShapeHit</em> callback. It is also difficult to push a box forward with a capsule: since you never hit the box exactly in the middle, applied force tends to rotate it - even if all you want is to push it in a straight line. Thus the recommended approach so far is to use custom code inside the callback to push away dynamic objects.</p>
+</div>
+<div class="section" id="hidden-kinematic-actors">
+<h2>Hidden kinematic Actors<a class="headerlink" href="#hidden-kinematic-actors" title="Permalink to this headline">¶</a></h2>
+<p>The character controller library creates a kinematic actor under the hood, for each controlled character. The user should be aware of this, since the total number of actors in the scene is more than they created, and they might receive unknown actors from the scene when doing collision queries.</p>
+<p>When you invoke the <em>move</em> function to move a PxController, the underlying hidden kinematic PxActor is also updated. The kinematic actors can be retrieved using the following function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxRigidDynamic</span><span class="o">*</span> <span class="n">PxController</span><span class="o">::</span><span class="n">getActor</span><span class="p">()</span> <span class="k">const</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="time-stepping">
+<h2>Time Stepping<a class="headerlink" href="#time-stepping" title="Permalink to this headline">¶</a></h2>
+<p>Actors used internally by the character controller library follow the same rules as any other PhysX objects. In particular, they are updated using fixed or variable timesteps. This can be troublesome because the PxController objects are otherwise typically updated using variable time steps (usually using the elapsed time between two rendering frames). So the PxController objects are not always perfectly in sync with their kinematic actors when using fixed time steps.</p>
+</div>
+<div class="section" id="invalidating-internal-caches">
+<h2>Invalidating internal caches<a class="headerlink" href="#invalidating-internal-caches" title="Permalink to this headline">¶</a></h2>
+<p>The character controller library caches the geometry around each character, in order to speed up collision queries. In PhysX 3.3 and above, those caches should be automatically invalidated when a cached object gets updated. However it is also possible to manually flush those caches using the following function:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">PxController</span><span class="o">::</span><span class="n">invalidateCache</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>It might be necessary do to so when changing the filtering parameters between calls to PxController::move().</p>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Character Controllers</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#kinematic-character-controller">Kinematic Character Controller</a></li>
+<li><a class="reference internal" href="#creating-a-character-controller">Creating a character controller</a></li>
+<li><a class="reference internal" href="#updating-a-character-controller">Updating a character controller</a></li>
+<li><a class="reference internal" href="#obstacle-objects">Obstacle objects</a></li>
+<li><a class="reference internal" href="#graphics-update">Graphics update</a></li>
+<li><a class="reference internal" href="#character-volume">Character Volume</a></li>
+<li><a class="reference internal" href="#auto-stepping">Auto Stepping</a></li>
+<li><a class="reference internal" href="#walkable-parts">Walkable Parts</a></li>
+<li><a class="reference internal" href="#volume-update">Volume Update</a></li>
+<li><a class="reference internal" href="#hit-callback">Hit callback</a></li>
+<li><a class="reference internal" href="#behavior-callback">Behavior callback</a></li>
+<li><a class="reference internal" href="#character-interactions">Character interactions</a></li>
+<li><a class="reference internal" href="#hidden-kinematic-actors">Hidden kinematic Actors</a></li>
+<li><a class="reference internal" href="#time-stepping">Time Stepping</a></li>
+<li><a class="reference internal" href="#invalidating-internal-caches">Invalidating internal caches</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Vehicles.html"
+                        title="previous chapter">Vehicles</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="PhysXVisualDebugger.html"
+                        title="next chapter">PhysX Visual Debugger (PVD)</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="PhysXVisualDebugger.html" title="PhysX Visual Debugger (PVD)"
+             >next</a></li>
+        <li class="right" >
+          <a href="Vehicles.html" title="Vehicles"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

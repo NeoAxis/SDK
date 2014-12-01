@@ -1,0 +1,81 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+fragment_program Compositor/DepthOfField/Final_hlsl hlsl
+{
+	source Base\FullScreenEffects\DepthOfField\DepthOfField.cg_hlsl
+	entry_point final
+	target ps_3_0
+}
+
+fragment_program Compositor/DepthOfField/Final_cg cg
+{
+	source Base\FullScreenEffects\DepthOfField\DepthOfField.cg_hlsl
+	entry_point final
+	profiles arbfp1
+}
+
+fragment_program Compositor/DepthOfField/Final unified
+{
+	delegate Compositor/DepthOfField/Final_hlsl
+	delegate Compositor/DepthOfField/Final_cg
+}
+
+material Compositor/DepthOfField/Final
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+			fragment_program_ref Compositor/DepthOfField/Final
+			{
+			}
+
+			// scene texture
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering none
+			}
+
+			// blurred texture
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering linear linear none
+			}
+
+			// auto focus 1x1 texture
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering none
+			}
+
+			// depth buffer
+			texture_unit
+			{
+				//reference to depth buffer of the scene. "additional_mrt_{index}" is a magic word.
+				texture additional_mrt_0 2d
+				tex_address_mode clamp
+				filtering none
+			}
+
+//			// blur factors
+//			texture_unit
+//			{
+//				tex_address_mode clamp
+//				filtering none
+//			}
+		}
+	}
+}

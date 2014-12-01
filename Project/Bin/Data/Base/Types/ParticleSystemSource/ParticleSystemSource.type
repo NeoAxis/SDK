@@ -1,0 +1,12 @@
+type ParticleSystemSource
+{
+	class = ParticleSystemSource
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\ParticleSystemSource.mesh"
+			onlyForEditor = True
+		}
+	}
+}

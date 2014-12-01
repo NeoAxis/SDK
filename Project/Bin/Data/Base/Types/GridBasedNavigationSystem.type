@@ -1,0 +1,5 @@
+type GridBasedNavigationSystem
+{
+	class = GridBasedNavigationSystem
+	allowEditorCreate = True
+}

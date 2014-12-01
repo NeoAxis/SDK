@@ -1,0 +1,82 @@
+//Bright pass
+half4 brightPass(
+	uniform half brightThreshold,
+	uniform half2 sampleOffsets[16],
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+	) : COLOR
+{
+	//downScale4x4
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 16; n++)
+		sample += tex2D(sourceTexture, uv + sampleOffsets[n]);
+	sample /= 16;
+
+	// Subtract out dark pixels
+	sample.rgb -= brightThreshold;
+	
+	// Clamp to 0
+	sample = max(sample, 0.0f);
+	
+	// Map the resulting value into the 0 to 1 range. Higher values for
+	// brightOffset will isolate lights from illuminated scene 
+	// objects.
+	const half brightOffset = 1.0f; // Offset for BrightPass filter
+	sample.rgb /= (brightOffset + sample.rgb);
+
+	return sample;
+}
+
+half4 gaussianBlur5x5(
+	uniform half2 sampleOffsets[13],
+	uniform half4 sampleWeights[13],	
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+	) : COLOR
+{
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 13; n++)
+	{
+		half4 color = tex2D(sourceTexture, uv + sampleOffsets[n]);
+		sample += sampleWeights[n] * color;
+	}
+	return sample;
+}
+
+//Bloom, requires offsets and weights to be provided externally
+half4 bloom(
+	uniform half2 sampleOffsets[15],
+	uniform half4 sampleWeights[15],	
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+	) : COLOR
+{
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 15; n++)
+	{
+		half4 color = tex2D(sourceTexture, uv + sampleOffsets[n]);
+		sample += sampleWeights[n] * color;
+	}
+	return sample;
+}
+
+//Final scene composition
+half4 final(
+	uniform half bloomScale,
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sceneTexture : register(s0),
+	uniform sampler2D bloomTexture : register(s1)
+	) : COLOR
+{
+	half3 color = half3(0,0,0);
+
+	//scene color
+	half3 sceneColor = (half3)tex2D(sceneTexture, uv).rgb;
+	color += sceneColor;
+
+	//bloom color
+	half3 bloom = (half3)tex2D(bloomTexture, uv).rgb;
+	color += bloom * bloomScale;
+
+	return half4(color, 1.0f);
+}

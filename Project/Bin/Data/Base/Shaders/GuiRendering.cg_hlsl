@@ -1,0 +1,61 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+//Fog
+#ifdef FOG_ENABLED
+#include "Base/Shaders/getFogValue.cg_hlsl"
+#endif
+
+void main_vp(
+	uniform float4x4 worldViewProjMatrix,
+	uniform float4x4 worldMatrix,
+	uniform float3 cameraPosition,
+
+	float4 position : POSITION,
+	float4 vertexColor : COLOR0,
+	float2 texCoord : TEXCOORD0,
+
+	out float2 oTexCoord : TEXCOORD0,
+	out float4 oVertexColor : TEXCOORD1,
+#ifdef FOG_ENABLED
+	out float oCameraDistance : TEXCOORD2,
+#endif
+	out float4 oPosition : POSITION
+	)
+{
+	oPosition = mul(worldViewProjMatrix, position);
+	oTexCoord = texCoord;
+	oVertexColor = vertexColor;
+
+#ifdef FOG_ENABLED
+	float4 worldPosition = mul(worldMatrix, position);
+	oCameraDistance = length(cameraPosition - worldPosition.xyz);
+#endif
+}
+
+void main_fp(
+	float2 texCoord : TEXCOORD0,
+	half4 vertexColor : TEXCOORD1,
+#ifdef FOG_ENABLED
+	float cameraDistance : TEXCOORD2,
+#endif
+	
+	uniform sampler2D diffuseMap : register(s0),
+
+#ifdef FOG_ENABLED
+	uniform half4 fogColor,
+	uniform half4 fogParams,
+#endif
+
+	out half4 oColor : COLOR)
+{
+	half4 color = (half4)tex2D(diffuseMap, texCoord) * vertexColor;
+
+	//Fog
+#ifdef FOG_ENABLED
+	half fog = getFogValue((half)cameraDistance, fogParams);
+	color.rgb *= fog;
+	color.rgb += fogColor.rgb * (1.0h - fog);
+#endif
+
+	oColor = color;
+}

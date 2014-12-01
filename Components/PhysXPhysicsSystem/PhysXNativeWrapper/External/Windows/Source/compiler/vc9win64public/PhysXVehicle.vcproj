@@ -1,0 +1,206 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<VisualStudioProject
+ProjectType="Visual C++"
+Version="9.00"
+Name="PhysXVehicle"
+>
+<Platforms>
+<Platform Name="x64"/>
+</Platforms>
+<Configurations>
+  <Configuration
+    Name="checked|x64"
+    OutputDirectory="./../../../Lib/win64"
+    IntermediateDirectory="./x64/PhysXVehicle/checked"
+    ConfigurationType="4"
+    InheritedPropertySheets=""
+    CharacterSet="2"
+    >
+    <Tool
+      Name="VCCLCompilerTool"
+      AdditionalIncludeDirectories="&quot;./../../../Include/foundation&quot;;&quot;./../../foundation/include&quot;;&quot;./../../../Include/physxprofilesdk&quot;;&quot;./../../../Include/physxvisualdebuggersdk&quot;;&quot;./../../../Include/vehicle&quot;;&quot;./../../../Include/common&quot;;&quot;./../../../Include/geometry&quot;;&quot;./../../../Include/extensions&quot;;&quot;./../../../Include&quot;;&quot;./../../Common/src&quot;;"
+      PreprocessorDefinitions="WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;PX_PHYSX_STATIC_LIB;NDEBUG;PX_CHECKED;PX_SUPPORT_VISUAL_DEBUGGER;"
+      WarningLevel="4"
+      FloatingPointModel="2"
+      StringPooling="true"
+      RuntimeTypeInfo="false"
+      WarnAsError="true"
+      BufferSecurityCheck="false"
+      Optimization="3"
+      AdditionalOptions="/MP"
+      ExceptionHandling="0"
+      RuntimeLibrary="0"
+      />
+    <Tool Name="VCCustomBuildTool"/>
+    <Tool 
+      Name="VCLibrarianTool" 
+      OutputFile="$(OutDir)/PhysX3VehicleCHECKED.lib" 
+      ProgramDatabaseFile="$(OutDir)/PhysX3VehicleCHECKED.lib.pdb" 
+      LinkLibraryDependencies="true"
+      AdditionalOptions="/MACHINE:X64"
+      AdditionalDependencies=""
+      AdditionalLibraryDirectories=""
+      />
+    <Tool Name="VCMIDLTool"/>
+    <Tool Name="VCPreBuildEventTool"/>
+    <Tool Name="VCPostBuildEventTool"/>
+    <Tool Name="VCPreLinkEventTool"/>
+    <Tool Name="VCResourceCompilerTool"/>
+    <Tool Name="VCWebServiceProxyGeneratorTool"/>
+    <Tool Name="VCXMLDataGeneratorTool"/>
+    <Tool Name="VCWebDeploymentTool"/>
+    <Tool Name="VCManagedWrapperGeneratorTool"/>
+    <Tool Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+  </Configuration>
+  <Configuration
+    Name="profile|x64"
+    OutputDirectory="./../../../Lib/win64"
+    IntermediateDirectory="./x64/PhysXVehicle/profile"
+    ConfigurationType="4"
+    InheritedPropertySheets=""
+    CharacterSet="2"
+    >
+    <Tool
+      Name="VCCLCompilerTool"
+      AdditionalIncludeDirectories="&quot;./../../../Include/foundation&quot;;&quot;./../../foundation/include&quot;;&quot;./../../../Include/physxprofilesdk&quot;;&quot;./../../../Include/physxvisualdebuggersdk&quot;;&quot;./../../../Include/vehicle&quot;;&quot;./../../../Include/common&quot;;&quot;./../../../Include/geometry&quot;;&quot;./../../../Include/extensions&quot;;&quot;./../../../Include&quot;;&quot;./../../Common/src&quot;;"
+      PreprocessorDefinitions="WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;PX_PHYSX_STATIC_LIB;NDEBUG;PX_PROFILE;PX_SUPPORT_VISUAL_DEBUGGER;_SECURE_SCL=0;_ITERATOR_DEBUG_LEVEL=0;"
+      WarningLevel="4"
+      FloatingPointModel="2"
+      StringPooling="true"
+      RuntimeTypeInfo="false"
+      WarnAsError="true"
+      BufferSecurityCheck="false"
+      Optimization="3"
+      AdditionalOptions="/MP"
+      ExceptionHandling="0"
+      RuntimeLibrary="0"
+      />
+    <Tool Name="VCCustomBuildTool"/>
+    <Tool 
+      Name="VCLibrarianTool" 
+      OutputFile="$(OutDir)/PhysX3VehiclePROFILE.lib" 
+      ProgramDatabaseFile="$(OutDir)/PhysX3VehiclePROFILE.lib.pdb" 
+      LinkLibraryDependencies="true"
+      AdditionalOptions="/MACHINE:X64"
+      AdditionalDependencies=""
+      AdditionalLibraryDirectories=""
+      />
+    <Tool Name="VCMIDLTool"/>
+    <Tool Name="VCPreBuildEventTool"/>
+    <Tool Name="VCPostBuildEventTool"/>
+    <Tool Name="VCPreLinkEventTool"/>
+    <Tool Name="VCResourceCompilerTool"/>
+    <Tool Name="VCWebServiceProxyGeneratorTool"/>
+    <Tool Name="VCXMLDataGeneratorTool"/>
+    <Tool Name="VCWebDeploymentTool"/>
+    <Tool Name="VCManagedWrapperGeneratorTool"/>
+    <Tool Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+  </Configuration>
+  <Configuration
+    Name="release|x64"
+    OutputDirectory="./../../../Lib/win64"
+    IntermediateDirectory="./x64/PhysXVehicle/release"
+    ConfigurationType="4"
+    InheritedPropertySheets=""
+    CharacterSet="2"
+    >
+    <Tool
+      Name="VCCLCompilerTool"
+      AdditionalIncludeDirectories="&quot;./../../../Include/foundation&quot;;&quot;./../../foundation/include&quot;;&quot;./../../../Include/physxprofilesdk&quot;;&quot;./../../../Include/physxvisualdebuggersdk&quot;;&quot;./../../../Include/vehicle&quot;;&quot;./../../../Include/common&quot;;&quot;./../../../Include/geometry&quot;;&quot;./../../../Include/extensions&quot;;&quot;./../../../Include&quot;;&quot;./../../Common/src&quot;;"
+      PreprocessorDefinitions="WIN64;_CRT_SECURE_NO_DEPRECATE;_CRT_NONSTDC_NO_DEPRECATE;AG_PERFMON;PX_PHYSX_STATIC_LIB;NDEBUG;_SECURE_SCL=0;_ITERATOR_DEBUG_LEVEL=0;"
+      WarningLevel="4"
+      FloatingPointModel="2"
+      StringPooling="true"
+      RuntimeTypeInfo="false"
+      WarnAsError="true"
+      BufferSecurityCheck="false"
+      Optimization="3"
+      AdditionalOptions="/MP"
+      ExceptionHandling="0"
+      RuntimeLibrary="0"
+      />
+    <Tool Name="VCCustomBuildTool"/>
+    <Tool 
+      Name="VCLibrarianTool" 
+      OutputFile="$(OutDir)/PhysX3Vehicle.lib" 
+      ProgramDatabaseFile="$(OutDir)/PhysX3Vehicle.lib.pdb" 
+      LinkLibraryDependencies="true"
+      AdditionalOptions="/MACHINE:X64"
+      AdditionalDependencies=""
+      AdditionalLibraryDirectories=""
+      />
+    <Tool Name="VCMIDLTool"/>
+    <Tool Name="VCPreBuildEventTool"/>
+    <Tool Name="VCPostBuildEventTool"/>
+    <Tool Name="VCPreLinkEventTool"/>
+    <Tool Name="VCResourceCompilerTool"/>
+    <Tool Name="VCWebServiceProxyGeneratorTool"/>
+    <Tool Name="VCXMLDataGeneratorTool"/>
+    <Tool Name="VCWebDeploymentTool"/>
+    <Tool Name="VCManagedWrapperGeneratorTool"/>
+    <Tool Name="VCAuxiliaryManagedWrapperGeneratorTool"/>
+  </Configuration>
+</Configurations>
+<References></References>
+<Files>
+  <Filter Name="include" Filter=""> <!--  -->
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleComponents.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleDrive.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleDrive4W.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleDriveTank.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleSDK.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleShaders.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleTireFriction.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleUpdate.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleUtilControl.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleUtilSetup.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleUtilTelemetry.h">
+    </File>
+    <File RelativePath="..\..\..\Include\vehicle\PxVehicleWheels.h">
+    </File>
+  </Filter>
+  <Filter Name="src" Filter=""> <!--  -->
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleDefaults.h">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleSuspLimitConstraintShader.h">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleSuspWheelTire4.h">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleComponents.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleDrive.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleDrive4W.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleDriveTank.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleSDK.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleSuspWheelTire4.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleTireFriction.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleUpdate.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\PxVehicleWheels.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\VehicleUtilControl.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\VehicleUtilSetup.cpp">
+    </File>
+    <File RelativePath="..\..\PhysXVehicle\src\VehicleUtilTelemetry.cpp">
+    </File>
+  </Filter>
+</Files>
+<Globals></Globals>
+</VisualStudioProject>

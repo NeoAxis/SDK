@@ -1,0 +1,60 @@
+compositor MotionBlur
+{
+	technique
+	{
+		texture scene target_width target_height PF_R8G8B8
+		texture sum target_width target_height PF_R8G8B8
+		texture temp target_width target_height PF_R8G8B8
+
+		// render scene
+		target scene
+		{
+			input previous
+		}
+
+		// initialization pass for sum texture
+		target sum
+		{
+			input previous
+			only_initial on
+		}
+
+		// do the motion blur
+		target temp
+		{
+			input none
+
+			pass render_quad
+			{
+				material Compositor/MotionBlur/Combine
+				identifier 666
+				input 0 scene
+				input 1 sum
+			}
+		}
+
+		// copy back sum texture
+		target sum
+		{
+			input none
+
+			pass render_quad
+			{
+				material Compositor/MotionBlur/Copyback
+				input 0 temp
+			}
+		}
+
+		// display result
+		target_output
+		{
+			input none
+
+			pass render_quad
+			{
+				material Compositor/MotionBlur/Display
+				input 0 sum
+			}
+		}
+	}
+}

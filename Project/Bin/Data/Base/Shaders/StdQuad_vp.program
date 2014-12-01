@@ -1,0 +1,147 @@
+vertex_program Compositor/StdQuad_vp_hlsl hlsl
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_vp
+	target vs_3_0
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_vp_cg cg
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_vp
+	profiles arbvp1
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_vp unified
+{
+	delegate Compositor/StdQuad_vp_hlsl
+	delegate Compositor/StdQuad_vp_cg
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+vertex_program Compositor/StdQuad_Tex2_vp_hlsl hlsl
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex2_vp
+	target vs_3_0
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex2_vp_cg cg
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex2_vp
+	profiles arbvp1
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex2_vp unified
+{
+	delegate Compositor/StdQuad_Tex2_vp_hlsl
+	delegate Compositor/StdQuad_Tex2_vp_cg
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+vertex_program Compositor/StdQuad_Tex2a_vp_hlsl hlsl
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex2a_vp
+	target vs_3_0
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex2a_vp_cg cg
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex2a_vp
+	profiles arbvp1
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex2a_vp unified
+{
+	delegate Compositor/StdQuad_Tex2a_vp_hlsl
+	delegate Compositor/StdQuad_Tex2a_vp_cg
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+vertex_program Compositor/StdQuad_Tex3_vp_hlsl hlsl
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex3_vp
+	target vs_3_0
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex3_vp_cg cg
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex3_vp
+	profiles arbvp1
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex3_vp unified
+{
+	delegate Compositor/StdQuad_Tex3_vp_hlsl
+	delegate Compositor/StdQuad_Tex3_vp_cg
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+vertex_program Compositor/StdQuad_Tex4_vp_hlsl hlsl
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex4_vp
+	target vs_3_0
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex4_vp_cg cg
+{
+	source Base\Shaders\StdQuad_vp.cg_hlsl
+	entry_point StdQuad_Tex4_vp
+	profiles arbvp1
+	default_params
+	{
+		param_named_auto worldViewProj worldviewproj_matrix
+	}
+}
+
+vertex_program Compositor/StdQuad_Tex4_vp unified
+{
+	delegate Compositor/StdQuad_Tex4_vp_hlsl
+	delegate Compositor/StdQuad_Tex4_vp_cg
+}

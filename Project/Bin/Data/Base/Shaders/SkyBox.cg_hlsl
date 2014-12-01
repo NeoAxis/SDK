@@ -1,0 +1,27 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+void main_vp(
+	uniform float4x4 worldViewProjMatrix,
+
+	float4 position : POSITION,
+	float2 uv : TEXCOORD0,
+
+	out float4 oPosition : POSITION,
+	out float2 oUv : TEXCOORD0
+	)
+{
+	oPosition = mul(worldViewProjMatrix, position);
+	oUv = uv;
+}
+
+void main_fp(
+	uniform half3 colorScale,
+
+	float2 uv : TEXCOORD0,
+	uniform sampler2D skyBoxMap : register(s0),
+
+	out half4 oColor : COLOR
+	)
+{
+	oColor = half4((half3)tex2D(skyBoxMap, uv).rgb * colorScale, 1);
+}

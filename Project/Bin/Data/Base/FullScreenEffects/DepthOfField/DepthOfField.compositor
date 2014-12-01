@@ -1,0 +1,164 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+compositor DepthOfField
+{
+	technique
+	{
+		//source scene
+		texture scene target_width target_height PF_R8G8B8
+		
+		//generate blur texture
+		//texture size will be calculated from code.
+		texture rt_downscale 1 1 PF_R8G8B8
+		texture rt_blurHorizontal 1 1 PF_R8G8B8
+		texture rt_blurVertical 1 1 PF_R8G8B8
+
+		//calculate destination focal distance.
+		texture rt_autoFocus1 64 64 PF_FLOAT32_R
+		texture rt_autoFocus2 16 16 PF_FLOAT32_R
+		texture rt_autoFocus3 4 4 PF_FLOAT32_R
+		texture rt_autoFocusFinal 1 1 PF_FLOAT32_R
+
+		//save current focal distance.
+		texture rt_autoFocusCurrent 1 1 PF_FLOAT32_R
+
+		//calculate blur factors
+		texture rt_blurFactors target_width target_height PF_FLOAT16_R
+
+		target scene
+		{
+			input previous
+		}
+
+		target rt_downscale
+		{
+			input none
+			pass render_quad
+			{
+				// Down scale using a 4x4 filter
+				material Compositor/DepthOfField/Downscale
+				input 0 scene
+				identifier 100
+			}
+		}
+
+		target rt_blurHorizontal
+		{
+			input none
+			pass render_quad
+			{
+				// Horizontal blur
+				material Compositor/DepthOfField/Blur
+				input 0 rt_downscale
+				identifier 200
+			}
+		}
+		target rt_blurVertical
+		{
+			input none
+			pass render_quad
+			{
+				// Vertical blur
+				material Compositor/DepthOfField/Blur
+				input 0 rt_blurHorizontal
+				identifier 300
+			}
+		}
+
+		target rt_autoFocus1
+		{
+		   input none
+		   pass render_quad
+		   {
+		      material Compositor/DepthOfField/AutoFocusBegin
+		      //input 0 - depth buffer
+		      identifier 400
+		   }
+		}
+
+		target rt_autoFocus2
+		{
+		   input none
+		   pass render_quad
+		   {
+		      material Compositor/DepthOfField/AutoFocusIteration
+		      input 0 rt_autoFocus1
+		      identifier 401
+		   }
+		}
+
+		target rt_autoFocus3
+		{
+		   input none
+		   pass render_quad
+		   {
+		      material Compositor/DepthOfField/AutoFocusIteration
+		      input 0 rt_autoFocus2
+		      identifier 402
+		   }
+		}
+
+		target rt_autoFocusFinal
+		{
+		   input none
+		   pass render_quad
+		   {
+		      material Compositor/DepthOfField/AutoFocusFinal
+		      input 0 rt_autoFocus3
+		      input 1 rt_autoFocusCurrent
+		      identifier 403
+		   }
+		}
+
+		target rt_autoFocusCurrent
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/DepthOfField/AutoFocusCurrent
+				input 0 rt_autoFocusFinal
+				identifier 404
+			}
+		}
+
+		// Final output combines original scene and blur effect
+		target_output
+		{
+			input none
+			pass render_quad
+			{
+				material Compositor/DepthOfField/Final
+				input 0 scene
+				input 1 rt_blurVertical
+				input 2 rt_autoFocusCurrent
+				//input 3 - depth buffer
+				identifier 600
+			}
+		}
+
+//		target rt_blurFactors
+//		{
+//			input none
+//			pass render_quad
+//			{
+//				material Compositor/DepthOfField/BlurFactors
+//				input 0 rt_autoFocusCurrent
+//				//input 1 - depth buffer
+//				identifier 500
+//			}
+//		}
+//
+//		// Final output combines original scene and blur effect
+//		target_output
+//		{
+//			input none
+//			pass render_quad
+//			{
+//				material Compositor/DepthOfField/Final
+//				input 0 scene
+//				input 1 rt_blurVertical
+//				input 2 rt_blurFactors
+//				identifier 600
+//			}
+//		}
+	}
+}

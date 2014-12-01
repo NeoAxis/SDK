@@ -1,0 +1,6 @@
+type Zone
+{
+	class = Zone
+	allowEditorCreate = True
+	networkType = ClientOnly
+}

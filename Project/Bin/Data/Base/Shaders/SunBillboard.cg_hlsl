@@ -1,0 +1,28 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_vp(
+	uniform float4x4 worldViewProjMatrix,
+
+	float4 position : POSITION,
+	float2 texCoord : TEXCOORD0,
+	out float2 oTexCoord : TEXCOORD0,
+	out float4 oPosition : POSITION
+	)
+{
+	oPosition = mul(worldViewProjMatrix, position);
+	oTexCoord = texCoord;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_fp(
+	uniform half4 colorScale,
+	uniform sampler2D map : register(s0),
+	float2 texCoord : TEXCOORD0,
+	out half4 oColor : COLOR
+	)
+{
+	oColor = (half4)tex2D(map, texCoord) * colorScale;
+}

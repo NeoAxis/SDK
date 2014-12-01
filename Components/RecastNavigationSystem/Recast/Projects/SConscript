@@ -1,0 +1,37 @@
+#!/usr/bin/env python
+import os
+
+Import('GLOBALS')
+Import(GLOBALS)
+
+SRC_RECAST_DIR = DEV_ROOT+'/Components/RecastNavigationSystem/Recast'
+
+env = g_env.Clone()
+
+if not env.GetOption('clean'):
+	CreateDir(OUT_DIR+'/Recast')
+
+env.Append(LIBS=['log', 'supc++'])
+env.Append(CPPPATH=[
+	ANDROID_STL_ROOT+'/gnu-libstdc++/libs/armeabi/include',
+	ANDROID_STL_ROOT+'/gnu-libstdc++/include',
+	SRC_RECAST_DIR+'/Library/DebugUtils/Include',
+	SRC_RECAST_DIR+'/Library/Detour/Include',
+	SRC_RECAST_DIR+'/Library/DetourCrowd/Include',
+	SRC_RECAST_DIR+'/Library/DetourTileCache/Include',
+	SRC_RECAST_DIR+'/Library/Recast/Include',
+	SRC_RECAST_DIR
+	])
+
+sources = [
+	Glob(SRC_RECAST_DIR+'/Library/DebugUtils/Source/*.cpp'),
+	Glob(SRC_RECAST_DIR+'/Library/Detour/Source/*.cpp'),
+	Glob(SRC_RECAST_DIR+'/Library/DetourCrowd/Source/*.cpp'),
+	Glob(SRC_RECAST_DIR+'/Library/DetourTileCache/Source/*.cpp'),
+	Glob(SRC_RECAST_DIR+'/Library/Recast/Source/*.cpp'),
+	Glob(SRC_RECAST_DIR+'/*.cpp')
+	]
+
+Recast = CreateLibrary(env, 'Recast', sources)
+env.Install(ANDROID_BIN_DIR, Recast)
+CopyFile(env, 'Run', ANDROID_BIN_DIR+'/libRecast.so', LIB_DIR+'/libRecast.so')

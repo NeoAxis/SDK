@@ -1,0 +1,11 @@
+fullName = "Exporting scene data to 3D model. FBX, COLLADA formats are supported"
+componentTypes = "MapEditorAddon"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "ExportTo3DModelMEAddon.dll"
+	platforms = "Windows"
+	entryPoint = True
+}

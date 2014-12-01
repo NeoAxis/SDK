@@ -1,0 +1,729 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+#include "Base/Shaders/General.cg_hlsl"
+
+//Fog
+#ifdef FOG_ENABLED
+	#include "Base/Shaders/getFogValue.cg_hlsl"
+#endif
+
+//Shadows
+#if LIGHT_COUNT >= 1
+	#ifdef SHADOW_MAP
+		#include "Base/Shaders/ShadowReceiverFunctions.cg_hlsl"
+	#endif
+#endif
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct A2V
+{
+	float4 position : POSITION;
+#ifdef LOD_ENABLED
+	#ifdef SHARED_VERTEX_BUFFERS
+		float2 morphOffset : TEXCOORD0;
+	#else
+		float3 morphOffset : TEXCOORD0;
+	#endif
+#endif
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct V2F
+{
+	float4 position : POSITION;
+	float4 worldPositionAndCameraDistance : TEXCOORD0;
+	float4 masksAndNormalsUV : TEXCOORD1;
+#if defined(HOLE_MAP) || defined(AMBIENT_OCCLUSION)
+	float4 holeAndAmbientOcclusionUV : TEXCOORD2;
+#endif
+#ifdef LIGHTMAP
+	float2 lightmapUV : TEXCOORD3;
+#endif
+#ifdef ALLOW_DETAIL
+	float detailCoefficient : TEXCOORD4;
+#endif
+	float depth : TEXCOORD5;
+
+#if LIGHT_COUNT >= 1
+	#ifdef SHADOW_MAP
+		float4 shadowUV0 : TEXCOORD6;
+		#ifdef SHADOW_PSSM
+			float4 shadowUV1 : TEXCOORD7;
+			float4 shadowUV2 : TEXCOORD8;
+		#endif
+	#endif
+#endif
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+struct F2O
+{
+	half4 color : COLOR;
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	float4 depth : COLOR1;
+#endif
+};
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+V2F main_vp(
+	uniform float4x4 worldViewProjMatrix,
+	uniform float3 cameraPosition,
+
+#if LIGHT_COUNT >= 1
+	uniform float4 lightPositionArray[LIGHT_COUNT],
+	uniform float4 lightDirectionArray[LIGHT_COUNT],
+	uniform float4 spotLightParamsArray[LIGHT_COUNT],
+	uniform float4 lightCustomShaderParameterArray[LIGHT_COUNT],
+#endif
+
+#ifdef LOD_ENABLED
+	uniform float2 morphParameters,
+	uniform float3 morphCameraPosition,
+#endif
+
+	uniform float2 detailMapsDistanceRange,
+	uniform float2 tileMinVertexPosition,
+	uniform float4 masksUVTransform,
+	uniform float4 normalsUVTransform,
+#ifdef SHARED_VERTEX_BUFFERS
+	uniform sampler2D heightMap : register(s0),
+#endif
+#ifdef HOLE_MAP
+	uniform float4 holeUVTransform,
+#endif
+#ifdef AMBIENT_OCCLUSION
+	uniform float4 ambientOcclusionUVTransform,
+#endif
+
+#if LIGHT_COUNT >= 1
+	#ifdef SHADOW_MAP
+		uniform float3 shadowFarDistance,
+		uniform float3 shadowTextureSizes,
+		uniform float4x4 textureViewProjMatrix0,
+		uniform float4x4 textureViewProjMatrix1,
+		uniform float4x4 textureViewProjMatrix2,
+		#ifdef SHADOW_PSSM
+			uniform float4 shadowDirectionalLightSplitDistances,
+		#endif
+	#endif
+#endif
+
+#ifdef LIGHTMAP
+	uniform float4 lightmapTransform,
+#endif
+
+	A2V input
+)
+{
+	V2F output;
+
+	//get "position" and "normal" in world coordinates
+
+	float4 worldPosition = input.position;
+
+#ifdef SHARED_VERTEX_BUFFERS
+	//shared vertex buffers mode
+
+	float2 heightUV = normalsUVTransform.xy + worldPosition.xy * normalsUVTransform.zw;
+
+	float3 worldPosition1;
+	worldPosition1.xy = worldPosition.xy + tileMinVertexPosition.xy;
+	worldPosition1.z = tex2Dlod(heightMap, float4(heightUV, 0, 0)).r;
+
+	#ifdef LOD_ENABLED
+		float2 localPosition2 = worldPosition.xy + input.morphOffset.xy;
+		float2 heightUV2 = normalsUVTransform.xy + localPosition2 * normalsUVTransform.zw;
+		float3 worldPosition2;
+		worldPosition2.xy = localPosition2 + tileMinVertexPosition.xy;
+		worldPosition2.z = tex2Dlod(heightMap, float4(heightUV2, 0, 0)).r;
+
+		float morphCameraDistance = length(worldPosition1.xy - morphCameraPosition.xy);
+		float morphFactor = 1.0f - saturate( morphParameters.x - morphCameraDistance * morphParameters.y );
+		worldPosition.xyz = lerp(worldPosition1, worldPosition2, morphFactor);
+	#else
+		worldPosition.xyz = worldPosition1;
+	#endif
+
+#else
+	//non shared vertex buffers mode
+	#ifdef LOD_ENABLED
+		float morphCameraDistance = length(worldPosition.xy - morphCameraPosition.xy);
+		float morphFactor = 1.0f - saturate( morphParameters.x - morphCameraDistance * morphParameters.y );
+		worldPosition.xyz += input.morphOffset * morphFactor;
+	#endif
+#endif
+
+	//General
+	output.position = mul(worldViewProjMatrix, worldPosition);
+
+	float2 localPosition = worldPosition.xy - tileMinVertexPosition.xy;
+	//float4 worldPosition = newPosition;//mul(worldMatrix, position);
+	float cameraDistance = length(cameraPosition.xyz - worldPosition.xyz);
+
+	output.worldPositionAndCameraDistance.xyz = worldPosition.xyz;
+	output.worldPositionAndCameraDistance.w = cameraDistance;
+
+	//masks and normals uv
+	output.masksAndNormalsUV.xy = masksUVTransform.xy + localPosition * masksUVTransform.zw;
+	output.masksAndNormalsUV.zw = normalsUVTransform.xy + localPosition * normalsUVTransform.zw;
+
+	//hole and AO uv
+#if defined(HOLE_MAP) || defined(AMBIENT_OCCLUSION)
+	output.holeAndAmbientOcclusionUV = float4(0,0,0,0);
+	#ifdef HOLE_MAP
+		output.holeAndAmbientOcclusionUV.xy = holeUVTransform.xy + localPosition * holeUVTransform.zw;
+	#endif
+	#ifdef AMBIENT_OCCLUSION
+		output.holeAndAmbientOcclusionUV.zw = ambientOcclusionUVTransform.xy + localPosition * ambientOcclusionUVTransform.zw;
+	#endif
+#endif
+
+	//lightmap uv
+#ifdef LIGHTMAP
+	output.lightmapUV = lightmapTransform.xy + localPosition * lightmapTransform.zw;
+#endif
+
+#ifdef ALLOW_DETAIL
+	output.detailCoefficient = 1.0f - saturate((cameraDistance - detailMapsDistanceRange.x) * detailMapsDistanceRange.y);
+#endif
+	output.depth = output.position.z;
+
+#if LIGHT_COUNT >= 1
+	#ifdef SHADOW_MAP
+		#ifdef SHADOW_PSSM
+			getShadowUV(textureViewProjMatrix0, textureViewProjMatrix1, textureViewProjMatrix2, 
+				lightPositionArray[0].xyz, lightDirectionArray[0].xyz, worldPosition.xyz, 
+				spotLightParamsArray[0], shadowTextureSizes, output.shadowUV0, output.shadowUV1, 
+				output.shadowUV2, shadowDirectionalLightSplitDistances, output.depth);
+		#else
+			getShadowUV(textureViewProjMatrix0, 
+				lightPositionArray[0].xyz, lightDirectionArray[0].xyz, worldPosition.xyz, 
+				spotLightParamsArray[0], shadowFarDistance, shadowTextureSizes, output.shadowUV0);
+		#endif
+	#endif
+#endif
+
+	return output;
+}
+
+/////////////////////////////////////////////////////////////////////////////////////////
+
+F2O main_fp(
+	uniform float3 cameraPosition,
+	uniform float farClipDistance,
+
+#ifdef AMBIENT_PASS
+	uniform half4 ambientLightColor,
+#endif
+
+#if LIGHT_COUNT >= 1
+	uniform float4 lightPositionArray[LIGHT_COUNT],
+	uniform float4 lightDirectionArray[LIGHT_COUNT],
+	uniform half4 lightAttenuationArray[LIGHT_COUNT],
+	uniform half4 lightDiffuseColorPowerScaledArray[LIGHT_COUNT],
+	uniform half4 lightSpecularColorPowerScaledArray[LIGHT_COUNT],
+#ifdef LIGHTTYPE_SPOT
+	uniform half4 spotLightParamsArray[LIGHT_COUNT],
+#endif
+	uniform half lightCastShadowsArray[LIGHT_COUNT],
+	uniform float4 lightCustomShaderParameterArray[LIGHT_COUNT],
+#endif
+
+	//Fog
+#ifdef FOG_ENABLED
+	uniform half4 fogColor,
+	uniform half4 fogParams,
+#endif
+
+	uniform sampler2D masksMap : register(s0),
+	uniform sampler2D normalsMap : register(s1),
+#ifdef HOLE_MAP
+	uniform sampler2D holeMap : register(s2),
+#endif
+
+#ifdef AMBIENT_OCCLUSION
+	uniform sampler2D ambientOcclusionMap : register(AMBIENT_OCCLUSION_MAP_REGISTER),
+#endif
+
+#ifdef LIGHTMAP
+	uniform sampler2D lightmap : register(LIGHTMAP_REGISTER),
+#endif
+
+#if LIGHT_COUNT >= 1
+	#ifdef SHADOW_MAP
+		#ifdef LIGHTTYPE_POINT
+			uniform samplerCUBE shadowMap0 : register(SHADOW_MAP0_REGISTER),
+		#else
+			uniform sampler2D shadowMap0 : register(SHADOW_MAP0_REGISTER),
+		#endif		
+		#ifdef SHADOW_PSSM
+			uniform sampler2D shadowMap1 : register(SHADOW_MAP1_REGISTER),
+			uniform sampler2D shadowMap2 : register(SHADOW_MAP2_REGISTER),
+		#endif
+		uniform float lightShadowFarClipDistance,
+		uniform half3 shadowFarDistance,
+		uniform float3 shadowTextureSizes,
+		uniform half shadowColorIntensity,
+		#ifdef SHADOW_PSSM
+			uniform float4 shadowDirectionalLightSplitDistances,
+			uniform half drawShadowDebugging,
+		#endif
+	#endif
+#endif
+
+	//Texturing
+#if LAYERS >= 1
+	uniform float4 layer0BaseDetailMultipliers,
+	uniform sampler2D layer0BaseMap : register(LAYER0_BASE_MAP_REGISTER),
+	#ifdef LAYER0_DETAIL_MAP
+		uniform sampler2D layer0DetailMap : register(LAYER0_DETAIL_MAP_REGISTER),
+	#endif
+	#ifdef LAYER0_SPECULAR
+		uniform half4 layer0SpecularColorAndShininess,
+		#ifdef LAYER0_BASE_SPECULAR_MAP
+			uniform sampler2D layer0BaseSpecularMap : register(LAYER0_BASE_SPECULAR_MAP_REGISTER),
+		#endif
+		#ifdef LAYER0_DETAIL_SPECULAR_MAP
+			uniform sampler2D layer0DetailSpecularMap : register(LAYER0_DETAIL_SPECULAR_MAP_REGISTER),
+		#endif
+	#endif
+	#ifdef LAYER0_BASE_NORMAL_MAP
+		uniform sampler2D layer0BaseNormalMap : register(LAYER0_BASE_NORMAL_MAP_REGISTER),
+	#endif
+	#ifdef LAYER0_DETAIL_NORMAL_MAP
+		uniform sampler2D layer0DetailNormalMap : register(LAYER0_DETAIL_NORMAL_MAP_REGISTER),
+	#endif
+#endif
+
+#if LAYERS >= 2
+	uniform float4 layer1BaseDetailMultipliers,
+	uniform sampler2D layer1BaseMap : register(LAYER1_BASE_MAP_REGISTER),
+	#ifdef LAYER1_DETAIL_MAP
+		uniform sampler2D layer1DetailMap : register(LAYER1_DETAIL_MAP_REGISTER),
+	#endif
+	#ifdef LAYER1_SPECULAR
+		uniform half4 layer1SpecularColorAndShininess,
+		#ifdef LAYER1_BASE_SPECULAR_MAP
+			uniform sampler2D layer1BaseSpecularMap : register(LAYER1_BASE_SPECULAR_MAP_REGISTER),
+		#endif
+		#ifdef LAYER1_DETAIL_SPECULAR_MAP
+			uniform sampler2D layer1DetailSpecularMap : register(LAYER1_DETAIL_SPECULAR_MAP_REGISTER),
+		#endif
+	#endif
+	#ifdef LAYER1_BASE_NORMAL_MAP
+		uniform sampler2D layer1BaseNormalMap : register(LAYER1_BASE_NORMAL_MAP_REGISTER),
+	#endif
+	#ifdef LAYER1_DETAIL_NORMAL_MAP
+		uniform sampler2D layer1DetailNormalMap : register(LAYER1_DETAIL_NORMAL_MAP_REGISTER),
+	#endif
+#endif
+
+#if LAYERS >= 3
+	uniform float4 layer2BaseDetailMultipliers,
+	uniform sampler2D layer2BaseMap : register(LAYER2_BASE_MAP_REGISTER),
+	#ifdef LAYER2_DETAIL_MAP
+		uniform sampler2D layer2DetailMap : register(LAYER2_DETAIL_MAP_REGISTER),
+	#endif
+	#ifdef LAYER2_SPECULAR
+		uniform half4 layer2SpecularColorAndShininess,
+		#ifdef LAYER2_BASE_SPECULAR_MAP
+			uniform sampler2D layer2BaseSpecularMap : register(LAYER2_BASE_SPECULAR_MAP_REGISTER),
+		#endif
+		#ifdef LAYER2_DETAIL_SPECULAR_MAP
+			uniform sampler2D layer2DetailSpecularMap : register(LAYER2_DETAIL_SPECULAR_MAP_REGISTER),
+		#endif
+	#endif
+	#ifdef LAYER2_BASE_NORMAL_MAP
+		uniform sampler2D layer2BaseNormalMap : register(LAYER2_BASE_NORMAL_MAP_REGISTER),
+	#endif
+	#ifdef LAYER2_DETAIL_NORMAL_MAP
+		uniform sampler2D layer2DetailNormalMap : register(LAYER2_DETAIL_NORMAL_MAP_REGISTER),
+	#endif
+#endif
+
+	uniform float3 terrainPosition,
+
+#ifdef OPENGL
+	uniform float4 clipPlane0,
+	uniform float4 clipPlane1,
+	uniform float4 clipPlane2,
+	uniform float4 clipPlane3,
+	uniform float4 clipPlane4,
+	uniform float4 clipPlane5,
+#endif
+
+#ifdef LOD_ENABLED
+	uniform half3 showLODLevelColor,
+#endif
+
+	V2F input
+)
+{
+	F2O output;
+
+	//clip holes
+#ifdef HOLE_MAP
+	clip((half)tex2D(holeMap, input.holeAndAmbientOcclusionUV.xy).r - .5h);
+#endif
+
+	float3 worldPosition = input.worldPositionAndCameraDistance.xyz;
+	float cameraDistance = input.worldPositionAndCameraDistance.w;
+	float3 worldPositionMinusTerrainPosition = worldPosition - terrainPosition;
+
+	//OpenGL clip plane support. Direct3D is already support clip planes without this code.
+#ifdef OPENGL
+	clip(dot(clipPlane0, float4(worldPosition, 1)));
+	//uncomment it for support more than 1 clip plane
+	//clip(dot(clipPlane1, float4(worldPosition, 1)));
+	//clip(dot(clipPlane2, float4(worldPosition, 1)));
+	//clip(dot(clipPlane3, float4(worldPosition, 1)));
+	//clip(dot(clipPlane4, float4(worldPosition, 1)));
+	//clip(dot(clipPlane5, float4(worldPosition, 1)));
+#endif
+
+#ifdef ALLOW_DETAIL
+	half detailCoefficientReverse = 1.0h - (half)input.detailCoefficient;
+	half detailCoefficientMul2 = (half)input.detailCoefficient * 2;
+#endif
+
+	//get normal from normals map (swizzle X and Y)
+	half3 normal = (half3)normalize(expand((half3)tex2D(normalsMap, input.masksAndNormalsUV.zw).yxz));
+
+	float3 lightDirection = float3(0,0,0);
+	float lightDistance = 0;
+#if LIGHT_COUNT >= 1
+	{
+		float3 lightVector;
+		#ifdef LIGHTTYPE_DIRECTIONAL
+			lightVector = lightPositionArray[0].xyz;
+		#else
+			lightVector = lightPositionArray[0].xyz - worldPosition.xyz;
+		#endif
+
+		lightDistance = length(lightVector);
+		lightDirection = lightVector / lightDistance;
+	}
+#endif
+
+	//normal mapping and specular
+	half3 tangent = half3(normal.z, normal.y, -normal.x);
+	half3 binormal = half3(normal.x, -normal.z, normal.y);
+	half3x3 rotation = half3x3(tangent, binormal, normal);
+	//in tangent space
+	half3 lightDirectionTangentSpace = mul(rotation, (half3)lightDirection);
+	half3 eyeDirection = (half3)normalize(cameraPosition - worldPosition);
+	half3 halfAngleForSpecular = (half3)normalize((half3)lightDirection + eyeDirection);
+	half3 halfAngleForSpecularTangentSpace = mul(rotation, halfAngleForSpecular);
+
+	//calculate masks values
+	half mask0;
+	half mask1;
+	half mask2;
+	{
+		half4 masks = (half4)tex2D(masksMap, input.masksAndNormalsUV.xy/*masksUV*/);
+		half realMasks[5];
+		realMasks[0] = masks.a;
+		realMasks[1] = masks.r;
+		realMasks[2] = masks.g;
+		realMasks[3] = masks.b;
+		realMasks[4] = 1 - (masks.a + masks.r + masks.g + masks.b);
+
+		mask0 = realMasks[LAYER0_REAL_INDEX];
+		#if LAYERS >= 2
+			mask1 = realMasks[LAYER1_REAL_INDEX];
+		#endif
+		#if LAYERS >= 3
+			mask2 = realMasks[LAYER2_REAL_INDEX];
+		#endif
+	}
+
+	half3 lightDiffuseColor = half3(0,0,0);
+	half3 lightSpecularColor = half3(0,0,0);
+	half lightAttenuationMultiplier = 0;
+	half shadowMultiplier = 1;
+
+#if LIGHT_COUNT >= 1
+	lightDiffuseColor = lightDiffuseColorPowerScaledArray[0].xyz;
+	lightSpecularColor = lightSpecularColorPowerScaledArray[0].xyz;
+	lightAttenuationMultiplier = 1;
+
+	#if defined(LIGHTTYPE_SPOT) || defined(LIGHTTYPE_POINT)
+		lightAttenuationMultiplier *= getLightAttenuation(lightAttenuationArray[0], (half)lightDistance);
+	#endif
+
+	#ifdef LIGHTTYPE_SPOT
+		// factor in spotlight angle
+		half rho0 = saturate(dot(-lightDirectionArray[0].xyz, lightDirection));
+		// factor = (rho - cos(outer/2)) / (cos(inner/2) - cos(outer/2)) ^ falloff 
+		half spotFactor0 = saturate(pow(saturate(rho0 - spotLightParamsArray[0].y) / 
+			(spotLightParamsArray[0].x - spotLightParamsArray[0].y), spotLightParamsArray[0].z));
+		lightAttenuationMultiplier *= spotFactor0;
+	#endif
+
+	//Shadows
+	#ifdef SHADOW_MAP
+		#ifdef SHADOW_PSSM
+			shadowMultiplier = getShadowmapReceiveValue( input.shadowUV0, input.shadowUV1, input.shadowUV2,
+				shadowMap0, shadowMap1, shadowMap2, cameraDistance, lightCastShadowsArray[0], 
+				lightShadowFarClipDistance, shadowFarDistance, shadowTextureSizes, 
+				shadowColorIntensity, shadowDirectionalLightSplitDistances, input.depth, 
+				drawShadowDebugging);
+		#else
+			shadowMultiplier = getShadowmapReceiveValue( input.shadowUV0, shadowMap0, cameraDistance, 
+				lightCastShadowsArray[0], lightShadowFarClipDistance, shadowFarDistance,
+				shadowTextureSizes, shadowColorIntensity);
+		#endif
+	#endif
+
+#endif
+
+	half3 ambientColor = half3(0,0,0);
+#ifdef AMBIENT_PASS
+	ambientColor = ambientLightColor.rgb;
+#endif
+	half lightAttenuationShadowMultiplier = lightAttenuationMultiplier * shadowMultiplier;
+	half3 lightDiffuseMultiplier = lightDiffuseColor * lightAttenuationShadowMultiplier;
+	half3 lightSpecularMultiplier = lightSpecularColor * lightAttenuationShadowMultiplier;
+
+#ifdef LIGHTMAP
+	half3 lightmapColor = (half3)tex2D(lightmap, input.lightmapUV).rgb;
+	#ifdef SHADOW_MAP
+		lightmapColor = min(lightmapColor, 1.0h - sqrt(1.0h - shadowMultiplier));
+	#endif
+#endif
+
+	half3 color = half3(0,0,0);
+
+	//Layer0
+#if LAYERS >= 1
+	{
+		float2 layerBaseUV = worldPositionMinusTerrainPosition.LAYER0_PROJECTION_AXIS * layer0BaseDetailMultipliers.xy + float2(.5f, .5f);
+		float2 layerDetailUV = worldPositionMinusTerrainPosition.LAYER0_PROJECTION_AXIS * layer0BaseDetailMultipliers.zw + float2(.5f, .5f);
+
+		half normalDiffuseMultiplier;
+		half baseNormalSpecularPowParameter;
+		#ifdef LAYER0_BASE_NORMAL_MAP
+			half3 baseNormal = expand((half3)tex2D(layer0BaseNormalMap, layerBaseUV).rgb);
+			baseNormal.z = (half)sqrt(1.0h - dot(baseNormal.xy, baseNormal.xy));
+			normalDiffuseMultiplier = (half)saturate(dot(baseNormal, lightDirectionTangentSpace));
+			baseNormalSpecularPowParameter = (half)saturate(dot(baseNormal, halfAngleForSpecularTangentSpace));
+		#else
+			normalDiffuseMultiplier = (half)saturate(dot(normal, lightDirection));
+			baseNormalSpecularPowParameter = (half)saturate(dot(normal, halfAngleForSpecular));
+		#endif
+
+		#ifdef ALLOW_DETAIL
+			half detailNormalSpecularPowParameter;
+			#ifdef LAYER0_DETAIL_NORMAL_MAP
+				half3 detailNormal = expand((half3)tex2D(layer0DetailNormalMap, layerDetailUV).rgb);
+				detailNormal.z = (half)sqrt(1.0h - dot(detailNormal.xy, detailNormal.xy));
+				half detailNormalMultiplier = (half)saturate(dot(detailNormal, lightDirectionTangentSpace));
+				normalDiffuseMultiplier = lerp(normalDiffuseMultiplier, detailNormalMultiplier, (half)input.detailCoefficient);
+				detailNormalSpecularPowParameter = (half)saturate(dot(detailNormal, halfAngleForSpecularTangentSpace));
+			#else
+				detailNormalSpecularPowParameter = baseNormalSpecularPowParameter;
+			#endif
+		#endif
+
+		half3 diffuseColor = (half3)tex2D(layer0BaseMap, layerBaseUV).rgb;
+		#ifdef LAYER0_DETAIL_MAP
+			half3 detail = (half3)tex2D(layer0DetailMap, layerDetailUV).rgb;// * 2;
+			diffuseColor *= detailCoefficientReverse.xxx + detail * detailCoefficientMul2;
+		#endif
+
+		half3 layerColor;
+		#ifdef LIGHTMAP
+			layerColor = diffuseColor * (ambientColor + lightmapColor);
+		#else
+			layerColor = diffuseColor * (ambientColor + normalDiffuseMultiplier * lightDiffuseMultiplier);
+		#endif
+
+		#if LIGHT_COUNT >= 1 && defined(LAYER0_SPECULAR)
+			half3 baseSpecularColor = layer0SpecularColorAndShininess.rgb;
+			#ifdef LAYER0_BASE_SPECULAR_MAP
+				baseSpecularColor *= (half3)tex2D(layer0BaseSpecularMap, layerBaseUV).rgb;
+			#endif
+			half3 detailSpecularColor = layer0SpecularColorAndShininess.rgb;
+			#ifdef LAYER0_DETAIL_SPECULAR_MAP
+				detailSpecularColor *= (half3)tex2D(layer0DetailSpecularMap, layerDetailUV).rgb;
+			#endif
+
+			#ifdef ALLOW_DETAIL
+				half3 b = baseSpecularColor * pow(baseNormalSpecularPowParameter, layer0SpecularColorAndShininess.w);
+				half3 d = detailSpecularColor * pow(detailNormalSpecularPowParameter, layer0SpecularColorAndShininess.w);
+				layerColor += (half3)lerp(b, d, (half)input.detailCoefficient) * lightSpecularMultiplier;
+			#else
+				layerColor += baseSpecularColor * lightSpecularMultiplier * 
+					pow(baseNormalSpecularPowParameter, layer0SpecularColorAndShininess.w);
+			#endif
+		#endif
+
+		color += layerColor * mask0;
+	}
+#endif
+
+	//Layer1
+#if LAYERS >= 2
+	{
+		float2 layerBaseUV = worldPositionMinusTerrainPosition.LAYER1_PROJECTION_AXIS * layer1BaseDetailMultipliers.xy + float2(.5f, .5f);
+		float2 layerDetailUV = worldPositionMinusTerrainPosition.LAYER1_PROJECTION_AXIS * layer1BaseDetailMultipliers.zw + float2(.5f, .5f);
+
+		half normalDiffuseMultiplier;
+		half baseNormalSpecularPowParameter;
+		#ifdef LAYER1_BASE_NORMAL_MAP
+			half3 baseNormal = expand((half3)tex2D(layer1BaseNormalMap, layerBaseUV).rgb);
+			baseNormal.z = (half)sqrt(1.0h - dot(baseNormal.xy, baseNormal.xy));
+			normalDiffuseMultiplier = (half)saturate(dot(baseNormal, lightDirectionTangentSpace));
+			baseNormalSpecularPowParameter = (half)saturate(dot(baseNormal, halfAngleForSpecularTangentSpace));
+		#else
+			normalDiffuseMultiplier = (half)saturate(dot(normal, lightDirection));
+			baseNormalSpecularPowParameter = (half)saturate(dot(normal, halfAngleForSpecular));
+		#endif
+
+		#ifdef ALLOW_DETAIL
+			half detailNormalSpecularPowParameter;
+			#ifdef LAYER1_DETAIL_NORMAL_MAP
+				half3 detailNormal = expand((half3)tex2D(layer1DetailNormalMap, layerDetailUV).rgb);
+				detailNormal.z = (half)sqrt(1.0h - dot(detailNormal.xy, detailNormal.xy));
+				half detailNormalMultiplier = (half)saturate(dot(detailNormal, lightDirectionTangentSpace));
+				normalDiffuseMultiplier = lerp(normalDiffuseMultiplier, detailNormalMultiplier, (half)input.detailCoefficient);
+				detailNormalSpecularPowParameter = (half)saturate(dot(detailNormal, halfAngleForSpecularTangentSpace));
+			#else
+				detailNormalSpecularPowParameter = baseNormalSpecularPowParameter;
+			#endif
+		#endif
+
+		half3 diffuseColor = (half3)tex2D(layer1BaseMap, layerBaseUV).rgb;
+		#ifdef LAYER1_DETAIL_MAP
+			half3 detail = (half3)tex2D(layer1DetailMap, layerDetailUV).rgb;// * 2;
+			diffuseColor *= detailCoefficientReverse.xxx + detail * detailCoefficientMul2;
+		#endif
+
+		half3 layerColor;
+		#ifdef LIGHTMAP
+			layerColor = diffuseColor * (ambientColor + lightmapColor);
+		#else
+			layerColor = diffuseColor * (ambientColor + normalDiffuseMultiplier * lightDiffuseMultiplier);
+		#endif
+
+		#if LIGHT_COUNT >= 1 && defined(LAYER1_SPECULAR)
+			half3 baseSpecularColor = layer1SpecularColorAndShininess.rgb;
+			#ifdef LAYER1_BASE_SPECULAR_MAP
+				baseSpecularColor *= (half3)tex2D(layer1BaseSpecularMap, layerBaseUV).rgb;
+			#endif
+			half3 detailSpecularColor = layer1SpecularColorAndShininess.rgb;
+			#ifdef LAYER1_DETAIL_SPECULAR_MAP
+				detailSpecularColor *= (half3)tex2D(layer1DetailSpecularMap, layerDetailUV).rgb;
+			#endif
+
+			#ifdef ALLOW_DETAIL
+				half3 b = baseSpecularColor * pow(baseNormalSpecularPowParameter, layer1SpecularColorAndShininess.w);
+				half3 d = detailSpecularColor * pow(detailNormalSpecularPowParameter, layer1SpecularColorAndShininess.w);
+				layerColor += (half3)lerp(b, d, (half)input.detailCoefficient) * lightSpecularMultiplier;
+			#else
+				layerColor += baseSpecularColor * lightSpecularMultiplier * 
+					pow(baseNormalSpecularPowParameter, layer1SpecularColorAndShininess.w);
+			#endif
+		#endif
+
+		color += layerColor * mask1;
+	}
+#endif
+
+	//Layer2
+#if LAYERS >= 3
+	{
+		float2 layerBaseUV = worldPositionMinusTerrainPosition.LAYER2_PROJECTION_AXIS * layer2BaseDetailMultipliers.xy + float2(.5f, .5f);
+		float2 layerDetailUV = worldPositionMinusTerrainPosition.LAYER2_PROJECTION_AXIS * layer2BaseDetailMultipliers.zw + float2(.5f, .5f);
+
+		half normalDiffuseMultiplier;
+		half baseNormalSpecularPowParameter;
+		#ifdef LAYER2_BASE_NORMAL_MAP
+			half3 baseNormal = expand((half3)tex2D(layer2BaseNormalMap, layerBaseUV).rgb);
+			baseNormal.z = (half)sqrt(1.0h - dot(baseNormal.xy, baseNormal.xy));
+			normalDiffuseMultiplier = (half)saturate(dot(baseNormal, lightDirectionTangentSpace));
+			baseNormalSpecularPowParameter = (half)saturate(dot(baseNormal, halfAngleForSpecularTangentSpace));
+		#else
+			normalDiffuseMultiplier = (half)saturate(dot(normal, lightDirection));
+			baseNormalSpecularPowParameter = (half)saturate(dot(normal, halfAngleForSpecular));
+		#endif
+
+		#ifdef ALLOW_DETAIL
+			half detailNormalSpecularPowParameter;
+			#ifdef LAYER2_DETAIL_NORMAL_MAP
+				half3 detailNormal = expand((half3)tex2D(layer2DetailNormalMap, layerDetailUV).rgb);
+				detailNormal.z = (half)sqrt(1.0h - dot(detailNormal.xy, detailNormal.xy));
+				half detailNormalMultiplier = (half)saturate(dot(detailNormal, lightDirectionTangentSpace));
+				normalDiffuseMultiplier = lerp(normalDiffuseMultiplier, detailNormalMultiplier, (half)input.detailCoefficient);
+				detailNormalSpecularPowParameter = (half)saturate(dot(detailNormal, halfAngleForSpecularTangentSpace));
+			#else
+				detailNormalSpecularPowParameter = baseNormalSpecularPowParameter;
+			#endif
+		#endif
+
+		half3 diffuseColor = (half3)tex2D(layer2BaseMap, layerBaseUV).rgb;
+		#ifdef LAYER2_DETAIL_MAP
+			half3 detail = (half3)tex2D(layer2DetailMap, layerDetailUV).rgb;// * 2;
+			diffuseColor *= detailCoefficientReverse.xxx + detail * detailCoefficientMul2;
+		#endif
+
+		half3 layerColor;
+		#ifdef LIGHTMAP
+			layerColor = diffuseColor * (ambientColor + lightmapColor);
+		#else
+			layerColor = diffuseColor * (ambientColor + normalDiffuseMultiplier * lightDiffuseMultiplier);
+		#endif
+
+		#if LIGHT_COUNT >= 1 && defined(LAYER2_SPECULAR)
+			half3 baseSpecularColor = layer2SpecularColorAndShininess.rgb;
+			#ifdef LAYER2_BASE_SPECULAR_MAP
+				baseSpecularColor *= (half3)tex2D(layer2BaseSpecularMap, layerBaseUV).rgb;
+			#endif
+			half3 detailSpecularColor = layer2SpecularColorAndShininess.rgb;
+			#ifdef LAYER2_DETAIL_SPECULAR_MAP
+				detailSpecularColor *= (half3)tex2D(layer2DetailSpecularMap, layerDetailUV).rgb;
+			#endif
+
+			#ifdef ALLOW_DETAIL
+				half3 b = baseSpecularColor * pow(baseNormalSpecularPowParameter, layer2SpecularColorAndShininess.w);
+				half3 d = detailSpecularColor * pow(detailNormalSpecularPowParameter, layer2SpecularColorAndShininess.w);
+				layerColor += (half3)lerp(b, d, (half)input.detailCoefficient) * lightSpecularMultiplier;
+			#else
+				layerColor += baseSpecularColor * lightSpecularMultiplier * 
+					pow(baseNormalSpecularPowParameter, layer2SpecularColorAndShininess.w);
+			#endif
+		#endif
+
+		color += layerColor * mask2;
+	}
+#endif
+	
+#ifdef AMBIENT_OCCLUSION
+	color *= (half)tex2D(ambientOcclusionMap, input.holeAndAmbientOcclusionUV.zw).x;
+#endif
+
+	//Fog
+#ifdef FOG_ENABLED
+	half fog = getFogValue(cameraDistance, fogParams);
+	color *= fog;
+	#ifdef ADD_FOG_COLOR
+		color += fogColor.rgb * (1.0h - fog);
+	#endif
+#endif
+
+#if defined(LOD_ENABLED)
+	if(showLODLevelColor.x >= 0)
+		color = showLODLevelColor;
+#endif
+
+	//Result
+	output.color = half4(color, 1);
+#if defined(DEPTH_WRITE) && defined(DIRECT3D)
+	output.depth = float4(input.depth / farClipDistance, 0, 0, 0);
+	//output.depth = float4(packNormalized3(input.depth / farClipDistance), 0);
+#endif
+	return output;
+}

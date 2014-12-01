@@ -1,0 +1,14 @@
+type MapCurve
+{
+	class = MapCurve
+	pointType = MapCurvePoint
+	creatableInMapEditor = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\MapCurve.mesh"
+			onlyForEditor = True
+		}
+	}
+}

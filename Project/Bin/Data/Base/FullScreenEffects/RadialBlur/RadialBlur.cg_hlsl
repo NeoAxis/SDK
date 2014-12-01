@@ -1,0 +1,22 @@
+float4 main_fp(
+	uniform float2 center,
+	uniform float blurFactor,
+
+	float2 texCoord : TEXCOORD0,
+
+	uniform sampler2D RT : register(s0)
+) : COLOR
+{	
+	const int samples = 16;
+
+	float4 color = 0;
+
+	for(int n = 0; n < samples; n++) 
+	{ 
+		float scale = 1.0f - blurFactor * (n / (float)(samples - 1));
+		color += tex2D(RT, (texCoord - center) * scale + center ); 
+	} 
+	color /= samples; 
+
+	return color;
+}

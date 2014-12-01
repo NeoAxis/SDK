@@ -1,0 +1,63 @@
+<html>
+
+<head>
+<meta http-equiv="Content-Type"
+content="text/html; charset=iso-8859-1">
+<title>ReadMe OS X</title>
+<link rel="stylesheet" href="stylesheet.css" type="text/css">
+</head>
+
+<body>
+<h1 style="TEXT-ALIGN: center">ReadMe OS X</h1>
+
+<blockquote>
+	<h4>Location of Binaries:</h4>
+	<ul>
+		<li>SDK static libraries: Lib/(osx32|osx64)</li>
+		<li>Sample executables: Bin/(osx32|osx64)</li>
+	</ul>	
+
+	<h4>Building SDK Source with the Shipped Makefiles:</h4>
+	<ul>
+		<li>Makefiles are in Source/compiler/(make_osx32public|make_osx64public)</li>
+		<li>Clean solution: make clean</li>
+		<li>Build all configurations: make</li>
+		<li>Build specific configuration: make (debug|checked|profile|release)</li>
+	</ul>
+
+	<h4>Building SDK Source with XCode:</h4>
+	<ul>
+		<li>XCode projects are in Source/compiler/(xcode_osx32public|xcode_osx64public)</li>
+		<li>Source Distribution: Open PhysX.xcodeproj to build the entire SDK source within XCode</li>
+		<li>Binary Distribution: Open PhysXExtensions.xcodeproj, PhysXCharacterKinematic.xcodeproj or PhysXVehicle.xcodeproj to build the available SDK source within XCode</li>
+		<li>Build from command line using e.g.: xcodebuild -project PhysX.xcodeproj -alltargets -configuration (debug|checked|profile|release)</li>
+        <li>In order to rebuild the metadata(runClang_release.bat), be sure to download the windows source distro first and unzip it to same directory as the osx distro.</li>
+	</ul>
+
+	<h4>Building and Running Samples with XCode:</h4>
+	<ul>
+		<li>Open XCode project in Samples/compiler/(xcode_osx32public|xcode_osx64public)/Samples.xcodeproj</li>
+		<li>Select "Samples" scheme from the drop down list</li>
+		<li>Change "Debugger" to "LLDB" in (Edit Scheme... , Run), see "Known XCode 4.2 issues" below</li>
+		<li>Press "Run" to build and run the Samples</li>
+		<li>In order to build and run release mode you need to select "Edit Scheme..." and change the "Build Configuration" to "release". Additionally, after building, you need to manually choose the "Executable" under ".../Bin/(osx32|osx64)/Samples". See "Known XCode 4.2 issues" below.</li>
+	</ul>
+	
+	<h4>Notes:</h4>
+	<ul>
+		<li>No support for building the Samples with makefiles currently</li>
+		<li>Current xcode projects target XCode 4.2 and MacOSX10.6</li>
+		<li>Known XCode 4.2 issues:</li>
+		<ul>
+			<li>Differently named products across configurations don't seem to be supported properly. Changing the active configuration (Edit Scheme... , Run , Build Configuration) doesn't adjust the Executable products appropriately. The executable may have to be picked manually under (Executable , Other...).</li>	
+			<li>Running osx application bundles with GDB doesn't seem to be supported. The problem is not exposed when using LLDB.</li>	
+		</ul>
+	</ul>
+
+</blockquote>
+
+<p><br>
+Copyright (C) 2008-2012 NVIDIA Corporation, 2701 San Thomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved. <A href="http://www.nvidia.com">www.nvidia.com</A>
+</p>
+</body>       
+</html>

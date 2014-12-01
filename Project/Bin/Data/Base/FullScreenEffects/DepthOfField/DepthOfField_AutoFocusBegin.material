@@ -1,0 +1,53 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+fragment_program Compositor/DepthOfField/AutoFocusBegin_hlsl hlsl
+{
+	source Base\FullScreenEffects\DepthOfField\DepthOfField.cg_hlsl
+	entry_point autoFocusBegin
+	target ps_3_0
+}
+
+fragment_program Compositor/DepthOfField/AutoFocusBegin_cg cg
+{
+	source Base\FullScreenEffects\DepthOfField\DepthOfField.cg_hlsl
+	entry_point autoFocusBegin
+	profiles arbfp1
+}
+
+fragment_program Compositor/DepthOfField/AutoFocusBegin unified
+{
+	delegate Compositor/DepthOfField/AutoFocusBegin_hlsl
+	delegate Compositor/DepthOfField/AutoFocusBegin_cg
+}
+
+material Compositor/DepthOfField/AutoFocusBegin
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+			fragment_program_ref Compositor/DepthOfField/AutoFocusBegin
+			{
+			}
+
+			// depth buffer
+			texture_unit
+			{
+				//reference to depth buffer of the scene. "additional_mrt_{index}" is a magic word.
+				texture additional_mrt_0 2d
+				tex_address_mode clamp
+				filtering none
+			}
+		}
+	}
+}

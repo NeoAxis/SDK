@@ -1,0 +1,28 @@
+fullName = "NVIDIA PhysX Engine"
+componentTypes = "PhysicsSystem"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "PhysXPhysicsSystem.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\PhysX*.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\PhysX*.dll"
+	platforms = "Windows"
+}
+
+path
+{
+	path = "NativeDlls/MacOSX_x86/PhysXNativeWrapper.dylib"
+	platforms = "MacOSX"
+}	

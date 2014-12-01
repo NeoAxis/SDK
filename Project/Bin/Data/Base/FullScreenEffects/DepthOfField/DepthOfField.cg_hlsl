@@ -1,0 +1,331 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+//downscale
+half4 downscale(
+	uniform half2 sampleOffsets[16],
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+	) : COLOR
+{
+	//downScale4x4
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 16; n++)
+		sample += (half4)tex2D(sourceTexture, uv + sampleOffsets[n]);
+	sample /= 16;
+
+	return sample;
+}
+
+//Blur pass
+half4 blur(
+	uniform half2 sampleOffsets[15],
+	uniform half4 sampleWeights[15],	
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+	) : COLOR
+{
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 15; n++)
+	{
+		half4 color = (half4)tex2D(sourceTexture, uv + sampleOffsets[n]);
+		sample += sampleWeights[n] * color;
+	}
+	return sample;
+}
+
+float4 autoFocusBegin(
+	uniform float farClipDistance,
+	half2 uv : TEXCOORD0,
+	uniform sampler2D depthMap : register(s0)
+    ) : COLOR
+{
+	//simple method. get by the center of the screen.
+	//{
+	//	float normalizedDepth = tex2D(depthMap, float2(.5f, .5f)).r;
+	//	float depth = normalizedDepth * farClipDistance;
+	//	return float4(depth, 0, 0, 0);
+	//}
+	
+	//get values by ellipse volume in the center of screen.
+	const float sizePart = .1f;
+	float2 v = uv * 2 - 1;
+	v = normalize(v);//clamp from quad to ellipse
+	float2 sourceUV = (( v * sizePart ) + 1) / 2;
+
+	//write depth to the texture
+	float normalizedDepth = tex2D(depthMap, sourceUV).r;
+	float depth = normalizedDepth * farClipDistance;
+	return float4(depth, 0, 0, 0);
+}
+
+//down scale 4x4
+float4 autoFocusIteration(
+	uniform half2 sampleOffsets[16],
+	half2 uv : TEXCOORD0,
+	uniform sampler2D tex : register(s0)
+	) : COLOR
+{
+	//calculate minimal values during downsamping.
+	float minimal = 1000000;
+	for(int n = 0; n < 16; n++)
+	{
+		float depth = tex2D(tex, uv + sampleOffsets[n]).r;
+		if(depth < minimal)
+			minimal = depth;
+	}
+	return half4(minimal, 0, 0, 0);
+}
+
+//find destination focal distance, calculate new focal distance.
+float4 autoFocusFinal(
+	uniform float3 properties,
+	float2 uv : TEXCOORD0,
+	uniform sampler2D autoFocus3Texture : register(s0),
+	uniform sampler2D autoFocusCurrentTexture : register(s1)
+	) : COLOR
+{
+	float autoFocusRangeMinimum = properties.x;
+	float autoFocusRangeMaximum = properties.y;
+	float step = properties.z;
+
+	//calculate destination focal distance
+	float destinationDistance = 1000000;
+	for(float y = .125f; y < 1; y += .25f)
+	{
+		for(float x = .125f; x < 1; x += .25f)
+		{
+			float depth = tex2D(autoFocus3Texture, float2(x, y)).r;
+			if(depth < destinationDistance)
+				destinationDistance = depth;
+		}
+	}
+
+	//update current focal distance
+	float focalDistance = tex2D(autoFocusCurrentTexture, float2(.5f, .5f)).r;
+	focalDistance = clamp(focalDistance, autoFocusRangeMinimum, autoFocusRangeMaximum);
+	if( focalDistance < destinationDistance )
+	{
+		focalDistance += step;
+		if( focalDistance > destinationDistance )
+			focalDistance = destinationDistance;
+	}
+	else if( focalDistance > destinationDistance )
+	{
+		focalDistance -= step;
+		if( focalDistance < destinationDistance )
+			focalDistance = destinationDistance;
+	}
+
+	return float4(focalDistance, 0, 0, 0);
+}
+
+//copy current focal distance from Final to Current texture
+float4 autoFocusCurrent(
+	float2 uv : TEXCOORD0,
+	uniform sampler2D tex : register(s0)
+	) : COLOR
+{
+	float distance = tex2D(tex, float2(.5f, .5f)).r;
+	return float4(distance, 0, 0, 0);
+}
+
+//Final scene composition
+half4 final(
+	uniform float farClipDistance,
+	uniform float4 properties,
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sceneTexture : register(s0),
+	uniform sampler2D blurTexture : register(s1),
+	uniform sampler2D autoFocusCurrentTexture : register(s2),
+	uniform sampler2D depthMap : register(s3)
+	) : COLOR
+{
+	float focalDistance = properties.x;
+	float focalSize = properties.y;
+	float backgroundTransitionLength = properties.z;
+	float foregroundTransitionLength = properties.w;
+
+	//get scene and blurred scene colors
+	half3 sceneColor = (half3)tex2D(sceneTexture, uv).rgb;
+	half3 blurColor = (half3)tex2D(blurTexture, uv).rgb;
+
+	//calculate focal distance for auto focus mode
+	if(focalDistance < 0)
+		focalDistance = tex2D(autoFocusCurrentTexture, float2(.5f, .5f)).r;
+
+	float halfFocalSize = focalSize / 2;
+	float startBackgroundDistance = focalDistance + halfFocalSize;
+	float startForegroundDistance = focalDistance - halfFocalSize;
+
+	//get depth
+	float normalizedDepth = tex2D(depthMap, uv).r;
+	float depth = normalizedDepth * farClipDistance;
+
+	//calculate blur factor
+	float blurFactor;
+	if(depth > focalDistance)
+	{
+		blurFactor = (depth - startBackgroundDistance) / backgroundTransitionLength;
+		////don't blur the sky
+		//if( normalizedDepth > .98f)
+		//	blurFactor = 0;
+	}
+	else
+	{
+		if(foregroundTransitionLength >= 0)
+			blurFactor = (startForegroundDistance - depth) / foregroundTransitionLength;
+		else
+			blurFactor = 0;
+	}
+	blurFactor = saturate(blurFactor);
+
+	//calculate result color
+	half3 color = (half3)lerp(sceneColor, blurColor, blurFactor);
+
+	return half4(color, 1.0f);
+}
+
+
+/*
+//calculate blur factors
+float4 blurFactors(
+	uniform float farClipDistance,
+	uniform float4 properties,
+	half2 uv : TEXCOORD0,
+	uniform sampler2D autoFocusCurrentTexture : register(s0),
+	uniform sampler2D depthMap : register(s1)
+	) : COLOR
+{
+	float focalDistance = properties.x;
+	float focalSize = properties.y;
+	float backgroundTransitionLength = properties.z;
+	float foregroundTransitionLength = properties.w;
+
+	//calculate focal distance for auto focus mode
+	if(focalDistance < 0)
+		focalDistance = tex2D(autoFocusCurrentTexture, float2(.5f, .5f)).r;
+
+	float halfFocalSize = focalSize / 2;
+	float startBackgroundDistance = focalDistance + halfFocalSize;
+	float startForegroundDistance = focalDistance - halfFocalSize;
+
+	//get depth
+	float normalizedDepth = tex2D(depthMap, uv).r;
+	float depth = normalizedDepth * farClipDistance;
+
+	//calculate blur factor
+	float blurFactor;
+	if(depth > focalDistance)
+	{
+		blurFactor = (depth - startBackgroundDistance) / backgroundTransitionLength;
+
+		////don't blur the sky
+		//if( normalizedDepth > .98f)
+		//	blurFactor = 0;
+	}
+	else
+	{
+		if(foregroundTransitionLength >= 0)
+			blurFactor = (startForegroundDistance - depth) / foregroundTransitionLength;
+		else
+			blurFactor = 0;
+	}
+	blurFactor = saturate(blurFactor);
+
+	return float4(blurFactor, 0, 0, 0);
+}
+
+//Final scene composition
+half4 final(
+	uniform half2 sampleOffsets[49],
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sceneTexture : register(s0),
+	uniform sampler2D blurTexture : register(s1),
+	uniform sampler2D blurFactorsTexture : register(s2)
+	) : COLOR
+{
+	//get scene and blurred scene colors
+	half3 sceneColor = (half3)tex2D(sceneTexture, uv).rgb;
+	half3 blurColor = (half3)tex2D(blurTexture, uv).rgb;
+
+	//get blur factors in area of current pixel
+	half blurFactors[7][7];
+	for(int y = -3; y <= 3; y++)
+	{
+		for(int x = -3; x <= 3; x++)
+		{
+			if(abs((float)x) + abs((float)y) < 4)
+			{
+				half2 offset = sampleOffsets[(y + 3) * 7 + (x +3)];
+				blurFactors[x + 3][y + 3] = (half)tex2D(blurFactorsTexture, uv + offset).r;
+			}
+		}
+	}
+
+	//get blur factor of current pixel
+	half currentBlurFactor = blurFactors[3][3];
+
+	//now find near pixels which have bigger blur factor. if found, then add more blur to the current pixel.
+	//we doing this operation for smoothing sharp borders.
+	{
+		//pattern:
+		//   3
+		//  323
+		// 32123
+		//3210123
+		// 32123
+		//  323
+		//   3
+
+		const int x = 3;
+		const int y = 3;
+
+		//1 pixel
+		{
+			half nearMax = max(
+				max(blurFactors[x - 1][y - 0], blurFactors[x + 1][y - 0]),
+				max(blurFactors[x - 0][y - 1], blurFactors[x + 0][y + 1]));
+			if(currentBlurFactor < nearMax)
+				currentBlurFactor = max(currentBlurFactor, nearMax * .75h);				
+		}
+
+		//2 pixels
+		{
+			half nearMax = max(
+				max(
+					max(blurFactors[x - 2][y - 0], blurFactors[x + 2][y - 0]),
+					max(blurFactors[x - 0][y - 2], blurFactors[x + 0][y + 2])),
+				max(
+					max(blurFactors[x - 1][y - 1], blurFactors[x - 1][y + 1]),
+					max(blurFactors[x + 1][y - 1], blurFactors[x + 1][y + 1]))
+				);
+			if(currentBlurFactor < nearMax)
+				currentBlurFactor = max(currentBlurFactor, nearMax * .5h);
+		}
+
+		//3 pixels
+		{
+			half nearMax = max(
+				max(
+					max(
+						max(blurFactors[x - 3][y - 0], blurFactors[x + 3][y - 0]),
+						max(blurFactors[x - 0][y - 3], blurFactors[x + 0][y + 3])),
+					max(
+						max(blurFactors[x - 2][y - 1], blurFactors[x - 1][y - 2]),
+						max(blurFactors[x + 2][y - 1], blurFactors[x + 1][y - 2]))
+					),
+				max(
+					max(blurFactors[x - 2][y + 1], blurFactors[x + 1][y + 2]),
+					max(blurFactors[x - 1][y + 2], blurFactors[x + 2][y + 1]))
+				);
+			if(currentBlurFactor < nearMax)
+				currentBlurFactor = max(currentBlurFactor, nearMax * .25h);
+		}
+	}
+
+	//calculate result color
+	half3 color = (half3)lerp(sceneColor, blurColor, currentBlurFactor);
+
+	return half4(color, 1.0f);
+}
+*/

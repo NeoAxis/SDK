@@ -1,0 +1,1559 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>EngineApp</name>
+    </assembly>
+    <members>
+        <member name="T:Engine.InputDeviceManager">
+            <summary>
+            Describes class for managing input devices.
+            </summary>
+        </member>
+        <member name="M:Engine.InputDeviceManager.RegisterDevice(Engine.InputDevice)">
+            <summary>
+            Device must call this after creation to register itself in system 
+            </summary>
+            <param name="device"></param>
+            <returns></returns>
+        </member>
+        <member name="P:Engine.InputDeviceManager.Devices">
+            <summary>
+            Get registered devices. <b>Don't modify</b>.
+            </summary>
+        </member>
+        <member name="T:Engine.MacOSXInputDeviceManager">
+            <summary>
+            Describes singleton class for managing input devices
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawStaticPhysics">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw static physics.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawDynamicPhysics">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw dynamic physics.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawPhysicsRayVolumeChecks">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to visualize ray casts, volume casts which happens during updating this frame.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawSceneGraphOfSceneObjects">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw scene graph of scene objects.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawSceneGraphOfMapObjects">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw scene graph of MapObjects.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawRegions">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw regions.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawMapObjectBounds">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw map object bounds.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawSceneNodeBounds">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw scene node bounds.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawStaticMeshObjectBounds">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw static mesh object bounds.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawZonesPortalsOccluders">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw zones, portals and occluders.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawLights">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw lights.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawStaticGeometry">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw static geometry.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawModels">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw models.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawEffects">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw effects.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawGui">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw GUI.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawWireframe">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw world as wireframe.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.DrawGameSpecificDebugGeometry">
+            <summary>
+            Gets or sets a value indicating whether showing it is necessary to draw game specific debug geometry.
+            </summary>
+        </member>
+        <member name="P:Engine.EngineDebugSettings.FrustumTest">
+            <summary>
+            Gets or sets the frustum test mode state.
+            </summary>
+        </member>
+        <member name="P:Engine.Config.Parameters">
+            <summary>
+            Dot'n modify
+            </summary>
+        </member>
+        <member name="T:Engine.InputDevice">
+            <summary>
+            Describes input device.
+            </summary>
+        </member>
+        <member name="T:Engine.EKeys">
+            <summary>
+            Specifies keyboard key codes.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Cancel">
+            <summary>
+            The CANCEL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Back">
+            <summary>
+            The BACKSPACE key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Tab">
+            <summary>
+            The TAB key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LineFeed">
+            <summary>
+            The LINEFEED key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Clear">
+            <summary>
+            The CLEAR key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Enter">
+            <summary>
+            The ENTER key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Return">
+            <summary>
+            The RETURN key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Shift">
+            <summary>
+            The SHIFT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Control">
+            <summary>
+            The CTRL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Menu">
+            <summary>
+            The ALT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Alt">
+            <summary>
+            The ALT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Pause">
+            <summary>
+            The PAUSE key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.CapsLock">
+            <summary>
+            The CAPS LOCK key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Capital">
+            <summary>
+            The CAPS LOCK key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.KanaMode">
+            <summary>
+            The IME Kana mode key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.HangulMode">
+            <summary>
+            The IME Hangul mode key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.JunjaMode">
+            <summary>
+            The IME Junja mode key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.FinalMode">
+            <summary>
+            The IME final mode key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.KanjiMode">
+            <summary>
+            The IME Kanji mode key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.HanjaMode">
+            <summary>
+            The IME Hanja mode key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Escape">
+            <summary>
+            The ESC key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.IMEConvert">
+            <summary>
+            The IME convert key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.IMENonconvert">
+            <summary>
+            The IME nonconvert key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.IMEAccept">
+            <summary>
+            The IME accept key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.IMEModeChange">
+            <summary>
+            The IME mode change key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Space">
+            <summary>
+            The SPACEBAR key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Prior">
+            <summary>
+            The PAGE UP key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.PageUp">
+            <summary>
+            The PAGE UP key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Next">
+            <summary>
+            The PAGE DOWN key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.PageDown">
+            <summary>
+            The PAGE DOWN key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.End">
+            <summary>
+            The END key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Home">
+            <summary>
+            The HOME key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Left">
+            <summary>
+            The LEFT ARROW key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Up">
+            <summary>
+            The UP ARROW key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Right">
+            <summary>
+            The RIGHT ARROW key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Down">
+            <summary>
+            The DOWN ARROW key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Select">
+            <summary>
+            The SELECT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Print">
+            <summary>
+            The PRINT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Execute">
+            <summary>
+            The EXECUTE key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.PrintScreen">
+            <summary>
+            The PRINT SCREEN key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Snapshot">
+            <summary>
+            The PRINT SCREEN key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Insert">
+            <summary>
+            The INS key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Delete">
+            <summary>
+            The DEL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Help">
+            <summary>
+            The HELP key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D0">
+            <summary>
+            The 0 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D1">
+            <summary>
+            The 1 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D2">
+            <summary>
+            The 2 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D3">
+            <summary>
+            The 3 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D4">
+            <summary>
+            The 4 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D5">
+            <summary>
+            The 5 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D6">
+            <summary>
+            The 6 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D7">
+            <summary>
+            The 7 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D8">
+            <summary>
+            The 8 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D9">
+            <summary>
+            The 9 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.A">
+            <summary>
+            The A key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.B">
+            <summary>
+            The B key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.C">
+            <summary>
+            The C key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.D">
+            <summary>
+            The D key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.E">
+            <summary>
+            The E key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F">
+            <summary>
+            The F key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.G">
+            <summary>
+            The G key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.H">
+            <summary>
+            The H key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.I">
+            <summary>
+            The I key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.J">
+            <summary>
+            The J key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.K">
+            <summary>
+            The K key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.L">
+            <summary>
+            The L key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.M">
+            <summary>
+            The M key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.N">
+            <summary>
+            The N key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.O">
+            <summary>
+            The O key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.P">
+            <summary>
+            The P key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Q">
+            <summary>
+            The Q key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.R">
+            <summary>
+            The R key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.S">
+            <summary>
+            The S key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.T">
+            <summary>
+            The T key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.U">
+            <summary>
+            The U key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.V">
+            <summary>
+            The V key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.W">
+            <summary>
+            The W key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.X">
+            <summary>
+            The X key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Y">
+            <summary>
+            The Y key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Z">
+            <summary>
+            The Z key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LWin">
+            <summary>
+            The left Windows logo key (Microsoft Natural Keyboard).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.RWin">
+            <summary>
+            The right Windows logo key (Microsoft Natural Keyboard).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Apps">
+            <summary>
+            The application key (Microsoft Natural Keyboard).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Sleep">
+            <summary>
+            The computer sleep key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad0">
+            <summary>
+            The 0 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad1">
+            <summary>
+            The 1 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad2">
+            <summary>
+            The 2 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad3">
+            <summary>
+            The 3 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad4">
+            <summary>
+            The 4 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad5">
+            <summary>
+            The 5 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad6">
+            <summary>
+            The 6 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad7">
+            <summary>
+            The 7 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad8">
+            <summary>
+            The 8 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPad9">
+            <summary>
+            The 9 key on the numeric keypad.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Multiply">
+            <summary>
+            The multiply key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Add">
+            <summary>
+            The add key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Separator">
+            <summary>
+            The separator key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Subtract">
+            <summary>
+            The subtract key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Decimal">
+            <summary>
+            The decimal key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Divide">
+            <summary>
+            The divide key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F1">
+            <summary>
+            The F1 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F2">
+            <summary>
+            The F2 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F3">
+            <summary>
+            The F3 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F4">
+            <summary>
+            The F4 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F5">
+            <summary>
+            The F5 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F6">
+            <summary>
+            The F6 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F7">
+            <summary>
+            The F7 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F8">
+            <summary>
+            The F8 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F9">
+            <summary>
+            The F9 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F10">
+            <summary>
+            The F10 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F11">
+            <summary>
+            The F11 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F12">
+            <summary>
+            The F12 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F13">
+            <summary>
+            The F13 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F14">
+            <summary>
+            The F14 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F15">
+            <summary>
+            The F15 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F16">
+            <summary>
+            The F16 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F17">
+            <summary>
+            The F17 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F18">
+            <summary>
+            The F18 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F19">
+            <summary>
+            The F19 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F20">
+            <summary>
+            The F20 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F21">
+            <summary>
+            The F21 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F22">
+            <summary>
+            The F22 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F23">
+            <summary>
+            The F23 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.F24">
+            <summary>
+            The F24 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumLock">
+            <summary>
+            The NUM LOCK key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Scroll">
+            <summary>
+            The SCROLL LOCK key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LShift">
+            <summary>
+            The left SHIFT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.RShift">
+            <summary>
+            The right SHIFT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LControl">
+            <summary>
+            The left CTRL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.RControl">
+            <summary>
+            The right CTRL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LAlt">
+            <summary>
+            The left ALT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LMenu">
+            <summary>
+            The left ALT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.RAlt">
+            <summary>
+            The right ALT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.RMenu">
+            <summary>
+            The right ALT key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserBack">
+            <summary>
+            The browser back key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserForward">
+            <summary>
+            The browser forward key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserRefresh">
+            <summary>
+            The browser refresh key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserStop">
+            <summary>
+            The browser stop key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserSearch">
+            <summary>
+            The browser search key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserFavorites">
+            <summary>
+            The browser favorites key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.BrowserHome">
+            <summary>
+            The browser home key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.VolumeMute">
+            <summary>
+            The volume mute key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.VolumeDown">
+            <summary>
+            The volume down key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.VolumeUp">
+            <summary>
+            The volume up key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaNextTrack">
+            <summary>
+            The media next track key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaPreviousTrack">
+            <summary>
+            The media previous track key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaStop">
+            <summary>
+            The media Stop key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaPlayPause">
+            <summary>
+            The media play pause key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LaunchMail">
+            <summary>
+            The launch mail key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.SelectMedia">
+            <summary>
+            The select media key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LaunchApplication1">
+            <summary>
+            The start application one key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LaunchApplication2">
+            <summary>
+            The start application two key (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem1">
+            <summary>
+            The OEM 1 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemSemicolon">
+            <summary>
+            The OEM Semicolon key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oemplus">
+            <summary>
+            The OEM plus key on any country/region keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oemcomma">
+            <summary>
+            The OEM comma key on any country/region keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemMinus">
+            <summary>
+            The OEM minus key on any country/region keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemPeriod">
+            <summary>
+            The OEM period key on any country/region keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemQuestion">
+            <summary>
+            The OEM question mark key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem2">
+            <summary>
+            The OEM 2 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oemtilde">
+            <summary>
+            The OEM tilde key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem3">
+            <summary>
+            The OEM 3 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem4">
+            <summary>
+            The OEM 4 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemOpenBrackets">
+            <summary>
+            The OEM open bracket key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemPipe">
+            <summary>
+            The OEM pipe key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem5">
+            <summary>
+            The OEM 5 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem6">
+            <summary>
+            The OEM 6 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemCloseBrackets">
+            <summary>
+            The OEM close bracket key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem7">
+            <summary>
+            The OEM 7 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemQuotes">
+            <summary>
+            The OEM singled/double quote key on a US standard keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem8">
+            <summary>
+            The OEM 8 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Oem102">
+            <summary>
+            The OEM 102 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemBackslash">
+            <summary>
+            The OEM angle bracket or backslash key on the RT 102 key keyboard (Windows 2000 or later).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ProcessKey">
+            <summary>
+            The PROCESS KEY key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Attn">
+            <summary>
+            The ATTN key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Crsel">
+            <summary>
+            The CRSEL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Exsel">
+            <summary>
+            The EXSEL key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.EraseEof">
+            <summary>
+            The ERASE EOF key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Play">
+            <summary>
+            The PLAY key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Zoom">
+            <summary>
+            The ZOOM key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Pa1">
+            <summary>
+            The PA1 key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.OemClear">
+            <summary>
+            The CLEAR key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Paragraph">
+            <summary>
+            The paragraph key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Function">
+            <summary>
+            The function key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Command">
+            <summary>
+            The command key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.LCommand">
+            <summary>
+            The left command key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.RCommand">
+            <summary>
+            The right command key.
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaClose">
+            <summary>
+            The media eject key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaEject">
+            <summary>
+            The media eject key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaFastForward">
+            <summary>
+            The media fast forward key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaPause">
+            <summary>
+            The media pause key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaPlay">
+            <summary>
+            The media play key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaRecord">
+            <summary>
+            The media record key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MediaRewind">
+            <summary>
+            The media rewind key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.AndroidMenu">
+            <summary>
+            The menu key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ZoomIn">
+            <summary>
+            The zoom in key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ZoomOut">
+            <summary>
+            The zoom out key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MetaLeft">
+            <summary>
+            The meta left key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.MetaRight">
+            <summary>
+            The meta right key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Notification">
+            <summary>
+            The notification key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.AndroidNum">
+            <summary>
+            The num key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ApplicationSwitch">
+            <summary>
+            App switch key. Should bring up the application switcher dialog (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Bookmark">
+            <summary>
+            Bookmark key. On some TV remotes, bookmarks content or web pages (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Call">
+            <summary>
+            The call key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.EndCall">
+            <summary>
+            The end call key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Explorer">
+            <summary>
+            Explorer special function key. Used to launch a browser application (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Camera">
+            <summary>
+            Camera key. Used to launch a camera application or take pictures (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Focus">
+            <summary>
+            Camera Focus key. Used to focus the camera (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.HeadsetHook">
+            <summary>
+            Headset Hook key. Used to hang up calls and stop media (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPadEquals">
+            <summary>
+            Numeric keypad '=' key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPadLeftParen">
+            <summary>
+            Numeric keypad '(' key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.NumPadRightParen">
+            <summary>
+            Numeric keypad ')' key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Power">
+            <summary>
+            The power key (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Settings">
+            <summary>
+            The settings key. Starts the system settings activity (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.SoftLeft">
+            <summary>
+            The soft left key. Usually situated below the display on phones and used as a multi-function feature key for selecting a software defined function shown on the bottom left of the display (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.SoftRight">
+            <summary>
+            The soft right key. Usually situated below the display on phones and used as a multi-function feature key for selecting a software defined function shown on the bottom right of the display (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Symbol">
+            <summary>
+            The symbol modifier key. Used to enter alternate symbols (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.PictureSymbols">
+            <summary>
+            The picture symbols modifier key. Used to switch symbol sets (Emoji, Kao-moji) (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.SwitchCharset">
+            <summary>
+            The switch charset modifier key. Used to switch character sets (Kanji, Katakana) (Android).
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.AVRInput">
+            <summary>
+            The A/V Receiver input key. On TV remotes, switches the input mode on an external A/V Receiver (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.AVRPower">
+            <summary>
+            The A/V Receiver power key. On TV remotes, toggles the power on an external A/V Receiver (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Captions">
+            <summary>
+            The toggle captions key. Switches the mode for closed-captioning text, for example during television shows (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ChannelDown">
+            <summary>
+            The channel down key. On TV remotes, decrements the television channel (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ChannelUp">
+            <summary>
+            The channel up key. On TV remotes, increments the television channel (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.DVR">
+            <summary>
+            The DVR key. On some TV remotes, switches to a DVR mode for recorded shows (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Guide">
+            <summary>
+            The guide key. On TV remotes, shows a programming guide(Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Info">
+            <summary>
+            The info key. Common on TV remotes to show additional information related to what is currently being viewed(Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ProgBlue">
+            <summary>
+            The blue "programmable" key. On TV remotes, acts as a contextual/programmable key (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ProgGreen">
+            <summary>
+            The green "programmable" key. On TV remotes, acts as a contextual/programmable key (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ProgRed">
+            <summary>
+            The red "programmable" key. On TV remotes, acts as a contextual/programmable key (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.ProgYellow">
+            <summary>
+            The yellow "programmable" key. On TV remotes, acts as a contextual/programmable key (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.STBInput">
+            <summary>
+            The set-top-box input key. On TV remotes, switches the input mode on an external set-top-box (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.STBPower">
+            <summary>
+            The set-top-box power key. On TV remotes, toggles the power on an external Set-top-box (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.TV">
+            <summary>
+            The TV key. On TV remotes, switches to viewing live TV (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.TVInput">
+            <summary>
+            The TV input key. On TV remotes, switches the input on a television screen (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.TVPower">
+            <summary>
+            The TV power key. On TV remotes, toggles the power on a television screen (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EKeys.Window">
+            <summary>
+            The window key. On TV remotes, toggles picture-in-picture mode or other windowing functions (Android)
+            </summary>
+        </member>
+        <member name="F:Engine.EMouseButtons.Left">
+            <summary>
+            The left mouse button.
+            </summary>
+        </member>
+        <member name="F:Engine.EMouseButtons.Right">
+            <summary>
+            The right mouse button.
+            </summary>
+        </member>
+        <member name="F:Engine.EMouseButtons.Middle">
+            <summary>
+            The middle mouse button.
+            </summary>
+        </member>
+        <member name="F:Engine.EMouseButtons.XButton1">
+            <summary>
+            The first XButton.
+            </summary>
+        </member>
+        <member name="F:Engine.EMouseButtons.XButton2">
+            <summary>
+            The second XButton.
+            </summary>
+        </member>
+        <member name="T:Engine.KeyEvent">
+            <summary>
+            Provides data for the 
+            <see cref="M:Engine.EngineApp.OnKeyDown(Engine.KeyEvent)"/> or <see cref="M:Engine.EngineApp.OnKeyUp(Engine.KeyEvent)"/> event.
+            </summary>
+        </member>
+        <member name="M:Engine.KeyEvent.#ctor(Engine.EKeys)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Engine.KeyEvent"/> class.
+            </summary>
+            <param name="key"></param>
+        </member>
+        <member name="P:Engine.KeyEvent.Key">
+            <summary>
+            Gets the keyboard code.
+            </summary>
+        </member>
+        <member name="P:Engine.KeyEvent.SuppressKeyPress">
+            <summary>
+            Gets or sets a value indicating whether the key event should be passed on
+            to the underlying control.
+            </summary>
+        </member>
+        <member name="T:Engine.KeyPressEvent">
+            <summary>
+            Provides data for the <see cref="M:Engine.EngineApp.OnKeyPress(Engine.KeyPressEvent)"/> event.
+            </summary>
+        </member>
+        <member name="M:Engine.KeyPressEvent.#ctor(System.Char)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Engine.KeyPressEvent"/> class.
+            </summary>
+            <param name="keyChar">
+            The ASCII character corresponding to the key the user pressed.
+            </param>
+        </member>
+        <member name="P:Engine.KeyPressEvent.KeyChar">
+            <summary>
+            Gets the character corresponding to the key pressed.
+            <remarks>
+            The ASCII character that is composed. For example, if the user presses SHIFT
+            + K, this property returns an uppercase K.
+            </remarks>
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Spring">
+            <summary>
+            The force increases in proportion to the distance of the axis from a defined neutral point. This is Condition force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Damper">
+            <summary>
+            The force increases in proportion to the velocity with which the user moves the axis. This is Condition force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Inertia">
+            <summary>
+            The force increases in proportion to the acceleration of the axis. This is Condition force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Friction">
+            <summary>
+            The force is applied when the axis is moved and depends on the defined friction coefficient. This is Condition force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.ConstantForce">
+            <summary>
+            A constant force is a force with a defined magnitude and duration.
+            </summary> 
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Square">
+            <summary>
+            This is Periodic force.
+            </summary> 
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Sine">
+            <summary>
+            This is Periodic force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Triangle">
+            <summary>
+            This is Periodic force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.SawtoothUp">
+            <summary>
+            The waveform drops vertically after it reaches maximum positive force. This is Periodic force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.SawtoothDown">
+            <summary>
+            The waveform rises vertically after it reaches maximum negative force. This is Periodic force.
+            </summary>
+        </member>
+        <member name="F:Engine.ForceFeedbackEffectTypes.Ramp">
+            <summary>
+            A ramp force is a force with defined starting and ending magnitudes and a finite duration. A ramp force can continue in a single direction, or it can start as a strong push in one direction, weaken, stop, and then strengthen in the opposite direction.
+            </summary> 
+        </member>
+        <member name="M:Engine.ForceFeedbackEffect.SetDirection(System.Single[])">
+            <summary>
+            Normalized vector conformable to the axes. For single-axis may be null.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackEffect.Direction">
+            <summary>
+            Normalized vector conformable to the axes. For single-axis must be null.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackEffect.Duration">
+            <summary>
+            The total duration of the effect, in seconds.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackConstantForceEffect.Magnitude">
+            <summary>
+            The magnitude of the effect, in the range from -1 through 1.
+            </summary>
+            <remarks>
+            If an envelope is applied to this effect, the value represents the magnitude of the sustain. If no envelope is applied, the value represents the amplitude of the entire effect.
+            </remarks>
+        </member>
+        <member name="P:Engine.ForceFeedbackConditionEffect.Offset">
+            <summary>
+            Offset for the condition, in the range from -1 through 1.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackConditionEffect.PositiveCoefficient">
+            <summary>
+            Coefficient constant on the positive side of the offset, in the range from -1 through 1.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackConditionEffect.NegativeCoefficient">
+            <summary>
+            Coefficient constant on the negative side of the offset, in the range from -1 through 1. If the device does not support separate positive and negative coefficients, the value of NegativeCoefficient is ignored, and the value of PositiveCoefficient is used as both the positive and negative coefficients.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackConditionEffect.PositiveSaturation">
+            <summary>
+            Maximum force output on the positive side of the offset, in the range from 0 through 1. If the device does not support force saturation, the value of this member is ignored.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackConditionEffect.NegativeSaturation">
+            <summary>
+            Maximum force output on the negative side of the offset, in the range from 0 through 1. If the device does not support force saturation, the value of this member is ignored. 
+            </summary>
+            <remarks>
+            If the device does not support separate positive and negative saturation, the value of NegativeSaturation is ignored, and the value of PositiveSaturation is used as both the positive and negative saturation.
+            </remarks>
+        </member>
+        <member name="P:Engine.ForceFeedbackConditionEffect.DeadBand">
+            <summary>
+            Region around Offset in which the condition is not active, in the range from 0 through 1. In other words, the condition is not active between Offset minus DeadBand and Offset plus DeadBand. 
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackPeriodicEffect.Magnitude">
+            <summary>
+            Magnitude of the effect, in the range from 0 through 1. If an envelope is applied to this effect, the value represents the magnitude of the sustain. If no envelope is applied, the value represents the amplitude of the entire effect.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackPeriodicEffect.Offset">
+            <summary>
+            Offset of the effect. The range of forces generated by the effect is <see cref="P:Engine.ForceFeedbackPeriodicEffect.Offset"/> minus <see cref="P:Engine.ForceFeedbackPeriodicEffect.Magnitude"/> to Offset plus <see cref="P:Engine.ForceFeedbackPeriodicEffect.Magnitude"/>. The value of the <see cref="P:Engine.ForceFeedbackPeriodicEffect.Offset"/> member is also the baseline for any envelope that is applied to the effect.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackPeriodicEffect.Phase">
+            <summary>
+            Position in the cycle of the periodic effect at which playback begins, in the range from 0 through 1.
+            </summary>
+            <remarks>
+            A device driver cannot provide support for all values in the <see cref="P:Engine.ForceFeedbackPeriodicEffect.Phase"/> member. In this case, the value is rounded off to the nearest supported value.
+            </remarks>
+        </member>
+        <member name="P:Engine.ForceFeedbackPeriodicEffect.Period">
+            <summary>
+            Period of the effect, in seconds. 
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackRampEffect.StartForce">
+            <summary>
+            Magnitude at the start of the effect, in the range from -1 through 1.
+            </summary>
+        </member>
+        <member name="P:Engine.ForceFeedbackRampEffect.EndForce">
+            <summary>
+            Magnitude at the end of the effect, in the range from -1 through 1.
+            </summary>
+        </member>
+        <member name="T:Engine.InputEvent">
+            <summary>
+            Describes general input event. Custom events should be generalized from this one.
+            </summary>
+        </member>
+        <member name="P:Engine.InputEvent.Device">
+            <summary>
+            Gets input device description.
+            </summary>
+        </member>
+        <member name="T:Engine.WindowsInputDeviceManager">
+            <summary>
+            Describes singleton class for managing input devices
+            </summary>
+        </member>
+        <member name="T:Engine.AndroidInputDeviceManager">
+            <summary>
+            Describes singleton class for managing input devices
+            </summary>
+        </member>
+        <member name="T:Engine.EngineInitialization">
+            <summary>
+            This class is intended to execute actions after the initialization of the engine.
+            </summary>
+        </member>
+    </members>
+</doc>

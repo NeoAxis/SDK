@@ -1,0 +1,271 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Migrating from PhysX SDK 3.1 to 3.2 &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="prev" title="Migration Guide From PhysX SDK 2.x to 3.x" href="Migration.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Migration.html" title="Migration Guide From PhysX SDK 2.x to 3.x"
+             accesskey="P">previous</a></li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="migrating-from-physx-sdk-3-1-to-3-2">
+<span id="migrationto32"></span><h1>Migrating from PhysX SDK 3.1 to 3.2<a class="headerlink" href="#migrating-from-physx-sdk-3-1-to-3-2" title="Permalink to this headline">¶</a></h1>
+<ul class="simple">
+<li>This guide highlights all significant parts of the API that have changed in the last dot release.  An application with a working integration of the older version of PhysX should be able to easily migrate to the newer version by following these pointers.</li>
+</ul>
+<div class="section" id="foundation-and-common">
+<h2>Foundation and Common<a class="headerlink" href="#foundation-and-common" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>PxCreatePlane used to take an (n,d) pair, now it takes a PxPlane. The first three elements are the same, but the d parameter must be negated.</li>
+<li>PxStream has been split into PxOutputStream and PxInputStream, and these must be implemented anew by the user if APIs are used that need them.</li>
+<li>There are new helpers PxShortestRotation, and PxDiagonalize.</li>
+<li>The serialization API ( PxCollection, PxSerializable) has seen major changed with work still ongoing.  As this API is not yet finalized we cannot provide migration information yet.</li>
+</ul>
+</div>
+<div class="section" id="geometry">
+<h2>Geometry<a class="headerlink" href="#geometry" title="Permalink to this headline">¶</a></h2>
+<dl class="docutils">
+<dt>We added a number of new capabilities to the geometry library, but existing code should not need to be adapted.  New things include:</dt>
+<dd><ul class="first last simple">
+<li>PxTransformFromSegment</li>
+<li>PxConvexMesh::getLocalBounds</li>
+<li>PxTriangleMesh::getLocalBounds</li>
+<li>PxHeightField::modifySamples, getTriangleNormal</li>
+<li>PxMeshQuery</li>
+<li>PxTransformFromPlaneEquation, PxPlaneEquationFromTransform</li>
+<li>PxTriangle</li>
+</ul>
+</dd>
+</dl>
+</div>
+<div class="section" id="core-physx">
+<h2>Core PhysX<a class="headerlink" href="#core-physx" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The way to create the Physics SDK has changed.  The PxCreatePhysics call now should be preceeded by a call to PxCreateFoundation, which takes the allocator and error callback parameters that used to go into createPhysics.  Instead PxCreatePhysics now takes a profile zone manager created using PxProfileZoneManager::createProfileZoneManager.  It is important to create and pass this profile zone manager in order to set up the Visual Remote Debugger for profiling.</li>
+<li>Perhaps the most fundamental change for the API is the rewrite of the type casting system.  The PxActor::is(PxActorType) style functions are replaced with isKindOf(const char * typeName),   const char*             getConcreteTypeName(), is&lt;Class&gt;() template functions (e.g. is&lt;PxCloth&gt;()), and specially named inline functions (e.g. PxActor::isCloth()).</li>
+<li>PxAggregate::getMaxSize has been renamed to getMaxNbActors, and getCurrentSize has been renamed getNbActors for clarity.</li>
+<li>The PxBatchQuery raycast parameters have been reordered.</li>
+<li>There is a new user implemented interface class PxConstraintVisualizer, and the PxConstraintVisualize callback function now takes one of those instead of a PxRenderBuffer.</li>
+<li>PxContactPoint::featureIndex0/1 has been renamed internalFaceIndex0/1, and PxContactSet::getFeatureIndex0/1 has been renamed getInternalFaceIndex0/1.</li>
+<li>The class PxContactStreamIterator has been deleted, and replaced by a completely rewritten contact query mechanism.  It is best if the user reads up on the new API and implements it from scratch, it is quite dissimilar to the previous incarnation.  See the class PxSimulationEventCallback and in particular ::onContact to start to refactor code.</li>
+<li>The empty default implementations of event callbacks have been removed to prevent confusion.  This means that users must provide their own (blank) implementations of all events in a user class they subclass, even ones they are not interested in.  Providing default blank implementations in the SDK exposed the user to hard to find bugs if we changed an event signature from one release to another.</li>
+<li>Users of continuous collision detection should note that PxPairFlag::eSWEPT_CONTACT_GENERATION and PxPairFlag::eSWEPT_INTEGRATION_FULL no longer exist.  We have rewritten the CCD algorithm such that it no longer has its own contact generation, and it no longer supports angular sweeps.  Hence use of eSWEPT_CONTACT_GENERATION should simply be removed, and eSWEPT_INTEGRATION_FULL should be replaced with eSWEPT_INTEGRATION_LINEAR.</li>
+<li>RbPairStatsType::eSWEPT_CONTACT_PAIRS removed together with swept contact generation.</li>
+<li>We also stopped supporting anisotropic friction, so PxMaterialFlag, PxCombineMode, and all function calls of PxMaterial relating to anisotropic friction have been removed.  Users should remove the corresponding calls.</li>
+<li>PxPhysics::getMetaData been changed into PxGetSDKMetaData to make it be an optionally linkable component.</li>
+<li>PxPhysics::releaseUserReferences, releaseCollection deprecated.  Users should simply call release() on the appropriate object.</li>
+<li>PxPhysics::addCollection now takes a reference parameter instead of a pointer to indicate that a null pointer is not an option.</li>
+<li>The functions PxPhysics::createParticleSystem and createParticleFluid take parameters directly rather than descriptors.</li>
+<li>The functions PxPhysics::createTriangleMesh, createConvexMesh, and the stream version of createClothFabric now take a PxInputStream rather than a general PxStream, which has been removed.  To migrate these function calls, the user must implement the new PxInputStream class.</li>
+<li>The PxPhysics::createClothFabric creation parameters for the non-stream version have changed a lot.  The number nbFibers and nbIndices parameters have been removed because it always equals nbSets (which is new).  particleIndices has been renamed indices.  restValues and nbRestValues are newly added.  None of the parameters may be NULL.</li>
+<li>PxPhysics::getProfileZoneManager returns a pointer instead of a reference.</li>
+<li>PxRigidDynamic::moveKinematic has been renamed to setKinematicTarget.</li>
+<li>The prototype of PxGetFoundation has been moved from the Physics API to the Foundation API.</li>
+<li>PxScene::overlapAny has been removed.  Use instead overlapMultiple with hitBufferSize = 1.</li>
+<li>The pruning structure options PxPruningStructure::eOCTREE and eQUADTREE have been removed, because they are now in general inferior in performance to the AABB_TREE options.  The PxSceneDesc::maxBounds, upAxis, and subdivisionLevel properties were also removed as part of this because they were only used for these two pruning modes.</li>
+<li>We removed PxScene::getNbAttachments, getAttachments, this was part of the removed deformable simulation feature.</li>
+<li>PxSweepCache is deprecated in this release and will be removed in the next.  We found that it provides no significant benefit.</li>
+</ul>
+<p>There are also a number of new features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>There is a new API for optional components:  PxRegisterArticulations, PxRegisterPCM, PxRegisterHeightFields, PxCreateBasePhysics, PxGetSDKMetaData.  This way some rarely used features can avoid getting linked into the executable on certain platforms.</li>
+<li>There is a new function PxGetPhysics.</li>
+<li>There are new functions PxScene::set/getTimestamp().  Saving and loading the time stamp makes the simulation be more deterministic.</li>
+<li>There are new  PxSceneDesc::contactReportStreamBufferSize and PxScene::get/setNbContactDataBlocks, getMaxNbContactDataBlocksUsed functions (and PxSceneDesc::nbContactDataBlocks, maxNbContactDataBlocks) for some advanced memory management possibilities.</li>
+<li>There are new flags PxSceneFlag:: modes eENABLE_ONE_DIRECTIONAL_FRICTION, eENABLE_TWO_DIRECTIONAL_FRICTION, eDISABLE_CONTACT_REPORT_BUFFER_RESIZE, eENABLE_PCM, to enable a new friction model and a new contact generation algorithm, among other things.</li>
+<li>The new flag PxSceneQueryFlag::eINITIAL_OVERLAP_KEEP controls whether how scene query should behave when it comes to initial overlaps.</li>
+<li>PxShape::getGeometry is a more general way to retrieve shape geometry.</li>
+</ul>
+</div></blockquote>
+</div>
+<div class="section" id="cooking">
+<h2>Cooking<a class="headerlink" href="#cooking" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The biggest change to cooking is that the functions PxCooking::cookTriangleMesh, cookConvexMesh, and cookClothFabric  now take the new class PxOutputStream not and not a PxStream as before.  Users must implement a subclass of PxOutputStream.  Note that we provide a default implementation in the form of PxDefaultFileOutputStream.</li>
+<li>The ConvX tool has been replaced by the new class PxBinaryConverter (see PxCooking::createBinaryConverter) function which works the same way to convert binary serialized files between platforms.</li>
+<li>The PxCreateCooking function now takes a foundation reference instead of a pointer to denote that a null pointer value is not valid.</li>
+</ul>
+</div>
+<div class="section" id="deformables">
+<h2>Deformables<a class="headerlink" href="#deformables" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The deformables feature that has appeared as deprecated in the early versions of PhysX 3.x has been removed.  We decided to reboot deformables as the more streamlined and simplified Cloth feature.</li>
+</ul>
+</div>
+<div class="section" id="particles">
+<h2>Particles<a class="headerlink" href="#particles" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The only significant change to the particles API is that it no longer uses descriptors for creation.  The classes PxParticleBaseDesc, and PxParticleFluidDesc have been deleted, and the create functions take the parameters immediately.</li>
+<li>There are also two new functions:  PxParticleBase::setParticleReadDataFlag and PxParticleFluid::setRestParticleDistance.</li>
+</ul>
+</div>
+<div class="section" id="cloth">
+<h2>Cloth<a class="headerlink" href="#cloth" title="Permalink to this headline">¶</a></h2>
+<ul>
+<li><p class="first">The function PxCloth::setParticles can now also update the previous particle state.  This lets the user easily define the velocity of the particles as the difference between the two positions.  The cloth simulation really does not store velocities explicitly, but rather only two consecutive positions, hence this somewhat odd interface.</p>
+</li>
+<li><p class="first">PxCloth::getCollisionData now also takes a planesBuffer, and a convexMaskBuffer.  These buffers retrieve additional collision information, but passing NULL should make it possible to ignore them.</p>
+</li>
+<li><p class="first">PxClothFabric::scale/getRestlengths have been renamed to scale/getRestvalues.</p>
+</li>
+<li><p class="first">Aside from this, there are a number of new features:</p>
+<blockquote>
+<div><ul class="simple">
+<li>There is a new struct PxClothParticleSeparationConstraint (see also PxCloth::get/setSeparationConstraints, getNbSeparationConstraints).  This is a new separations constraints feature that enforces each particle to stay inside a sphere.</li>
+<li>The new function PxCloth::clearInterpolation lets the user easily set the effective velocity of particles to zero.  This should be called whenever the character animation is discontinuous.</li>
+<li>There are new PxCloth::get/setParticleAccelerations, getNbParticleAccelerations functions that effectively permit the user to apply forces to individual particles.</li>
+<li>New PxCloth::getNb/set/remove/addCollisionPlane(s) and PxCloth::getNb/remove/addCollisionConvex permit the definition of convex shapes built from planes.</li>
+<li>There are a bunch of new cloth properties to experiment with such as PxCloth::get/setInertiaScale, PxCloth::get/setFrictionCoefficient, PxCloth::get/setDragCoefficient, PxCloth::get/setCollisionMassScale.</li>
+<li>The PxClothFabric now exposed a number of new internal arrays with getter functions.</li>
+<li>The new PxClothMeshVertFlag and PxClothMeshDesc::vertFlags lets attached vertices be defined for the cooker from which it will try to generate zero stretch constraint chains.  This feature is still experimental and these settings are not required for general vertex attachment.</li>
+</ul>
+</div></blockquote>
+</li>
+</ul>
+</div>
+<div class="section" id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>We provide new default implementations for user implemented functionality in the form of PxDefaultMemoryOutputStream, PxDefaultMemoryInputData, PxDefaultFileOutputStream, PxDefaultFileInputData.</li>
+<li>The class PxDefaultSimulationFilterShader was significantly extended with set/PxGetGroupCollisionFlag, set/PxGetGroup, set/PxGetFilterOps, get/PxSetFilterBool, get/PxsetFilterConstants, and set/PxGetGroupsMask, this should implement 2.8 style group filtering for users migrating from that old version.</li>
+<li>PxDumpMetaData now dumps to a stream, not to a file, for increased flexibility.</li>
+<li>New versions of PxRigidBodyExt::updateMassAndInertia, and setMassAndUpdateInertia were added that permit specifying individual shape densities, not just a uniform density.  Old versions are still available for uniform density.</li>
+<li>The new helpers PxCloneStatic, PxCloneDynamic, and PxScaleRigidActor have been added.</li>
+</ul>
+</div>
+<div class="section" id="virtual-remote-debugger-interface">
+<h2>Virtual Remote Debugger Interface<a class="headerlink" href="#virtual-remote-debugger-interface" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>The function PxVisualDebuggerExt::connect has been renamed createConnection.</li>
+<li>PxVisualDebugger::updateCamera now takes names for cameras directly and it is not necessary to allocate cameras.  Unseen names passed to the function will automatically be registered.</li>
+<li>Added new functions PxVisualDebugger::setVisualizeConstraints, isVisualizingConstraints to let user determine if joints should be visualized in PVD.</li>
+<li>The function PxVisualDebugger::setJointVisualizationScale has been deleted.  Joints can now be scaled in PVD using the Preferences -&gt; Gizmo Scale setting.</li>
+</ul>
+</div>
+<div class="section" id="character-controller">
+<h2>Character Controller<a class="headerlink" href="#character-controller" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>PxBoxControllerDesc representation changed from an extents vector to separate floats, which are hopefully more intuitive.  Applicable accessors have been renamed.</li>
+<li>The default mode of the capsule controller was changed from PxCapsuleClimbingMode::eCONSTRAINED to PxCapsuleClimbingMode::eEASY. This is to be consistent with the default behavior of e.g. box controllers, which are blocked by obstacles greater than the stepOffset.  Also, stepOffsets greater than the capsule controller's entire height are now forbidden.</li>
+<li>The PxControllerDesc::upDirection is now a vector rather than a 3 value enum.  PxCCTUpAxis has been removed.  This enables arbitrary up vectors for character controllers -- they no longer have to be aligned to the world axes.  Applicable accessors have been updated.</li>
+<li>The various functions changing the height or radius of a controller do not automatically update the controller's position anymore, as some of them did on the past. There is now a new helper function, PxController::resize(), to do this.</li>
+<li>The function PxController::move now needs the user to pass an elapsed time parameter.  This is needed to get proper interactions between the character (may be updated with variable timesteps) and kinematic platforms controlled by the SDK (updated with fixed timesteps). When the character jumps away from a moving kinematic platform, the character controller code needs to compute its velocity. It needs a correct elapsed time value to do that.  If the controller being migrated never needs to jump away from moving kinematic platforms, this parameter is not used, and an arbitrary value may be passed.</li>
+<li>The function PxController::move also needs a a PxControllerFilters, a new class.  This stores all kinds of filtering information to filter out collisions with potentially colliding objects, including a filter callback.  This class has a constructor to initialize itself to defaults, one can just pass a default object to get default behavior.</li>
+<li>Finally the function PxController::move now also takes an optional PxObstacleContext, which you can leave NULL to keep your prior behavior.  This object could be used to define obstacles like invisible walls for the character controller that you do not need to add to the simulation for efficiency reasons.</li>
+<li>Some versions of PhysX 3.1 still shipped with a dynamic character controller which admittedly did not work as well as the kinematic controller, and there was a lot of overlap between the functionality.  We decided to stop maintaining this code path and it was removed from 3.2.  The great number of improvements to the kinematic character controller should make it possible for applications to migrate over to it.</li>
+<li>There is a new function PxControllerManager::computeInteractions(elapsedTime). This is needed to properly resolve interactions between characters when they overlap (which can happen from time to time, for various reasons). One can call this pretty much at any time, once per frame. It needs a proper elapsed time between frames value here so that interactions are resolved in a way that do not depend on the frame rate. Nothing bad would happen if one passed a fixed time value, though.  If there is only one character in the scene, it is guaranteed that characters will never overlap, then this function need not be called.</li>
+</ul>
+<p>Meanwhile a great many new features have been added to the character controller:</p>
+<blockquote>
+<div><ul class="simple">
+<li>See the new PxCCTNonWalkableMode and PxController::get/setNonWalkableMode() for two options for how to handle non-walkable areas.</li>
+<li>See the new PxControllerState, and PxController::getState(PxControllerState) for basic state information like the currently touching shape, what the controller is standing on, etcetera.</li>
+<li>See the new PxControllerStats and PxController::getStats(PxControllerStats) for simulation statistics like the number of collision iterations performed.</li>
+<li>See the new new PxControllerManager::createObstacleContext() (and also PxControllerObstacleHit and PxUserControllerHitReport::onObstacleHit) for a way to collide with user defined obstacles outside of the simulation scene.  This is covered in more detail on the character controller page of this manual.</li>
+<li>The class PxControllersHit now has contact point information between controllers (position, normal).</li>
+<li>We added PxControllerDesc::density, and scaleCoeff variables to let user have more control over kinematic actor that character controller creates.</li>
+<li>The new PxControllerDesc::volumeGrowth lets the user control caching of geometry to improve performance.</li>
+<li>The new PxControllerBehaviorCallback (see also PxControllerDesc::behaviorCallback) lets the user set behavior flags for object interaction to specify whether the controller should ride along on the object it stands on or slide along its surface.</li>
+<li>There is a new PxControllerDesc::groupsBitmask (and PxController::get/setGroupsBitmask()) to control collision filtering.</li>
+<li>Convenience functions like PxController::getScene() and the new PxController::getFootPosition() to retrieve foot position (bottom point of shape) are now available.</li>
+<li>There is the new PxControllerDebugRenderFlags (see also PxControllerManager::setDebugRenderingFlags()) to control what geometry to send to debug renderer, plus PxControllerManager::getRenderBuffer() to get debug render buffer.</li>
+<li>There is a new PxExtendedVec3::toVec3() to convert an extended precision position to a regular PxVec3.</li>
+</ul>
+</div></blockquote>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Migrating from PhysX SDK 3.1 to 3.2</a><ul>
+<li><a class="reference internal" href="#foundation-and-common">Foundation and Common</a></li>
+<li><a class="reference internal" href="#geometry">Geometry</a></li>
+<li><a class="reference internal" href="#core-physx">Core PhysX</a></li>
+<li><a class="reference internal" href="#cooking">Cooking</a></li>
+<li><a class="reference internal" href="#deformables">Deformables</a></li>
+<li><a class="reference internal" href="#particles">Particles</a></li>
+<li><a class="reference internal" href="#cloth">Cloth</a></li>
+<li><a class="reference internal" href="#extensions">Extensions</a></li>
+<li><a class="reference internal" href="#virtual-remote-debugger-interface">Virtual Remote Debugger Interface</a></li>
+<li><a class="reference internal" href="#character-controller">Character Controller</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Migration.html"
+                        title="previous chapter">Migration Guide From PhysX SDK 2.x to 3.x</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Migration.html" title="Migration Guide From PhysX SDK 2.x to 3.x"
+             >previous</a></li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

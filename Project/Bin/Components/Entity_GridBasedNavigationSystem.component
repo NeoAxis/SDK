@@ -1,0 +1,11 @@
+fullName = "Path finding system based on a two-dimensional grid"
+componentTypes = "EntityClasses"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "GridBasedNavigationSystem.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

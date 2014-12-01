@@ -1,0 +1,250 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Startup and Shutdown &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Scenes, Materials, and Actors" href="ScenesAndActors.html" />
+    <link rel="prev" title="The Basics" href="Basics.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ScenesAndActors.html" title="Scenes, Materials, and Actors"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Basics.html" title="The Basics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="startup-and-shutdown">
+<span id="startup"></span><h1>Startup and Shutdown<a class="headerlink" href="#startup-and-shutdown" title="Permalink to this headline">¶</a></h1>
+<p>Startup functionality is common to all of the samples and is shared in the project <em>SampleBase</em>.  Open the main file PhysXSample.cpp and navigate to the function onInit, which the sample calls on startup to initialize PhysX.</p>
+<p>Note that the file includes the entire PhysX API in a single header.  You may also selectively include just the headers you need, but PxPhysicsAPI.h includes everything to help you get started faster:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &quot;PxPhysicsAPI.h&quot;</span>
+</pre></div>
+</div>
+<p>First, create a <em>PxFoundation</em> object:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">static</span> <span class="n">PxDefaultErrorCallback</span> <span class="n">gDefaultErrorCallback</span><span class="p">;</span>
+<span class="k">static</span> <span class="n">PxDefaultAllocator</span> <span class="n">gDefaultAllocatorCallback</span><span class="p">;</span>
+
+<span class="n">mFoundation</span> <span class="o">=</span> <span class="n">PxCreateFoundation</span><span class="p">(</span><span class="n">PX_PHYSICS_VERSION</span><span class="p">,</span> <span class="n">gDefaultAllocatorCallback</span><span class="p">,</span> <span class="n">gDefaultErrorCallback</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">mFoundation</span><span class="p">)</span>
+    <span class="n">fatalError</span><span class="p">(</span><span class="s">&quot;PxCreateFoundation failed!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Every PhysX module requires a PxFoundation instance to be available. The required parameters are a version ID, an allocator callback and an error callback. <em>PX_PHYSICS_VERSION</em>, is a macro predefined in our headers to enable PhysX to check for a version mismatch between the headers and the corresponding SDK DLLs. Usually, the allocator callback and error callback are specific to the application, but PhysX provides default implementations that make it easy to get started. The sections below will describe these two parameters in more detail. (The actual sample code supports an advanced memory allocator that tracks allocations instead of the default, but we have omitted that detail here.)</p>
+<p>Now create the top-level <em>PxPhysics</em> object:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">bool</span> <span class="n">recordMemoryAllocations</span> <span class="o">=</span> <span class="kc">true</span><span class="p">;</span>
+<span class="n">mProfileZoneManager</span> <span class="o">=</span> <span class="o">&amp;</span><span class="n">PxProfileZoneManager</span><span class="o">::</span><span class="n">createProfileZoneManager</span><span class="p">(</span><span class="n">mFoundation</span><span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">mProfileZoneManager</span><span class="p">)</span>
+    <span class="n">fatalError</span><span class="p">(</span><span class="s">&quot;PxProfileZoneManager::createProfileZoneManager failed!&quot;</span><span class="p">);</span>
+
+<span class="n">mPhysics</span> <span class="o">=</span> <span class="n">PxCreatePhysics</span><span class="p">(</span><span class="n">PX_PHYSICS_VERSION</span><span class="p">,</span> <span class="o">*</span><span class="n">mFoundation</span><span class="p">,</span>
+            <span class="n">PxTolerancesScale</span><span class="p">(),</span> <span class="n">recordMemoryAllocations</span><span class="p">,</span> <span class="n">mProfileZoneManager</span> <span class="p">);</span>
+<span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">mPhysics</span><span class="p">)</span>
+    <span class="n">fatalError</span><span class="p">(</span><span class="s">&quot;PxCreatePhysics failed!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Again, the version ID has to be passed in. The PxTolerancesScale parameter makes it easier to author content at different scales and still have PhysX work as expected, but to get started simply pass a default object of this type. The recordMemoryAllocations parameter specifies whether to perform memory profiling. The optional profile zone manager, typically created with PxProfileZoneManager::createProfileZoneManager(), enables the performance profiling capabilities of the PhysX Visual Debugger.</p>
+<div class="section" id="the-allocator-callback">
+<h2>The Allocator Callback<a class="headerlink" href="#the-allocator-callback" title="Permalink to this headline">¶</a></h2>
+<p>In order to perform dynamic allocation, the SDK requires an implementation of the <em>PxAllocatorCallback</em> interface. PhysX provides default implementations for all supported platforms.  Here is the windows version:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#include &lt;malloc.h&gt;</span>
+<span class="k">class</span> <span class="nc">PxDefaultAllocator</span> <span class="o">:</span> <span class="k">public</span> <span class="n">PxAllocatorCallback</span>
+<span class="p">{</span>
+    <span class="kt">void</span><span class="o">*</span> <span class="n">allocate</span><span class="p">(</span><span class="n">size_t</span> <span class="n">size</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span><span class="p">,</span> <span class="kt">int</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="k">return</span> <span class="n">_aligned_malloc</span><span class="p">(</span><span class="n">size</span><span class="p">,</span> <span class="mi">16</span><span class="p">);</span>
+    <span class="p">}</span>
+
+    <span class="kt">void</span> <span class="n">deallocate</span><span class="p">(</span><span class="kt">void</span><span class="o">*</span> <span class="n">ptr</span><span class="p">)</span>
+    <span class="p">{</span>
+        <span class="n">_aligned_free</span><span class="p">(</span><span class="n">ptr</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span>
+</pre></div>
+</div>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">an important change since 2.x:  The SDK now requires that the memory that is returned be 16-byte aligned.  On many platforms malloc() returns memory that is 16-byte aligned, but on Windows the system function _aligned_malloc() provides this capability.</p>
+</div>
+<p>The three unused parameters to allocate() are an identifier which identifies the type of allocation, and the __FILE__ and __LINE__ location inside the SDK code where the allocation was made. Refer to PxAllocatorCallback::allocate() to find out more about them.</p>
+</div>
+<div class="section" id="the-error-callback">
+<h2>The Error Callback<a class="headerlink" href="#the-error-callback" title="Permalink to this headline">¶</a></h2>
+<p>The error callback <em>PxErrorCallback</em> is a user-defined class which the SDK requires in order to pass error messages to the application.  There is only a single function to implement, reportError.  This function should log the passed message, or print it on the application's output console. For the more serious error codes eABORT, eINVALID_PARAMETER, eINVALID_OPERATION, and eOUT_OF_MEMORY, breaking into the debugger may be a more appropriate choice.  Whatever you do, do not just ignore the messages.</p>
+<p>Again PhysX provide a complete default implementation, which will print the error message. The error code PxErrorCode::eABORT represents an unrecoverable error. In order that this error not be missed, the default implementation will print the message once every second.</p>
+</div>
+<div class="section" id="cooking">
+<h2>Cooking<a class="headerlink" href="#cooking" title="Permalink to this headline">¶</a></h2>
+<p>The PhysX cooking library provides utilities for creating, converting, and serializing bulk data. Depending on your application, you may wish to link to the cooking library in order to process such data at runtime. Alternatively you may be able to process all such data in advance and just load it into memory as required. Initialize the cooking library as follows:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">mCooking</span> <span class="o">=</span> <span class="n">PxCreateCooking</span><span class="p">(</span><span class="n">PX_PHYSICS_VERSION</span><span class="p">,</span> <span class="o">*</span><span class="n">mFoundation</span><span class="p">,</span> <span class="n">PxCookingParams</span><span class="p">());</span>
+<span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">mCooking</span><span class="p">)</span>
+    <span class="n">fatalError</span><span class="p">(</span><span class="s">&quot;PxCreateCooking failed!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The PxCookingParams struct configures the cooking library to target different platforms, use non-default tolerances or produce optional outputs.</p>
+<p>The cooking library generates data though a streaming interface. In the samples, implementations of streams are provided in the PxToolkit library to read and write from files and memory buffers.</p>
+</div>
+<div class="section" id="extensions">
+<h2>Extensions<a class="headerlink" href="#extensions" title="Permalink to this headline">¶</a></h2>
+<p>The extensions library  contains many functions that may be useful to a large class of users, but which some users may prefer to omit from their application either for code size reasons or to avoid use of certain subsystems, such as those pertaining to networking. Initializing the extensions library requires the PxPhysics object:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="n">PxInitExtensions</span><span class="p">(</span><span class="o">*</span><span class="n">mPhysics</span><span class="p">))</span>
+    <span class="n">fatalError</span><span class="p">(</span><span class="s">&quot;PxInitExtensions failed!&quot;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="optional-sdk-components">
+<span id="optionalsdkcomponents"></span><h2>Optional SDK Components<a class="headerlink" href="#optional-sdk-components" title="Permalink to this headline">¶</a></h2>
+<p>When linking PhysX as a static library on memory constrained platforms, it is possible to avoid linking the code of some PhysX features that are not always used in order to save memory.  Currently the optional features are:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Articulations</li>
+<li>Height Fields</li>
+</ul>
+</div></blockquote>
+<p>If your application requires a subset of this functionality, it is recommended that you call PxCreateBasePhysics as opposed to PxCreatePhysics and then manually register the compoments you require.  Below is an example that registers all of the options:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">physx</span><span class="o">::</span><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">customCreatePhysics</span><span class="p">(</span><span class="n">physx</span><span class="o">::</span><span class="n">PxU32</span> <span class="n">version</span><span class="p">,</span>
+        <span class="n">physx</span><span class="o">::</span><span class="n">PxFoundation</span><span class="o">&amp;</span> <span class="n">foundation</span><span class="p">,</span>
+        <span class="k">const</span> <span class="n">physx</span><span class="o">::</span><span class="n">PxTolerancesScale</span><span class="o">&amp;</span> <span class="n">scale</span><span class="p">,</span>
+        <span class="kt">bool</span> <span class="n">trackOutstandingAllocations</span><span class="p">,</span>
+        <span class="n">physx</span><span class="o">::</span><span class="n">PxProfileZoneManager</span><span class="o">*</span> <span class="n">profileZoneManager</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">physx</span><span class="o">::</span><span class="n">PxPhysics</span><span class="o">*</span> <span class="n">physics</span> <span class="o">=</span> <span class="n">PxCreateBasePhysics</span><span class="p">(</span><span class="n">version</span><span class="p">,</span> <span class="n">foundation</span><span class="p">,</span> <span class="n">scale</span><span class="p">,</span>
+                <span class="n">trackOutstandingAllocations</span><span class="p">,</span> <span class="n">profileZoneManager</span><span class="p">);</span>
+
+        <span class="k">if</span><span class="p">(</span><span class="o">!</span><span class="n">physics</span><span class="p">)</span>
+                <span class="k">return</span> <span class="nb">NULL</span><span class="p">;</span>
+
+        <span class="n">PxRegisterArticulations</span><span class="p">(</span><span class="o">*</span><span class="n">physics</span><span class="p">);</span>
+        <span class="n">PxRegisterHeightFields</span><span class="p">(</span><span class="o">*</span><span class="n">physics</span><span class="p">);</span>
+
+        <span class="k">return</span> <span class="n">physics</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Note that this will only save memory when linking PhysX as a static library, as we rely on the linker to strip out the unused code.</p>
+</div>
+<div class="section" id="windows-delay-load-dll">
+<h2>Windows delay load dll<a class="headerlink" href="#windows-delay-load-dll" title="Permalink to this headline">¶</a></h2>
+<p>The PhysXCommon dll is marked as delay loaded inside of the PhysX and PhysXCooking project. So it is possible to have a delay loaded PhysXCommon, PhysX and PhysXCooking dlls. If you need to load a diffent dll, it is possible to create a PxDelayLoadHook and define the name of PhysXCommon dll that should be loaded by PhysX dll and PhysXCooking dll,please see example:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">class</span> <span class="nc">SampleDelayLoadHook</span><span class="o">:</span> <span class="k">public</span> <span class="n">PxDelayLoadHook</span>
+<span class="p">{</span>
+        <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">GetPhysXCommonDEBUGDllName</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;PhysX3CommonDEBUG_x64_Test.dll&quot;</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">GetPhysXCommonCHECKEDDllName</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;PhysX3CommonCHECKED_x64_Test.dll&quot;</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">GetPhysXCommonPROFILEDllName</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;PhysX3CommonPROFILE_x64_Test.dll&quot;</span><span class="p">;</span> <span class="p">}</span>
+        <span class="k">virtual</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*</span> <span class="n">GetPhysXCommonDllName</span><span class="p">()</span> <span class="k">const</span> <span class="p">{</span> <span class="k">return</span> <span class="s">&quot;PhysX3Common_x64_Test.dll&quot;</span><span class="p">;</span> <span class="p">}</span>
+<span class="p">}</span> <span class="n">gDelayLoadHook</span><span class="p">;</span>
+</pre></div>
+</div>
+<p>Now the hook must be set to PhysX and PhysXCooking:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxDelayLoadHook</span><span class="o">::</span><span class="n">SetPhysXInstance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">gDelayLoadHook</span><span class="p">);</span>
+<span class="n">PxDelayLoadHook</span><span class="o">::</span><span class="n">SetPhysXCookingInstance</span><span class="p">(</span><span class="o">&amp;</span><span class="n">gDelayLoadHook</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="shutting-down">
+<h2>Shutting Down<a class="headerlink" href="#shutting-down" title="Permalink to this headline">¶</a></h2>
+<p>To dispose of any PhysX object, call its release() method.  This will destroy the object, and all contained objects.  The precise behavior depends on the object type being released, so refer to the reference guide for details.  To shut down physics entirely, simply call release() on the PxPhysics object, and this will clean up all of the physics objects:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">mPhysics</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Do not forget to release the foundation object as well, but only after all other PhysX modules have been released:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">mFoundation</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Startup and Shutdown</a><ul>
+<li><a class="reference internal" href="#the-allocator-callback">The Allocator Callback</a></li>
+<li><a class="reference internal" href="#the-error-callback">The Error Callback</a></li>
+<li><a class="reference internal" href="#cooking">Cooking</a></li>
+<li><a class="reference internal" href="#extensions">Extensions</a></li>
+<li><a class="reference internal" href="#optional-sdk-components">Optional SDK Components</a></li>
+<li><a class="reference internal" href="#windows-delay-load-dll">Windows delay load dll</a></li>
+<li><a class="reference internal" href="#shutting-down">Shutting Down</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Basics.html"
+                        title="previous chapter">The Basics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="ScenesAndActors.html"
+                        title="next chapter">Scenes, Materials, and Actors</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="ScenesAndActors.html" title="Scenes, Materials, and Actors"
+             >next</a></li>
+        <li class="right" >
+          <a href="Basics.html" title="The Basics"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

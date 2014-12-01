@@ -1,0 +1,14 @@
+highLevelMaterial ToolsSelectObject_Yellow_FFP
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	receiveShadows = False
+	allowFog = False
+	depthWrite = False
+	depthTest = False
+	diffuseColor = 1 1 0
+	diffuse1Map
+	{
+		texture = ".\\White.jpg"
+	}
+}

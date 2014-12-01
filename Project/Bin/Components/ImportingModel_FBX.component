@@ -1,0 +1,22 @@
+fullName = "Importing 3D models from FBX format"
+componentTypes = "ImportingModel"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "FBXModelImport.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\FBXModelImportNative.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\FBXModelImportNative.dll"
+	platforms = "Windows"
+}

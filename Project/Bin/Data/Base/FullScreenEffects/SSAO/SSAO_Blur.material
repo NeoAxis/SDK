@@ -1,0 +1,61 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+fragment_program Compositor/SSAO/Blur_hlsl hlsl
+{
+	source Base\FullScreenEffects\SSAO\SSAO.cg_hlsl
+	entry_point blur
+	target ps_3_0
+}
+
+fragment_program Compositor/SSAO/Blur_cg cg
+{
+	source Base\FullScreenEffects\SSAO\SSAO.cg_hlsl
+	entry_point blur
+	profiles arbfp1
+}
+
+fragment_program Compositor/SSAO/Blur unified
+{
+	delegate Compositor/SSAO/Blur_hlsl
+	delegate Compositor/SSAO/Blur_cg
+}
+
+material Compositor/SSAO/Blur
+{
+	technique
+	{
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+			fragment_program_ref Compositor/SSAO/Blur
+			{
+			}
+
+			// Source
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering linear linear none
+			}
+
+//			// depth buffer
+//			texture_unit
+//			{
+//				//reference to depth buffer of the scene. "additional_mrt_{index}" is a magic word.
+//				texture additional_mrt_0 2d
+//				tex_address_mode clamp
+//				filtering none
+//			}
+
+		}
+	}
+}

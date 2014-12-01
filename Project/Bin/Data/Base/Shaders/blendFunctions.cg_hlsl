@@ -1,0 +1,57 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+float4 blendOpaque(float4 srcColor, float4 destColor)
+{
+	return srcColor;
+}
+
+float4 blendAdd(float4 srcColor, float4 destColor)
+{
+	return srcColor + destColor;
+}
+
+float4 blendModulate(float4 srcColor, float4 destColor)
+{
+	return srcColor * destColor;
+}
+
+float4 blendColorBlend(float4 srcColor, float4 destColor)
+{
+	return srcColor * srcColor + destColor * (1 - srcColor);
+}
+
+float4 blendAlphaBlend(float4 srcColor, float4 destColor)
+{
+	return srcColor * srcColor.a + destColor * (1 - srcColor.a);
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+#ifndef OPENGL_ES
+
+half4 blendOpaque(half4 srcColor, half4 destColor)
+{
+	return srcColor;
+}
+
+half4 blendAdd(half4 srcColor, half4 destColor)
+{
+	return srcColor + destColor;
+}
+
+half4 blendModulate(half4 srcColor, half4 destColor)
+{
+	return srcColor * destColor;
+}
+
+half4 blendColorBlend(half4 srcColor, half4 destColor)
+{
+	return srcColor * srcColor + destColor * (1 - srcColor);
+}
+
+half4 blendAlphaBlend(half4 srcColor, half4 destColor)
+{
+	return srcColor * srcColor.a + destColor * (1 - srcColor.a);
+}
+
+#endif //!OPENGL_ES

@@ -1,0 +1,26 @@
+pi  19.816172 12.149509 -58.824940  21.101257 14.985386 -64.483994  0xffff 0x0
+Build log dungeon.obj:
+Building navigation:
+ - 248 x 330 cells
+ - 5.1K verts, 10.1K tris
+Build Times
+- Rasterize:               141.86ms(60.1%)
+- Build Compact:           8.03ms  (3.4%)
+- Filter Border:           7.24ms  (3.1%)
+- Filter Walkable:         0.69ms  (0.3%)
+- Erode Area:              4.61ms  (2.0%)
+- Build Distance Field:    6.41ms  (2.7%)
+    - Distance:            4.83ms  (2.0%)
+    - Blur:                1.56ms  (0.7%)
+- Build Regions:           46.43ms (19.7%)
+    - Watershed:           44.66ms (18.9%)
+      - Expand:            25.00ms (10.6%)
+      - Find Basins:       18.64ms (7.9%)
+    - Filter:              1.67ms  (0.7%)
+- Build Contours:          4.41ms  (1.9%)
+    - Trace:               2.45ms  (1.0%)
+    - Simplify:            1.01ms  (0.4%)
+- Build Polymesh:          3.49ms  (1.5%)
+- Build Polymesh Detail:   9.81ms  (4.2%)
+=== TOTAL:                 235.86ms
+>> Polymesh: 223 vertices  120 polygons

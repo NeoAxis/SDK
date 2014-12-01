@@ -1,0 +1,11 @@
+fullName = "Project entity classes"
+componentTypes = "HighLevelMaterialClasses, CompositorInstanceClasses, GUIControlClasses, Archive, EntityClasses"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "ProjectEntities.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

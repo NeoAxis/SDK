@@ -1,0 +1,10 @@
+float4 main_fp(
+	uniform float4 multiplier,
+
+	float2 texCoord : TEXCOORD0,
+
+	uniform sampler2D RT : register(s0)
+) : COLOR
+{
+	return tex2D(RT, texCoord) * multiplier;
+}

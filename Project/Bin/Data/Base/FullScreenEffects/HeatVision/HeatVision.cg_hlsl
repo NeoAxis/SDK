@@ -1,0 +1,76 @@
+
+//Pass 1 - Light to heat conversion
+float4 lightToHeat_fp(
+	float2 texCoord: TEXCOORD0,
+
+	uniform float2 randomFractions,
+	uniform float4 heatBiasScale,
+	uniform float depthModulator,
+
+	uniform sampler2D inputMap, // output of HeatVisionCaster_fp (NdotV)
+	uniform sampler2D noiseMap,
+	uniform sampler2D heatLookupMap
+
+	) : COLOR
+{
+	float depth, heat, interference;
+
+	depth = tex2D( inputMap, texCoord ).r;
+	depth *= (depth * depthModulator);
+
+	heat = (depth * heatBiasScale.y);
+
+	interference = -0.5 + tex2D( noiseMap, texCoord + randomFractions ).r;
+	interference *= interference;
+	interference *= 1 - heat;
+	heat += interference;
+
+	// clamp UVs
+	heat = max( 0.005, min( 0.995, heat ) );
+	return tex2D( heatLookupMap, float2( heat, 0 ) );
+}
+
+//Pass 2 - add simple blur (final pass)
+float4 blur_fp(
+	float2 texCoord: TEXCOORD0,
+	uniform sampler2D inputMap, // output of HeatVision_fp (HeatRenderTexture)
+	uniform float4 blurAmount
+	) : COLOR
+{
+   float2 offsets[4] = 
+   {
+		//// hazy blur
+		//-1.8, -1.8,
+		//-1.8, 1.8,
+		//1.8, -1.8,
+		//1.8, 1.8
+
+		//// less-hazy blur
+		// -1.0,  2.0,
+		// -1.0, -1.0,
+		//  1.0, -1.0,
+		//  1.0,  1.0
+
+		//-0.326212, -0.405805,
+		//-0.840144, -0.073580,
+		//-0.695914,  0.457137,
+		//-0.203345,  0.620716
+
+		-0.3,  0.4,
+		-0.3, -0.4,
+		 0.3, -0.4,
+		 0.3,  0.4
+   };
+
+	float4 color = tex2D( inputMap, texCoord );
+
+	// calculate glow amount
+	float diffuseGlowFactor = 0.0113f * (2.0 - max( color.r, color.g ));
+
+	// basic blur filter
+	for(int n = 0; n < 4; n++)
+		color += tex2D( inputMap, texCoord + blurAmount.x * diffuseGlowFactor * offsets[n] );
+	color *= 0.25;
+
+	return color;
+}

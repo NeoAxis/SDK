@@ -1,0 +1,53 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+fragment_program Compositor/FXAA_Final_fp_hlsl hlsl
+{
+	source Base\FullScreenEffects\FXAA\FXAA.cg_hlsl
+	entry_point final_fp
+	target ps_3_0
+}
+
+fragment_program Compositor/FXAA_Final_fp_cg cg
+{
+	source Base\FullScreenEffects\FXAA\FXAA.cg_hlsl
+	entry_point final_fp
+	profiles arbfp1
+	compile_arguments -DCG_COMPILER=1
+}
+
+fragment_program Compositor/FXAA_Final_fp unified
+{
+	delegate Compositor/FXAA_Final_fp_hlsl
+	delegate Compositor/FXAA_Final_fp_cg
+}
+
+material Compositor/FXAA_Final
+{
+	technique
+	{
+
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+
+			fragment_program_ref Compositor/FXAA_Final_fp
+			{
+			}
+
+			texture_unit
+			{
+				tex_address_mode clamp
+				filtering linear linear linear
+			}
+		}
+	}
+}

@@ -1,0 +1,34 @@
+fullName = "OpenGL"
+componentTypes = "RenderingSystem"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "MacOSX"
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\RenderSystem_GL.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\RenderSystem_GL.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+path
+{
+	path = "NativeDlls/MacOSX_x86/RenderSystem_GL.dylib"
+	platforms = "MacOSX"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\cg.dll"
+	platforms = "Windows"
+}	
+path
+{
+	path = "NativeDlls\\Windows_x64\\cg.dll"
+	platforms = "Windows"
+}

@@ -1,0 +1,6 @@
+type SkyBox
+{
+	class = SkyBox
+	allowEditorCreate = True
+	networkType = ClientOnly
+}

@@ -1,0 +1,11 @@
+fullName = "Terrain based on the Height Map"
+componentTypes = "EntityClasses, HighLevelMaterialClasses"
+platforms = "Windows, MacOSX"
+enableByDefaultPlatforms = "Windows, MacOSX"
+
+path
+{
+	path = "HeightmapTerrain.dll"
+	platforms = "Windows, MacOSX"
+	entryPoint = True
+}

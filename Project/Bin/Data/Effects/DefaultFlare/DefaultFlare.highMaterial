@@ -1,0 +1,15 @@
+highLevelMaterial DefaultFlare
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.5
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Effects\\DefaultFlare\\DefaultFlare.jpg"
+		clamp = True
+	}
+}

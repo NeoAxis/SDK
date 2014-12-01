@@ -1,0 +1,501 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Particles &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Cloth" href="Cloth.html" />
+    <link rel="prev" title="Coulomb Friction" href="CoulombFriction.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Cloth.html" title="Cloth"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="CoulombFriction.html" title="Coulomb Friction"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="particles">
+<span id="id1"></span><h1>Particles<a class="headerlink" href="#particles" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>PhysX 3 offers two particle system types - a generic particle system and an SPH fluid particle system.
+The generic particle system provides basic particle motion and collision with rigid actors. It can be used for
+objects that require collisions against the environment, but for which inter-particle interations are not needed.
+Examples include small debris, sparks or leaves. The SPH fluid particle system can be used for fluid effects that require
+approximate incompressibility and flowing behavior, such as liquids or fog and smoke filling up a volume.</p>
+<p>PhysX 3 takes care of collision detection and particle dynamics, while auxiliary facilities such as emitters,
+lifetime maintenance etc. need to be provided by the application.</p>
+<p>SampleParticles shows both particle system types being used: <em>PxParticleSystem</em> is used for small debris and smoke, while
+<em>PxParticleFluid</em> is used for the waterfall.</p>
+</div>
+<div class="section" id="creating-particle-systems">
+<h2>Creating Particle Systems<a class="headerlink" href="#creating-particle-systems" title="Permalink to this headline">¶</a></h2>
+<p>Sample Reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxParticleSystem</span><span class="o">*</span> <span class="n">SampleParticles</span><span class="o">::</span><span class="n">createParticleSystem</span><span class="p">(...)</span>
+<span class="n">PxParticleFluid</span><span class="o">*</span> <span class="n">SampleParticles</span><span class="o">::</span><span class="n">createFluid</span><span class="p">(...)</span>
+</pre></div>
+</div>
+<p>Both particle system classes <em>PxParticleSystem</em> and <em>PxParticleFluid</em> inherit from <em>PxParticleBase</em>, which is the
+common interface providing particle manipulation and collision functionality. Particle systems inherit from <em>PxActor</em>
+and can be added to a scene.</p>
+<p>The following section shows how a particle system is created and added:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// set immutable properties.</span>
+<span class="n">PxU32</span> <span class="n">maxParticles</span> <span class="o">=</span> <span class="mi">100</span><span class="p">;</span>
+<span class="kt">bool</span> <span class="n">perParticleRestOffset</span> <span class="o">=</span> <span class="kc">false</span><span class="p">;</span>
+
+<span class="c1">// create particle system in PhysX SDK</span>
+<span class="n">PxParticleSystem</span><span class="o">*</span> <span class="n">ps</span> <span class="o">=</span> <span class="n">mPhysics</span><span class="o">-&gt;</span><span class="n">createParticleSystem</span><span class="p">(</span><span class="n">maxParticles</span><span class="p">,</span> <span class="n">perParticleRestOffset</span><span class="p">);</span>
+
+<span class="c1">// add particle system to scene, in case creation was successful</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">ps</span><span class="p">)</span>
+        <span class="n">mScene</span><span class="o">-&gt;</span><span class="n">addActor</span><span class="p">(</span><span class="o">*</span><span class="n">ps</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Particle fluids can be created in a similar fashion.</p>
+<p>There are three types of particle system properties. Some need to be specified when the particle system is created and can't be changed afterwards. Some are mutable while the
+particle system is not part of a scene. Others can be changed at any time.</p>
+<p>Immutable properties of <em>PxParticleBase</em> that need to be specified at creation:</p>
+<ul class="simple">
+<li><em>maxParticles:</em> The maximum number of particles that can be added to a particle system. The smaller the value, the smaller the memory footprint of the particle system is going to be.</li>
+<li><em>particleBaseFlags, PxParticleBaseFlag::ePER_PARTICLE_REST_OFFSET:</em> Enables/disables per-particle rest offsets. Memory can be saved by turning per particle rest offsets off.</li>
+</ul>
+<p>Properties of <em>PxParticleBase</em> which are immutable when the particle system is part of a scene:</p>
+<ul class="simple">
+<li><em>maxMotionDistance:</em> The maximum distance a particle can travel during one simulation step. High values may hurt performance, while low values may restrict the particle velocity too much.</li>
+<li><em>gridSize:</em> A hint for the PhysX SDK to choose the particle grouping granularity for proximity tests and parallelization. See <a class="reference internal" href="#particlegrid">particleGrid</a>.</li>
+<li><em>restOffset:</em> Defines the minimum distance between particles and the surface of rigid actors that is maintained by the collision system.</li>
+<li><em>contactOffset:</em> Defines the distance at which contacts between particles and rigid actors are created. The contacts are internally used to avoid jitter and sticking. It needs to be larger than <em>restOffset</em>.</li>
+<li><em>particleReadDataFlags:</em> Specifies a subset of simulation properties which are returned to the application after simulation.  See <a class="reference internal" href="#readingparticles">readingParticles</a>.</li>
+<li><em>particleBaseFlags, PxParticleBaseFlag::eGPU:</em> Enable/disable GPU acceleration.</li>
+<li><em>particleBaseFlags, PxParticleBaseFlag::eCOLLISION_TWOWAY:</em> Enable/disable two-way interaction between rigid bodies and particles.</li>
+</ul>
+<p>Properties of <em>PxParticleFluid</em> which are immutable when the particle system is part of a scene:</p>
+<ul class="simple">
+<li><em>restParticleDistance:</em> Defines the resolution of the particle fluid.</li>
+</ul>
+<p>Mutable properties of <em>PxParticleBase</em>:</p>
+<ul class="simple">
+<li><em>restitution:</em> Restitution used for particle collision.</li>
+<li><em>dynamicFriction:</em> Dynamic friction used for particle collision.</li>
+<li><em>staticFriction:</em> Static friction used for particle collision.</li>
+<li><em>damping:</em> Velocity damping constant, which is globally applied to each particle.</li>
+<li><em>externalAcceleration:</em> Acceleration applied to each particle at each time step. The scene gravity which is added to the external acceleration by default can be disabled using <em>PxActorFlag::eDISABLE_GRAVITY</em>.</li>
+<li><em>particleBaseFlags, PxParticleBaseFlag::eENABLED:</em> Enables/disables particle simulation.</li>
+<li><em>particleBaseFlags, PxParticleBaseFlag::ePROJECT_TO_PLANE:</em> Enables/disables projection mode which confines particles to a plane.</li>
+<li><em>projectionPlaneNormal, projectionPlaneDistance:</em> Defines plane for the projection mode.</li>
+<li><em>particleMass:</em> Mass used for two way interaction with rigid bodies.</li>
+<li><em>simulationFilterData:</em> Filter data used to filter collisions between particles and rigid bodies. See <a class="reference internal" href="#collisionfiltering">collisionFiltering</a>.</li>
+</ul>
+<p>Mutable properties of <em>PxParticleFluid</em>:</p>
+<ul class="simple">
+<li><em>stiffness:</em> The stiffness (or gas constant) influences the calculation of the pressure force field. Low values of stiffness make the fluid more compressible (i.e., springy), while high values make it less compressible. The stiffness value has a significant impact on the numerical stability of the simulation; setting very high values will result in instability. Reasonable values are usually between 1 and 200.</li>
+<li><em>viscosity:</em> Viscosity controls a fluid's thickness. For example, a fluid with a high viscosity will behave like treacle, while a fluid with low viscosity will be more like water. The viscosity value scales the force to reduce the relative velocity of particles within the fluid. Reasonable values are usually between 5 and 300.</li>
+</ul>
+</div>
+<div class="section" id="creating-particles">
+<h2>Creating Particles<a class="headerlink" href="#creating-particles" title="Permalink to this headline">¶</a></h2>
+<p>Sample Reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">ParticleSystem</span><span class="o">::</span><span class="n">createParticles</span><span class="p">(...)</span>
+</pre></div>
+</div>
+<p>PhysX 3 itself has no built-in emitters. Instead, it simply provides an interface to create particles with initial properties.
+Specifying particle indices and positions is mandatory, while velocities and rest offsets may be specified optionally. In order to
+provide per-particle rest offsets <em>PxParticleBaseFlag::ePER_PARTICLE_REST_OFFSET</em> needs to be set.
+The rest offsets are not allowed to be larger than <em>PxParticleBase.getRestOffset()</em>. Per-particle flags can be provided but do not serve
+any purpose in PhysX 3, since all particle flags are read only.</p>
+<p>Particles in PhysX 3 can be accessed with constant array indices throughout their lifetime. The application specifies an index
+for each particle on creation. Usually the application maintains its own representation of particles which already have associated indices
+that can be reused for PhysX. If the application does not have appropriate indices at its disposal, it can use an index pool provided by the
+PhysX extensions library <em>PxParticleExt::IndexPool</em> as explained here: <a class="reference internal" href="#indexpool">indexPool</a>.</p>
+<p>Note: In PhysX 3 all particle access such as creating, releasing, updating and reading particles can only be carried out while
+the simulation of the scene is not being executed.</p>
+<p>Example for creating a few particles:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// declare particle descriptor for creating new particles</span>
+<span class="c1">// based on numNewAppParticles count and newAppParticleIndices, newAppParticlePositions arrays.</span>
+<span class="n">PxParticleCreationData</span> <span class="n">particleCreationData</span><span class="p">;</span>
+<span class="n">particleCreationData</span><span class="p">.</span><span class="n">numParticles</span> <span class="o">=</span> <span class="n">numNewAppParticles</span><span class="p">;</span>
+<span class="n">particleCreationData</span><span class="p">.</span><span class="n">indexBuffer</span> <span class="o">=</span> <span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxU32</span><span class="o">&gt;</span><span class="p">(</span><span class="n">newAppParticleIndices</span><span class="p">);</span>
+<span class="n">particleCreationData</span><span class="p">.</span><span class="n">positionBuffer</span> <span class="o">=</span> <span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&gt;</span><span class="p">(</span><span class="n">newAppParticlePositions</span><span class="p">);</span>
+
+<span class="c1">// create particles in *PxParticleSystem* ps</span>
+<span class="kt">bool</span> <span class="n">success</span> <span class="o">=</span> <span class="n">ps</span><span class="o">-&gt;</span><span class="n">createParticles</span><span class="p">(</span><span class="n">particleCreationData</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>The indices specified for particle creation need to be unique and within the limit of <em>PxParticleBase::getMaxParticles()</em>.</p>
+<p>Note: For fluid particles it is necessary to spawn particles at distances close to <em>PxParticleFluid::getRestParticleDistance()</em> in order to achieve a regular emission,
+otherwise particles will spread immediately in all directions. The sample implements two types of emitters - a constant rate emitter, and a constant pressure emitter,
+which is suitable for fluid particles.</p>
+</div>
+<div class="section" id="releasing-particles">
+<h2>Releasing Particles<a class="headerlink" href="#releasing-particles" title="Permalink to this headline">¶</a></h2>
+<p>Sample reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">ParticleSystem</span><span class="o">::</span><span class="n">update</span><span class="p">(...)</span>
+</pre></div>
+</div>
+<p>Particles can be released by providing indices to the particle system. As opposed to older versions of the PhysX SDK, particles get immediately released.</p>
+<p>Example for releasing a few particles:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// declare strided iterator for providing array of indices corresponding to</span>
+<span class="c1">// particles that should be removed</span>
+<span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxU32</span><span class="o">&gt;</span> <span class="n">indexBuffer</span><span class="p">(</span><span class="n">appParticleIndices</span><span class="p">);</span>
+
+<span class="c1">// release particles in *PxParticleSystem* ps</span>
+<span class="n">ps</span><span class="o">-&gt;</span><span class="n">releaseParticles</span><span class="p">(</span><span class="n">numAppParticleIndices</span><span class="p">,</span> <span class="n">indexBuffer</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>It is a requirement that the indices passed to the release method are unique and correspond to existing particles.</p>
+<p>All particles can be released at once by calling:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">ps</span><span class="o">-&gt;</span><span class="n">releaseParticles</span><span class="p">();</span>
+</pre></div>
+</div>
+<p>Since only a limited number of particle slots <em>(PxParticleBase::getMaxParticles())</em> are available it might be appropriate to replace old particles with new ones. This can be
+achieved for instance by maintaining an application-side particle lifetime. There are other reasons to release particles:</p>
+<ul class="simple">
+<li>Drains can be useful to remove particles that go to locations where they are not needed anymore. See <a class="reference internal" href="#particledrains">particleDrains</a>.</li>
+<li>The spatial data structure used for particles may overflow. Particles that cannot be covered are marked and should be released. See <a class="reference internal" href="#particlegrid">particleGrid</a>.</li>
+</ul>
+</div>
+<div class="section" id="index-pool-extension">
+<span id="indexpool"></span><h2>Index Pool Extension<a class="headerlink" href="#index-pool-extension" title="Permalink to this headline">¶</a></h2>
+<p>Example for allocating particle indices using the PhysX extensions library:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// create an index pool for a particle system with maximum particle count of maxParticles</span>
+<span class="n">PxParticleExt</span><span class="o">::</span><span class="n">IndexPool</span><span class="o">*</span> <span class="n">indexPool</span> <span class="o">=</span> <span class="n">PxParticleExt</span><span class="o">::</span><span class="n">createIndexPool</span><span class="p">(</span><span class="n">maxParticles</span><span class="p">);</span>
+
+<span class="c1">// use the indexPool for allocating numNewAppParticles indices that can be used</span>
+<span class="c1">// for particle creation throughout the particle system lifetime. If numAllocated</span>
+<span class="c1">// is smaller than numNewAppParticles, the maxParticles limit was exceeded</span>
+<span class="n">PxU32</span> <span class="n">numAllocated</span> <span class="o">=</span> <span class="n">indexPool</span><span class="o">-&gt;</span><span class="n">allocateIndices</span><span class="p">(</span><span class="n">numNewAppParticles</span><span class="p">,</span> <span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="n">PxU32</span><span class="o">&gt;</span><span class="p">(</span><span class="n">newAppParticleIndices</span><span class="p">));</span>
+
+<span class="c1">// in order to reuse particle slots, the indices should be handed back to the</span>
+<span class="c1">// indexPool after the particles have been released</span>
+<span class="n">indexPool</span><span class="o">-&gt;</span><span class="n">freeIndices</span><span class="p">(</span><span class="n">numAppParticleIndices</span><span class="p">,</span> <span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="n">PxU32</span><span class="o">&gt;</span><span class="p">(</span><span class="n">appParticleIndices</span><span class="p">));</span>
+
+<span class="c1">// if no further index management is needed, the pool should be released</span>
+<span class="n">indexPool</span><span class="o">-&gt;</span><span class="n">release</span><span class="p">();</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="updating-particles">
+<h2>Updating Particles<a class="headerlink" href="#updating-particles" title="Permalink to this headline">¶</a></h2>
+<p>The following per-particle updates are carried out immediately:</p>
+<ul class="simple">
+<li>Position updates: Teleporting particles from one location to another.</li>
+<li>Velocity updates: Directly altering the velocities of particles.</li>
+<li>Rest offset updates: Changes particle rest offsets (only available with <em>PxParticleBaseFlag::ePER_PARTICLE_REST_OFFSET</em>).</li>
+</ul>
+<p>Particle updates that are carried out during the next scene simulation step:</p>
+<ul class="simple">
+<li>Force updates: Results in a velocity change update according to a vector unit specified by <em>PxForceMode</em>.</li>
+</ul>
+<p>Example for force update:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// specify strided iterator to provide update forces</span>
+<span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&gt;</span> <span class="n">forceBuffer</span><span class="p">(</span><span class="n">appParticleForces</span><span class="p">);</span>
+
+<span class="c1">// specify strided iterator to provide indices of particles that need to be updated</span>
+<span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxU32</span><span class="o">&gt;</span> <span class="n">indexBuffer</span><span class="p">(</span><span class="n">appParticleForceIndices</span><span class="p">);</span>
+
+<span class="c1">// specify force update on PxParticleSystem ps choosing the &quot;force&quot; unit</span>
+<span class="n">ps</span><span class="o">-&gt;</span><span class="n">addForces</span><span class="p">(</span><span class="n">numAppParticleForces</span><span class="p">,</span> <span class="n">indexBuffer</span><span class="p">,</span> <span class="n">forceBuffer</span><span class="p">,</span> <span class="n">PxForceMode</span><span class="o">::</span><span class="n">eFORCE</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="reading-particles">
+<span id="readingparticles"></span><h2>Reading Particles<a class="headerlink" href="#reading-particles" title="Permalink to this headline">¶</a></h2>
+<p>Sample reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">ParticleSystem</span><span class="o">::</span><span class="n">update</span><span class="p">(...)</span>
+</pre></div>
+</div>
+<p>The PhysX SDK does not provide to the user all simulated per-particle properties of a particle system by default. The application can specify the data it needs by configuring
+PxParticleBase::particleReadDataFlags:</p>
+<ul class="simple">
+<li><em>PxParticleReadDataFlag::ePOSITION_BUFFER:</em> On by default.</li>
+<li><em>PxParticleReadDataFlag::eFLAGS_BUFFER:</em> On by default.</li>
+<li><em>PxParticleReadDataFlag::eVELOCITY_BUFFER:</em> Off by default.</li>
+<li><em>PxParticleReadDataFlag::eREST_OFFSET_BUFFER:</em> Off by default.</li>
+<li><em>PxParticleReadDataFlag::eCOLLISION_NORMAL_BUFFER:</em> Off by default.</li>
+<li><em>PxParticleReadDataFlag::eDENSITY_BUFFER:</em> Only available for particle fluids and off by default.</li>
+</ul>
+<p>Particle flags provide more information on individual particles:</p>
+<ul class="simple">
+<li><em>PxParticleFlag::eVALID:</em> If set, the particle was created beforehand and not yet released. If not set, the particle slot does not contain a valid particle. All other properties are invalid in this case and should be ignored.</li>
+<li><em>PxParticleFlag::eCOLLISION_WITH_STATIC:</em> Shows whether a particle collided with a rigid static during the last simulation step.</li>
+<li><em>PxParticleFlag::eCOLLISION_WITH_DYNAMIC:</em> Shows whether a particle collided with a dynamic rigid body during the last simulation step.</li>
+<li><em>PxParticleFlag::eCOLLISION_WITH_DRAIN:</em> Shows whether a particle collided with a rigid actor shape that was marked as a drain (<a class="reference internal" href="#particledrains">particleDrains</a>).</li>
+<li><em>PxParticleFlag::eSPATIAL_DATA_STRUCTURE_OVERFLOW:</em> Shows whether a particle had to be omitted when building the SDK internal spatial data structure (<a class="reference internal" href="#particlegrid">particleGrid</a>).</li>
+</ul>
+<p>Particle collision normals represent contact normals between particles and rigid actor surfaces. A non-colliding particle has
+a zero collision normal. Collision normals are useful e.g. for orienting the particle visualization according to their contact with rigid actors.</p>
+<p>Particle densities provided by particle fluids can be used for rendering. A particle density has a value of zero for a particle that is
+completely isolated. It has a value of one for a particle that has a particle neighborhood with a mean spacing corresponding to <em>PxParticleFluid::getRestParticleDistance()</em>.</p>
+<p>Particle data can only be read while the scene simulation is not executing. In order to get access to the SDK buffers a <em>PxParticleReadData</em> instance needs to be acquired
+from the SDK. It has the following properties:</p>
+<ul class="simple">
+<li><em>numValidParticles:</em> Total number of valid particles for the corresponding particle system.</li>
+<li><em>validParticleRange:</em> The index range of valid particles in the particle buffers.</li>
+<li><em>validParticleBitmap:</em> Bitmap of valid particle locations.</li>
+<li><em>positionBuffer, positionBuffer, velocityBuffer, restOffsetBuffer, flagsBuffer, collisionNormalBuffer:</em>  Strided iterators for particle properties.</li>
+</ul>
+<p>Additionally paticle fluids provide <em>PxParticleFluidReadData</em> with</p>
+<ul class="simple">
+<li><em>densityBuffer:</em> Strided iterator for particle densities.</li>
+</ul>
+<p>Example of how to access particle data:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="c1">// lock SDK buffers of *PxParticleSystem* ps for reading</span>
+<span class="n">PxParticleReadData</span><span class="o">*</span> <span class="n">rd</span> <span class="o">=</span> <span class="n">ps</span><span class="o">-&gt;</span><span class="n">lockParticleReadData</span><span class="p">();</span>
+
+<span class="c1">// access particle data from PxParticleReadData</span>
+<span class="k">if</span> <span class="p">(</span><span class="n">rd</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxParticleFlags</span><span class="o">&gt;</span> <span class="n">flagsIt</span><span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">flagsBuffer</span><span class="p">);</span>
+        <span class="n">PxStrideIterator</span><span class="o">&lt;</span><span class="k">const</span> <span class="n">PxVec3</span><span class="o">&gt;</span> <span class="n">positionIt</span><span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">positionBuffer</span><span class="p">);</span>
+
+        <span class="k">for</span> <span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">i</span> <span class="o">&lt;</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">validParticleRange</span><span class="p">;</span> <span class="o">++</span><span class="n">i</span><span class="p">,</span> <span class="o">++</span><span class="n">flagsIt</span><span class="p">,</span> <span class="o">++</span><span class="n">positionIt</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="k">if</span> <span class="p">(</span><span class="o">*</span><span class="n">flagsIt</span> <span class="o">&amp;</span> <span class="n">PxParticleFlag</span><span class="o">::</span><span class="n">eVALID</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="c1">// access particle position</span>
+                        <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">position</span> <span class="o">=</span> <span class="o">*</span><span class="n">positionIt</span><span class="p">;</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+
+        <span class="c1">// return ownership of the buffers back to the SDK</span>
+        <span class="n">rd</span><span class="o">-&gt;</span><span class="n">unlock</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Example of how to use the valid particle bitmap to access particle data (without showing the locking and unlocking):</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="k">if</span> <span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">validParticleRange</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">)</span>
+<span class="p">{</span>
+        <span class="c1">// iterate over valid particle bitmap</span>
+        <span class="k">for</span> <span class="p">(</span><span class="n">PxU32</span> <span class="n">w</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span> <span class="n">w</span> <span class="o">&lt;=</span> <span class="p">(</span><span class="n">rd</span><span class="o">-&gt;</span><span class="n">validParticleRange</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="o">&gt;&gt;</span> <span class="mi">5</span><span class="p">;</span> <span class="n">w</span><span class="o">++</span><span class="p">)</span>
+        <span class="p">{</span>
+                <span class="k">for</span> <span class="p">(</span><span class="n">PxU32</span> <span class="n">b</span> <span class="o">=</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">validParticleBitmap</span><span class="p">[</span><span class="n">w</span><span class="p">];</span> <span class="n">b</span><span class="p">;</span> <span class="n">b</span> <span class="o">&amp;=</span> <span class="n">b</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+                <span class="p">{</span>
+                        <span class="n">PxU32</span> <span class="n">index</span> <span class="o">=</span> <span class="p">(</span><span class="n">w</span> <span class="o">&lt;&lt;</span> <span class="mi">5</span> <span class="o">|</span> <span class="n">Ps</span><span class="o">::</span><span class="n">lowestSetBit</span><span class="p">(</span><span class="n">b</span><span class="p">));</span>
+
+                        <span class="c1">// access particle position</span>
+                        <span class="k">const</span> <span class="n">PxVec3</span><span class="o">&amp;</span> <span class="n">position</span> <span class="o">=</span> <span class="n">rd</span><span class="o">-&gt;</span><span class="n">positionBuffer</span><span class="p">[</span><span class="n">index</span><span class="p">];</span>
+                <span class="p">}</span>
+        <span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="particle-drains">
+<span id="particledrains"></span><h2>Particle Drains<a class="headerlink" href="#particle-drains" title="Permalink to this headline">¶</a></h2>
+<p>Sample reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">SampleParticles</span><span class="o">::</span><span class="n">createDrain</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The sample uses a <em>PxShape</em> plane, marked as a drain, to delete particles. The drain represents a lake that the fluid particles flow into,
+and is used as a general safety net in case any particles escape from the level.</p>
+<p>Drains are generally a good method for keeping the particle count and spread under control. Placing drains around the area of interest in which a particle system is used
+helps to maintain good performance of the particle simulation. The area of interest could, for example, also be moved with the player.</p>
+<p>Example of how to flag a <em>PxShape</em> rbShape as a drain:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">rbShape</span><span class="o">-&gt;</span><span class="n">setFlag</span><span class="p">(</span><span class="n">PxShapeFlag</span><span class="o">::</span><span class="n">ePARTICLE_DRAIN</span><span class="p">,</span> <span class="kc">true</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>Particles that collide with a drain are marked with <em>PxParticleFlag::eCOLLISION_WITH_DRAIN</em> and may be released.</p>
+</div>
+<div class="section" id="particle-grid-and-spatial-data-structure-overflow">
+<span id="particlegrid"></span><h2>Particle Grid and Spatial Data Structure Overflow<a class="headerlink" href="#particle-grid-and-spatial-data-structure-overflow" title="Permalink to this headline">¶</a></h2>
+<p>Sample reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">ParticleSystem</span><span class="o">::</span><span class="n">update</span><span class="p">(...)</span>
+</pre></div>
+</div>
+<p>The PhysX SDK uses a grid to subdivide the particles of a particle system into spatial groups. This is done to accelerate
+proximity queries and for parallelization purposes. The grid size parameter needs to be experimentally
+adjusted with <em>PxParticleBase::setGridSize()</em> for best performance. When doing this it is helpful to visualize the grid using <em>PxVisualizationParameter::ePARTICLE_SYSTEM_GRID</em>.
+Small grid size values might result in spatial data structure overflow, since the number of grid cells is limited to about 1000. Large grid size
+values on the other hand might result in poor performance due to ineffective spatial queries or lack of parallelization opportunities.</p>
+<p>In case of overflow, some particles will stop colliding with rigid actors in the scene. These particles are marked with
+<em>PxParticleFlag::eSPATIAL_DATA_STRUCTURE_OVERFLOW</em> and should be released.</p>
+</div>
+<div class="section" id="collision-filtering">
+<span id="collisionfiltering"></span><h2>Collision Filtering<a class="headerlink" href="#collision-filtering" title="Permalink to this headline">¶</a></h2>
+<p>Sample reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxFilterFlags</span> <span class="n">SampleParticlesFilterShader</span><span class="p">(...)</span>
+</pre></div>
+</div>
+<p>Filtering particle versus rigid body collisions can be useful to avoid unnecessary performance overhead or simply to avoid undesired collisions.
+The sample filter shader is setup to</p>
+<ul class="simple">
+<li>Avoid particles colliding with trigger shapes (this is also the default filter shader behavior)</li>
+<li>Just have the particles collide with the drain shape</li>
+<li>Have two capsules with different radii to represent a force field around the laser. Each capsule interacts with just one particle system instance, smoke or water, to achieve effects of different strengths.</li>
+</ul>
+<p>Filter information for particles can be specified by calling <em>PxParticleBase::setSimulationFilterData()</em>.</p>
+</div>
+<div class="section" id="gpu-cuda-acceleration">
+<h2>GPU/CUDA Acceleration<a class="headerlink" href="#gpu-cuda-acceleration" title="Permalink to this headline">¶</a></h2>
+<p>Sample reference:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">SampleBase</span><span class="o">::</span><span class="n">onInit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>PhysX 3 supports GPU acceleration. This allows for larger and more detailed particle effects while retaining good performance levels.
+To achieve this gain we must use a <em>pxtask::GpuDispatcher</em> for the scene we want to add the particle system to:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#ifdef PX_WINDOWS</span>
+        <span class="c1">// create cuda context manager</span>
+        <span class="n">pxtask</span><span class="o">::</span><span class="n">CudaContextManagerDesc</span> <span class="n">cudaContextManagerDesc</span><span class="p">;</span>
+        <span class="n">pxtask</span><span class="o">::</span><span class="n">CudaContextManager</span><span class="o">*</span> <span class="n">cudaContextManager</span> <span class="o">=</span> <span class="n">pxtask</span><span class="o">::</span><span class="n">createCudaContextManager</span><span class="p">(</span><span class="n">cudaContextManagerDesc</span><span class="p">);</span>
+<span class="cp">#endif</span>
+
+        <span class="n">PxSceneDesc</span> <span class="n">sceneDesc</span><span class="p">(</span><span class="n">mPhysics</span><span class="o">-&gt;</span><span class="n">getTolerancesScale</span><span class="p">());</span>
+<span class="cp">        //...</span>
+<span class="cp">#ifdef PX_WINDOWS</span>
+        <span class="k">if</span> <span class="p">(</span><span class="n">cudaContextManager</span><span class="p">)</span>
+                <span class="n">sceneDesc</span><span class="p">.</span><span class="n">gpuDispatcher</span> <span class="o">=</span> <span class="n">cudaContextManager</span><span class="o">-&gt;</span><span class="n">getGpuDispatcher</span><span class="p">();</span>
+<span class="cp">#endif</span>
+        <span class="c1">//...</span>
+        <span class="n">physicsSdk</span><span class="o">-&gt;</span><span class="n">createScene</span><span class="p">(</span><span class="n">sceneDesc</span><span class="p">);</span>
+</pre></div>
+</div>
+<p>A particle system can be configured for GPU simulation by setting <em>PxParticleBaseFlag::eGPU</em>. Toggling GPU acceleration
+while the particle system is part of a scene might have a bad impact on performance since its state needs to be copied
+to or from the GPU device memory. It is therefore better to set the flag with <em>PxParticleBase::setParticleBaseFlag()</em>
+before adding the particle system to the scene.</p>
+<p>Convex, Triangle and Height field meshes are automatically mirrored in the GPU memory when the corresponding shapes are within
+the proximity of a GPU accelerated particle system. This may cause some undesired performance hiccups which can be prevented by
+mirroring the meshes explicitly, as shown in this example:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="cp">#ifdef PX_WINDOWS</span>
+        <span class="c1">// mirror PxTriangleMesh triangleMesh providing the corresponding cudaContextManager of the desired scene.</span>
+        <span class="n">PxParticleGpu</span><span class="o">::</span><span class="n">createTriangleMeshMirror</span><span class="p">(</span><span class="n">triangleMesh</span><span class="p">,</span> <span class="o">*</span><span class="n">cudaContextManager</span><span class="p">);</span>
+
+        <span class="c1">// later release the obsolete mirror</span>
+        <span class="n">PxParticleGpu</span><span class="o">::</span><span class="n">releaseTriangleMeshMirror</span><span class="p">(</span><span class="n">triangleMesh</span><span class="p">,</span> <span class="o">*</span><span class="n">cudaContextManager</span><span class="p">);</span>
+<span class="cp">#endif</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="additional-sampleparticles-information">
+<h2>Additional SampleParticles Information<a class="headerlink" href="#additional-sampleparticles-information" title="Permalink to this headline">¶</a></h2>
+<p>The performance level of the particle sample varies by platform. Therefore different particle loads are chosen for different platforms,
+as can be seen in:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">SampleParticles</span><span class="o">::</span><span class="n">onInit</span><span class="p">()</span>
+</pre></div>
+</div>
+<p>The sample makes use of various helper classes:</p>
+<ul class="simple">
+<li><em>ParticleSystem:</em> Encapsulates a <em>PxParticleSystem</em> or <em>PxParticleFluid</em> instance and manages application side data such as particle lifetimes and orientations for debris. It facilitates creating and releasing particles and double buffers particle data for asynchronous rendering.</li>
+<li><em>RenderParticleSystemActor:</em> Owns a <em>ParticleSystem</em> and provides rendering functionality.</li>
+<li><em>ParticleEmitterRate:</em> Emits particles at a specified rate (#particles per second).</li>
+<li><em>ParticleEmitterPressure:</em> Emits particles maintaining a certain distance between them.</li>
+<li><em>SampleParticles::Emitter:</em> Connects an emitter as described above with a <em>RenderParticleSystemActor</em>.</li>
+<li><em>SampleParticles::Raygun:</em> Provides functionality for the ray force field, rigid body debris, particle debris and smoke emission.</li>
+</ul>
+<p>In the sample, the smoke effect is achieved by using a <em>PxParticleSystem</em> without gravity. Each particle is rendered as a point sprite with a
+smoke texture. The sprites fade away when the particles get close to the end of their lifespan. The smoke particles collide with the scene, which can be seen when roaming the smoke with the ray-gun.
+Smoke is generated for the craters, as well as for the ray-gun impacts.</p>
+<p>Two kinds of debris are shown in the sample. Larger chunks of debris are represented using convex-shaped rigid bodies. Smaller but more abundant chunks are represented by particles,
+which helps performance. The particle based debris is rendered using instanced meshes. It is spawned in the craters and at the ray-gun impact location.</p>
+<p>In order to give the chunks the appearance of a tumbling motion a simple trick is used.</p>
+<ol class="arabic simple">
+<li>Assign an initial random rotation matrix to each particle.</li>
+<li>Change this rotation matrix proportional to the linear velocity of particle.</li>
+</ol>
+<p>The implementation of this approach can be found in the following functions:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="kt">void</span> <span class="n">ParticleSystem</span><span class="o">::</span><span class="n">initializeParticlesOrientations</span><span class="p">()</span>
+<span class="kt">void</span> <span class="n">ParticleSystem</span><span class="o">::</span><span class="n">modifyRotationMatrix</span><span class="p">(...)</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Particles</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#creating-particle-systems">Creating Particle Systems</a></li>
+<li><a class="reference internal" href="#creating-particles">Creating Particles</a></li>
+<li><a class="reference internal" href="#releasing-particles">Releasing Particles</a></li>
+<li><a class="reference internal" href="#index-pool-extension">Index Pool Extension</a></li>
+<li><a class="reference internal" href="#updating-particles">Updating Particles</a></li>
+<li><a class="reference internal" href="#reading-particles">Reading Particles</a></li>
+<li><a class="reference internal" href="#particle-drains">Particle Drains</a></li>
+<li><a class="reference internal" href="#particle-grid-and-spatial-data-structure-overflow">Particle Grid and Spatial Data Structure Overflow</a></li>
+<li><a class="reference internal" href="#collision-filtering">Collision Filtering</a></li>
+<li><a class="reference internal" href="#gpu-cuda-acceleration">GPU/CUDA Acceleration</a></li>
+<li><a class="reference internal" href="#additional-sampleparticles-information">Additional SampleParticles Information</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="CoulombFriction.html"
+                        title="previous chapter">Coulomb Friction</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="Cloth.html"
+                        title="next chapter">Cloth</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="Cloth.html" title="Cloth"
+             >next</a></li>
+        <li class="right" >
+          <a href="CoulombFriction.html" title="Coulomb Friction"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

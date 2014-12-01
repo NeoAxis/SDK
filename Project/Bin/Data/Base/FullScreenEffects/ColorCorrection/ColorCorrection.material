@@ -1,0 +1,49 @@
+fragment_program Compositor/ColorCorrection_fp_hlsl hlsl
+{
+	source Base\FullScreenEffects\ColorCorrection\ColorCorrection.cg_hlsl
+	entry_point main_fp
+	target ps_3_0
+}
+
+fragment_program Compositor/ColorCorrection_fp_cg cg
+{
+	source Base\FullScreenEffects\ColorCorrection\ColorCorrection.cg_hlsl
+	entry_point main_fp
+	profiles arbfp1
+}
+
+fragment_program Compositor/ColorCorrection_fp unified
+{
+	delegate Compositor/ColorCorrection_fp_hlsl
+	delegate Compositor/ColorCorrection_fp_cg
+}
+
+material Compositor/ColorCorrection
+{
+	technique
+	{
+	
+		pass
+		{
+			cull_hardware none
+			cull_software none
+			depth_check off
+			depth_write off
+			polygon_mode_overrideable false
+			polygon_mode solid
+
+			vertex_program_ref Compositor/StdQuad_vp
+			{
+			}
+
+			fragment_program_ref Compositor/ColorCorrection_fp
+			{
+			}
+
+			texture_unit
+			{
+				tex_address_mode clamp
+			}
+		}
+	}
+}

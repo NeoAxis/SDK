@@ -1,0 +1,399 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>FileSystem</name>
+    </assembly>
+    <members>
+        <member name="T:Engine.FileSystem.VirtualFileStream">
+            <summary>
+            Defines a file stream for virtual file system.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualFileSystem._CorrectCurrentDirectory">
+            <summary>
+            Reset the current directory of the application.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualFileSystem.GetVirtualPathByReal(System.String)">
+            <summary>
+            Converts a file path of real file system to path of virtual file system.
+            </summary>
+            <param name="realPath">The real file path.</param>
+            <returns>The virtual file path.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualFileSystem.GetRealPathByVirtual(System.String)">
+            <summary>
+            Converts a file path of virtual file system to path of real file system.
+            </summary>
+            <param name="virtualPath">The virtual file path.</param>
+            <returns>The real file path.</returns>
+        </member>
+        <member name="T:Engine.FileSystem.TextBlockUtils">
+            <summary>
+            Auxiliary class for work with <see cref="T:Engine.FileSystem.TextBlock"/>.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlockUtils.LoadFromVirtualFile(System.String,System.String@,System.Boolean@)">
+            <summary>
+            Loads the block from a file of virtual file system.
+            </summary>
+            <param name="path">The virtual file path.</param>
+            <param name="errorString">The information on an error.</param>
+            <param name="fileNotFound"><b>true</b> if file not found.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been loaded; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlockUtils.LoadFromVirtualFile(System.String,System.String@)">
+            <summary>
+            Loads the block from a file of virtual file system.
+            </summary>
+            <param name="path">The virtual file path.</param>
+            <param name="errorString">The information on an error.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been loaded; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlockUtils.LoadFromVirtualFile(System.String)">
+            <summary>
+            Loads the block from a file of virtual file system.
+            </summary>
+            <param name="path">The virtual file path.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been loaded; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlockUtils.LoadFromRealFile(System.String,System.String@,System.Boolean@)">
+            <summary>
+            Loads the block from a file of real file system.
+            </summary>
+            <param name="path">The real file path.</param>
+            <param name="errorString">The information on an error.</param>
+            <param name="fileNotFound"><b>true</b> if file not found.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been loaded; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlockUtils.LoadFromRealFile(System.String,System.String@)">
+            <summary>
+            Loads the block from a file of real file system.
+            </summary>
+            <param name="path">The real file path.</param>
+            <param name="errorString">The information on an error.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been loaded; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlockUtils.LoadFromRealFile(System.String)">
+            <summary>
+            Loads the block from a file of real file system.
+            </summary>
+            <param name="path">The real file path.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been loaded; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="T:Engine.FileSystem.VirtualFile">
+            <summary>
+            Defines a file for virtual file system.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualFile.Exists(System.String)">
+            <summary>
+            Determines whether the specified file exists. 
+            </summary>
+            <param name="path">The file to check.</param>
+            <returns><b>true</b> if the file is exists; otherwise, <b>false</b>.</returns>
+        </member>
+        <member name="T:Engine.FileSystem.VirtualDirectory">
+            <summary>
+            Defines a directory for virtual file system.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.Exists(System.String)">
+            <summary>
+            Determines whether the given path refers to an existing directory on virtual file system.
+            </summary>
+            <param name="path">The path to test.</param>
+            <returns><b>true</b> if the directory is exists; otherwise, <b>false</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.GetFiles(System.String)">
+            <summary>
+            Returns the names of files in the specified directory.  
+            </summary>
+            <param name="path">The directory from which to retrieve the files.</param>
+            <returns>A <b>String</b> array of file names in the specified directory.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.GetFiles(System.String,System.String)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified 
+            search pattern.  
+            </summary>
+            <param name="path">The directory from which to retrieve the files.</param>
+            <param name="searchPattern">
+            The search string to match against the names of files in path. The parameter
+            cannot end in two periods ("..") or contain two periods ("..") followed by
+            System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar,
+            nor can it contain any of the characters in System.IO.Path.InvalidPathChars.
+            </param>
+            <returns>
+            A <b>String</b> array containing the names of files in the specified directory 
+            that match the specified search pattern.
+            </returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.GetFiles(System.String,System.String,System.IO.SearchOption)">
+            <summary>
+            Returns the names of files in the specified directory that match the specified 
+            search pattern, using a value to determine whether to search subdirectories.
+            </summary>
+            <param name="path">The directory from which to retrieve the files.</param>
+            <param name="searchPattern">
+            The search string to match against the names of files in path. The parameter
+            cannot end in two periods ("..") or contain two periods ("..") followed by
+            System.IO.Path.DirectorySeparatorChar or System.IO.Path.AltDirectorySeparatorChar,
+            nor can it contain any of the characters in System.IO.Path.InvalidPathChars.
+            
+            </param>
+            <param name="searchOption">
+            One of the System.IO.SearchOption values that specifies whether the search
+            operation should include all subdirectories or only the current directory.
+            </param>
+            <returns>
+            A <b>String</b> array containing containing the names of files in the 
+            specified directory that match the specified search pattern.
+            </returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.GetDirectories(System.String)">
+            <summary>
+            Gets the names of subdirectories in the specified directory.
+            </summary>
+            <param name="path">The path for which an array of subdirectory names is returned.</param>
+            <returns>An array of type <b>String</b> containing the names of subdirectories in path.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.GetDirectories(System.String,System.String)">
+            <summary>
+            Gets an array of directories matching the specified search pattern from the 
+            current directory.
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="searchPattern">
+            The search string to match against the names of files in path. The parameter cannot 
+            end in two periods ("..") or contain two periods ("..") followed by 
+            DirectorySeparatorChar or AltDirectorySeparatorChar, nor can it contain any 
+            of the characters in InvalidPathChars.
+            </param>
+            <returns>
+            A <b>String</b> array of directories matching the search pattern. 
+            </returns>
+        </member>
+        <member name="M:Engine.FileSystem.VirtualDirectory.GetDirectories(System.String,System.String,System.IO.SearchOption)">
+            <summary>
+            Gets an array of directories matching the specified search pattern from the 
+            current directory, using a value to determine whether to search subdirectories. 
+            </summary>
+            <param name="path">The path to search.</param>
+            <param name="searchPattern">
+            The search string to match against the names of files in path. The parameter 
+            cannot end in two periods ("..") or contain two periods ("..") followed by 
+            DirectorySeparatorChar or AltDirectorySeparatorChar, nor can it contain any 
+            of the characters in InvalidPathChars.
+            </param>
+            <param name="searchOption">
+            One of the SearchOption values that specifies whether the search operation 
+            should include all subdirectories or only the current directory.
+            </param>
+            <returns>
+            A <b>String</b> array of directories matching the search pattern. 
+            </returns>
+        </member>
+        <member name="T:Engine.FileSystem.TextBlock">
+            <summary>
+            The class allows to store the text information in the hierarchical form.
+            Supports creation of children and attributes.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.#ctor">
+            <summary>
+            It is applied only to creation root blocks. Not for creation of children.
+            </summary>
+            <example>Example of creation of the block and filling by data.
+            <code>
+            TextBlock block = new TextBlock();
+            TextBlock childBlock = block.AddChild( "childBlock", "child block data" );
+            childBlock.SetAttribute( "attribute", "attribute value" );
+            </code>
+            </example>
+            <seealso cref="M:Engine.FileSystem.TextBlock.AddChild(System.String,System.String)"/>
+            <seealso cref="M:Engine.FileSystem.TextBlock.SetAttribute(System.String,System.String)"/>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.FindChild(System.String)">
+            <summary>
+            Finds child block by name.
+            </summary>
+            <param name="name">The block name.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been exists; otherwise, <b>null</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.AddChild(System.String,System.String)">
+            <summary>
+            Creates the child block.
+            </summary>
+            <param name="name">The block name.</param>
+            <param name="data">The block data string.</param>
+            <returns>The child block.</returns>
+            <remarks>
+            Names of blocks can repeat.
+            </remarks>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.AddChild(System.String)">
+            <summary>
+            Creates the child block.
+            </summary>
+            <param name="name">The block name.</param>
+            <returns>The child block.</returns>
+            <remarks>
+            Names of blocks can repeat.
+            </remarks>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.DeleteChild(Engine.FileSystem.TextBlock)">
+            <summary>
+            Deletes child block.
+            </summary>
+            <param name="child">The child block.</param>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.AttachChild(Engine.FileSystem.TextBlock)">
+            <summary>
+            Attaches the child block.
+            </summary>
+            <param name="child">The child block.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.DetachChild(Engine.FileSystem.TextBlock)">
+            <summary>
+            Detaches child block without deleting.
+            </summary>
+            <param name="child">The child block.</param>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.GetAttribute(System.String,System.String)">
+            <summary>
+            Returns the attribute value by name.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="defaultValue">Default value. If the attribute does not exist that this value will return.</param>
+            <returns>The attribute value if the attribute exists; otherwise, default value.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.GetAttribute(System.String)">
+            <summary>
+            Returns the attribute value by name.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <returns>The attribute value if the attribute exists; otherwise, empty string.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.IsAttributeExist(System.String)">
+            <summary>
+            Checks existence of attribute.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <returns><b>true</b> if the block exists; otherwise, <b>false</b>.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.SetAttribute(System.String,System.String)">
+            <summary>
+            Sets attribute. If such already there is that rewrites him.
+            </summary>
+            <param name="name">The attribute name.</param>
+            <param name="value">The attribute value.</param>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.DeleteAttribute(System.String)">
+            <summary>
+            Deletes attribute if he exists.
+            </summary>
+            <param name="name">The attribute name.</param>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.DeleteAllAttributes">
+            <summary>
+            Deletes all attributes.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.DumpToString">
+            <summary>
+            Returns a string containing all data about the block and his children.
+            </summary>
+            <returns>A string containing all data about the block and his children.</returns>
+            <remarks>
+            This method is applied at preservation of data of the block in a file.
+            </remarks>
+            <example>Example of preservation of data of the block in a file.
+            <code>
+            TextBlock block = ...
+            StreamWriter writer = new StreamWriter( fileName );
+            writer.Write( block.DumpToString() );
+            writer.Close();
+            </code>
+            </example>
+            <seealso cref="M:Engine.FileSystem.TextBlock.Parse(System.String,System.String@)"/>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.ToString">
+            <summary>
+            Returns a string that represents the current text block.
+            </summary>
+            <returns>A string that represents the current text block.</returns>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.Parse(System.String,System.String@)">
+            <summary>
+            Parses the text with data of the block and his children.
+            </summary>
+            <param name="str">The data string.</param>
+            <param name="errorString">The information on an error.</param>
+            <returns><see cref="T:Engine.FileSystem.TextBlock"/> if the block has been parsed; otherwise, <b>null</b>.</returns>
+            <seealso cref="M:Engine.FileSystem.TextBlock.DumpToString"/>
+            <remarks>
+            For convenience of loading of blocks there is auxiliary class <see cref="T:Engine.FileSystem.TextBlockUtils"/>.
+            </remarks>
+            <example>Example of loading of data of the block from a stream.
+            <code>
+            FileStream stream = ...;
+            StreamReader streamReader = new StreamReader( stream );
+            string error;
+            TextBlock block = TextBlock.Parse( streamReader.ReadToEnd(), out error );
+            streamReader.Dispose();
+            </code>
+            </example>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Parent">
+            <summary>
+            Gets the parent block.
+            </summary>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Name">
+            <summary>
+            Gets or set block name.
+            </summary>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Data">
+            <summary>
+            Gets or set block string data.
+            </summary>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Children">
+            <summary>
+            Gets the children collection.
+            </summary>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Attributes">
+            <summary>
+            Gets the attributes collection.
+            </summary>
+        </member>
+        <member name="T:Engine.FileSystem.TextBlock.Attribute">
+            <summary>
+            Defines <see cref="T:Engine.FileSystem.TextBlock"/> attribute.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.TextBlock.Attribute.ToString">
+            <summary>
+            Returns a string that represents the current attribute.
+            </summary>
+            <returns>A string that represents the current attribute.</returns>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Attribute.Name">
+            <summary>
+            Gets the attribute name.
+            </summary>
+        </member>
+        <member name="P:Engine.FileSystem.TextBlock.Attribute.Value">
+            <summary>
+            Gets the attribute value.
+            </summary>
+        </member>
+        <member name="M:Engine.FileSystem.Archives.Archive.Dispose">
+            <summary>Releases the resources that are used by the object.</summary>
+        </member>
+    </members>
+</doc>

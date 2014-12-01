@@ -1,0 +1,135 @@
+
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    
+    <title>Persistent Contact Manifold &mdash; NVIDIA PhysX SDK Documentation</title>
+    <link rel="stylesheet" href="../_static/nvidia.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <link rel="top" title="NVIDIA PhysX SDK Documentation" href="../index.html" />
+    <link rel="up" title="User&#39;s Guide" href="Index.html" />
+    <link rel="next" title="Coulomb Friction" href="CoulombFriction.html" />
+    <link rel="prev" title="Advanced Rigid Body Topics" href="Advanced.html" /> 
+  </head>
+  <body>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="CoulombFriction.html" title="Coulomb Friction"
+             accesskey="N">next</a></li>
+        <li class="right" >
+          <a href="Advanced.html" title="Advanced Rigid Body Topics"
+             accesskey="P">previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" accesskey="U">User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body">
+            
+  <div class="section" id="persistent-contact-manifold">
+<span id="persistentcontactmanifold"></span><h1>Persistent Contact Manifold<a class="headerlink" href="#persistent-contact-manifold" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Permalink to this headline">¶</a></h2>
+<p>PhysX SDK 3.2 provides two types of collision detection:</p>
+<ol class="arabic simple">
+<li>Default collision detection</li>
+</ol>
+<p>The default collision detection system uses a mixture of SAT (Separating Axis Theorem) and distance-based collision detection to generate full contact manifolds. It generates all the potential contacts in one frame, so it lends itself better to
+stable stacking. This approach is stable for small contact offsets and rest offsets but may not generate the correct contact points when large offsets are used because it approximates the contact points in these situations by plane shifting.</p>
+<ol class="arabic simple" start="2">
+<li>Persistent Contact Manifold (PCM)</li>
+</ol>
+<p>PCM is a fully distance-based collision detection system, which uses the Gilbert-Johnson-Keerthi algorithm (GJK) and the Expanding Polytope Algorithm (EPA) to calculate one contact at the point of deepest penetration. It then uses an
+incremental method to build up a contact manifold by recycling contacts from past frames, accumulating up to four contacts per frame.  This approach is quite efficient in terms of performance and
+memory. However, it can reduce stacking stability when simulating with large timesteps, tall stacks and small objects. As this approach is distance-based, it will generate the correct contact points for arbitrary
+contact offsets/rest offsets.</p>
+<p>Note that PCM is under active development, and is not yet as mature as the default collision system.</p>
+</div>
+<div class="section" id="enabling-the-persistent-contact-manifold">
+<h2>Enabling the Persistent Contact Manifold<a class="headerlink" href="#enabling-the-persistent-contact-manifold" title="Permalink to this headline">¶</a></h2>
+<p>To enable PCM, set the flag in the PxSceneDesc::flags:</p>
+<div class="highlight-c++"><div class="highlight"><pre><span class="n">PxSceneDesc</span> <span class="n">sceneDesc</span><span class="p">;</span>
+
+<span class="n">sceneDesc</span><span class="p">.</span><span class="n">flags</span> <span class="o">|=</span> <span class="n">PxSceneFlag</span><span class="o">::</span><span class="n">eENABLE_PCM</span><span class="p">;</span>
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar">
+        <div class="sphinxsidebarwrapper">
+  <h3><a href="../Index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#">Persistent Contact Manifold</a><ul>
+<li><a class="reference internal" href="#introduction">Introduction</a></li>
+<li><a class="reference internal" href="#enabling-the-persistent-contact-manifold">Enabling the Persistent Contact Manifold</a></li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="Advanced.html"
+                        title="previous chapter">Advanced Rigid Body Topics</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="CoulombFriction.html"
+                        title="next chapter">Coulomb Friction</a></p>
+<div id="searchbox" style="display: none">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <input type="text" name="q" size="18" />
+      <input type="submit" value="Go" />
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+    <p class="searchtip" style="font-size: 90%">
+    Enter search terms or a module, class or function name.
+    </p>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="CoulombFriction.html" title="Coulomb Friction"
+             >next</a></li>
+        <li class="right" >
+          <a href="Advanced.html" title="Advanced Rigid Body Topics"
+             >previous</a> |</li>
+        <li><a href="../Index.html">NVIDIA PhysX SDK Documentation</a> &raquo;</li>
+          <li><a href="Index.html" >User's Guide</a> &raquo;</li> 
+      </ul>
+    </div>
+    <div class="footer">
+        &copy; Copyright 2008-2012 NVIDIA Corporation, 2701 San Tomas Expressway, Santa Clara, CA 95050 U.S.A. All rights reserved.
+    </div>
+  </body>
+</html>

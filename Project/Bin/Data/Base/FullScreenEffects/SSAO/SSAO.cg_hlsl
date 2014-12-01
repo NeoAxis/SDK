@@ -1,0 +1,273 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+float4 depthDownsample1x1(
+	float2 uv : TEXCOORD0,
+	uniform sampler2D depthMap : register(s0)
+	) : COLOR
+{
+	float value = tex2D( depthMap, uv ).r;
+	return float4( value, 0, 0, 0 );
+}
+
+float4 depthDownsample2x2(
+	float2 uv : TEXCOORD0,
+	uniform float4 viewportSize,
+
+//	uniform float temp,
+
+	uniform sampler2D depthMap : register(s0)
+	) : COLOR
+{
+	float2 offset = viewportSize.zw;// = 1.0f / viewportSize;
+	float2 offset2 = offset * .5f;
+	float value1 = tex2D( depthMap, uv + float2( -offset2.x, -offset2.y ) ).r;
+	float value2 = tex2D( depthMap, uv + float2(  offset2.x, -offset2.y ) ).r;
+	float value3 = tex2D( depthMap, uv + float2( -offset2.x,  offset2.y ) ).r;
+	float value4 = tex2D( depthMap, uv + float2(  offset2.x,  offset2.y ) ).r;
+	float value = ( value1 + value2 + value3 + value4 ) * .25f;
+
+//	if( temp > 0 )
+//		value = tex2D( depthMap, uv ).r;
+
+	return float4( value, 0, 0, 0 );
+}
+
+float4 depthDownsample3x3(
+	float2 uv : TEXCOORD0,
+	uniform float4 viewportSize,
+
+//	uniform float temp,
+
+	uniform sampler2D depthMap : register(s0)
+	) : COLOR
+{
+	float2 offset = viewportSize.zw;// = 1.0f / viewportSize;
+
+	float value = 0;
+	for( int y = -1; y < 2; y++ )
+		for( int x = -1; x < 2; x++ )
+			value += tex2D( depthMap, uv + offset * float2( x, y ) ).r;
+	value /= 9;
+
+//	if( temp > 0 )
+//		value = tex2D( depthMap, uv ).r;
+
+	return float4( value, 0, 0, 0 );
+}
+
+half4 occlusion(
+	uniform float farClipDistance,
+	uniform float4 viewportSize,
+	uniform float fov, // vertical field of view in radians
+
+	uniform float4 downscaleTextureSize,
+
+	uniform float sampleLength,
+	uniform float offsetScale,
+	uniform float defaultAccessibility,
+	uniform half2 fadingByDistanceRange,
+
+	float2 uv : TEXCOORD0,
+	uniform sampler2D depthMap : register(s0),
+	uniform sampler2D rotateMap : register(s1)
+	) : COLOR
+{
+	const int sampleCount = 24;
+
+	// get the depth of the current pixel and convert into world space unit [0, inf]
+	float fragmentWorldDepth = tex2D(depthMap, uv).r * farClipDistance;
+
+	// get rotation vector, rotation is tiled every 4 screen pixels
+	float2 rotationTC = uv * downscaleTextureSize.xy / 4.0f;
+	float3 rotationVector = tex2D(rotateMap, rotationTC).xyz * 2 - 1; // [-1, 1]x[-1. 1]x[-1. 1]
+
+	// radius of influence in screen space
+	float rUV = atan(sampleLength / fragmentWorldDepth) / fov; // the radius of influence projected into screen space
+	// radius of influence in world space
+	float r = sampleLength;
+
+	float currentSampleLength = offsetScale; // the offset for the first sample
+	const float sampleLengthStep = pow((rUV / currentSampleLength), 1.0f / sampleCount);
+    
+	half accessibility = 0;
+
+	// sample the sphere and accumulate accessibility
+	for(int i = 0; i < (sampleCount / 8); i++)
+	{
+		for(int x = -1; x <= 1; x += 2)
+		for(int y = -1; y <= 1; y += 2)
+		for(int z = -1; z <= 1; z += 2)
+		{
+			//generate offset vector
+			float3 offset = normalize(float3(x, y, z)) * currentSampleLength;
+
+			//// update sample length
+			currentSampleLength *= sampleLengthStep;
+
+			// reflect offset vector by random rotation sample (i.e. rotating it) 
+			float3 rotatedOffset = reflect(offset, rotationVector);
+					
+			// read scene depth
+			float2 sampleTC = uv + rotatedOffset.xy * rUV;
+			float sampleWorldDepth = tex2D(depthMap, sampleTC).r * farClipDistance;
+
+			// check if depths of both pixels are close enough and sampling point should affect our center pixel
+			float fRangeIsInvalid = saturate((fragmentWorldDepth - sampleWorldDepth) / r);
+
+			// accumulate accessibility, use default value of 0.5 if right computations are not possible
+			accessibility += (half)lerp(sampleWorldDepth > (fragmentWorldDepth + rotatedOffset.z * r), 
+				defaultAccessibility, fRangeIsInvalid);
+		}
+	}
+	accessibility /= sampleCount;
+	accessibility *= 2;
+
+	half occlusion = 1.0h - accessibility;
+
+	//fading by distance
+	//fadingByDistanceRange.x: min
+	//fadingByDistanceRange.y: 1 / (max - min)
+	half distanceFactor = 1.0h - 
+		saturate(((half)fragmentWorldDepth - fadingByDistanceRange.x) * fadingByDistanceRange.y);
+	occlusion *= distanceFactor;
+
+	return half4(occlusion.xxx, 1);
+}
+
+//Blur pass
+half4 blur(
+	uniform float farClipDistance,
+	uniform half2 sampleOffsets[15],
+	uniform half4 sampleWeights[15],
+//	uniform float horizontal,
+
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sourceTexture : register(s0)
+//	uniform sampler2D sourceTexture : register(s0),
+//use half depth map?
+//	uniform sampler2D depthMap : register(s1)
+	) : COLOR
+{
+
+/*
+	!!!!!!!invert (y = 1.0 - x)?
+
+	float photometricExponent = 10;
+	//!!!!!!
+	float stepX = 0;// inverse viewport width
+	float stepY = 0;
+//!!!!!!temp
+	if(horizontal > 0)
+		stepX = 1.0f / 1500.0f;// inverse viewport width
+	else
+		stepY = 1.0f / 850.0f;
+
+    const int kernelWidth = 13;
+    float sigma = (kernelWidth - 1) / 6; // make the kernel span 6 sigma
+
+	float fragmentDepth = tex2D(depthMap, uv).r;
+
+	float weights = 0;
+	float blurred = 0;
+    
+	for (float i = -(kernelWidth - 1) / 2; i < (kernelWidth - 1) / 2; i++)
+	{
+		float geometricWeight = exp(-pow(i, 2) / (2 * pow(sigma, 2)));
+		float sampleDepth = tex2D(depthMap, float2(uv.x - i * stepX, uv.y - i * stepY)).r;
+		float photometricWeight = 1 / pow((1 + abs(fragmentDepth - sampleDepth)), photometricExponent);
+
+		weights += (geometricWeight * photometricWeight);
+		blurred += tex2D(sourceTexture, float2(uv.x - i * stepX, uv.y - i * stepY)).r * geometricWeight * photometricWeight;
+	}
+
+	blurred /= weights;
+	return float4(blurred.xxx, 1);
+*/
+
+///////////////
+
+/*
+	!!!!!!!invert (y = 1.0 - x)?
+	float fragmentDepth = tex2D(depthMap, uv).r;
+
+	float color = 0;
+	float weight = 0;
+	for(int n = 0; n < 15; n++)
+	{
+		float2 uvOffsets = uv + sampleOffsets[n];
+
+		float sampleDepth = tex2D(depthMap, uvOffsets).x;
+		float dist = abs(fragmentDepth - sampleDepth) * farClipDistance + 0.5;
+		float sampleWeight = (1 / (pow(dist, 1) + 1)) * sampleWeights[n];
+		color += sampleWeight * tex2D(sourceTexture, uvOffsets).x;
+		weight += sampleWeight;
+	}
+	color /= weight;
+
+	return float4(color.xxx, 1);
+*/
+
+	//simple blur
+	half4 sample = half4(0,0,0,0);
+	for(int n = 0; n < 15; n++)
+	{
+		half4 color = (half4)tex2D(sourceTexture, uv + sampleOffsets[n]);
+		sample += sampleWeights[n] * color;
+	}
+	return sample;
+
+}
+
+//Final scene composition
+half4 final(
+	uniform half intensity,
+//	uniform half fixEdges,
+	uniform half showAO,
+	uniform half4 downscaleTextureSize,
+	half2 uv : TEXCOORD0,
+	uniform sampler2D sceneTexture : register(s0),
+	uniform sampler2D blurredTexture : register(s1)
+	) : COLOR
+{
+	half3 sceneColor;
+	if(showAO > 0)
+		sceneColor = half3(1,1,1);
+	else
+		sceneColor = (half3)tex2D(sceneTexture, uv).rgb;
+
+	half occlusion;
+//	if(fixEdges > 0)
+//	{
+//#ifdef FIX_EDGES
+//		occlusion = 1;
+//		for(int y = -1; y < 2; y++)
+//		{
+//			for(int x = -1; x < 2; x++)
+//			{
+//				half2 uvOffset = uv + (half2)downscaleTextureSize.zw * half2(x,y);
+//				half a = (half3)tex2D(blurredTexture, uvOffset).r;	
+//				if(a < occlusion)
+//					occlusion = a;
+//			}
+//		}
+//	}
+//	else
+//	{
+//#else
+	occlusion = (half3)tex2D(blurredTexture, uv).r;
+//	}
+//#endif
+
+	half coef = saturate(occlusion * intensity);
+	half3 color = (half3)lerp(sceneColor, half3(0,0,0), coef);
+
+	return half4(color, 1.0f);
+}
+
+float4 copy(
+	float2 uv : TEXCOORD0,
+	uniform sampler2D map : register(s0)
+	) : COLOR
+{
+	return tex2D(map, uv);
+}

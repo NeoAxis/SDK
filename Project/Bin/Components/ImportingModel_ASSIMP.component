@@ -1,0 +1,22 @@
+fullName = "Importing 3D models from many formats by means ASSIMP library"
+componentTypes = "ImportingModel"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "AssimpModelImport.dll"
+	platforms = "Windows"
+	entryPoint = True
+}
+
+path
+{
+	path = "NativeDlls\\Windows_x86\\assimp.dll"
+	platforms = "Windows"
+}
+path
+{
+	path = "NativeDlls\\Windows_x64\\assimp.dll"
+	platforms = "Windows"
+}

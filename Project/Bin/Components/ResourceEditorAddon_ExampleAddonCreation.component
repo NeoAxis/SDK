@@ -1,0 +1,11 @@
+fullName = "The example of creation add-on for Resource Editor"
+componentTypes = "ResourceEditorAddon"
+platforms = "Windows"
+enableByDefaultPlatforms = ""
+
+path
+{
+	path = "ExampleAddonCreationREAddon.dll"
+	platforms = "Windows"
+	entryPoint = True
+}

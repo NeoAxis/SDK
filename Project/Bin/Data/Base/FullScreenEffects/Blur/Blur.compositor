@@ -1,0 +1,42 @@
+compositor Blur
+{
+	technique
+	{
+		texture rt0 target_width target_height PF_R8G8B8
+		texture rt1 target_width target_height PF_R8G8B8
+
+		target rt0
+		{
+			// render output from previous compositor (or original scene)
+			input previous
+		}
+
+		target rt1
+		{
+			input none
+
+			// blur horizontally
+			pass render_quad
+			{
+				material Compositor/Blur
+				input 0 rt0
+				identifier 700
+			}
+		}
+
+		target_output
+		{
+			// start with clear output
+			input none
+
+			// blur vertically
+			pass render_quad
+			{
+				// renders a fullscreen quad with a material
+				material Compositor/Blur
+				input 0 rt1
+				identifier 701
+			}
+		}
+	}
+}

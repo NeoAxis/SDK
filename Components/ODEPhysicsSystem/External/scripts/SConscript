@@ -1,0 +1,41 @@
+#!/usr/bin/env python
+
+Import('GLOBALS')
+Import(GLOBALS)
+
+NATIVE_MEMORY_MANAGER_DIR = SRC_CORE_DIR+'/NativeMemoryManager/'
+ODE_INCLUDE_DIR = DEV_ROOT+'/Components/ODEPhysicsSystem/External/ode/include'
+ODE_SRC_DIR = DEV_ROOT+'/Components/ODEPhysicsSystem/External/ode/src'
+ODE_OPCODE_DIR = DEV_ROOT+'/Components/ODEPhysicsSystem/External/opcode'
+
+ICE_FILES = Glob(DEV_ROOT+'/Components/ODEPhysicsSystem/External/opcode/Ice/*.cpp')
+JOINTS_FILES = Glob(DEV_ROOT+'/Components/ODEPhysicsSystem/External/ode/src/joints/*.cpp')
+ODE_FILES = Glob(DEV_ROOT+'/Components/ODEPhysicsSystem/External/ode/src/*.cpp')
+ODE_C_FILES = Glob(DEV_ROOT+'/Components/ODEPhysicsSystem/External/ode/src/*.c')
+OPCODE_FILES = Glob(DEV_ROOT+'/Components/ODEPhysicsSystem/External/opcode/*.cpp')
+
+sources = [ICE_FILES, JOINTS_FILES, ODE_FILES, ODE_C_FILES, OPCODE_FILES]
+includes = [NATIVE_MEMORY_MANAGER_DIR, ODE_INCLUDE_DIR, ODE_SRC_DIR, ODE_OPCODE_DIR,
+	ANDROID_STL_ROOT+'/gnu-libstdc++/libs/armeabi/include',
+	ANDROID_STL_ROOT+'/gnu-libstdc++/include']
+
+env = g_env.Clone()
+
+env.Append(CPPPATH = includes)
+env.Append(LIBS=['NativeMemoryManager', 'log'])
+env.Append(LIBPATH=[LIB_DIR])
+env.Append(CPPDEFINES=['NDEBUG', '_CONSOLE', '_LIB'])
+#!!!!!was before
+#env.Append(CCFLAGS=' -fno-exceptions')
+
+if not env.GetOption('clean'):
+	CreateDir(OUT_DIR+'/ode')
+
+ode = CreateLibrary(env, 'ode', sources)
+env.Install(LIB_DIR, ode)
+if not env.GetOption('clean'):
+	InstallLib(env, 'install', LIB_DIR+'/libode.so', ANDROID_BIN_DIR+'/libode.so')
+	env.Command('strip', [], ANDROID_STRIP+' --strip-unneeded  '+
+		ANDROID_BIN_DIR+'/libode.so')
+
+

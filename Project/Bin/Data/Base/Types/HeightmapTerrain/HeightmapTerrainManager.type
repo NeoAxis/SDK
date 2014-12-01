@@ -1,0 +1,6 @@
+type HeightmapTerrainManager
+{
+	class = HeightmapTerrainManager
+	allowEditorCreate = True
+	allowEmptyName = True
+}

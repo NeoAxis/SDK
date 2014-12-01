@@ -1,0 +1,36 @@
+// Copyright (C) NeoAxis Group Ltd. This is part of NeoAxis 3D Engine SDK.
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_vp(
+	//uniform float4x4 worldViewProjMatrix,
+	uniform float4x4 worldMatrix,
+	uniform float4x4 viewProjMatrix,
+	uniform float3 cameraPosition,
+
+	float4 position : POSITION,
+	float4 vertexColor : COLOR0,
+	out float4 oPosition : POSITION,
+	out float4 oVertexColor : TEXCOORD0
+	)
+{
+	const float depthOffset = -.05f;
+
+	float4 worldPosition = mul(worldMatrix, position);
+	float3 dir = normalize(worldPosition.xyz - cameraPosition);
+	worldPosition.xyz += dir * depthOffset;
+	oPosition = mul(viewProjMatrix, worldPosition);
+	//oPosition = mul(worldViewProjMatrix, position);
+
+	oVertexColor = vertexColor;
+}
+
+///////////////////////////////////////////////////////////////////////////////////////////////////
+
+void main_fp(
+	half4 vertexColor : TEXCOORD0,
+	out half4 oColor : COLOR
+	)
+{
+	oColor = vertexColor;
+}

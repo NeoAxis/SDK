@@ -1,0 +1,6 @@
+type LensFlareManager
+{
+	class = LensFlareManager
+	allowEditorCreate = True
+	networkType = ClientOnly
+}
