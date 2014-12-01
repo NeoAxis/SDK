@@ -1,9 +1,0 @@
-highLevelMaterial AccessCard
-{
-	template = ShaderBaseMaterial
-	culling = False
-	diffuse1Map
-	{
-		texture = Types\Items\AccessCard\AccessCard.dds
-	}
-}

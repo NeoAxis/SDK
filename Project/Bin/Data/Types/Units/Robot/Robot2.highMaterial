@@ -1,8 +1,0 @@
-highLevelMaterial Robot2
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types\Units\Robot\Robot2.dds
-	}
-}

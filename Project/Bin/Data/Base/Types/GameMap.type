@@ -1,5 +1,0 @@
-type GameMap
-{
-	class = GameMap
-	networkType = Synchronized
-}

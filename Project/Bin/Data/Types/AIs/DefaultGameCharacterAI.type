@@ -1,6 +1,0 @@
-type DefaultGameCharacterAI
-{
-	class = GameCharacterAI
-	creatableInMapEditor = False
-	networkType = ServerOnly
-}

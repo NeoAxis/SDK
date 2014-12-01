@@ -1,8 +1,0 @@
-type BigDamageInfluence
-{
-	class = BigDamageInfluence
-	coefficient = 4
-	defaultParticleName = BigFireParticle
-	creatableInMapEditor = False
-	networkType = Synchronized
-}

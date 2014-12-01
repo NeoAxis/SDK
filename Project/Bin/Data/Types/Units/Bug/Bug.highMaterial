@@ -1,8 +1,0 @@
-highLevelMaterial Bug
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types\Units\Bug\Bug.dds
-	}
-}

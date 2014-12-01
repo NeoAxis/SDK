@@ -1,5 +1,0 @@
-type StaticMesh
-{
-	class = StaticMesh
-	allowEditorCreate = True
-}

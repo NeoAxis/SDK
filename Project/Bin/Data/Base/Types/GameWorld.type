@@ -1,5 +1,0 @@
-type GameWorld
-{
-	class = GameWorld
-	networkType = Synchronized
-}

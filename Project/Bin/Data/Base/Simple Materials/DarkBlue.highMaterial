@@ -1,5 +1,0 @@
-highLevelMaterial DarkBlue
-{
-	template = ShaderBaseMaterial
-	diffuseScale = 0 0 .5
-}

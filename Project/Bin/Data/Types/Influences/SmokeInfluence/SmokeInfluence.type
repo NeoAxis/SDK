@@ -1,8 +1,0 @@
-type SmokeInfluence
-{
-	class = SmokeInfluence
-	defaultParticleName = SmokeParticle
-	creatableInMapEditor = False
-	allowEmptyName = True
-	networkType = Synchronized
-}

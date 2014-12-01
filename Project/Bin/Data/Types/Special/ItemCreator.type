@@ -1,5 +1,0 @@
-type ItemCreator
-{
-	class = ItemCreator
-	networkType = ServerOnly
-}

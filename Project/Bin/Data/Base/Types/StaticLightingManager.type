@@ -1,6 +1,0 @@
-type StaticLightingManager
-{
-	class = StaticLightingManager
-	allowEditorCreate = True
-	networkType = ClientOnly
-}

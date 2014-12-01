@@ -1,8 +1,0 @@
-highLevelMaterial Palette
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types\StaticObjects\Palette\Palette.dds
-	}
-}

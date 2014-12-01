@@ -1,6 +1,0 @@
-type SkyDome
-{
-	class = SkyDome
-	allowEditorCreate = True
-	networkType = ClientOnly
-}

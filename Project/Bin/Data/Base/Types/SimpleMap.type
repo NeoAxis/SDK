@@ -1,5 +1,0 @@
-type SimpleMap
-{
-	class = SimpleMap
-	networkType = Synchronized
-}

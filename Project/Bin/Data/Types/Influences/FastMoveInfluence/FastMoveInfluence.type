@@ -1,8 +1,0 @@
-type FastMoveInfluence
-{
-	class = FastMoveInfluence
-	coefficient = 2
-	defaultParticleName = BigFireParticle
-	creatableInMapEditor = False
-	networkType = Synchronized
-}

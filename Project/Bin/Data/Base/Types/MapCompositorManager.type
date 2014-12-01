@@ -1,7 +1,0 @@
-type MapCompositorManager
-{
-	class = MapCompositorManager
-	allowEditorCreate = True
-	allowEmptyName = True
-	networkType = ClientOnly
-}

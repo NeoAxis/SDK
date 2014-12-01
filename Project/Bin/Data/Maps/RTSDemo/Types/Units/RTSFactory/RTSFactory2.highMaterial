@@ -1,8 +1,0 @@
-highLevelMaterial RTSFactory2
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = ".\\RTSFactory2.dds"
-	}
-}

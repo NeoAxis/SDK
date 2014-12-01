@@ -1,6 +1,0 @@
-type HeightmapTerrain
-{
-	class = HeightmapTerrain
-	allowEditorCreate = True
-	allowEmptyName = True
-}

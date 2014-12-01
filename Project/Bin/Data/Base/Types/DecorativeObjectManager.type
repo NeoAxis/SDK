@@ -1,6 +1,0 @@
-type DecorativeObjectManager
-{
-	class = DecorativeObjectManager
-	allowEditorCreate = True
-	networkType = ClientOnly
-}

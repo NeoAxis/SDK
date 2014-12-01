@@ -1,8 +1,0 @@
-highLevelMaterial Zombie
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types\Units\Zombie\Zombie1.dds
-	}
-}

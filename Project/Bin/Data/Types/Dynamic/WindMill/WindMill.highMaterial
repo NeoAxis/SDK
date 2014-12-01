@@ -1,8 +1,0 @@
-highLevelMaterial WindMill
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types\Dynamic\WindMill\WindMill.dds
-	}
-}

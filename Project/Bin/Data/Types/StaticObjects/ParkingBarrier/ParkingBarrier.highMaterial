@@ -1,8 +1,0 @@
-highLevelMaterial ParkingBarrier
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types\StaticObjects\ParkingBarrier\ParkingBarrier.dds
-	}
-}

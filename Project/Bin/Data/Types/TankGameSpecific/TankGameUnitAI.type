@@ -1,6 +1,0 @@
-type TankGameUnitAI
-{
-	class = TankGameUnitAI
-	notifyAlliesRadius = 70
-	networkType = ServerOnly
-}

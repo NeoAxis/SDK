@@ -1,5 +1,0 @@
-highLevelMaterial Green
-{
-	template = ShaderBaseMaterial
-	diffuseScale = 0 1 0
-}

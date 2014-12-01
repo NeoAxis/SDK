@@ -1,7 +1,0 @@
-type FastAttackInfluence
-{
-	class = FastAttackInfluence
-	coefficient = 2
-	creatableInMapEditor = False
-	networkType = Synchronized
-}

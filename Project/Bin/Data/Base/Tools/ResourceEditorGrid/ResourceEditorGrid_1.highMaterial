@@ -1,9 +1,0 @@
-highLevelMaterial "ResourceEditorGrid/1"
-{
-	template = ShaderBaseMaterial
-	lighting = False
-	diffuse1Map
-	{
-		texture = ".\\ResourceEditorGrid_1.png"
-	}
-}

@@ -1,2 +1,0 @@
-//the archives with bigger priority will loaded before other.
-loadingPriority = 0.5

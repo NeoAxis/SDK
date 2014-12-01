@@ -1,5 +1,0 @@
-highLevelMaterial DarkGray
-{
-	template = ShaderBaseMaterial
-	diffuseScale = .25 .25 .25
-}

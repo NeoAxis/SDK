@@ -1,8 +1,0 @@
-highLevelMaterial WoodBox
-{
-	template = ShaderBaseMaterial
-	diffuse1Map
-	{
-		texture = Types/Dynamic/WoodBox/WoodBox.dds
-	}
-}

@@ -1,5 +1,0 @@
-type GoodFaction
-{
-	class = Faction
-	creatableInMapEditor = False
-}

@@ -1,5 +1,0 @@
-highLevelMaterial Helicopter
-{
-	template = ShaderBaseMaterial
-	diffuseScale = 0 0.3294118 0.02745098
-}
