@@ -1,0 +1,27 @@
+type FumingSplinterBullet
+{
+	class = Bullet
+	velocity = 18
+	damage = 5
+	gravity = 9.81
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		particle
+		{
+			particleName = SmallSmokeParticle
+		}
+		billboard
+		{
+			materialName = DefaultFlare
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = ShotgunBulletHitParticle
+		}
+	}
+}

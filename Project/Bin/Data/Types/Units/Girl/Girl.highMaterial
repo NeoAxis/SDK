@@ -1,0 +1,17 @@
+highLevelMaterial Girl
+{
+	template = ShaderBaseMaterial
+	doubleSided = True
+	alphaRejectFunction = Greater
+	halfLambert = True
+	diffuseColor = 0.8666667 0.7803922 0.7098039
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = "Types\\Units\\Girl\\Girl_Diffuse.dds"
+	}
+	specularMap
+	{
+		texture = "Types\\Units\\Girl\\Girl_Specular.dds"
+	}
+}

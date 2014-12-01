@@ -1,0 +1,303 @@
+type TigerTank
+{
+	class = Tank
+	maxForwardSpeed = 14
+	maxBackwardSpeed = 7
+	driveForwardForce = 81000
+	driveBackwardForce = 43200
+	brakeForce = 216000
+	optimalAttackDistanceRange = 0 60
+	soundOn = ".\\Sounds\\On.ogg"
+	soundOff = ".\\Sounds\\Off.ogg"
+	soundGearUp = ".\\Sounds\\GearUp.ogg"
+	soundGearDown = ".\\Sounds\\GearDown.ogg"
+	soundTowerTurn = ".\\Sounds\\TowerTurn.ogg"
+	tracksAnimationMultiplier = -0.078 0
+	mainGunRecoilForce = 2700000
+	allowPlayerControl = True
+	viewRadius = 120
+	fpsCameraOffset = 1 0 1.5
+	healthMax = 1000
+	targetPriority = 1
+	soundMinDistance = 20
+	soundMaxDistance = 200
+	physicsModel = ".\\TigerTank.physics"
+	networkType = Synchronized
+	gears
+	{
+		item
+		{
+			number = -1
+			speedRange = -10 -0.8
+			soundMotor = ".\\Sounds\\MotorRun.ogg"
+		}
+		item
+		{
+			number = 0
+			speedRange = -0.9 0.9
+			soundMotor = ".\\Sounds\\MotorIdle.ogg"
+		}
+		item
+		{
+			number = 1
+			speedRange = 0.8 7.1
+			soundMotor = ".\\Sounds\\MotorRun.ogg"
+		}
+		item
+		{
+			number = 2
+			speedRange = 7 13.1
+			soundMotor = ".\\Sounds\\MotorRun.ogg"
+		}
+		item
+		{
+			number = 3
+			speedRange = 13 15
+			soundMotor = ".\\Sounds\\MotorRun.ogg"
+		}
+	}
+	wheels
+	{
+		item
+		{
+			wheelBoneName = left_wheel_01
+			trackBoneName = left_track_01
+			groundHeight = 0
+			boneMaxHeightOffset = 0
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_02
+			trackBoneName = left_track_02
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_03
+			trackBoneName = left_track_03
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_04
+			trackBoneName = left_track_04
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_05
+			trackBoneName = left_track_05
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_06
+			trackBoneName = left_track_06
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_07
+			trackBoneName = left_track_07
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_08
+			trackBoneName = left_track_08
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_09
+			trackBoneName = left_track_09
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = left_wheel_10
+			trackBoneName = left_track_10
+			groundHeight = 0
+			boneMaxHeightOffset = 0
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_01
+			trackBoneName = right_track_01
+			groundHeight = 0
+			boneMaxHeightOffset = 0
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_02
+			trackBoneName = right_track_02
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_03
+			trackBoneName = right_track_03
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_04
+			trackBoneName = right_track_04
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_05
+			trackBoneName = right_track_05
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_06
+			trackBoneName = right_track_06
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_07
+			trackBoneName = right_track_07
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_08
+			trackBoneName = right_track_08
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_09
+			trackBoneName = right_track_09
+			groundHeight = 0.5
+			boneMaxHeightOffset = 0.3
+			wheelAnimationMultiplier = -2
+		}
+		item
+		{
+			wheelBoneName = right_wheel_10
+			trackBoneName = right_track_10
+			groundHeight = 0
+			boneMaxHeightOffset = 0
+			wheelAnimationMultiplier = -2
+		}
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Base.mesh"
+			castDynamicShadows = True
+			body = chassis
+		}
+		mesh
+		{
+			meshName = ".\\Tower.mesh"
+			castDynamicShadows = True
+			body = tower
+		}
+		helper
+		{
+			alias = leftTrack
+			position = 2.293299 1.583142 -1.305882
+		}
+		helper
+		{
+			alias = leftTrack
+			position = -2.58672 1.583142 -1.305906
+		}
+		helper
+		{
+			alias = rightTrack
+			position = -2.58672 -1.583142 -1.305906
+		}
+		helper
+		{
+			alias = rightTrack
+			position = 2.293299 -1.583142 -1.305942
+		}
+		mapObject
+		{
+			type = TigerTankGun
+			body = tower
+			position = 1.099375 0 0.02525032
+		}
+		helper
+		{
+			alias = leftTrack
+			position = -0.0102233 1.583142 -1.305906
+		}
+		helper
+		{
+			alias = rightTrack
+			position = -0.0102233 -1.583142 -1.305906
+		}
+	}
+	dieObjects
+	{
+		sound
+		{
+			soundName = ".\\Sounds\\Die.ogg"
+			priority = 0.7
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = 2 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = -2 0 0
+		}
+		mapObject
+		{
+			type = TigerTankDead
+			copyVelocitiesFromParent = True
+		}
+		mapObject
+		{
+			type = FumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 0 0 1
+		}
+	}
+}

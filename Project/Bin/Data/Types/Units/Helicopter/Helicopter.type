@@ -1,0 +1,80 @@
+type Helicopter
+{
+	class = Aircraft
+	velocity = 15
+	lifeMax = 300
+	physicsModel = Types\Units\Helicopter\Helicopter.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Helicopter\Main.mesh
+			body = main
+		}
+		mesh
+		{
+			meshName = Types\Units\Helicopter\MainPropeller.mesh
+			body = mainPropeller
+		}
+		mesh
+		{
+			meshName = Types\Units\Helicopter\BackPropeller.mesh
+			position = -8.380312 0.6324953 2.136243
+		}
+		sound
+		{
+			soundName = Types\Units\Helicopter\Rotor.ogg
+			minDistance = 50
+			maxDistance = 500
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = HelicopterDead
+			copyVelocitiesFromParent = True
+		}
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+			position = 7 0 0
+		}
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+			position = 5 0 0
+		}
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+		}
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+			position = -5 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = 5 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = -5 0 0
+		}
+		sound
+		{
+			soundName = Sounds/Explode.ogg
+			minDistance = 50
+			maxDistance = 500
+		}
+	}
+}

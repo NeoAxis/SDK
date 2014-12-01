@@ -1,0 +1,90 @@
+type HelicopterDead
+{
+	class = Dynamic
+	lifeTime = 5
+	physicsModel = Types\Units\Helicopter\HelicopterDead\HelicopterDead.physics
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Helicopter\Main.mesh
+			body = main
+		}
+		mesh
+		{
+			meshName = Types\Units\Helicopter\MainPropeller.mesh
+			body = mainPropeller
+		}
+		mesh
+		{
+			meshName = Types\Units\Helicopter\BackPropeller.mesh
+			body = backPropeller
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			forceMaterial = Green
+			body = mainPropellerComboBody
+			scale = 0.3 0.3 0.3
+		}
+		particle
+		{
+			particleName = BigFireParticle
+			position = 0 0 2
+		}
+		particle
+		{
+			particleName = SmokeParticle
+			position = 0 0 2
+		}
+		particle
+		{
+			particleName = BigFireParticle
+			position = 4 0 1
+		}
+		particle
+		{
+			particleName = SmokeParticle
+			position = 4 0 1
+		}
+		particle
+		{
+			particleName = BigFireParticle
+			position = -8 0 0
+		}
+		particle
+		{
+			particleName = SmokeParticle
+			position = -8 0 0
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = 5 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = -5 0 0
+		}
+		mapObject
+		{
+			type = FumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 0 0 1
+		}
+	}
+}

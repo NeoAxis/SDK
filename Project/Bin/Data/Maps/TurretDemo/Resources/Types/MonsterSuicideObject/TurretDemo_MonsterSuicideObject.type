@@ -1,0 +1,20 @@
+type TurretDemo_MonsterSuicideObject
+{
+	class = Dynamic
+	creatableInMapEditor = False
+	dieObjects
+	{
+		mapObject
+		{
+			type = TurretDemo_MonsterSuicideObjectHitExplosion
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		sound
+		{
+			soundName = ".\\MonsterSuicideObjectHit.ogg"
+		}
+	}
+}

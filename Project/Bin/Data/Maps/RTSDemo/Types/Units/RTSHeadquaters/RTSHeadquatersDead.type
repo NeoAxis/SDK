@@ -1,0 +1,41 @@
+type RTSHeadquatersDead
+{
+	class = Dynamic
+	substance = Metal
+	lifeTime = 5
+	physicsModel = ".\\RTSHeadquaters.physics"
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RTSHeadquaters.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessHalfLife
+			position = 0 0 1
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = 2.3 0.7 3
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = -2 0 1
+			visible = False
+		}
+	}
+}

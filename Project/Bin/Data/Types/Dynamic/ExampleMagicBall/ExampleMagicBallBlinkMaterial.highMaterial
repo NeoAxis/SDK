@@ -1,0 +1,9 @@
+highLevelMaterial ExampleMagicBallBlinkMaterial
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	diffuse1Map
+	{
+		texture = Types\Dynamic\ExampleMagicBall\ExampleMagicBallBlinkMaterial.dds
+	}
+}

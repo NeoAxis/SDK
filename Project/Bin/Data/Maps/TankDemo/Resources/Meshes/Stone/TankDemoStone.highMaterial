@@ -1,0 +1,19 @@
+highLevelMaterial TankDemoStone
+{
+	template = ShaderBaseMaterial
+	specularScale = 1 1 1
+	specularShininess = 76.2
+	heightScale = 0.05
+	diffuse1Map
+	{
+		texture = Maps\TankDemo\Resources\Meshes\Stone\TankDemoStone.dds
+	}
+	specularMap
+	{
+		texture = Maps\TankDemo\Resources\Meshes\Stone\TankDemoStone.dds
+	}
+	normalMap
+	{
+		texture = Maps\TankDemo\Resources\Meshes\Stone\TankDemoStone_NRM.dds
+	}
+}

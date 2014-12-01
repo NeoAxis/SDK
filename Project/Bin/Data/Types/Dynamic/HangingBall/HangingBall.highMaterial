@@ -1,0 +1,11 @@
+highLevelMaterial HangingBall
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.2666667 0.4745098 1
+	specularColor = 1 1 1
+	specularShininess = 52.3
+	normalMap
+	{
+		texture = ".\\Ball_Normal.dds"
+	}
+}

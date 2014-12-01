@@ -1,0 +1,11 @@
+highLevelMaterial OgreHeadFangs
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 0 0 0.3921569
+	reflectionScale = 1.960784 1.960784 1.960784
+	emissionScale = 0.3921569 0.3921569 0.3921569
+	emissionMap
+	{
+		texture = Types\Dynamic\CubemapReflectedBall\Diffuse.dds
+	}
+}

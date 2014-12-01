@@ -1,0 +1,5 @@
+type DefaultRTSBuildingAI
+{
+	class = RTSBuildingAI
+	creatableInMapEditor = False
+}

@@ -1,0 +1,17 @@
+highLevelMaterial SubmachineGunBulletsItem
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	diffuse1Map
+	{
+		texture = Types\Items\BulletItems\SubmachineGunBulletsItem\SubmachineGunBulletsItem.dds
+	}
+	specularMap
+	{
+		texture = Types\Items\BulletItems\SubmachineGunBulletsItem\SubmachineGunBulletsItem_Specular.dds
+	}
+	normalMap
+	{
+		texture = Types\Items\BulletItems\SubmachineGunBulletsItem\SubmachineGunBulletsItem_Normals.dds
+	}
+}

@@ -1,0 +1,12 @@
+highLevelMaterial TurretDemoRockStone
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Maps\TurretDemo\Resources\Textures\hnprock13.dds
+	}
+	normalMap
+	{
+		texture = Maps\TurretDemo\Resources\Textures\hnprock13_Normal.dds
+	}
+}

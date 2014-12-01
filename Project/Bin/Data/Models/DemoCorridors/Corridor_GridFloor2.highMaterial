@@ -1,0 +1,23 @@
+highLevelMaterial Corridor_GridFloor2
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\DeviceDiffuseMap.dds"
+	}
+	diffuse2Map
+	{
+		texture = ".\\GridFloorAO.dds"
+		texCoord = TexCoord1
+	}
+	specularMap
+	{
+		texture = ".\\DeviceSpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\DeviceNormalsMap.dds"
+	}
+}

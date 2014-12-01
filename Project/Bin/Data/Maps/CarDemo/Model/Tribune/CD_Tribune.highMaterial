@@ -1,0 +1,14 @@
+highLevelMaterial CD_Tribune
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\Tribune.dds"
+		texCoord = TexCoord1
+	}
+	diffuse2Map
+	{
+		texture = ".\\TribuneShadows.dds"
+		texCoord = TexCoord1
+	}
+}

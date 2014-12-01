@@ -1,0 +1,12 @@
+highLevelMaterial TurretDemoSandBags
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\SandBags.dds"
+	}
+	normalMap
+	{
+		texture = ".\\SandBags_Normal.dds"
+	}
+}

@@ -1,0 +1,18 @@
+type Ballgame_StaticBox
+{
+	class = MapObject
+	targetPriority = 1
+	soundCollision = ".\\Collision.ogg"
+	soundCollisionMinVelocity = 2
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			castDynamicShadows = True
+			collision = True
+		}
+	}
+}

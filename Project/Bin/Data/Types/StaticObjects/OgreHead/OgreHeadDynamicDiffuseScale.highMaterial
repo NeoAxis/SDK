@@ -1,0 +1,19 @@
+highLevelMaterial OgreHeadDynamicDiffuseScale
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.4980392 0.4980392 0.4980392
+	diffuseScaleDynamic = True
+	specularColor = 0.6666667 0.6666667 0.6666667
+	diffuse1Map
+	{
+		texture = Types\StaticObjects\OgreHead\OgreHead.dds
+	}
+	specularMap
+	{
+		texture = Types\StaticObjects\OgreHead\OgreHead_Specular.dds
+	}
+	normalMap
+	{
+		texture = Types\StaticObjects\OgreHead\OgreHead_NormalHeight.png
+	}
+}

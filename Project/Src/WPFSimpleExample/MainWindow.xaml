@@ -1,0 +1,20 @@
+﻿<Window x:Class="WPFSimpleExample.MainWindow"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Icon="Logo.ico"
+    xmlns:WPFAppFramework="clr-namespace:WPFAppFramework;assembly=WPFAppFramework"
+    Title="WPF Simple Application Example" Height="592" Width="807" Loaded="Window_Loaded" Closed="Window_Closed" WindowStartupLocation="CenterScreen" SnapsToDevicePixels="False">
+    <Grid x:Name="LayoutRoot" Height="Auto" Width="Auto" SnapsToDevicePixels="False">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="594*" />
+            <RowDefinition Height="*" />
+        </Grid.RowDefinitions>
+        <WPFAppFramework:RenderTargetUserControl Name="renderTargetUserControl1" Margin="12,51,12,35" AllowUsingD3DImage="True" />
+        <Button Height="23" HorizontalAlignment="Right" Margin="0,12,13,0" Name="buttonClose" VerticalAlignment="Top" Width="75" Click="buttonClose_Click">Exit</Button>
+        <Label Height="25" HorizontalAlignment="Left" Margin="12,0,0,3" Name="label2" VerticalAlignment="Bottom" Width="226">2014 NeoAxis Group Ltd.</Label>
+        <Label Height="25" HorizontalAlignment="Left" Margin="12,12,0,0" Name="label3" VerticalAlignment="Top" Width="50">Map:</Label>
+        <ComboBox Height="23" HorizontalAlignment="Left" Margin="66,13,0,0" Name="comboBoxMaps" VerticalAlignment="Top" Width="247" />
+        <Button Height="23" Margin="319,13,0,0" Name="buttonLoadMap" VerticalAlignment="Top" Click="buttonLoadMap_Click" HorizontalAlignment="Left" Width="75">Load</Button>
+        <Button Height="23" HorizontalAlignment="Left" Margin="464,13,0,0" Name="buttonDestroy" VerticalAlignment="Top" Width="75" Click="buttonDestroy_Click">Destroy</Button>
+    </Grid>
+</Window>

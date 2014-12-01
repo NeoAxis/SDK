@@ -1,0 +1,18 @@
+highLevelMaterial ScarRifle_2
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	specularShininess = 75
+	diffuse1Map
+	{
+		texture = "Types\\Weapons\\SubmachineGun\\ScarRifle_TPSCamera\\ScarRifle2_Diffuse.dds"
+	}
+	specularMap
+	{
+		texture = "Types\\Weapons\\SubmachineGun\\ScarRifle_TPSCamera\\ScarRifle2_Specular.dds"
+	}
+	normalMap
+	{
+		texture = "Types\\Weapons\\SubmachineGun\\ScarRifle_TPSCamera\\ScarRifle2_Normal.dds"
+	}
+}

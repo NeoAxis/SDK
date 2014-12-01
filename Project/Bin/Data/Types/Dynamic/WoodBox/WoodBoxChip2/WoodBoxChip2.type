@@ -1,0 +1,18 @@
+type WoodBoxChip2
+{
+	class = Dynamic
+	lifeMax = 10
+	soundCollisionMinVelocity = 2
+	physicsModel = Types\Dynamic\WoodBox\WoodBoxChip2\WoodBoxChip2.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\WoodBox\WoodBoxChip2\WoodBoxChip2.mesh
+			castDynamicShadows = True
+			body = main
+		}
+	}
+}

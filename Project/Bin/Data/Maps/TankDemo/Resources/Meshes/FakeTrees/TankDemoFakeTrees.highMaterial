@@ -1,0 +1,10 @@
+highLevelMaterial TankDemoFakeTrees
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	alphaRejectFunction = GreaterEqual
+	diffuse1Map
+	{
+		texture = Maps\TankDemo\Resources\Meshes\FakeTrees\TankDemoFakeTrees.dds
+	}
+}

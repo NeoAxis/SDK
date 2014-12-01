@@ -1,0 +1,10 @@
+highLevelMaterial Eyes
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	lighting = False
+	diffuse1Map
+	{
+		texture = "Types\\StaticObjects\\Eyes\\Eyes.dds"
+	}
+}

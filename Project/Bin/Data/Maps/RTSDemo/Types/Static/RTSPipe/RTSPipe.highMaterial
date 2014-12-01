@@ -1,0 +1,8 @@
+highLevelMaterial RTSPipe
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\Pipe.dds"
+	}
+}

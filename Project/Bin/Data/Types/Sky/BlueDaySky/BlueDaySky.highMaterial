@@ -1,0 +1,25 @@
+highLevelMaterial BlueDaySky
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	receiveShadows = False
+	depthWrite = False
+	depthTest = False
+	diffusePower = 1.078431
+	diffuse1Map
+	{
+		texture = Types\Sky\BlueDaySky\Sky.dds
+	}
+	diffuse2Map
+	{
+		texture = Types\Sky\BlueDaySky\Clouds.dds
+		blending = AlphaBlend
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 0.002 0
+			}
+		}
+	}
+}

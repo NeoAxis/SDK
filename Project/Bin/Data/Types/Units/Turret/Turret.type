@@ -1,0 +1,42 @@
+type Turret
+{
+	class = Turret
+	allowPlayerControl = True
+	viewRadius = 160
+	fpsCameraOffset = 0 0 0.4
+	lifeMax = 1000
+	physicsModel = Types\Units\Turret\Turret.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Turret\Turret.mesh
+			castDynamicShadows = True
+			body = turret
+		}
+		mesh
+		{
+			meshName = Types\Units\Turret\Base.mesh
+			castDynamicShadows = True
+			body = base
+		}
+		mapObject
+		{
+			type = TurretGun
+			position = 0.9600292 0 0
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+	}
+}

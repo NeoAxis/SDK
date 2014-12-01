@@ -1,0 +1,278 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameType = BallGame
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.3921569 0.3921569 0.3921569
+editorCameraPosition = -4.137194 -12.43976 20.98872
+editorCameraDirection = 1.835764 -0.7547898
+shadowColor = 1 1 1
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 3
+staticBatchingRenderingEnabled = False
+staticBatchingPhysicsEnabledInMapEditor = False
+staticBatchingPhysicsEnabledInSimulation = False
+staticBatchingGridCellSize = 30 30 30
+staticBatchingFilterByMaxTriangleCount = 512
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	referencesToCompileDLL = "System.dll\r\nSystem.Drawing.dll\r\n\r\nEngineApp.dll\r\nUISystem.dll\r\nFileSystem.dll\r\nLog.dll\r\nMathEx.dll\r\nRenderer.dll\r\nPhysicsSystem.dll\r\nSoundSystem.dll\r\nEntitySystem.dll\r\nMapSystem.dll\r\nUtils.dll\r\nHeightmapTerrain.dll\r\nDecorativeObjectManager.dll\r\n\r\nProjectCommon.dll\r\nProjectEntities.dll"
+	usingNamespacesToCodeGeneration = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nusing Engine;\r\nusing Engine.FileSystem;\r\nusing Engine.MathEx;\r\nusing Engine.Utils;\r\nusing Engine.Renderer;\r\nusing Engine.PhysicsSystem;\r\nusing Engine.SoundSystem;\r\nusing Engine.UISystem;\r\nusing Engine.EntitySystem;\r\nusing Engine.MapSystem;\r\n\r\nusing ProjectCommon;\r\nusing ProjectEntities;"
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+	}
+}
+entity
+{
+	type = Light
+	uin = 5
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 0.8078432 0.8078432 0.8078432
+	diffusePower = 1
+	specularColor = 1 1 1
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = -2.62002 0.0106802 7.878336
+	rotation = 0 0.4557528 0 0.8901064
+	name = Light_0
+}
+entity
+{
+	type = SkyBox
+	uin = 6
+	classPrompt = SkyBox
+	enabled = True
+	textureName = "Base\\Tools\\ResourceEditorSkyBox\\Cubemap.png"
+	color = 1 1 1
+	power = 1
+}
+entity
+{
+	type = SpawnPoint
+	uin = 7
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = 0 0 1
+	name = SpawnPoint_0
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 8
+	classPrompt = MapObject
+	position = 0 0 0
+	scale = 4 4 1
+	name = Ballgame_StaticBox_0
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 9
+	classPrompt = MapObject
+	position = 6 0 0
+	scale = 8 1 1
+	name = Ballgame_StaticBox_1
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 10
+	classPrompt = MapObject
+	position = 9.5 3.5 0
+	rotation = 0 0 0.7071068 0.7071068
+	scale = 6 1 1
+	name = Ballgame_StaticBox_2
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 11
+	classPrompt = MapObject
+	position = 6 7 0
+	scale = 8 1 1
+	name = Ballgame_StaticBox_3
+}
+entity
+{
+	type = BallDemo_Fan
+	uin = 12
+	classPrompt = Fan
+	forceMaximum = 300000
+	influenceRegionScale = 20 3 3
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = 0.1410625 7 -1
+	rotation = 0 -0.7071068 0 0.7071068
+	name = BallDemo_Fan_0
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 13
+	classPrompt = MapObject
+	position = -3 7 4
+	scale = 4 2 1
+	name = Ballgame_StaticBox_5
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 14
+	classPrompt = MapObject
+	position = -9 7 4
+	scale = 8 1 1
+	name = Ballgame_StaticBox_6
+}
+entity
+{
+	type = BallDemo_Fan
+	uin = 15
+	classPrompt = Fan
+	forceMaximum = 300000
+	influenceRegionScale = 20 3 3
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -15.35894 7 1.5
+	rotation = 0 -0.7071068 0 0.7071068
+	name = BallDemo_Fan_1
+}
+entity
+{
+	type = BallDemo_Fan
+	uin = 16
+	classPrompt = Fan
+	forceMaximum = 300000
+	influenceRegionScale = 20 3 3
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -19.35894 7 1.5
+	rotation = 0 -0.7071068 0 0.7071068
+	name = BallDemo_Fan_2
+}
+entity
+{
+	type = BallDemo_Fan
+	uin = 17
+	classPrompt = Fan
+	forceMaximum = 300000
+	influenceRegionScale = 20 3 3
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -25.85894 7 1.5
+	rotation = 0 -0.7071068 0 0.7071068
+	name = BallDemo_Fan_3
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 18
+	classPrompt = MapObject
+	position = -32.5 7 4
+	scale = 8 1 1
+	name = Ballgame_StaticBox_4
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 19
+	classPrompt = MapObject
+	position = -38.5 7 4
+	scale = 4 4 1
+	name = Ballgame_StaticBox_7
+}
+entity
+{
+	type = Teleporter
+	uin = 20
+	classPrompt = Teleporter
+	subscriptionsToDeletionEvent = 21 21
+	active = True
+	destination = 21
+	healthFactorAtBeginning = 1
+	position = -41.3324 7.000388 4.800318
+	name = Teleporter_0
+}
+entity
+{
+	type = Teleporter
+	uin = 21
+	classPrompt = Teleporter
+	subscriptionsToDeletionEvent = 20 20
+	active = True
+	destination = 20
+	healthFactorAtBeginning = 1
+	position = -90.67522 2.822622 4.800318
+	rotation = 0 0 -1 -4.371139E-08
+	name = Teleporter_1
+}
+entity
+{
+	type = Ballgame_StaticBox
+	uin = 22
+	classPrompt = MapObject
+	position = -97.26747 2.823011 4
+	rotation = 0 0 -1 -4.371139E-08
+	scale = 12.49932 12.49932 1
+	name = Ballgame_StaticBox_8
+}
+entity
+{
+	type = Zombie
+	uin = 23
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -100.2091 3.484506 5.803174
+	rotation = 0 0 -0.0670955 0.9977466
+	name = Zombie_0
+}
+entity
+{
+	type = Bug
+	uin = 24
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = 9.372045 0.02323294 1.29693
+	rotation = 0 0 -0.9998682 0.016239
+	name = Bug_0
+}

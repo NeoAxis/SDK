@@ -1,0 +1,143 @@
+type Crane
+{
+	class = Crane
+	allowPlayerControl = True
+	fpsCameraOffset = 3.2 -2.5 1
+	physicsModel = Types\Units\Crane\Crane.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Crane\CraneBase\CraneBase.mesh
+			castDynamicShadows = True
+			body = base
+		}
+		mesh
+		{
+			meshName = Types\Units\Crane\CraneTower\CraneTower.mesh
+			castDynamicShadows = True
+			body = tower
+			position = 0 0 -2.522942
+		}
+		mesh
+		{
+			meshName = Types\Units\Crane\CraneGibbet\CraneGibbet.mesh
+			castDynamicShadows = True
+			body = gibbet
+			position = -14.82041 -0.04779345 -0.01221922
+		}
+		mesh
+		{
+			meshName = Types\Units\Crane\CraneMagnet\CraneMagnet.mesh
+			castDynamicShadows = True
+			body = magnet
+			position = -1.241979E-07 -2.892461E-07 1.666956
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body1
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body2
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body3
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body4
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body5
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body6
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body7
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body8
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body9
+			scale = 0.07 0.07 2.40828
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = body10
+			scale = 0.07 0.07 2.40828
+		}
+		helper
+		{
+			alias = thread1Start
+			body = tower
+			position = 1.109145 0 6.359973
+		}
+		helper
+		{
+			alias = thread1End
+			body = gibbet
+			position = 14.69254 0 0.07917038
+		}
+		helper
+		{
+			alias = thread2Start
+			body = tower
+			position = 1.249825 0 5.5033
+		}
+		helper
+		{
+			alias = thread2End
+			body = gibbet
+			position = 0.7942772 0 0.7294725
+		}
+	}
+}

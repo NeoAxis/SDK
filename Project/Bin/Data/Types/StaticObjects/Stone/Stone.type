@@ -1,0 +1,14 @@
+type Stone
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\StaticObjects\Stone\Stone.mesh
+			castDynamicShadows = True
+			collision = True
+		}
+	}
+}

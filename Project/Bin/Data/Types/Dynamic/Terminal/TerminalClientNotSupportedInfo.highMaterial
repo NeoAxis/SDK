@@ -1,0 +1,9 @@
+highLevelMaterial TerminalClientNotSupportedInfo
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	diffuse1Map
+	{
+		texture = Types\Dynamic\Terminal\TerminalClientNotSupportedInfo.jpg
+	}
+}

@@ -1,0 +1,30 @@
+type HangingBillboard
+{
+	class = GameGuiObject
+	physicsModel = ".\\HangingBillboard.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\BillboardHolders.mesh"
+			castDynamicShadows = True
+			body = bodyHolders
+		}
+		mesh
+		{
+			meshName = ".\\BillboardScreen.mesh"
+			castDynamicShadows = True
+			alias = mainMesh
+			body = main
+		}
+		gui
+		{
+			aspectRatio = 1.75
+			body = main
+			rotation = 0.5016785 0.5065598 0.4940843 0.4975907
+			scale = 4.78 2.7 0
+		}
+	}
+}

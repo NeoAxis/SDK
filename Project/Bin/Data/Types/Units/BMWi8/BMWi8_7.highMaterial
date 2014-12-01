@@ -1,0 +1,17 @@
+highLevelMaterial BMWi8_7
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.8980393 0.8980393 0.8980393
+	reflectionSpecificCubemap = ".\\Sky\\SkyBox.jpg"
+	emissionColor = 1 1 1
+	specularColor = 0.08627451 0.08627451 0.08627451
+	specularShininess = 9.1
+	diffuse1Map
+	{
+		texture = ".\\bmwi8dif.dds"
+	}
+	emissionMap
+	{
+		texture = ".\\bmwi8dif_g.dds"
+	}
+}

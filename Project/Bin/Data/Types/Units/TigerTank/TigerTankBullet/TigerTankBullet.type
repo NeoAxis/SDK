@@ -1,0 +1,42 @@
+type TigerTankBullet
+{
+	class = Bullet
+	velocity = 300
+	damage = 300
+	impulse = 210000
+	lifeTime = 10
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		billboard
+		{
+			materialName = ItemParticle
+			size = 2 2
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		particle
+		{
+			particleName = ExplosionParticle2
+		}
+		mapObject
+		{
+			type = DefaultExplosionDecalCreator
+		}
+		mapObject
+		{
+			type = TigerTankBulletHitExplosion
+		}
+		sound
+		{
+			soundName = "Sounds\\Explode.ogg"
+			priority = 0.7
+		}
+	}
+}

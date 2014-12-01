@@ -1,0 +1,70 @@
+type HangingBall
+{
+	class = Dynamic
+	physicsModel = "Types\\Dynamic\\HangingBall\\HangingBall.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			body = base
+			scale = 1 1 0.1
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain0
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain1
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain2
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain3
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain4
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain5
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain6
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\HangingBall\\HangingBallChain.mesh"
+			castDynamicShadows = True
+			body = chain7
+		}
+		mesh
+		{
+			meshName = ".\\Ball.mesh"
+			castDynamicShadows = True
+			body = weight
+		}
+	}
+}

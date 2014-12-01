@@ -1,0 +1,12 @@
+type TigerTankBulletHitExplosion
+{
+	class = Explosion
+	radius = 10
+	damage = 300
+	impulse = 140000
+	ignoreReasonObject = True
+	influenceType = FireInfluence
+	influenceMaxTime = 5
+	creatableInMapEditor = False
+	networkType = Synchronized
+}

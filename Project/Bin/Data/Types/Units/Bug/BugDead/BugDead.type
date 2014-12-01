@@ -1,0 +1,21 @@
+type BugDead
+{
+	class = Corpse
+	substance = Flesh
+	lifeTime = 5
+	physicsModel = Types\Units\Bug\BugDead\BugDead.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Bug\Bug.mesh
+			castDynamicShadows = True
+			body = main
+			position = 0 0 -0.2
+			scale = 0.2 0.2 0.2
+			animationTree = "Types\\Units\\Bug\\BugDead\\BugDead.animationTree"
+		}
+	}
+}

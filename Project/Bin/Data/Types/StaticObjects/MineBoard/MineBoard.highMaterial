@@ -1,0 +1,18 @@
+highLevelMaterial MineBoard
+{
+	template = ShaderBaseMaterial
+	specularScale = 0.4980392 0.4980392 0.4980392
+	specularShininess = 50
+	diffuse1Map
+	{
+		texture = Types\StaticObjects\MineBoard\MineBoardDiffuse.dds
+	}
+	specularMap
+	{
+		texture = Types\StaticObjects\MineBoard\MineBoardSpecular.dds
+	}
+	normalMap
+	{
+		texture = Types\StaticObjects\MineBoard\MineBoardNormal.dds
+	}
+}

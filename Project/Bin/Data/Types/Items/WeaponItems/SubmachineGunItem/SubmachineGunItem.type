@@ -1,0 +1,26 @@
+type SubmachineGunItem
+{
+	class = WeaponItem
+	weaponType = SubmachineGun
+	bulletType = SubmachineGunBullet
+	bulletCount = 1500
+	bulletType2 = SubmachineGunGrenade
+	bulletCount2 = 500
+	defaultRespawnTime = 10
+	soundTake = "Types/Items/DefaultItemTake.ogg"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Weapons\\SubmachineGun\\ScarRifle_TPSCamera\\ScarRifle.mesh"
+			castDynamicShadows = True
+			scale = 1.2 1.2 1.2
+		}
+		particle
+		{
+			particleName = ItemParticle
+			position = 0 0 -0.146689
+		}
+	}
+}

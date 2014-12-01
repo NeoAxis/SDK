@@ -1,0 +1,24 @@
+highLevelMaterial Corridor_DoorPanel
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	useNormals = False
+	diffuse1Map
+	{
+		texture = ".\\DoorPanel.dds"
+		transform
+		{
+			scale = 0.125 1
+			animation
+			{
+				scrollSpeed = 0.3 0
+				scrollRound = 0.125 0
+			}
+		}
+	}
+	diffuse2Map
+	{
+		texCoord = TexCoord1
+	}
+}

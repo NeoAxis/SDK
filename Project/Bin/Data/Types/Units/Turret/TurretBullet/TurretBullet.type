@@ -1,0 +1,38 @@
+type TurretBullet
+{
+	class = Bullet
+	velocity = 300
+	damage = 10
+	impulse = 21000
+	lifeTime = 1
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		billboard
+		{
+			materialName = ItemParticle
+			size = 2 2
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = TurretBulletHit
+		}
+		particle
+		{
+			particleName = TurretBulletHit2
+		}
+		mapObject
+		{
+			type = DefaultBigBulletDecalCreator
+		}
+		sound
+		{
+			soundName = "Types\\Units\\Turret\\TurretBullet\\TurretBulletHit.ogg"
+			priority = 0.3
+		}
+	}
+}

@@ -1,0 +1,2524 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.5882353 0.5882353 0.5882353
+editorCameraPosition = 5.55859 6.285037 6.709899
+editorCameraDirection = 1.717569 -0.5703815
+shadowColor = 1 1 1
+shadowFarDistance = 40
+shadowPSSMSplitFactors = 0.2 0.5
+logicSystemManager = 3
+staticBatchingRenderingEnabled = False
+staticBatchingPhysicsEnabledInMapEditor = False
+staticBatchingPhysicsEnabledInSimulation = False
+staticBatchingGridCellSize = 30 30 30
+staticBatchingFilterByMaxTriangleCount = 512
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+tags
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = StaticSounds
+	}
+	layer
+	{
+		name = Corridors
+		allowSelect = False
+	}
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	referencesToCompileDLL = "System.dll\r\nSystem.Drawing.dll\r\n\r\nEngineApp.dll\r\nUISystem.dll\r\nFileSystem.dll\r\nLog.dll\r\nMathEx.dll\r\nRenderer.dll\r\nPhysicsSystem.dll\r\nSoundSystem.dll\r\nEntitySystem.dll\r\nMapSystem.dll\r\nUtils.dll\r\nHeightmapTerrain.dll\r\nDecorativeObjectManager.dll\r\n\r\nProjectCommon.dll\r\nProjectEntities.dll"
+	usingNamespacesToCodeGeneration = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nusing Engine;\r\nusing Engine.FileSystem;\r\nusing Engine.MathEx;\r\nusing Engine.Utils;\r\nusing Engine.Renderer;\r\nusing Engine.PhysicsSystem;\r\nusing Engine.SoundSystem;\r\nusing Engine.UISystem;\r\nusing Engine.EntitySystem;\r\nusing Engine.MapSystem;\r\n\r\nusing ProjectCommon;\r\nusing ProjectEntities;"
+	mapClassManager = 4
+	tags
+	{
+	}
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+		tags
+		{
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 5
+			subscriptionsToDeletionEvent = 34 35
+			entityClassName = GameGuiObject
+			className = Billboard_RealChannels
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 6
+				code = "Owner.MainControl.Controls[\"Title\"].Text = \"Real Channels\";\r\n\r\nStringBuilder text = new StringBuilder();\r\n\r\nint freeCount = 0;\r\nint activeCount = 0;\r\n\r\nfor(int nRealChannels = 0; nRealChannels < 2; nRealChannels++)\r\n{\r\n\tIEnumerable<RealChannel> realChannels = nRealChannels == 0 ?\r\n\t\tSoundWorld.Instance.Real2DChannels : SoundWorld.Instance.Real3DChannels;\r\n\tforeach(RealChannel realChannel in realChannels)\r\n\t{\r\n\t\tif(realChannel.CurrentVirtualChannel == null)\r\n\t\t\tfreeCount++;\r\n\t\telse\r\n\t\t\tactiveCount++;\r\n\t}\r\n}\r\n\r\ntext.AppendFormat( \"Free channels: {0}\\n\", freeCount );\r\ntext.AppendFormat( \"Active channels: {0}\\n\", activeCount );\r\ntext.Append( \"\\n\" );\r\n\r\nbool last3d = false;\r\n\r\nfor(int nRealChannels = 0; nRealChannels < 2; nRealChannels++)\r\n{\r\n\tIList<RealChannel> realChannels = nRealChannels == 0 ?\r\n\t\tSoundWorld.Instance.Real2DChannels : SoundWorld.Instance.Real3DChannels;\r\n\r\n\tint lastActiveIndex = 0;\r\n\t{\r\n\t\tfor( int nChannel = 0; nChannel < realChannels.Count; nChannel++ )\r\n\t\t{\r\n\t\t\tif( realChannels[ nChannel ].CurrentVirtualChannel != null )\r\n\t\t\t\tlastActiveIndex = nChannel;\r\n\t\t}\r\n\t}\r\n\r\n\tfor( int nChannel = 0; nChannel < realChannels.Count; nChannel++ )\r\n\t{\r\n\t\tif( nChannel > lastActiveIndex )\r\n\t\t\tbreak;\r\n\r\n\t\tRealChannel realChannel = realChannels[ nChannel ];\r\n\t\t\r\n\t\tif(!last3d && realChannel.Is3D)\r\n\t\t{\r\n\t\t\tlast3d = true;\r\n\t\t\ttext.Append( \"\\n\" );\r\n\t\t}\r\n\r\n\t\ttext.AppendFormat( \"{0}:\", realChannel.Is3D ? \"3D\" : \"2D\" );\r\n\r\n\t\tVirtualChannel virtualChannel = realChannel.CurrentVirtualChannel;\r\n\t\tif( virtualChannel != null )\r\n\t\t{\r\n\t\t\tstring soundName;\r\n\t\t\tif( virtualChannel.CurrentSound.Name != null )\r\n\t\t\t\tsoundName = virtualChannel.CurrentSound.Name;\r\n\t\t\telse\r\n\t\t\t\tsoundName = \"DataBuffer\";\r\n\t\t\ttext.AppendFormat( \"{0} - Volume: {1}\", soundName, virtualChannel.GetTotalVolume().ToString( \"F2\" ) );\r\n\t\t\tif( nRealChannels == 1 )\r\n\t\t\t\ttext.AppendFormat( \", Rolloff: {0}\", virtualChannel.GetRolloffFactor().ToString( \"F2\" ) );\r\n\t\t}\r\n\t\telse\r\n\t\t\ttext.Append( \"Free\" );\r\n\t\ttext.Append( \"\\n\" );\r\n\t\t\r\n\t\t/*\r\n\t\tif(virtualChannel != null)\r\n\t\t{\r\n\t\t\tstring soundName;\r\n\t\t\r\n\t\t\tif( virtualChannel.CurrentSound.Name != null )\r\n\t\t\t\tsoundName = virtualChannel.CurrentSound.Name;\r\n\t\t\telse\r\n\t\t\t\tsoundName = \"DataBuffer\";\r\n\t\t\r\n\t\t\ttext += string.Format( \"{0}  Volume {1}\\n\", soundName, \r\n\t\t\t\tvirtualChannel.GetTotalVolume().ToString( \"F3\" ) );\r\n\t\t}\r\n\t\telse\r\n\t\t\ttext += \"Free\\n\";\r\n\t\t\t*/\r\n\t}\r\n}\r\n\r\nOwner.MainControl.Controls[\"Data\"].Text = text.ToString();"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 7
+			subscriptionsToDeletionEvent = 35 72
+			entityClassName = GameGuiObject
+			className = Billboard_VirtualChannels
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 8
+				code = "Owner.MainControl.Controls[\"Title\"].Text = \"Virtual Channels\";\r\n\r\nstring text = \"\";\r\n\r\n//int freeChannelCount = SoundWorld.Instance.GetFreeVirtualChannelsCount();\r\nint activeChannelCount = SoundWorld.Instance.ActiveVirtual2DChannels.Count +\r\n\tSoundWorld.Instance.ActiveVirtual3DChannels.Count;\r\n\r\n//text += \"Free channels: \" + freeChannelCount.ToString() + \"\\n\";\r\ntext += \"Active channels: \" + activeChannelCount.ToString() + \"\\n\";\r\ntext += \"\\n\";\r\n\r\nfor(int nChannels = 0; nChannels < 2; nChannels++)\r\n{\r\n\tIEnumerable<VirtualChannel> activeChannels = nChannels == 0 ?\r\n\t\tSoundWorld.Instance.ActiveVirtual2DChannels : SoundWorld.Instance.ActiveVirtual3DChannels;\r\n\r\n\tforeach(VirtualChannel virtualChannel in activeChannels)\r\n\t{\r\n\t\tif(virtualChannel.CurrentRealChannel != null)\r\n\t\t\ttext += \"Real - \";\r\n\t\telse\r\n\t\t\ttext += \"Virtual - \";\r\n\r\n\t\tstring soundName;\r\n\r\n\t\tif( virtualChannel.CurrentSound.Name != null )\r\n\t\t\tsoundName = virtualChannel.CurrentSound.Name;\r\n\t\telse\r\n\t\t\tsoundName = \"DataBuffer\";\r\n\t\ttext += string.Format( \"{0}  Volume {1}\\n\", soundName, \r\n\t\t\tvirtualChannel.GetTotalVolume().ToString( \"F3\" ) );\r\n\t}\r\n}\r\n\r\nOwner.MainControl.Controls[\"Data\"].Text = text;"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 9
+			subscriptionsToDeletionEvent = 72
+			entityClassName = GameGuiObject
+			className = Billboard_LoadedSounds
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 10
+				code = "Owner.MainControl.Controls[\"Title\"].Text = \"Loaded Sounds\";\r\n\r\nstring text = \"\";\r\n\r\ntext += \"Count: \" + SoundWorld.Instance.Sounds.Count + \"\\n\";\r\ntext += \"\\n\";\r\n\r\nforeach(Sound sound in SoundWorld.Instance.Sounds)\r\n\ttext += sound.ToString() + \"\\n\";\r\n\r\nOwner.MainControl.Controls[\"Data\"].Text = text;"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 11
+			subscriptionsToDeletionEvent = 73 102
+			entityClassName = GameGuiObject
+			className = Terminal_Main
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 12
+				code = "if(movingSoundPitch == 0)\r\n\tmovingSoundPitch = 1;\r\nneedUpdateStaticSounds = true;\r\n\r\n//for world serialization\r\n((CheckBox)Owner.MainControl.Controls[\"MovingSound\"]).Checked = movingSoundVisible;\r\n((ScrollBar)Owner.MainControl.Controls[\"MovingSoundPitch\"]).Value = movingSoundPitch;\r\n((CheckBox)Owner.MainControl.Controls[\"StaticSounds\"]).Checked = staticSoundsVisible;\r\n\r\n((CheckBox)Owner.MainControl.Controls[\"MovingSound\"]).CheckedChange += delegate(CheckBox sender)\r\n{\r\n\tmovingSoundVisible = sender.Checked;\r\n};\r\n\r\n((ScrollBar)Owner.MainControl.Controls[\"MovingSoundPitch\"]).ValueChange += delegate(ScrollBar sender)\r\n{\r\n\tmovingSoundPitch = sender.Value;\r\n};\r\n\r\n((CheckBox)Owner.MainControl.Controls[\"StaticSounds\"]).CheckedChange += delegate(CheckBox sender)\r\n{\r\n\tstaticSoundsVisible = sender.Checked;\r\n\tneedUpdateStaticSounds = true;\r\n};\r\n\r\nstring text = \"Active Sound Library:\\n\" + SoundWorld.Instance.DriverName;\r\nOwner.MainControl.Controls[\"Driver\"].Text = text;\r\n\r\n//update Visible flag of static sounds\r\nforeach( Entity entity in Map.Instance.Children )\r\n{\r\n\tif(entity.GetTag(\"TextUserData\") != \"StaticSound\")\r\n\t\tcontinue;\r\n\tMapObject obj = (MapObject)entity;\r\n\tobj.Visible = staticSoundsVisible;\r\n}\r\n"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 13
+				isEntityEventMethod = True
+				tags
+				{
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 13
+					parameterType = System.Boolean
+					parameterName = loaded
+					tags
+					{
+					}
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 14
+				variableType = System.Boolean
+				variableName = movingSoundVisible
+				supportSerialization = True
+				tags
+				{
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 15
+				variableType = System.Boolean
+				variableName = staticSoundsVisible
+				supportSerialization = True
+				tags
+				{
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 16
+				code = "//update pitch for moving object\r\n{\r\n\tMapObject movingObject = (MapObject)Entities.Instance.GetByName(\"StaticSoundTest_Moving\");\r\n\r\n\tforeach(MapObjectAttachedObject attachedObject in movingObject.AttachedObjects)\r\n\t{\r\n\t\tMapObjectAttachedSound attachedSound = attachedObject as MapObjectAttachedSound;\r\n\t\tif(attachedSound != null)\r\n\t\t\tattachedSound.Pitch = movingSoundPitch;\r\n\t}\r\n}\r\n\r\n//update moving object\r\n{\r\n\tMapObject movingObject = (MapObject)Entities.Instance.GetByName(\"StaticSoundTest_Moving\");\r\n\tmovingObject.Visible = movingSoundVisible;\r\n}\r\n\r\nif(needUpdateStaticSounds)\r\n{\r\n\tforeach( Entity entity in Map.Instance.Children )\r\n\t{\r\n\t\tif(entity.GetTag(\"TextUserData\") != \"StaticSound\")\r\n\t\t\tcontinue;\r\n\r\n\t\tMapObject obj = (MapObject)entity;\r\n\t\tobj.Visible = staticSoundsVisible;\r\n\r\n\t\tif(obj.Visible)\r\n\t\t{\r\n\t\t\tforeach(MapObjectAttachedObject attachedObject in obj.AttachedObjects)\r\n\t\t\t{\r\n\t\t\t\tMapObjectAttachedSound attachedSound = attachedObject as MapObjectAttachedSound;\r\n\t\t\t\tif(attachedSound != null && attachedSound.Channel != null)\r\n\t\t\t\t\tattachedSound.Channel.Time = World.Instance.Random.NextFloat() * .1f;\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n\r\n\tneedUpdateStaticSounds = false;\r\n}"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 17
+				variableType = System.Single
+				variableName = movingSoundPitch
+				supportSerialization = True
+				tags
+				{
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 18
+				variableType = System.Boolean
+				variableName = needUpdateStaticSounds
+				supportSerialization = False
+				tags
+				{
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 19
+			subscriptionsToDeletionEvent = 74
+			entityClassName = MapObject
+			className = StaticSoundTest_Moving
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 20
+				code = "//Hide at start\r\nOwner.Visible = false;"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 21
+				isEntityEventMethod = True
+				tags
+				{
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 21
+					parameterType = System.Boolean
+					parameterName = loaded
+					tags
+					{
+					}
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 22
+				code = "angle += Entity.TickDelta / 4;\r\n\r\nfloat radius = 17;\r\nVec3 lastPosition = Owner.Position;\r\nOwner.Position = new Vec3(MathFunctions.Cos(angle) * radius, MathFunctions.Sin(angle) * radius, 1.5f);\r\nVec3 velocity = (Owner.Position - lastPosition) / Entity.TickDelta;\r\n//apply multiplier to velocity for contrast Doppler effect\r\nvelocity *= 10;\r\n\r\n//update sound velocity for Doppler effect\r\nif(Owner.Visible)\r\n{\r\n\t//VirtualChannel channel = null;\r\n\tforeach(MapObjectAttachedObject attachedObject in Owner.AttachedObjects)\r\n\t{\r\n\t\tMapObjectAttachedSound attachedSound = attachedObject as MapObjectAttachedSound;\r\n\t\tif(attachedSound != null && attachedSound.Channel != null)\r\n\t\t\tattachedSound.Channel.Velocity = velocity;\r\n\t}\t\r\n}\r\n\t\r\nSoundsUpdater.Update(Owner);\r\n"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 23
+				variableType = System.Single
+				variableName = angle
+				supportSerialization = True
+				tags
+				{
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 24
+			subscriptionsToDeletionEvent = 75 76 77 78 79 80 81 82 83 84 85 86 87 88 89 90 91 92 93 94 95 96 97 98 99 100 101
+			entityClassName = MapObject
+			className = StaticSoundTest_Static
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 25
+				code = "SoundsUpdater.Update(Owner);\r\n"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+		}
+		entity
+		{
+			type = LogicClass
+			uin = 26
+			className = SoundsUpdater
+			customScriptCodeCreated = False
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 27
+				code = "if(obj.Visible)\r\n{\r\n\tVirtualChannel channel = null;\r\n\r\n\tforeach(MapObjectAttachedObject attachedObject in obj.AttachedObjects)\r\n\t{\r\n\t\tMapObjectAttachedSound attachedSound = attachedObject as MapObjectAttachedSound;\r\n\t\tif(attachedSound != null)\r\n\t\t{\r\n\t\t\tchannel = attachedSound.Channel;\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\r\n\tif(channel != null)\r\n\t{\r\n\t\tforeach(MapObjectAttachedObject attachedObject in obj.AttachedObjects)\r\n\t\t{\r\n\t\t\tMapObjectAttachedBillboard attachedBillboard = attachedObject as \r\n\t\t\t\tMapObjectAttachedBillboard;\r\n\t\t\tif(attachedBillboard != null)\r\n\t\t\t{\r\n\t\t\t\tif(channel.CurrentRealChannel != null)\r\n\t\t\t\t\tattachedBillboard.Size = new Vec2(1,3);\r\n\t\t\t\telse\r\n\t\t\t\t\tattachedBillboard.Size = new Vec2(.5f, .5f);\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}"
+				methodName = Update
+				returnType = System.Void
+				parameters = 28
+				isEntityEventMethod = False
+				tags
+				{
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 28
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+					tags
+					{
+					}
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 29
+			subscriptionsToDeletionEvent = 102
+			entityClassName = GameGuiObject
+			className = Terminal_Record
+			customScriptCodeCreated = True
+			customScriptCode = "\r\n//UI\r\nComboBox inputDataComboBox;\r\nfloat volumeMultiplier = 1;\r\nfloat originalSoundDataOutputHeight;\r\n\r\n//Auto generation\r\nfloat sinTime;\r\nfloat volumeTime;\r\n\r\n//Record\r\nconst int recordBufferLength = 65536;\r\nSound recordSound;\r\nint currentRecordPosition = 0;\r\n\r\n//Output\r\nconst int playbackBufferLength = 16384;\r\nbyte[] playbackTempBuffer = new byte[ playbackBufferLength ];\r\nfloat lastSoundOutputVolume;\r\nSound outputSound;\r\nVirtualChannel outputChannel;\r\n\r\n////////////////////////////////////\r\n\r\nvoid RecreateSounds()\r\n{\r\n\tDestroyOutputSound();\r\n\tRecordStop();\r\n\r\n\tif(inputDataComboBox.SelectedIndex == 1)\r\n\t{\r\n\t\tCreateOutputSound(AutoGenerateReadData);\r\n\t}\r\n\tif(inputDataComboBox.SelectedIndex == 2)\r\n\t{\r\n\t\tRecordStart();\r\n\t\tCreateOutputSound(RecordReadData);\r\n\t}\r\n}\r\n\r\nvoid RecordStart()\r\n{\r\n\trecordSound = SoundWorld.Instance.SoundCreateDataBuffer(\r\n\t\tSoundMode.Record, 1, 44100, recordBufferLength, null );\r\n\r\n\tif(recordSound == null)\r\n\t{\r\n\t\tLog.Warning(\"Record sound creation failed.\");\r\n\t\treturn;\r\n\t}\r\n\r\n\tbool recording = SoundWorld.Instance.RecordStart( recordSound );\r\n\tif(!recording)\r\n\t\tLog.Warning(\"Recording start failed.\");\r\n}\r\n\r\nvoid RecordStop()\r\n{\r\n\tSoundWorld.Instance.RecordStop();\r\n\r\n\tif(recordSound != null)\r\n\t{\r\n\t\trecordSound.Dispose();\r\n\t\trecordSound = null;\r\n\t}\r\n}\r\n\r\n////////////////////////////////////\r\n\r\nvoid CreateOutputSound(SoundWorld.DataReadDelegate readCallback)\r\n{\r\n\toutputSound = SoundWorld.Instance.SoundCreateDataBuffer(\r\n\t\tSoundMode.Loop | SoundMode.Stream, 1, 44100, playbackBufferLength, readCallback );\r\n\r\n\tif( outputSound != null )\r\n\t{\r\n\t\toutputChannel = SoundWorld.Instance.SoundPlay( outputSound,\r\n\t\t\tEngineApp.Instance.DefaultSoundChannelGroup, 1 );\r\n\t}\r\n}\r\n\r\nvoid DestroyOutputSound()\r\n{\r\n\tif(outputChannel != null)\r\n\t{\r\n\t\toutputChannel.Stop();\r\n\t\toutputChannel = null;\r\n\t}\r\n\tif(outputSound != null)\r\n\t{\r\n\t\toutputSound.Dispose();\r\n\t\toutputSound = null;\r\n\t}\r\n\r\n\tlastSoundOutputVolume = 0;\r\n}\r\n\r\n////////////////////////////////////\r\n\r\nunsafe int AutoGenerateReadData( byte[] buffer, int bufferOffset, int length )\r\n{\r\n\tlastSoundOutputVolume = 0;\r\n\r\n\tfixed( byte* pBuffer = buffer )\r\n\t{\r\n\t\tshort* pBufferShort = (short*)( pBuffer + bufferOffset );\r\n\t\tint samples = length / 2;\r\n\r\n\t\tfor( int n = 0; n < samples; n++ )\r\n\t\t{\r\n\t\t\tsinTime += .1f;\r\n\t\t\tvolumeTime += .0005f;\r\n\r\n\t\t\tfloat value = MathFunctions.Sin( sinTime ) * .5f + .5f;\r\n\t\t\tvalue *= MathFunctions.Sin( volumeTime ) * .5f + .5f;\r\n\r\n\t\t\tif(value > lastSoundOutputVolume)\r\n\t\t\t\tlastSoundOutputVolume = value;\r\n\r\n\t\t\t*pBufferShort = (short)( value * 32767.0f );\r\n\t\t\tpBufferShort++;\r\n\t\t}\r\n\r\n\t\treturn length;\r\n\t}\r\n}\r\n\r\n////////////////////////////////////\r\n\r\nunsafe int RecordReadData( byte[] buffer, int bufferOffset, int length )\r\n{\r\n\tlastSoundOutputVolume = 0;\r\n\r\n\tbool recording = SoundWorld.Instance.IsRecording();\r\n\tif( !recording )\r\n\t\treturn 0;\r\n\r\n\tint availableBytes = recordSound.RecordRead( playbackTempBuffer, length );\r\n\tint totalLength = Math.Min( length, availableBytes );\r\n\r\n\tfixed( byte* pBuffer = buffer, pTempBuffer = playbackTempBuffer )\r\n\t{\r\n\t\tshort* pBufferShort = (short*)( pBuffer + bufferOffset );\r\n\t\tint samples = totalLength / 2;\r\n\r\n\t\tfor( int n = 0; n < samples; n++ )\r\n\t\t{\r\n\t\t\tshort shortValue = ( (short*)pTempBuffer )[ n ];\r\n\r\n\t\t\tfloat value = (float)shortValue / 32767.0f;\r\n\t\t\tvalue *= volumeMultiplier;\r\n\t\t\tMathFunctions.Clamp( ref value, 0, 1 );\r\n\r\n\t\t\tif(value > lastSoundOutputVolume)\r\n\t\t\t\tlastSoundOutputVolume = value;\r\n\r\n\t\t\t*pBufferShort = (short)( value * 32767.0f );\r\n\t\t\tpBufferShort++;\r\n\t\t}\r\n\t}\r\n\r\n\treturn totalLength;\r\n}\r\n\r\n////////////////////////////////////\r\n"
+			tags
+			{
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 30
+				code = "//RecordDriver combo box\r\nComboBox comboBox = (ComboBox)Owner.MainControl.Controls[\"RecordDriver\"];\r\nforeach(string driverName in SoundWorld.Instance.RecordDrivers)\r\n\tcomboBox.Items.Add(driverName);\r\nif(SoundWorld.Instance.RecordDriver != -1 && SoundWorld.Instance.RecordDrivers.Length != 0)\r\n\tcomboBox.SelectedIndex = SoundWorld.Instance.RecordDriver;\r\ncomboBox.SelectedIndexChange += delegate( ComboBox sender )\r\n{\r\n\tDestroyOutputSound();\r\n\tRecordStop();\r\n\r\n\tSoundWorld.Instance.RecordDriver = sender.SelectedIndex;\r\n\r\n\tRecreateSounds();\r\n};\r\n\r\n//InputData combo box\r\ninputDataComboBox = (ComboBox)Owner.MainControl.Controls[\"InputData\"];\r\ninputDataComboBox.Items.Add(\"None\");\r\ninputDataComboBox.Items.Add(\"Auto Generate From Code\");\r\ninputDataComboBox.Items.Add(\"Microphone Record\");\r\ninputDataComboBox.SelectedIndex = 0;\r\ninputDataComboBox.SelectedIndexChange += delegate( ComboBox sender )\r\n{\r\n\tRecreateSounds();\r\n};\r\n\r\n\r\n//VolumeMultiplier scroll bar\r\nScrollBar scrollBar = (ScrollBar)Owner.MainControl.Controls[\"VolumeMultiplier\"];\r\nscrollBar.ValueChange += delegate(ScrollBar sender)\r\n{\r\n\tvolumeMultiplier = sender.Value;\r\n\tOwner.MainControl.Controls[\"VolumeMultiplierValue\"].Text = volumeMultiplier.ToString(\"F1\");\r\n};\r\n\r\n//SoundDataOutput\r\noriginalSoundDataOutputHeight = Owner.MainControl.Controls[\"SoundDataOutput\"].Size.Value.Y;\r\n\r\n"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 31
+				isEntityEventMethod = True
+				tags
+				{
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 31
+					parameterType = System.Boolean
+					parameterName = loaded
+					tags
+					{
+					}
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 32
+				code = "\r\n//update SoundDataOutput bar\r\nControl control = Owner.MainControl.Controls[\"SoundDataOutput\"];\r\ncontrol.Size = new Control.ScaleValue(Control.ScaleType.ScaleByResolution, \r\n\tnew Vec2(control.Size.Value.X, originalSoundDataOutputHeight * lastSoundOutputVolume));\r\n"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 33
+				code = "DestroyOutputSound();\r\nRecordStop();\r\n"
+				methodName = Destroying
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+				tags
+				{
+				}
+			}
+		}
+	}
+}
+entity
+{
+	type = BillboardOnBasis
+	uin = 34
+	classPrompt = GameGuiObject
+	subscriptionsToDeletionEvent = 5
+	initialControl = "Gui\\SoundDemoBillboard.gui"
+	healthFactorAtBeginning = 1
+	position = 7.31068 13.5115 2.064886
+	rotation = 0 0 -0.7071068 0.7071068
+	name = Billboard_RealChannels
+	logicClass = 5
+	tags
+	{
+	}
+}
+entity
+{
+	type = BillboardOnBasis
+	uin = 35
+	classPrompt = GameGuiObject
+	subscriptionsToDeletionEvent = 5 7
+	initialControl = "Gui\\SoundDemoBillboard.gui"
+	healthFactorAtBeginning = 1
+	position = -0.09816456 13.50044 2.064886
+	rotation = 0 0 -0.7071068 0.7071068
+	name = Billboard_VirtualChannels
+	logicClass = 7
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 36
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -5 1
+	name = Box_0
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 37
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -3.5 1
+	name = Box_1
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 38
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -2 1
+	name = Box_2
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 39
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -0.5 1
+	name = Box_3
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 40
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 1 1
+	name = Box_4
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 41
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -4.5 2.5
+	name = Box_5
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 42
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -3 2.5
+	name = Box_6
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 43
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 -1.5 2.5
+	name = Box_7
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 44
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -12 0 2.5
+	name = Box_8
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 45
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -5 1
+	name = Box_9
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 46
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -3.5 1
+	name = Box_10
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 47
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -2 1
+	name = Box_11
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 48
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -0.5 1
+	name = Box_12
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 49
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -4.5 2.5
+	name = Box_13
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 50
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -3 2.5
+	name = Box_14
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 51
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 -1.5 2.5
+	name = Box_15
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 52
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 0 2.5
+	name = Box_16
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 53
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -15.5 1 1
+	name = Box_17
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 54
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -5 1
+	name = Box_18
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 55
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -3.5 1
+	name = Box_19
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 56
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -2 1
+	name = Box_20
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 57
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -0.5 1
+	name = Box_21
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 58
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -4.5 2.5
+	name = Box_22
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 59
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -3 2.5
+	name = Box_23
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 60
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 -1.5 2.5
+	name = Box_24
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 61
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -5 1
+	name = Box_25
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 62
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -3.5 1
+	name = Box_26
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 63
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -2 1
+	name = Box_27
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 64
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -0.5 1
+	name = Box_28
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 65
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -4.5 2.5
+	name = Box_29
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 66
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -3 2.5
+	name = Box_30
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 67
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 -1.5 2.5
+	name = Box_31
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 68
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 0 2.5
+	name = Box_32
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 69
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 0 2.5
+	name = Box_33
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 70
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -10 1 1
+	name = Box_34
+	tags
+	{
+	}
+}
+entity
+{
+	type = Box
+	uin = 71
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -13.5 1 1
+	name = Box_35
+	tags
+	{
+	}
+}
+entity
+{
+	type = BillboardOnBasis
+	uin = 72
+	classPrompt = GameGuiObject
+	subscriptionsToDeletionEvent = 7 9
+	initialControl = "Gui\\SoundDemoBillboard.gui"
+	healthFactorAtBeginning = 1
+	position = -7.598165 13.50044 2.064886
+	rotation = 0 0 -0.7071068 0.7071068
+	name = Billboard_LoadedSounds
+	logicClass = 9
+	tags
+	{
+	}
+}
+entity
+{
+	type = Terminal
+	uin = 73
+	classPrompt = Terminal
+	subscriptionsToDeletionEvent = 11
+	initialControl = "Gui\\SoundDemoTerminal.gui"
+	healthFactorAtBeginning = 1
+	position = 13.8122 11.53607 1.991056
+	rotation = 0 0 -0.8660254 0.5
+	name = Terminal_Main
+	logicClass = 11
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 74
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 19
+	position = 0 0 0.4656941
+	name = StaticSoundTest_Moving
+	logicClass = 19
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 75
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 16.56222 -16.23644 0.4656941
+	name = StaticSoundTest_15
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 76
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 9.402552 -14.26408 0.4656941
+	name = StaticSoundTest_0
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 77
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 2.200511 -15.53805 0.4656941
+	name = StaticSoundTest_1
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 78
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -4.554965 -14.00008 0.4656941
+	name = StaticSoundTest_2
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 79
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -15.18613 -13.83896 0.4656941
+	name = StaticSoundTest_4
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 80
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -19.24543 -9.66165 0.4656941
+	name = StaticSoundTest_6
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 81
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -19.9656 -2.98958 0.4656941
+	name = StaticSoundTest_7
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 82
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -18.55871 7.939527 0.4656941
+	name = StaticSoundTest_9
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 83
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -13.1181 10.38991 0.4656941
+	name = StaticSoundTest_10
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 84
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -8.11076 8.146295 0.4656941
+	name = StaticSoundTest_11
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 85
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -3.123122 10.67767 0.4656941
+	name = StaticSoundTest_12
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 86
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 1.20577 7.954845 0.4656941
+	name = StaticSoundTest_13
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 87
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 4.806862 10.40708 0.4656941
+	name = StaticSoundTest_14
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 88
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 10.24576 7.86998 0.4656941
+	name = StaticSoundTest_16
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 89
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 17.54385 7.824365 0
+	name = StaticSoundTest_17
+	logicClass = 24
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 90
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 18.74431 2.110607 0.4656941
+	name = StaticSoundTest_18
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 91
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 15.95544 -2.482311 0.4656941
+	name = StaticSoundTest_19
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 92
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 19.02003 -7.776287 0.4656941
+	name = StaticSoundTest_20
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 93
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 8.996923 -8.190363 0.4656941
+	name = StaticSoundTest_21
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 94
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 12.42832 2.701457 0.4656941
+	name = StaticSoundTest_22
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 95
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -13.78371 4.107228 0.4656941
+	name = StaticSoundTest_23
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 96
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -10.69514 -10.03589 0.4656941
+	name = StaticSoundTest_24
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 97
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 1.411899 -9.810394 0.4656941
+	name = StaticSoundTest_25
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 98
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 5.462784 4.547997 0.4656941
+	name = StaticSoundTest_26
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 99
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -5.88083 -5.949306 0.4656941
+	name = StaticSoundTest_27
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 100
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = -5.657686 3.235505 0.4656941
+	name = StaticSoundTest_28
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = StaticSoundTest
+	uin = 101
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 24
+	position = 6.403149 -3.192356 0.4656941
+	name = StaticSoundTest_29
+	logicClass = 24
+	editorLayer = "Root Layer\\StaticSounds"
+	tags
+	{
+		item
+		{
+			name = TextUserData
+			value = StaticSound
+		}
+	}
+}
+entity
+{
+	type = Terminal
+	uin = 102
+	classPrompt = Terminal
+	subscriptionsToDeletionEvent = 11 29
+	initialControl = "Gui\\SoundRecordDemoTerminal.gui"
+	healthFactorAtBeginning = 1
+	position = 17.33063 7.579495 1.991056
+	rotation = 0 0 -0.9728876 0.2312787
+	name = Terminal_Record
+	logicClass = 29
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 103
+	classPrompt = StaticMesh
+	position = 0 -12 0
+	name = StaticMesh_Floor_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 104
+	classPrompt = StaticMesh
+	position = 0 12 0
+	name = StaticMesh_Floor_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 105
+	classPrompt = StaticMesh
+	position = 12 0 0
+	name = StaticMesh_Floor_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 106
+	classPrompt = StaticMesh
+	position = -12 0 0
+	name = StaticMesh_Floor_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 107
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 108
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 109
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 110
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 111
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 112
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 113
+	classPrompt = StaticMesh
+	position = 0 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 114
+	classPrompt = StaticMesh
+	position = -12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 115
+	classPrompt = StaticMesh
+	position = 12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 116
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 117
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 118
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 119
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 120
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 121
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 122
+	classPrompt = StaticMesh
+	position = -24 0 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 123
+	classPrompt = StaticMesh
+	position = -24 12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 124
+	classPrompt = StaticMesh
+	position = -24 -12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 125
+	classPrompt = StaticMesh
+	position = 12 0 6
+	name = StaticMesh_Ceiling_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 126
+	classPrompt = StaticMesh
+	position = 12 12 6
+	name = StaticMesh_Ceiling_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 127
+	classPrompt = StaticMesh
+	position = 12 -12 6
+	name = StaticMesh_Ceiling_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 128
+	classPrompt = StaticMesh
+	position = -12 0 6
+	name = StaticMesh_Ceiling_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 129
+	classPrompt = StaticMesh
+	position = -12 12 6
+	name = StaticMesh_Ceiling_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 130
+	classPrompt = StaticMesh
+	position = -12 -12 6
+	name = StaticMesh_Ceiling_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 131
+	classPrompt = StaticMesh
+	position = 0 0 6
+	name = StaticMesh_Ceiling_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 132
+	classPrompt = StaticMesh
+	position = 0 12 6
+	name = StaticMesh_Ceiling_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 133
+	classPrompt = StaticMesh
+	position = 0 -12 6
+	name = StaticMesh_Ceiling_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 134
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 135
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 136
+	classPrompt = StaticMesh
+	position = -24 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 137
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 138
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 139
+	classPrompt = StaticMesh
+	position = -24 24 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 140
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 141
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 142
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 143
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 144
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 145
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 146
+	classPrompt = StaticMesh
+	position = 12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 147
+	classPrompt = StaticMesh
+	position = -12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 148
+	classPrompt = StaticMesh
+	position = 0 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 149
+	classPrompt = StaticMesh
+	position = 24 -24 0
+	name = StaticMesh_CornerIntDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 150
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 151
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 152
+	classPrompt = StaticMesh
+	position = 24 -12 0
+	name = StaticMesh_WallDown_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 153
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallMiddle_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 154
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallUp_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 155
+	classPrompt = StaticMesh
+	position = 24 12 0
+	name = StaticMesh_WallDown_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 156
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallMiddle_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 157
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallUp_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 158
+	classPrompt = StaticMesh
+	position = 24 0 0
+	name = StaticMesh_WallDown_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 159
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallMiddle_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 160
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallUp_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 161
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 162
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 163
+	classPrompt = StaticMesh
+	position = 24 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 164
+	classPrompt = StaticMesh
+	position = -12 12 0
+	name = StaticMesh_Floor_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 165
+	classPrompt = StaticMesh
+	position = 12 12 0
+	name = StaticMesh_Floor_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 166
+	classPrompt = StaticMesh
+	position = 12 -12 0
+	name = StaticMesh_Floor_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 167
+	classPrompt = StaticMesh
+	position = -12 -12 0
+	name = StaticMesh_Floor_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 168
+	classPrompt = StaticMesh
+	position = 0 0 0
+	name = StaticMesh_Floor_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+	tags
+	{
+	}
+}
+entity
+{
+	type = Teleporter
+	uin = 169
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	healthFactorAtBeginning = 1
+	position = 19.6426 -19.52313 0.5683844
+	rotation = 0 0 0.9238796 0.3826835
+	name = Teleporter_0
+	tags
+	{
+	}
+}
+entity
+{
+	type = SpawnPoint
+	uin = 170
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = 17.34384 -17.5363 0.3046471
+	rotation = 0 0 -0.9238796 -0.3826835
+	name = SpawnPoint_0
+	tags
+	{
+	}
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 171
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 12.70407 -20.24042 0.5777563
+	rotation = 0 0 0.9796209 0.2008553
+	tags
+	{
+	}
+}
+entity
+{
+	type = ShotgunItem
+	uin = 172
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 10.64816 -20.2383 0.4753142
+	rotation = 0 0 0.9233318 0.3840033
+	tags
+	{
+	}
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 173
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 20.32927 -15.01019 0.2532427
+	rotation = 0 0 0.8124338 -0.5830535
+	tags
+	{
+	}
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 174
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 20.32927 -13.59326 0.2532427
+	rotation = 0 0 0.8124338 -0.5830535
+	tags
+	{
+	}
+}
+entity
+{
+	type = Light
+	uin = 175
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 0.4117647 0.4117647 0.4117647
+	diffusePower = 1
+	specularColor = 1.372549 1.372549 1.372549
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 0 0 22
+	rotation = 0 -0.7071068 0 -0.7071068
+	name = Light_1
+	tags
+	{
+	}
+}

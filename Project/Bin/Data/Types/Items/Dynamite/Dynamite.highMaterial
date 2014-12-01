@@ -1,0 +1,9 @@
+highLevelMaterial Dynamite
+{
+	template = ShaderBaseMaterial
+	culling = False
+	diffuse1Map
+	{
+		texture = Types\Items\Dynamite\Dynamite.dds
+	}
+}

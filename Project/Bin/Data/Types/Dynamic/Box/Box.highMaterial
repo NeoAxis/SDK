@@ -1,0 +1,24 @@
+highLevelMaterial Box
+{
+	template = ShaderBaseMaterial
+	emissionColor = 1 1 1
+	specularColor = 1 1 1 0.7183098
+	specularPower = 1.392157
+	specularShininess = 14.73
+	diffuse1Map
+	{
+		texture = ".\\BoxDiffuse.dds"
+	}
+	emissionMap
+	{
+		texture = ".\\BoxEmission.dds"
+	}
+	specularMap
+	{
+		texture = ".\\BoxSpecular.dds"
+	}
+	normalMap
+	{
+		texture = ".\\BoxNormal.dds"
+	}
+}

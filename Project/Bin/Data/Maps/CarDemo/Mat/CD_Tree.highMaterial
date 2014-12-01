@@ -1,0 +1,11 @@
+highLevelMaterial CD_Tree
+{
+	template = ShaderBaseMaterial
+	doubleSided = True
+	alphaRejectFunction = Greater
+	halfLambert = True
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Tree.DDS"
+	}
+}

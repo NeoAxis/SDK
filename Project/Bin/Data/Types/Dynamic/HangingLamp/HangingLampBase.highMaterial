@@ -1,0 +1,11 @@
+highLevelMaterial HangingLampBase
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	diffuseScale = 0.2352941 0.2352941 0.2352941
+	specularScale = 0.627451 0.627451 0.627451
+	diffuse1Map
+	{
+		texture = Types\Dynamic\HangingLamp\HangingLamp.dds
+	}
+}

@@ -1,0 +1,33 @@
+type RTSRobotGun
+{
+	class = Gun
+	reloadTime = 1.5
+	soundMinDistance = 10
+	soundMaxDistance = 100
+	creatableInMapEditor = False
+	normalMode
+	{
+		bulletType = RTSRobotBullet
+		bulletExpense = 0
+		betweenFireTime = 2.1
+		soundFire = ".\\Fire.ogg"
+		useDistanceRange = 0 40
+		fireTimes = 0.1 0.2 0.3 0.4 0.5
+		fireAnimationTrigger = fire
+		fireObjects
+		{
+			billboard
+			{
+				materialName = RTSItemParticle
+				size = 3 3
+				position = 1 0 0
+				lifeTime = 0.04
+			}
+		}
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+}

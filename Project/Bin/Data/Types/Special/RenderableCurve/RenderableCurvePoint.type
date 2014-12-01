@@ -1,0 +1,15 @@
+type RenderableCurvePoint
+{
+	class = RenderableCurvePoint
+	creatableInMapEditor = False
+	allowEmptyName = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RenderableCurve.mesh"
+			scale = 0.5 0.5 0.5
+			onlyForEditor = True
+		}
+	}
+}

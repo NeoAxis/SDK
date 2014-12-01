@@ -1,0 +1,6 @@
+type DefaultTurretAI
+{
+	class = TurretAI
+	creatableInMapEditor = False
+	networkType = ServerOnly
+}

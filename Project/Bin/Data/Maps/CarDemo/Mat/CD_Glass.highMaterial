@@ -1,0 +1,7 @@
+highLevelMaterial CD_Glass
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.3294118 0.6039216 0.8980392
+	reflectionColor = 0.2980392 0.4862745 0.7882353
+	specularColor = 0.372549 0.5686275 0.8470588
+}

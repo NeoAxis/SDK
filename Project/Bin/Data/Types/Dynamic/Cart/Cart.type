@@ -1,0 +1,57 @@
+type Cart
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\Cart\Cart.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\Box\Box.mesh
+			castDynamicShadows = True
+			body = base
+			position = -0.8 0 0
+			scale = 0.8 0.8 0.8
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Box\Box.mesh
+			castDynamicShadows = True
+			body = base
+			scale = 0.8 0.8 0.8
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Box\Box.mesh
+			castDynamicShadows = True
+			body = base
+			position = 0.8 0 0
+			scale = 0.8 0.8 0.8
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			body = wheelFrontLeft
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			body = wheelFrontRight
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			body = wheelRearLeft
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			body = wheelRearRight
+		}
+	}
+}

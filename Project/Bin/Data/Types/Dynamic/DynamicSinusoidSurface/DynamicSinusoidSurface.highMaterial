@@ -1,0 +1,9 @@
+highLevelMaterial DynamicSinusoidSurface
+{
+	template = ShaderBaseMaterial
+	doubleSided = True
+	diffuse1Map
+	{
+		texture = "Types\\Dynamic\\DynamicSinusoidSurface\\MagicShaderCode.jpg"
+	}
+}

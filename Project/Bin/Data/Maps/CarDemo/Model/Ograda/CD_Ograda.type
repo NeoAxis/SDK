@@ -1,0 +1,71 @@
+type CD_Ograda
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Ograda.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda02.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda05.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda08.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda11.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda2_0.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda2_1.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Ograda2_2.mesh"
+			castDynamicShadows = True
+			collision = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+	}
+}

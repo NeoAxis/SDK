@@ -1,0 +1,156 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.5882353 0.5882353 0.5882353
+editorCameraPosition = -4.851022 -22.0312 10.63491
+editorCameraDirection = 1.194755 -0.2057511
+shadowColor = 0.4980392 0.4980392 0.4980392
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 3
+staticBatchingRenderingEnabled = False
+staticBatchingPhysicsEnabledInMapEditor = False
+staticBatchingPhysicsEnabledInSimulation = False
+staticBatchingGridCellSize = 30 30 30
+staticBatchingFilterByMaxTriangleCount = 512
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = Ground
+		allowSelect = False
+	}
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	referencesToCompileDLL = "System.dll\r\nSystem.Drawing.dll\r\n\r\nEngineApp.dll\r\nUISystem.dll\r\nFileSystem.dll\r\nLog.dll\r\nMathEx.dll\r\nRenderer.dll\r\nPhysicsSystem.dll\r\nSoundSystem.dll\r\nEntitySystem.dll\r\nMapSystem.dll\r\nUtils.dll\r\nHeightmapTerrain.dll\r\nDecorativeObjectManager.dll\r\n\r\nProjectCommon.dll\r\nProjectEntities.dll"
+	usingNamespacesToCodeGeneration = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nusing Engine;\r\nusing Engine.FileSystem;\r\nusing Engine.MathEx;\r\nusing Engine.Utils;\r\nusing Engine.Renderer;\r\nusing Engine.PhysicsSystem;\r\nusing Engine.SoundSystem;\r\nusing Engine.UISystem;\r\nusing Engine.EntitySystem;\r\nusing Engine.MapSystem;\r\n\r\nusing ProjectCommon;\r\nusing ProjectEntities;"
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+	}
+}
+entity
+{
+	type = Light
+	uin = 5
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 0.3921569 0.3921569 0.3921569
+	diffusePower = 1
+	specularColor = 0.3921569 0.3921569 0.3921569
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 3.239259 16.79066 5.529538
+	rotation = -0.223938 0.3738772 0.4804038 0.7611044
+	name = Light_0
+}
+entity
+{
+	type = SpawnPoint
+	uin = 6
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = 6.310646 -13.01657 0.6150656
+	rotation = 0 0 0.664762 0.7470554
+	name = SpawnPoint_0
+}
+entity
+{
+	type = DynamicSinusoidSurface
+	uin = 7
+	classPrompt = DynamicSinusoidSurface
+	position = 7.225574 8.393627 5.810965
+	rotation = -0.7071068 0 0 -0.7071068
+	scale = 10 10 0.3
+	name = DynamicSinusoidSurface_0
+}
+entity
+{
+	type = WaterPlane
+	uin = 8
+	classPrompt = WaterPlane
+	size = 1000 1000
+	position = 0 0 0.55
+	segments = 40 40
+	renderQueueGroup = Queue3
+	reflectionLevel = OnlyModels
+	physicsHeight = 2
+	deepColor = 0.8862746 0.8039216 0.1764706
+	shallowColor = 0.1960784 0.2235294 1
+	reflectionColor = 1 1 1
+	reflectionTextureSize = HalfOfFrameBuffer
+	visible = True
+	fixedPipelineMap = "Types\\Special\\WaterPlane\\WaterFixedPipeline.jpg"
+	fixedPipelineMapTiling = 10
+	fixedPipelineColor = 0.1960784 0.2235294 1
+	useHDRTexture = False
+	allowFog = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 9
+	classPrompt = StaticMesh
+	position = 0 0 0
+	scale = 1000 1000 1
+	name = StaticMesh_Box_0
+	editorLayer = "Root Layer\\Ground"
+	meshName = "Base\\Simple Models\\Box.mesh"
+}
+entity
+{
+	type = SkyBox
+	uin = 10
+	classPrompt = SkyBox
+	enabled = True
+	color = 1 1 1
+	power = 5
+}
+entity
+{
+	type = Teleporter
+	uin = 11
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	healthFactorAtBeginning = 1
+	position = 6.116795 -17.98948 0.793367
+	rotation = 0 0 0.7071069 0.7071069
+	name = Teleporter_0
+}

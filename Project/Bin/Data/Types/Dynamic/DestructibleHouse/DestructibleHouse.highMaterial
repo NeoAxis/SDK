@@ -1,0 +1,20 @@
+highLevelMaterial DestructibleHouse
+{
+	template = ShaderBaseMaterial
+	specularScale = 0.2 0.2 0.2
+	specularShininess = 103.973
+	heightScale = 0.01
+	diffuse1Map
+	{
+		texture = Types\Dynamic\DestructibleHouse\DestructibleHouseDetail.dds
+	}
+	diffuse2Map
+	{
+		texture = Types\Dynamic\DestructibleHouse\DestructibleHouseColor.dds
+		texCoord = TexCoord1
+	}
+	normalMap
+	{
+		texture = Types\Dynamic\DestructibleHouse\DestructibleHouseDetailNormal.dds
+	}
+}

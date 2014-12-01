@@ -1,0 +1,20 @@
+type VillageSplash2
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		particle
+		{
+			particleName = VillageWaterParticle2
+			ownerRotation = True
+			updateWhenItNotInView = False
+			scale = 4 4 4
+		}
+		mesh
+		{
+			meshName = "Base\\Types\\InvisiblePoint.mesh"
+			onlyForEditor = True
+		}
+	}
+}

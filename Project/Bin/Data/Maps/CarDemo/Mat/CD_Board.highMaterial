@@ -1,0 +1,9 @@
+highLevelMaterial CD_Board
+{
+	template = ShaderBaseMaterial
+	diffusePower = 2.5
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Board.dds"
+	}
+}

@@ -1,0 +1,8 @@
+highLevelMaterial ZombieBullet
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\Units\Zombie\ZombieBullet\ZombieBullet.dds
+	}
+}

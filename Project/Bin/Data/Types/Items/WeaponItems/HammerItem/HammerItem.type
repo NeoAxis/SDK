@@ -1,0 +1,23 @@
+type HammerItem
+{
+	class = WeaponItem
+	weaponType = Hammer
+	defaultRespawnTime = 10
+	soundTake = "Types/Items/DefaultItemTake.ogg"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Weapons\\Hammer\\Hammer.mesh"
+			castDynamicShadows = True
+			position = -0.5 0 0
+		}
+		particle
+		{
+			particleName = ItemParticle
+			updateWhenItNotInView = False
+			position = 0 0 -0.1974521
+		}
+	}
+}

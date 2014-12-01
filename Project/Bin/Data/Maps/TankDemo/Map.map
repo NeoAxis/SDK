@@ -1,0 +1,3488 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.3254902 0.3058824 0.5568628
+editorCameraPosition = 903.0495 869.0566 65.01858
+editorCameraDirection = 4.134986 -0.5342733
+shadowColor = 0.8156863 0.8078432 1
+shadowFarDistance = 70
+shadowPSSMSplitFactors = 0.1 0.4
+nearFarClipDistance = 0.1 650
+logicSystemManager = 3
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+		entity
+		{
+			type = LogicEntityClass
+			uin = 5
+			relationships = 275
+			entityClassName = Region
+			className = Region_Base
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 6
+				code = "Unit unit = obj as Unit;\r\nif(unit != null && (unit.Intellect as PlayerIntellect) != null)\r\n{\r\n\tif(!activated)\r\n\t{\r\n\t\tactivated = true;\r\n\r\n\t\t//!!!!!!temp. need user friendly helping methods\r\n\r\n\t\tMapCurve way = (MapCurve)Entities.Instance.GetByName(\"MapCurve_BaseFromBack\");\r\n\r\n\t\t//create enemy\r\n\t\tAIType intellect = (AIType)EntityTypes.Instance.GetByName(\"TankGameUnitAI\");\r\n\t\tFactionType badFaction = (FactionType)EntityTypes.Instance.GetByName(\"BadFaction\");\r\n\r\n\t\tList<MapObject> points = new List<MapObject>();\r\n\t\tpoints.Add((MapObject)Entities.Instance.GetByName(\"HelperPoint_BaseFromBack1\"));\r\n\t\tpoints.Add((MapObject)Entities.Instance.GetByName(\"HelperPoint_BaseFromBack2\"));\r\n\t\tpoints.Add((MapObject)Entities.Instance.GetByName(\"HelperPoint_BaseFromBack3\"));\r\n\r\n\t\tforeach(MapObject point in points)\r\n\t\t{\r\n\t\t\tUnit enemy = (Unit)Entities.Instance.Create(\"TigerTank\", Map.Instance);\r\n\t\t\tenemy.Position = point.Position;\r\n\t\t\tenemy.Rotation = point.Rotation;\r\n\t\t\tenemy.InitialAI = intellect;\r\n\t\t\tenemy.InitialFaction = badFaction;\r\n\r\n\t\t\tTankGameExtendedProperties extendedProperties = (TankGameExtendedProperties)\r\n\t\t\t\tenemy.CreateExtendedProperties(typeof(TankGameExtendedProperties));\r\n\t\t\textendedProperties.Way = way;\r\n\t\t\r\n\t\t\tenemy.PostCreate();\r\n\r\n\t\t\t((TankGameUnitAI)enemy.Intellect).ActivateWayMovement();\r\n\t\t}\r\n\t}\r\n}"
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 7
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 7
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 8
+				variableType = System.Boolean
+				variableName = activated
+				supportSerialization = False
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 9
+			relationships = 139 141
+			entityClassName = Region
+			className = Region_Helicopter1
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 10
+				code = "Unit unit = obj as Unit;\r\nif(unit != null && (unit.Intellect as PlayerIntellect) != null)\r\n{\r\n\tif(!activated)\r\n\t{\r\n\t\tactivated = true;\r\n\r\n\t\tMapObject point = (MapObject)Entities.Instance.GetByName(\"HelperPoint_Helicopter1\");\r\n\r\n\t\tAircraft helicopter = (Aircraft)Entities.Instance.Create(\"Helicopter\", Map.Instance);\r\n\t\thelicopter.Position = point.Position;\r\n\t\thelicopter.Rotation = point.Rotation;\r\n\t\thelicopter.FlyHeight = helicopter.Position.Z;\r\n\t\thelicopter.PostCreate();\r\n\t}\r\n\r\n}"
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 11
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 11
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 12
+				variableType = System.Boolean
+				variableName = activated
+				supportSerialization = False
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 13
+			relationships = 141
+			entityClassName = Region
+			className = Region_Helicopter2
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicVariable
+				uin = 14
+				variableType = System.Boolean
+				variableName = activated
+				supportSerialization = False
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 15
+				code = "Unit unit = obj as Unit;\r\nif(unit != null && (unit.Intellect as PlayerIntellect) != null)\r\n{\r\n\tif(!activated)\r\n\t{\r\n\t\tactivated = true;\r\n\r\n\t\tMapObject point = (MapObject)Entities.Instance.GetByName(\"HelperPoint_Helicopter2\");\r\n\r\n\t\tAircraft helicopter = (Aircraft)Entities.Instance.Create(\"Helicopter\", Map.Instance);\r\n\t\thelicopter.Position = point.Position;\r\n\t\thelicopter.Rotation = point.Rotation;\r\n\t\thelicopter.FlyHeight = helicopter.Position.Z;\r\n\t\thelicopter.PostCreate();\r\n\t}\r\n\r\n}"
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 16
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 16
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+			}
+		}
+	}
+}
+entity
+{
+	type = HeightmapTerrain
+	uin = 17
+	classPrompt = HeightmapTerrain
+	relationships = 145
+	enabled = True
+	position = 0 0 0
+	horizontalSize = 2500
+	verticalSize = 200
+	dataDirectory = HeightmapTerrain
+	masksSize = 1024
+	detailMapsDistance = 50
+	renderQueueGroup = WorldGeometry1
+	collision = True
+	collisionMaterialName = Default
+	castDynamicShadows = True
+	receiveStaticShadows = True
+	simpleRendering = False
+	tileSize = 32
+	visible = True
+	allowVertexTextureFetchOptimization = True
+	ambientOcclusion
+	{
+		enabled = True
+		size = 2048
+		rayLength = 3
+		iterationCount = 100
+		blur = True
+		power = 2
+	}
+	lodSettings
+	{
+		enabled = True
+		maxCount = 99
+		lodLevelDistances = 100 + level * 300
+		morphAreaPercent = 0.3
+		showLevels = False
+	}
+	layers
+	{
+		item
+		{
+			name = base
+			baseMap = "Maps\\TankDemo\\Resources\\Terrain\\Grass_Diffuse.dds"
+			baseScale = 8.514
+			detailScale = 2
+			baseNormalMap = "Maps\\TankDemo\\Resources\\Terrain\\Grass_Normal.dds"
+		}
+		item
+		{
+			name = second
+			baseMap = "Maps\\TankDemo\\Resources\\Terrain\\Sand_Diffuse.dds"
+			baseScale = 13.784
+			detailScale = 2
+			baseNormalMap = "Maps\\TankDemo\\Resources\\Terrain\\Sand_Normal.dds"
+		}
+		item
+		{
+			name = road
+			baseMap = "Maps\\TankDemo\\Resources\\Terrain\\Rock_Diffuse.dds"
+			baseScale = 87.568
+			detailScale = 20
+			baseNormalMap = "Maps\\TankDemo\\Resources\\Terrain\\Rock_Normal.dds"
+		}
+	}
+}
+entity
+{
+	type = TigerTank
+	uin = 18
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	position = 885.3087 866.5226 54.60002
+	rotation = 0.01678956 -1.117587E-08 -0.7071062 0.7069079
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_0
+}
+entity
+{
+	type = Fog
+	uin = 19
+	classPrompt = Fog
+	enabled = True
+	mode = Exp2
+	color = 0.4862745 0.5450981 0.6980392
+	expDensity = 0.002
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 20
+	classPrompt = Dynamic
+	position = 656.7096 531.3741 55.34781
+	name = DestructibleHouse_0
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 21
+	classPrompt = Dynamic
+	position = 630.7688 531.5623 55.39803
+	name = DestructibleHouse_1
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 22
+	classPrompt = Dynamic
+	position = 602.1863 531.3957 55.40538
+	name = DestructibleHouse_2
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 23
+	classPrompt = Dynamic
+	position = 578.683 539.4048 55.42108
+	rotation = 0 0 -0.7071068 0.7071068
+	name = DestructibleHouse_3
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 24
+	classPrompt = Dynamic
+	position = 298.5005 847.7304 35.0437
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_4
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 25
+	classPrompt = Dynamic
+	position = 243.4557 879.7865 35.00328
+	rotation = 0 0 0.3854176 0.9227422
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_5
+}
+entity
+{
+	type = MineBoard
+	uin = 26
+	classPrompt = MapObject
+	position = 507.4853 768.0852 48.00717
+	rotation = 0 0 -0.8418006 0.5397887
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_2
+}
+entity
+{
+	type = MineBoard
+	uin = 27
+	classPrompt = MapObject
+	position = 485.1826 781.8027 44.76273
+	rotation = 0 0 -0.8159445 0.5781303
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_3
+}
+entity
+{
+	type = MineBoard
+	uin = 28
+	classPrompt = MapObject
+	position = 543.5395 745.717 49.66974
+	rotation = 0 0 -0.8616816 0.5074493
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_4
+}
+entity
+{
+	type = MineBoard
+	uin = 29
+	classPrompt = MapObject
+	position = 465.6826 796.0013 40.93924
+	rotation = 0 0 -0.7818222 0.6235014
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_5
+}
+entity
+{
+	type = MineBoard
+	uin = 30
+	classPrompt = MapObject
+	position = 443.7474 816.3035 38.36473
+	rotation = 0 0 -0.8216035 0.5700594
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_7
+}
+entity
+{
+	type = MineBoard
+	uin = 31
+	classPrompt = MapObject
+	position = 525.3141 758.505 48.16835
+	rotation = 0 0 -0.8418006 0.5397887
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_17
+}
+entity
+{
+	type = Minefield
+	uin = 32
+	classPrompt = Minefield
+	position = 536.1098 769.3541 46.45029
+	rotation = 0 0 -0.3014212 0.9534912
+	scale = 134.3838 15.15266 19.26815
+	name = Minefield_0
+}
+entity
+{
+	type = Minefield
+	uin = 33
+	classPrompt = Minefield
+	position = 431.3115 852.4983 37.62467
+	rotation = 0 0 -0.3444225 0.9388148
+	scale = 136.375 11.49983 14.6232
+	name = Minefield_1
+}
+entity
+{
+	type = Minefield
+	uin = 34
+	classPrompt = Minefield
+	position = 326.6456 929.066 30.61439
+	rotation = 0 0 -0.260804 0.9653918
+	scale = 126.3783 11.49983 14.6232
+	name = Minefield_2
+}
+entity
+{
+	type = Minefield
+	uin = 35
+	classPrompt = Minefield
+	position = 166.0771 942.6343 24.89907
+	rotation = 0 0 0.9996085 0.02797644
+	scale = 174.7426 11.49983 37.17228
+	name = Minefield_3
+}
+entity
+{
+	type = Region
+	uin = 36
+	classPrompt = Region
+	relationships = 38 37
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = 577.3716 577.1515 61.59751
+	rotation = 0 0 -0.8711282 0.4910557
+	scale = 222.8297 94.9926 26.08555
+	name = Region_FirstVillage
+	checkType = Bounds
+}
+entity
+{
+	type = TigerTank
+	uin = 37
+	classPrompt = Tank
+	relationships = 36 39
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = 244.0026 700.0853 27.66971
+	rotation = -0.0002282644 0.03098737 -0.1683087 0.9852471
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_2
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 39
+		activateRegion = 36
+	}
+}
+entity
+{
+	type = TigerTank
+	uin = 38
+	classPrompt = Tank
+	relationships = 36 39
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = 172.9093 751.9131 29.63873
+	rotation = 0.02324823 -0.06855614 -0.2131325 0.9743377
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_5
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 39
+		activateRegion = 36
+	}
+}
+entity
+{
+	type = MapCurve
+	uin = 39
+	classPrompt = MapCurve
+	relationships = 40 38 37
+	curveType = UniformCubicSpline
+	points = 39 40
+	owner = 39
+	time = 0
+	position = 534.9491 605.0961 56.90085
+	rotation = 0 0.001562494 0 0.9999988
+	name = MapCurve_ToFirstVillage
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 40
+	classPrompt = MapCurvePoint
+	relationships = 39
+	owner = 39
+	time = 1
+	position = 615.7506 556.76 59.51266
+}
+entity
+{
+	type = TankGameRobot
+	uin = 41
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 613.0455 540.3307 57.36661
+	rotation = 0 0 -3.051758E-06 1
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TankGameRobot_0
+}
+entity
+{
+	type = TankGameRobot
+	uin = 42
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 287.5945 835.9174 36.58539
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_3
+}
+entity
+{
+	type = TankGameRobot
+	uin = 43
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 459.9135 755.2072 44.66827
+	rotation = 0 0 0.0003976442 0.9999999
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_4
+}
+entity
+{
+	type = TankGameRobot
+	uin = 44
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 452.0575 745.5098 43.18919
+	rotation = 0 0 0.0004125978 0.9999999
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_5
+}
+entity
+{
+	type = TankGameRobot
+	uin = 45
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 420.7661 709.8059 35.57104
+	rotation = 0 0 -0.002741405 0.9999962
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_6
+}
+entity
+{
+	type = TankGameRobot
+	uin = 46
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 429.4524 720.1406 38.07676
+	rotation = 0 0 0.002584848 0.9999967
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_7
+}
+entity
+{
+	type = TankGameRobot
+	uin = 47
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 425.1611 714.9013 36.83049
+	rotation = 0 0 -0.002741404 0.9999962
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_8
+}
+entity
+{
+	type = TankGameRobot
+	uin = 48
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 455.9593 750.5167 43.90918
+	rotation = 0 0 0.0004125978 0.9999999
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_11
+}
+entity
+{
+	type = TankGameRobot
+	uin = 49
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 239.3725 865.77 36.95046
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_12
+}
+entity
+{
+	type = TigerTank
+	uin = 50
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = 50.56477 850.5128 24.3709
+	rotation = 0.05235503 0.0127366 -0.1217367 0.9910988
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_10
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 51
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 274.4738 826.9662 35.14738
+	rotation = 0 0 0.8745661 -0.4849063
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 52
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 271.2239 826.4867 35.12739
+	rotation = 0 0 0.6927645 -0.7211639
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 53
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 266.3713 826.2975 35.08112
+	rotation = 0 0 0.998907 0.04674252
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 54
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 263.3397 826.251 35.06113
+	rotation = 0 0 0.9417989 0.3361769
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = Turret
+	uin = 55
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = 286.9578 852.986 36.87494
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBounds
+	name = Turret_0
+}
+entity
+{
+	type = Turret
+	uin = 56
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = 20.49106 771.4656 21.05585
+	name = Turret_2
+}
+entity
+{
+	type = TigerTank
+	uin = 57
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = 264.0617 853.8569 35.95737
+	rotation = -0.00101144 -0.002013794 -0.1222437 0.9924976
+	scale = 0.7589313 0.7589313 0.7589313
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_3
+}
+entity
+{
+	type = TigerTank
+	uin = 58
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	position = 872.0583 866.5226 54.25975
+	rotation = 0.02120378 0.003532403 -0.7070975 0.7067893
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_1
+}
+entity
+{
+	type = TigerTank
+	uin = 59
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	position = 858.6473 866.5226 54.04494
+	rotation = 0.01766473 0.0150137 -0.706947 0.7068865
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_7
+}
+entity
+{
+	type = Turret
+	uin = 60
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = -187.5959 684.9282 52.24299
+	name = Turret_3
+}
+entity
+{
+	type = Turret
+	uin = 61
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = -96.54056 587.1536 48.01947
+	autoVerticalAlignment = ByBounds
+	name = Turret_4
+}
+entity
+{
+	type = TigerTank
+	uin = 62
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -213.4964 542.1624 55.05554
+	rotation = 0.001402544 0.003951118 -0.1222381 0.992492
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_12
+}
+entity
+{
+	type = TankGameRobot
+	uin = 63
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -94.41521 644.641 40.82161
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_13
+}
+entity
+{
+	type = TankGameRobot
+	uin = 64
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -99.02092 648.2189 40.88161
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_14
+}
+entity
+{
+	type = TankGameRobot
+	uin = 65
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -118.3846 666.0702 41.2016
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_15
+}
+entity
+{
+	type = TankGameRobot
+	uin = 66
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -122.6206 671.1938 40.98161
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_16
+}
+entity
+{
+	type = TigerTank
+	uin = 67
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -141.0152 633.4757 44.63133
+	rotation = -0.001604377 0.03692543 0.3303882 0.9431212
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_13
+}
+entity
+{
+	type = TankGameRobot
+	uin = 68
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -236.229 546.5157 56.45136
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_17
+}
+entity
+{
+	type = TankGameRobot
+	uin = 69
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -267.8135 562.7112 57.03136
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_18
+}
+entity
+{
+	type = TankGameRobot
+	uin = 70
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -233.3905 545.1396 56.19138
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_19
+}
+entity
+{
+	type = TankGameRobot
+	uin = 71
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -237.9962 548.7175 56.38137
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_20
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 72
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 38.79485 835.0278 23.54514
+	rotation = 0 0 0.07463246 0.9972111
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 73
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 35.54494 834.5483 24.24514
+	rotation = 0 0 0.9245611 0.3810338
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 74
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 38.79485 829.96 22.15082
+	rotation = 0 0 0.69071 0.7231319
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 75
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 35.54494 829.4805 22.87513
+	rotation = 0 0 0.8267425 -0.5625805
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 76
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -243.1778 662.3297 54.13613
+	rotation = 0 0 0.8561228 -0.5167724
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 77
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -246.4277 661.8502 54.13185
+	rotation = 0 0 0.9993551 -0.03590627
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 78
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -243.1778 657.2618 54.15186
+	rotation = 0 0 0.491998 0.8705963
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 79
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -246.4277 656.7824 54.15186
+	rotation = 0 0 0.8589829 -0.5120043
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = Turret
+	uin = 80
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = -351.8428 748.9052 60.36457
+	autoVerticalAlignment = ByBounds
+	name = Turret_6
+}
+entity
+{
+	type = TankGameRobot
+	uin = 81
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -342.7651 744.5023 60.05131
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_22
+}
+entity
+{
+	type = TankGameRobot
+	uin = 82
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -337.3458 744.5023 59.84131
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_23
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 83
+	classPrompt = Dynamic
+	position = -698.8162 868.5051 81.25928
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_6
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 84
+	classPrompt = Dynamic
+	position = -717.65 868.8943 81.4555
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_7
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 85
+	classPrompt = Dynamic
+	position = -736.9132 830.1482 81.90793
+	rotation = 0 0 -0.7071068 0.7071068
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_8
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 86
+	classPrompt = Dynamic
+	position = -736.9132 808.2106 81.76268
+	rotation = 0 0 -0.7071068 0.7071068
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_9
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 87
+	classPrompt = Dynamic
+	position = -736.9132 785.142 81.76839
+	rotation = 0 0 -0.7071068 0.7071068
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_10
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 88
+	classPrompt = Dynamic
+	position = -736.9132 763.5474 81.04436
+	rotation = 0 0 -0.7071068 0.7071068
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_11
+}
+entity
+{
+	type = DestructibleHouse
+	uin = 89
+	classPrompt = Dynamic
+	position = -640.9138 953.689 67.71329
+	autoVerticalAlignment = ByCenter
+	name = DestructibleHouse_12
+}
+entity
+{
+	type = Minefield
+	uin = 90
+	classPrompt = Minefield
+	position = -452.5658 1100.239 48.41683
+	rotation = 0 0 -0.08913016 0.9960201
+	scale = 134.3838 15.15266 19.26815
+	name = Minefield_4
+}
+entity
+{
+	type = MineBoard
+	uin = 91
+	classPrompt = MapObject
+	position = -473.1903 1088.327 54.19476
+	rotation = 0 0 -0.705888 0.7083235
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_14
+}
+entity
+{
+	type = MineBoard
+	uin = 92
+	classPrompt = MapObject
+	position = -455.3533 1085.857 54.19476
+	rotation = 0 0 -0.705888 0.7083235
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_16
+}
+entity
+{
+	type = MineBoard
+	uin = 93
+	classPrompt = MapObject
+	position = -434.6955 1084.245 54.19476
+	rotation = 0 0 -0.705888 0.7083235
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_22
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 94
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -693.5152 791.1912 76.54154
+	rotation = 0 0 0.9830456 0.1833614
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 95
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -690.2653 791.6706 75.87582
+	rotation = 0 0 0.8732856 -0.4872087
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 96
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -690.2653 786.6028 75.55154
+	rotation = 0 0 0.9603755 -0.2787094
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 97
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -693.5152 786.1234 76.24155
+	rotation = 0 0 0.8065925 0.5911078
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = StopSign
+	uin = 98
+	classPrompt = MapObject
+	position = -570.2157 769.1471 56.04964
+	rotation = 0 0 -0.7084558 -0.7057552
+	autoVerticalAlignment = ByBounds
+	name = StopSign_0
+}
+entity
+{
+	type = TankGameRobot
+	uin = 99
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -715.6534 764.7941 82.86099
+	rotation = 0 0 0.7388483 0.6738718
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_24
+}
+entity
+{
+	type = TankGameRobot
+	uin = 100
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -715.1559 759.3975 82.82098
+	rotation = 0 0 0.7388483 0.6738718
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_25
+}
+entity
+{
+	type = TankGameRobot
+	uin = 101
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -681.1991 863.5336 82.03764
+	rotation = 0 0 0.7388483 0.6738718
+	name = TankGameRobot_26
+}
+entity
+{
+	type = TankGameRobot
+	uin = 102
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -680.7017 858.1371 81.71529
+	rotation = 0 0 0.7388483 0.6738718
+	name = TankGameRobot_27
+}
+entity
+{
+	type = Turret
+	uin = 103
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = -652.4147 -35.74738 78.21767
+	name = Turret_7
+}
+entity
+{
+	type = Turret
+	uin = 104
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	initialAI = DefaultTurretAI
+	initialFaction = BadFaction
+	position = -685.7515 -70.02487 78.31076
+	name = Turret_8
+}
+entity
+{
+	type = TigerTank
+	uin = 105
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	position = -679.1467 -70.41672 78.05154
+	rotation = -0.006172501 -0.003681355 0.8588272 0.512215
+	name = TigerTank_14
+}
+entity
+{
+	type = TigerTank
+	uin = 106
+	classPrompt = Tank
+	relationships = 111 115
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -532.9235 1023.839 55.12598
+	rotation = 0 0 -0.6984413 0.7156674
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_15
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 115
+		activateRegion = 111
+	}
+}
+entity
+{
+	type = TigerTank
+	uin = 107
+	classPrompt = Tank
+	relationships = 111 115
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -479.5664 1076.387 55.12604
+	rotation = 0 0 -0.6984419 0.7156668
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_16
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 115
+		activateRegion = 111
+	}
+}
+entity
+{
+	type = TigerTank
+	uin = 108
+	classPrompt = Tank
+	relationships = 111 112
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -725.6966 527.6454 59.41541
+	rotation = 0.001871841 0.01919505 0.5070164 0.8617206
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_17
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 112
+		activateRegion = 111
+	}
+}
+entity
+{
+	type = TigerTank
+	uin = 109
+	classPrompt = Tank
+	relationships = 111 112
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -811.7504 575.2299 55.12604
+	rotation = 0 0 0.3756028 0.9267808
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_18
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 112
+		activateRegion = 111
+	}
+}
+entity
+{
+	type = TigerTank
+	uin = 110
+	classPrompt = Tank
+	relationships = 111 112
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -727.3927 853.558 82.76647
+	rotation = 0.02487165 0.03918173 0.03024505 0.9984645
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_19
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+		way = 112
+		activateRegion = 111
+	}
+}
+entity
+{
+	type = Region
+	uin = 111
+	classPrompt = Region
+	relationships = 109 108 106 107 110
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -460.256 778.5192 63.74448
+	rotation = 0 0 -0.6161282 -0.7876459
+	scale = 226.9826 45.85297 23.65248
+	name = Region_Town
+	checkType = Bounds
+}
+entity
+{
+	type = MapCurve
+	uin = 112
+	classPrompt = MapCurve
+	relationships = 113 114 109 108 110
+	curveType = UniformCubicSpline
+	points = 112 113 114
+	owner = 112
+	time = 0
+	position = -588.512 692.1324 53.45137
+	rotation = 0 0 -0.2707759 -0.9626424
+	name = MapCurve_TownWay
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 113
+	classPrompt = MapCurvePoint
+	relationships = 112
+	owner = 112
+	time = 1
+	position = -544.6584 777.4572 57.10606
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 114
+	classPrompt = MapCurvePoint
+	relationships = 112
+	owner = 112
+	time = 2
+	position = -460.5159 770.3482 57.10606
+}
+entity
+{
+	type = MapCurve
+	uin = 115
+	classPrompt = MapCurve
+	relationships = 116 117 106 107
+	curveType = UniformCubicSpline
+	points = 115 116 117
+	owner = 115
+	time = 0
+	position = -545.7534 878.0123 52.88658
+	rotation = 0 0 -0.9595479 0.2815455
+	name = MapCurve_TownWay2
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 116
+	classPrompt = MapCurvePoint
+	relationships = 115
+	owner = 115
+	time = 1
+	position = -589.2925 757.3686 55.87559
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 117
+	classPrompt = MapCurvePoint
+	relationships = 115
+	owner = 115
+	time = 2
+	position = -475.1336 751.9019 55.87559
+}
+entity
+{
+	type = TankGameRobot
+	uin = 118
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -712.718 762.3019 82.371
+	rotation = 0 0 0.7388483 0.6738718
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_28
+}
+entity
+{
+	type = TankGameRobot
+	uin = 119
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -712.2205 755.4977 82.261
+	rotation = 0 0 0.7388483 0.6738718
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_29
+}
+entity
+{
+	type = TankGameRobot
+	uin = 120
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -704.6369 -36.40599 75.26111
+	rotation = 0 0 0.6635826 0.7481031
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_30
+}
+entity
+{
+	type = TankGameRobot
+	uin = 121
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -702.9319 -33.75196 75.1111
+	rotation = 0 0 0.6635826 0.7481031
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_31
+}
+entity
+{
+	type = TankGameRobot
+	uin = 122
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -707.0339 -37.89786 75.2311
+	rotation = 0 0 0.6635826 0.7481031
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_32
+}
+entity
+{
+	type = TigerTank
+	uin = 123
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -742.8129 -86.37291 77.41502
+	rotation = -0.01274947 0.1898386 0.8880968 0.4184289
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_22
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+	}
+}
+entity
+{
+	type = TankGameRobot
+	uin = 124
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -659.4016 15.68139 73.69112
+	rotation = 0 0 0.6635826 0.7481031
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_33
+}
+entity
+{
+	type = TankGameRobot
+	uin = 125
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -657.6966 18.33542 73.45113
+	rotation = 0 0 0.6635826 0.7481031
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_34
+}
+entity
+{
+	type = TankGameRobot
+	uin = 126
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = -661.7985 14.18952 73.67113
+	rotation = 0 0 0.6635826 0.7481031
+	autoVerticalAlignment = ByBounds
+	name = TankGameRobot_35
+}
+entity
+{
+	type = MapCurve
+	uin = 127
+	classPrompt = MapCurve
+	relationships = 128 129 138
+	curveType = UniformCubicSpline
+	points = 127 128 129 138
+	owner = 127
+	time = 0
+	position = -919.5156 537.1821 56.00744
+	rotation = 0 0 -0.7830654 -0.6219394
+	name = MapCurve_BaseFromBack
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 128
+	classPrompt = MapCurvePoint
+	relationships = 127
+	owner = 127
+	time = 1
+	position = -927.8132 495.8916 58.96312
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 129
+	classPrompt = MapCurvePoint
+	relationships = 127
+	owner = 127
+	time = 2
+	position = -907.8181 358.8117 57.24497
+	rotation = 0 0 -0.4055423 0.9140763
+}
+entity
+{
+	type = HelperPoint
+	uin = 130
+	classPrompt = MapObject
+	position = -906.0013 552.3843 56.30515
+	rotation = 0 0 -0.8787213 0.4773352
+	name = HelperPoint_BaseFromBack1
+}
+entity
+{
+	type = HelperPoint
+	uin = 131
+	classPrompt = MapObject
+	position = -883.5358 574.183 55.44136
+	rotation = 0 0 -0.8787213 0.4773352
+	name = HelperPoint_BaseFromBack2
+}
+entity
+{
+	type = TigerTank
+	uin = 132
+	classPrompt = Tank
+	intellectShouldDeleteAfterDetach = False
+	initialAI = TankGameUnitAI
+	initialFaction = BadFaction
+	position = -667.4953 -55.64053 77.78028
+	rotation = -0.01091258 -0.0001686793 0.9098047 0.4148931
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TigerTank_20
+	extendedProperties
+	{
+		class = TankGameExtendedProperties
+	}
+}
+entity
+{
+	type = HelperPoint
+	uin = 133
+	classPrompt = MapObject
+	position = -858.9425 579.4413 55.75645
+	rotation = 0 0 -0.9415283 0.3369339
+	name = HelperPoint_BaseFromBack3
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 134
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -628.2699 -29.86194 76.92498
+	rotation = 0 0 0.4934882 -0.8697525
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 135
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -630.1174 -33.1084 76.92581
+	rotation = 0 0 0.7126713 0.7014981
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 136
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -625.4702 -35.84021 76.92581
+	rotation = 0 0 0.8639331 -0.5036066
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 137
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = -623.7471 -31.99915 76.92581
+	rotation = 0 0 0.1047725 -0.9944962
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 138
+	classPrompt = MapCurvePoint
+	relationships = 127
+	owner = 127
+	time = 3
+	position = -703.1375 -24.46106 72.36198
+}
+entity
+{
+	type = Region
+	uin = 139
+	classPrompt = Region
+	relationships = 9
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = 882.6536 700.5796 56.4164
+	rotation = 0 0 0.9987946 -0.04908569
+	scale = 115.569 9.502442 15.68971
+	name = Region_Helicopter1
+	logicClass = 9
+	checkType = Bounds
+}
+entity
+{
+	type = HelperPoint
+	uin = 140
+	classPrompt = MapObject
+	position = 440.225 544.0402 130.6519
+	rotation = 0 0 0.03569899 -0.9993626
+	name = HelperPoint_Helicopter1
+}
+entity
+{
+	type = Region
+	uin = 141
+	classPrompt = Region
+	relationships = 9 13
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -427.0703 742.634 70.1799
+	rotation = 0 0 0.7702997 -0.6376819
+	scale = 143.1686 11.85923 15.68971
+	name = Region_Helicopter2
+	logicClass = 13
+	checkType = Bounds
+}
+entity
+{
+	type = HelperPoint
+	uin = 142
+	classPrompt = MapObject
+	position = -411.4124 1352.563 149.5274
+	rotation = 0 0 0.843379 -0.5373192
+	name = HelperPoint_Helicopter2
+}
+entity
+{
+	type = Light
+	uin = 143
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 1.392157 1.392157 1.090196
+	diffusePower = 1
+	specularColor = 1.666667 1.666667 2.176471
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 887.7253 843.0869 56.70574
+	rotation = -0.2691482 0.344334 0.5932829 0.6760241
+	name = Light_0
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 144
+	classPrompt = WeaponItem
+	respawnTime = 10
+	position = 893.3985 846.8536 53.95173
+	rotation = 0 0 -0.3899117 -0.9208522
+	autoVerticalAlignment = ByBounds
+}
+entity
+{
+	type = DecorativeObjectManager
+	uin = 145
+	classPrompt = DecorativeObjectManager
+	relationships = 17
+	enabled = True
+	visible = True
+	geometries = 17
+	itemDataVersion = 2
+	typeItems
+	{
+		item
+		{
+			type = GrassBrown
+			itemCount = 10450
+		}
+		item
+		{
+			type = GrassGreen
+			itemCount = 414236
+		}
+		item
+		{
+			type = FlowerWhite
+			itemCount = 15537
+		}
+		item
+		{
+			type = FlowerYellow
+			itemCount = 10348
+		}
+		item
+		{
+			type = Ear
+			itemCount = 4765
+		}
+	}
+}
+entity
+{
+	type = BlueDaySky
+	uin = 146
+	classPrompt = CameraAttachedObject
+	enabled = True
+	name = BlueDaySky_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 147
+	classPrompt = StaticMesh
+	position = 402.4509 742.401 35.44511
+	scale = 0.9439245 0.9439245 0.9439245
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_0
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 148
+	classPrompt = StaticMesh
+	position = 383.3616 763.8315 52.73755
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.7672548 0.7672548 0.7672548
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_1
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 149
+	classPrompt = StaticMesh
+	position = 553.2578 524.0259 61.56827
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_2
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 150
+	classPrompt = StaticMesh
+	position = 539.5124 531.3809 61.91565
+	scale = 0.4678035 0.4678035 0.4678035
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_0
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 151
+	classPrompt = StaticMesh
+	position = 638.4412 484.1983 62.63329
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_3
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 152
+	classPrompt = StaticMesh
+	position = 611.7836 482.9145 63.09708
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_1
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 153
+	classPrompt = StaticMesh
+	position = 664.6614 470.0909 64.92404
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_2
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 154
+	classPrompt = StaticMesh
+	position = 763.4109 608.3513 64.98608
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_3
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 155
+	classPrompt = StaticMesh
+	position = 780.8903 600.4088 64.49107
+	rotation = 0 0 -0.6197998 0.78476
+	scale = 0.2806521 0.2806521 0.2806521
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_4
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 156
+	classPrompt = StaticMesh
+	position = 790.5275 612.3173 65.83517
+	rotation = 0 0 -0.6197998 0.78476
+	scale = 0.6764776 0.6764776 0.6764776
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_5
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 157
+	classPrompt = StaticMesh
+	position = 817.7704 544.962 70.31689
+	rotation = 0 0 0.05457774 -0.9985095
+	scale = 0.7952221 0.7952221 0.7952221
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_6
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 158
+	classPrompt = StaticMesh
+	position = 850.1529 559.0935 61.64224
+	rotation = 0 0 0.9981241 0.06122383
+	scale = 0.7646099 0.7646099 0.7646099
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_7
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 159
+	classPrompt = StaticMesh
+	position = 856.7327 845.4357 52.26428
+	rotation = 0 0 0.05457774 -0.9985095
+	scale = 0.3942744 0.3942744 0.3942744
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_8
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 160
+	classPrompt = StaticMesh
+	position = 834.1815 524.1124 71.35013
+	rotation = 0 0 -0.3953916 0.9185126
+	scale = 0.7099331 0.7099331 0.7099331
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_9
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 161
+	classPrompt = StaticMesh
+	position = 910.0253 733.0408 53.17795
+	rotation = 0 0 -0.6197998 0.78476
+	scale = 0.558962 0.558962 0.558962
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_10
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 162
+	classPrompt = StaticMesh
+	position = 840.0052 727.6574 59.53217
+	rotation = 0 0 -0.6197998 0.78476
+	scale = 0.6764776 0.6764776 0.6764776
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_11
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 163
+	classPrompt = StaticMesh
+	position = 841.5574 758.5468 57.7226
+	rotation = 0 0 0.415782 0.9094644
+	scale = 0.516256 0.516256 0.516256
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_12
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 164
+	classPrompt = StaticMesh
+	position = 600.4705 614.5787 59.68188
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_13
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 165
+	classPrompt = StaticMesh
+	position = 612.3578 609.1693 56.56972
+	rotation = 0 0 -0.9967345 0.0807486
+	scale = 0.5268268 0.5268268 0.5268268
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_4
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 166
+	classPrompt = StaticMesh
+	position = 453.7475 567.6786 63.19772
+	scale = 0.3930408 0.3930408 0.3930408
+	name = StaticMesh_TankDemoTree01_5
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 167
+	classPrompt = StaticMesh
+	position = 471.7859 563.7692 65.35344
+	rotation = 0 0 -0.9967345 0.0807486
+	scale = 0.5268268 0.5268268 0.5268268
+	name = StaticMesh_TankDemoTree01_6
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 168
+	classPrompt = StaticMesh
+	position = 902.322 840.4967 53.82145
+	rotation = 0 0 0.05457774 -0.9985095
+	scale = 0.3942744 0.3942744 0.3942744
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_14
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 169
+	classPrompt = StaticMesh
+	position = 634.2218 523.6511 55.63434
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_15
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 170
+	classPrompt = StaticMesh
+	position = 371.2325 610.6823 50.05739
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.7672548 0.7672548 0.7672548
+	name = StaticMesh_TankDemoTree01_7
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 171
+	classPrompt = StaticMesh
+	position = 333.5715 734.7711 53.46074
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.7672548 0.7672548 0.7672548
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_16
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 172
+	classPrompt = StaticMesh
+	position = 301.4684 744.5003 43.15977
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.7672548 0.7672548 0.7672548
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_17
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 173
+	classPrompt = StaticMesh
+	position = 248.6235 669.4854 39.69406
+	rotation = 0 0 0.9273708 -0.3741436
+	scale = 0.4884953 0.4884953 0.4884953
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_18
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 174
+	classPrompt = StaticMesh
+	position = 375.3534 843.9631 47.79253
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.594619 0.594619 0.594619
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_19
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 175
+	classPrompt = StaticMesh
+	position = -208.2594 497.4987 54.02586
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.6077197 0.6077197 0.6077197
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_20
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 176
+	classPrompt = StaticMesh
+	position = -172.9501 500.1833 53.17148
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_21
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 177
+	classPrompt = StaticMesh
+	position = -211.9511 705.7706 55.79599
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_22
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 178
+	classPrompt = StaticMesh
+	position = -371.8052 636.7317 59.30225
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	name = StaticMesh_TankDemoTree02_23
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 179
+	classPrompt = StaticMesh
+	position = -376.6249 797.1484 75.75484
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	name = StaticMesh_TankDemoTree02_24
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 180
+	classPrompt = StaticMesh
+	position = -377.8271 778.9103 66.17166
+	rotation = 0 0 -0.1360779 -0.9906983
+	scale = 0.5781506 0.5781506 0.5781506
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_25
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 181
+	classPrompt = StaticMesh
+	position = -338.296 799.6136 80.79909
+	rotation = 0 0 0.7021731 0.7120064
+	scale = 0.5781506 0.5781506 0.5781506
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_26
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 182
+	classPrompt = StaticMesh
+	position = -49.10474 608.5961 54.55049
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_27
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 183
+	classPrompt = StaticMesh
+	position = -49.6194 592.933 58.74402
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_28
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 184
+	classPrompt = StaticMesh
+	position = -41.85873 603.4243 56.81284
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_29
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 185
+	classPrompt = StaticMesh
+	position = -736.1954 818.0066 81.54445
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.6077197 0.6077197 0.6077197
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_30
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 186
+	classPrompt = StaticMesh
+	position = -735.8528 744.0954 81.31801
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.4218808 0.4218808 0.4218808
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_31
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 187
+	classPrompt = StaticMesh
+	position = -722.2885 734.2422 80.29533
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.2587087 0.2587087 0.2587087
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_32
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 188
+	classPrompt = StaticMesh
+	position = -700.5142 878.8286 81.22062
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.4500298 0.4500298 0.4500298
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_33
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 189
+	classPrompt = StaticMesh
+	position = -684.8978 534.1367 65.74893
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.4218808 0.4218808 0.4218808
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_34
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 190
+	classPrompt = StaticMesh
+	position = -672.7443 529.4243 70.02557
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.5866017 0.5866017 0.5866017
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_35
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 191
+	classPrompt = StaticMesh
+	position = -581.0459 613.884 63.41765
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.4218808 0.4218808 0.4218808
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_36
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 192
+	classPrompt = StaticMesh
+	position = -462.2477 690.1229 58.99179
+	rotation = 0 0 0.9477164 0.3191137
+	scale = 0.4589124 0.4589124 0.4589124
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_37
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 193
+	classPrompt = StaticMesh
+	position = 957.5827 775.6123 48.98815
+	rotation = 0.2607733 -0.112007 -0.9354024 -0.2108889
+	scale = 1.816027 1.816027 1.816027
+	name = StaticMesh_RockBig_0
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 194
+	classPrompt = StaticMesh
+	position = 949.9616 787.2375 50.16407
+	rotation = 0.001640901 0.1418523 -0.6975566 0.7023461
+	scale = 1.816027 1.816027 1.816027
+	name = StaticMesh_RockBig_1
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 195
+	classPrompt = StaticMesh
+	position = 797.4277 804.4968 44.56464
+	rotation = -0.001993537 -0.1541757 -0.7276368 0.6684089
+	scale = 4.106828 4.106828 5.624362
+	name = StaticMesh_RockBig_2
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 196
+	classPrompt = StaticMesh
+	position = -113.6105 698.52 25.29944
+	rotation = -0.06479786 0.06816884 0.964853 -0.2453839
+	scale = 2.357756 2.357756 2.357756
+	name = StaticMesh_RockBig_3
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 197
+	classPrompt = StaticMesh
+	position = -163.8735 702.5182 42.15393
+	rotation = 0.02715356 0.09004685 0.6908379 0.7168665
+	scale = 2.995076 2.995076 2.995076
+	name = StaticMesh_RockBig_4
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 198
+	classPrompt = StaticMesh
+	position = 542.3214 334.9937 114.4464
+	rotation = 0 0 -0.3588352 0.9334009
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_0
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 199
+	classPrompt = StaticMesh
+	position = 502.0573 362.0716 113.9798
+	rotation = 0 0 -0.2479214 0.9687802
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_1
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 200
+	classPrompt = StaticMesh
+	position = 500.0161 349.4858 113.9798
+	rotation = 0 0 -0.2479214 0.9687802
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_2
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 201
+	classPrompt = StaticMesh
+	position = 696.2888 413.6988 83.8523
+	rotation = 0 0 -0.1800369 -0.9836599
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_3
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 202
+	classPrompt = StaticMesh
+	position = 704.5255 403.966 83.8523
+	rotation = 0 0 -0.1800369 -0.9836599
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_4
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 203
+	classPrompt = StaticMesh
+	position = 747.7469 426.7799 84.31893
+	rotation = 0 0 -0.06449354 -0.9979181
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_5
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 204
+	classPrompt = StaticMesh
+	position = 736.1502 437.7449 83.8523
+	rotation = 0 0 -0.1800369 -0.9836599
+	scale = 1.432325 0.9946904 0.9946904
+	name = StaticMesh_TankDemoFakeTrees_6
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 205
+	classPrompt = StaticMesh
+	position = 779.3716 460.5589 84.31893
+	rotation = 0 0 -0.06449354 -0.9979181
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_7
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 206
+	classPrompt = StaticMesh
+	position = 785.7863 467.2702 83.8523
+	rotation = 0 0 -0.1800369 -0.9836599
+	scale = 1.011734 0.7026074 0.7026074
+	name = StaticMesh_TankDemoFakeTrees_8
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 207
+	classPrompt = StaticMesh
+	position = 829.0078 490.0842 84.31893
+	rotation = 0 0 -0.06449354 -0.9979181
+	scale = 1.122219 0.779335 0.779335
+	name = StaticMesh_TankDemoFakeTrees_9
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 208
+	classPrompt = StaticMesh
+	position = 809.178 435.534 88.78461
+	rotation = 0 0 -0.1800369 -0.9836599
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_10
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 209
+	classPrompt = StaticMesh
+	position = 817.4147 425.8011 88.78461
+	rotation = 0 0 -0.1800369 -0.9836599
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_11
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 210
+	classPrompt = StaticMesh
+	position = 888.8692 532.0214 76.57001
+	rotation = 0 0 -0.3788126 -0.9254734
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_12
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 211
+	classPrompt = StaticMesh
+	position = 938.8773 507.492 68.52743
+	rotation = 0 0 -0.2745441 -0.9615746
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_13
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 212
+	classPrompt = StaticMesh
+	position = 950.5001 542.3807 68.52743
+	rotation = 0 0 -0.2745441 -0.9615746
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_14
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 213
+	classPrompt = StaticMesh
+	position = 981.0439 511.1547 75.50813
+	rotation = 0 0 -0.2745441 -0.9615746
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_15
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 214
+	classPrompt = StaticMesh
+	position = 932.2731 533.4188 73.52161
+	rotation = 0 0 0.07987726 -0.9968047
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_16
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 215
+	classPrompt = StaticMesh
+	position = 642.9278 410.7966 91.8134
+	rotation = 0 0 -0.05182615 0.9986561
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_17
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 216
+	classPrompt = StaticMesh
+	position = 1018.769 797.5187 51.00903
+	rotation = 0 0 -0.5166222 -0.8562134
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_18
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 217
+	classPrompt = StaticMesh
+	position = 1012.435 829.8125 51.00903
+	rotation = 0 0 -0.8689435 -0.4949113
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_19
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 218
+	classPrompt = StaticMesh
+	position = 1011.684 873.1622 60.89434
+	rotation = 0 0 -0.5166222 -0.8562134
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_20
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 219
+	classPrompt = StaticMesh
+	position = 1005.35 905.456 60.89434
+	rotation = 0 0 -0.8689435 -0.4949113
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_21
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 220
+	classPrompt = StaticMesh
+	position = 900.8022 498.5455 76.57001
+	rotation = 0 0 -0.3788126 -0.9254734
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_22
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 221
+	classPrompt = StaticMesh
+	position = -136.7826 701.2059 56.45571
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.768212 0.768212 0.768212
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_38
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 222
+	classPrompt = StaticMesh
+	position = -108.1216 729.2108 53.03729
+	rotation = 0 0 -0.669266 0.743023
+	scale = 0.6193892 0.6193892 0.6193892
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_39
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 223
+	classPrompt = StaticMesh
+	position = 5.51259 729.8657 18.67898
+	rotation = 0 0 0.8084074 0.5886236
+	scale = 0.6193892 0.6193892 0.6193892
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_40
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 224
+	classPrompt = StaticMesh
+	position = 558.8484 628.8424 44.56464
+	rotation = -0.1743423 0.008586698 -0.7064446 0.6859059
+	scale = 4.106828 4.106828 4.106828
+	name = StaticMesh_RockBig_5
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 225
+	classPrompt = StaticMesh
+	position = 945.2098 1152.718 104.3078
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 1.432325 0.9946904 0.9946904
+	name = StaticMesh_TankDemoFakeTrees_23
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 226
+	classPrompt = StaticMesh
+	position = 912.3333 1154.183 104.3078
+	rotation = 0 0 0.988987 -0.1480029
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_24
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 227
+	classPrompt = StaticMesh
+	position = 870.0308 1163.683 114.1931
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 0.8570412 0.5951797 0.5951797
+	name = StaticMesh_TankDemoFakeTrees_25
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 228
+	classPrompt = StaticMesh
+	position = 837.1543 1165.149 114.1931
+	rotation = 0 0 0.988987 -0.1480029
+	scale = 1.457044 1.011857 1.011857
+	name = StaticMesh_TankDemoFakeTrees_26
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 229
+	classPrompt = StaticMesh
+	position = 776.1548 1155.363 104.3078
+	rotation = 0 0 0.988987 -0.1480029
+	scale = 1.469404 1.02044 1.02044
+	name = StaticMesh_TankDemoFakeTrees_27
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 230
+	classPrompt = StaticMesh
+	position = 809.0313 1153.897 104.3078
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_28
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 231
+	classPrompt = StaticMesh
+	position = 733.8522 1164.863 114.1931
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_29
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 232
+	classPrompt = StaticMesh
+	position = 700.9758 1166.328 114.1931
+	rotation = 0 0 0.988987 -0.1480029
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_30
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 233
+	classPrompt = StaticMesh
+	position = 835.2119 1190.529 104.3078
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_31
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 234
+	classPrompt = StaticMesh
+	position = 938.514 1190.815 104.3078
+	rotation = 0 0 0.988987 -0.1480029
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_32
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 235
+	classPrompt = StaticMesh
+	position = 971.3904 1189.349 104.3078
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 1.432325 0.9946904 0.9946904
+	name = StaticMesh_TankDemoFakeTrees_33
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 236
+	classPrompt = StaticMesh
+	position = 863.335 1201.781 114.1931
+	rotation = 0 0 0.988987 -0.1480029
+	scale = 1.457044 1.011857 1.011857
+	name = StaticMesh_TankDemoFakeTrees_34
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 237
+	classPrompt = StaticMesh
+	position = 896.2114 1200.315 114.1931
+	rotation = 0 0 0.9353269 0.3537841
+	scale = 0.8570412 0.5951797 0.5951797
+	name = StaticMesh_TankDemoFakeTrees_35
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 238
+	classPrompt = StaticMesh
+	position = -395.1917 795.7959 59.54421
+	rotation = 0.02715356 0.09004685 0.6908379 0.7168665
+	scale = 2.995076 2.995076 2.995076
+	name = StaticMesh_RockBig_6
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 239
+	classPrompt = StaticMesh
+	position = -407.0786 822.1159 78.95005
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.421878 0.421878 0.421878
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_41
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 240
+	classPrompt = StaticMesh
+	position = -407.8178 836.2134 81.56303
+	rotation = 0 0 -0.4291086 -0.903253
+	scale = 0.5401384 0.5401384 0.5401384
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_42
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 241
+	classPrompt = StaticMesh
+	position = 579.1617 706.3617 35.06276
+	rotation = -0.05770596 0.1260893 -0.6951541 0.7053596
+	scale = 6.491501 6.491501 6.491501
+	name = StaticMesh_RockBig_7
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 242
+	classPrompt = StaticMesh
+	position = 609.3301 769.6517 35.06276
+	rotation = -0.03319548 0.05433997 0.9664906 0.2486787
+	scale = 4.807099 4.807099 4.807099
+	name = StaticMesh_RockBig_8
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 243
+	classPrompt = StaticMesh
+	position = 752.6729 590.7291 59.0997
+	rotation = 0.01385778 0.1710559 -0.9819468 0.07955061
+	scale = 0.4943782 0.4943782 0.4943782
+	name = StaticMesh_TankDemoStone_0
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 244
+	classPrompt = StaticMesh
+	position = 818.413 567.7484 49.25549
+	rotation = -0.007775738 -0.0959812 -0.9921024 0.08037335
+	scale = 0.7072029 0.7072029 0.7072029
+	name = StaticMesh_TankDemoStone_1
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 245
+	classPrompt = StaticMesh
+	position = 826.1639 565.5479 52.48883
+	rotation = -0.00886189 -0.1093883 -0.9907138 0.08026085
+	scale = 0.7072029 0.7072029 0.7072029
+	name = StaticMesh_TankDemoStone_2
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 246
+	classPrompt = StaticMesh
+	position = 739.7708 523.0267 57.89679
+	rotation = -0.00886189 -0.1093883 -0.9907138 0.08026085
+	scale = 0.7072029 0.7072029 0.7072029
+	name = StaticMesh_TankDemoStone_3
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 247
+	classPrompt = StaticMesh
+	position = 730.0212 516.1495 57.58441
+	rotation = 0.07379364 0.001768523 -0.05503116 -0.9957525
+	scale = 0.5049805 0.5049805 0.5049805
+	name = StaticMesh_TankDemoStone_4
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 248
+	classPrompt = StaticMesh
+	position = 691.7811 618.8139 57.09311
+	rotation = 0.01889899 0.233283 -0.9690505 0.07850584
+	scale = 1.36271 1.36271 1.36271
+	name = StaticMesh_TankDemoStone_5
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 249
+	classPrompt = StaticMesh
+	position = 668.4614 620.8022 56.49609
+	rotation = 0.4075656 0.4443487 -0.5914369 0.5353943
+	scale = 1.627196 1.627196 2.438498
+	name = StaticMesh_TankDemoStone_6
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 250
+	classPrompt = StaticMesh
+	position = 379.2953 731.6313 39.94501
+	rotation = -0.153644 0.3928842 -0.9066511 -0.004405618
+	scale = 0.796976 0.796976 0.796976
+	name = StaticMesh_TankDemoStone_7
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 251
+	classPrompt = StaticMesh
+	position = 699.4973 626.3732 57.09311
+	rotation = 0.3851785 0.3696101 -0.5283718 0.6601889
+	scale = 1.627196 1.627196 1.627196
+	name = StaticMesh_TankDemoStone_8
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 252
+	classPrompt = StaticMesh
+	position = 818.6312 854.9399 53.9697
+	rotation = 0 0 0.05457774 -0.9985095
+	scale = 0.3942744 0.3942744 0.3942744
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_43
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 253
+	classPrompt = StaticMesh
+	position = 504.0508 538.8384 70.49155
+	rotation = -0.2385035 -0.2579636 -0.925819 0.1393915
+	scale = 0.9331711 0.9331711 0.9331711
+	name = StaticMesh_TankDemoStone_9
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 254
+	classPrompt = StaticMesh
+	position = 437.8978 586.5519 59.71762
+	rotation = -0.2385035 -0.2579636 -0.925819 0.1393915
+	scale = 1.110676 1.110676 1.110676
+	name = StaticMesh_TankDemoStone_10
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 255
+	classPrompt = StaticMesh
+	position = 362.1995 721.3453 38.83442
+	rotation = 0.02425238 0.5345153 -0.664022 0.5222839
+	scale = 0.988468 0.988468 0.988468
+	name = StaticMesh_TankDemoStone_11
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 256
+	classPrompt = StaticMesh
+	position = 377.9313 722.6991 35.79736
+	rotation = 0.2828479 -0.05545679 0.2215031 0.9315891
+	scale = 0.742999 0.742999 0.742999
+	name = StaticMesh_TankDemoStone_12
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 257
+	classPrompt = StaticMesh
+	position = 356.0585 627.8859 42.2439
+	rotation = 0.319083 0.1817906 0.893802 -0.257404
+	scale = 1.070291 1.070291 1.070291
+	name = StaticMesh_TankDemoStone_13
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 258
+	classPrompt = StaticMesh
+	position = 345.4743 637.8561 36.74821
+	rotation = 0.1480292 -0.05812064 0.8737197 -0.4596995
+	scale = 0.7357692 0.7357692 0.7357692
+	name = StaticMesh_TankDemoStone_14
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 259
+	classPrompt = StaticMesh
+	position = 391.4235 606.0673 55.90085
+	rotation = 0.3216548 0.1772003 0.8973982 -0.2445716
+	scale = 1.070291 1.070291 1.070291
+	name = StaticMesh_TankDemoStone_15
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 260
+	classPrompt = StaticMesh
+	position = 229.4653 672.4396 34.27257
+	rotation = 0.3216548 0.1772003 0.8973982 -0.2445716
+	scale = 1.070291 1.070291 1.070291
+	name = StaticMesh_TankDemoStone_16
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 261
+	classPrompt = StaticMesh
+	position = 113.2673 699.3024 31.39592
+	rotation = 0.168366 -0.02454247 0.9468284 -0.2730698
+	scale = 1.070291 1.070291 4.290468
+	name = StaticMesh_TankDemoStone_17
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 262
+	classPrompt = StaticMesh
+	position = 110.6036 717.3366 17.74367
+	rotation = -0.1288206 0.06002038 0.9530144 -0.2675201
+	scale = 1.070291 1.070291 4.290468
+	name = StaticMesh_TankDemoStone_18
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Stone\\TankDemoStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Minefield
+	uin = 263
+	classPrompt = Minefield
+	position = 275.3122 936.0361 34.86112
+	rotation = 0 0 0.9996085 0.02797644
+	scale = 76.27962 11.49983 37.17228
+	name = Minefield_5
+}
+entity
+{
+	type = MineBoard
+	uin = 264
+	classPrompt = MapObject
+	position = 366.2229 879.7639 31.75743
+	rotation = 0 0 -0.8216035 0.5700594
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_0
+}
+entity
+{
+	type = MineBoard
+	uin = 265
+	classPrompt = MapObject
+	position = 344.7607 893.5135 32.84502
+	rotation = 0 0 -0.747445 0.6643236
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_1
+}
+entity
+{
+	type = MineBoard
+	uin = 266
+	classPrompt = MapObject
+	position = 320.1051 903.2191 34.69995
+	rotation = 0 0 -0.747445 0.6643236
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_6
+}
+entity
+{
+	type = MineBoard
+	uin = 267
+	classPrompt = MapObject
+	position = 280.6604 888.6433 35.0444
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_8
+}
+entity
+{
+	type = MineBoard
+	uin = 268
+	classPrompt = MapObject
+	position = 235.6662 895.8757 35.39767
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_9
+}
+entity
+{
+	type = MineBoard
+	uin = 269
+	classPrompt = MapObject
+	position = 217.7624 896.3331 34.74097
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_10
+}
+entity
+{
+	type = MineBoard
+	uin = 270
+	classPrompt = MapObject
+	position = 199.4287 884.0636 33.05627
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_11
+}
+entity
+{
+	type = MineBoard
+	uin = 271
+	classPrompt = MapObject
+	position = 177.7784 888.973 29.26324
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_13
+}
+entity
+{
+	type = MineBoard
+	uin = 272
+	classPrompt = MapObject
+	position = 150.5581 889.5212 27.29593
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_15
+}
+entity
+{
+	type = MineBoard
+	uin = 273
+	classPrompt = MapObject
+	position = 123.2819 889.5212 27.77164
+	rotation = 0 0 -0.6550384 0.7555956
+	autoVerticalAlignment = ByCenter
+	name = MineBoard_18
+}
+entity
+{
+	type = TankGameRobot
+	uin = 274
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	position = 622.8416 596.3397 56.98717
+	rotation = 0 0 0.0008938604 0.9999996
+	autoVerticalAlignment = ByBoundsWithRotation
+	name = TankGameRobot_9
+}
+entity
+{
+	type = Region
+	uin = 275
+	classPrompt = Region
+	relationships = 5
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -841.5952 248.1643 56.88254
+	rotation = 0 0 0.2915629 0.9565517
+	scale = 147.0869 15.19756 5.508062
+	name = Region_0
+	logicClass = 5
+	checkType = Bounds
+}
+entity
+{
+	type = StaticMesh
+	uin = 276
+	classPrompt = StaticMesh
+	position = 964.9973 944.1668 69.90417
+	rotation = 0 0 -0.9384562 -0.3453983
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_36
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 277
+	classPrompt = StaticMesh
+	position = 915.6742 965.5449 69.90417
+	rotation = 0 0 -0.9785823 -0.2058561
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_37
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 278
+	classPrompt = StaticMesh
+	position = 847.6099 965.5449 69.90417
+	rotation = 0 0 -0.9376646 0.3475415
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_38
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 279
+	classPrompt = StaticMesh
+	position = 842.2752 796.6106 54.64348
+	rotation = 0 0 0.9286499 -0.3709575
+	scale = 0.3942744 0.3942744 0.3942744
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_44
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 280
+	classPrompt = StaticMesh
+	position = 929.1299 779.2905 53.3468
+	rotation = 0 0 -0.9387847 0.3445042
+	scale = 0.558962 0.558962 0.558962
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_45
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 281
+	classPrompt = StaticMesh
+	position = 937.851 797.8455 53.81914
+	rotation = 0 0 -0.9973453 -0.07281592
+	scale = 0.3976611 0.3976611 0.3976611
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_46
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 282
+	classPrompt = StaticMesh
+	position = 882.1945 637.7585 54.20381
+	rotation = 0 0 -0.6125239 -0.7904521
+	scale = 0.558962 0.558962 0.558962
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_47
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 283
+	classPrompt = StaticMesh
+	position = 864.7584 601.8373 55.20978
+	rotation = 0 0 -0.2355842 -0.971854
+	scale = 0.558962 0.558962 0.558962
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_48
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 284
+	classPrompt = StaticMesh
+	position = 676.8622 496.5819 60.28065
+	rotation = 0 0 -0.787977 0.6157046
+	scale = 0.3930408 0.3930408 0.3930408
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_8
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 285
+	classPrompt = StaticMesh
+	position = 534.1227 707.0747 52.57642
+	rotation = 0 0 0.233698 -0.9723092
+	scale = 0.9439245 0.9439245 0.9439245
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree01_9
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree01.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 286
+	classPrompt = StaticMesh
+	position = 185.2695 674.9595 48.22845
+	rotation = 0 0 0.4031198 -0.9151471
+	scale = 0.7672548 0.7672548 0.7672548
+	autoVerticalAlignment = ByCenter
+	name = StaticMesh_TankDemoTree02_49
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree02.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 287
+	classPrompt = StaticMesh
+	position = 1009.588 635.1573 71.21423
+	rotation = 0 0 -0.3754774 -0.9268315
+	scale = 1.234569 0.8573571 0.8573571
+	name = StaticMesh_TankDemoFakeTrees_39
+	meshName = "Maps\\TankDemo\\Resources\\Meshes\\FakeTrees\\TankDemoFakeTrees.mesh"
+}
+entity
+{
+	type = Teleporter
+	uin = 288
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	position = 912.0894 848.5818 54.32148
+	rotation = 0 0 0.9990483 0.04361942
+	name = Teleporter_0
+}
+entity
+{
+	type = SpawnPoint
+	uin = 289
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = 908.3797 848.6262 54.05774
+	rotation = 0 0 -0.9990483 -0.04361942
+	name = SpawnPoint_0
+}
+entity
+{
+	type = Teleporter
+	uin = 290
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	position = -701.103 -73.17105 76.94435
+	rotation = 0 0 0.6087615 0.7933534
+	name = Teleporter_1
+}
+
+
+entity
+{
+	type = MapCompositorManager
+	uin = 10000
+	classPrompt = MapCompositorManager
+	items
+	{
+		item
+		{
+			name = SSAO
+			Intensity = 1
+			Downsampling = 2
+			SampleLength = 2
+			OffsetScale = 0.1
+			DefaultAccessibility = 0.6
+			MaxDistance = 40
+			BlurSpread = 1
+			ShowAO = False
+			Enabled = True
+		}
+		item
+		{
+			name = DepthOfField
+			FocalDistance = 30
+			AutoFocus = False
+			FocalSize = 120
+			BlurSpread = 0.2
+			BlurTextureResolution = 6
+			BackgroundTransitionLength = 400
+			BlurForeground = True
+			ForegroundTransitionLength = 80
+			AutoFocusRange = 1 80
+			AutoFocusTransitionSpeed = 100
+			Enabled = True
+		}
+	}
+}

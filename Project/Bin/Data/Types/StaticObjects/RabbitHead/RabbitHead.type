@@ -1,0 +1,14 @@
+type RabbitHead
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\StaticObjects\\RabbitHead\\RabbitHead.mesh"
+			castShadows = True
+			toCollision = True
+		}
+	}
+}

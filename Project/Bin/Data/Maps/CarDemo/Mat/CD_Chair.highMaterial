@@ -1,0 +1,9 @@
+highLevelMaterial CD_Chair
+{
+	template = ShaderBaseMaterial
+	alphaRejectFunction = Greater
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Chair.dds"
+	}
+}

@@ -1,0 +1,9 @@
+highLevelMaterial CD_Concrete2
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.4078431 0.4078431 0.4078431
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Concrete.dds"
+	}
+}

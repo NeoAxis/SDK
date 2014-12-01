@@ -1,0 +1,1306 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.5882353 0.5882353 0.5882353
+editorCameraPosition = -11.53094 -17.88923 2.411754
+editorCameraDirection = 3.220736 -0.269228
+shadowColor = 1 1 1
+shadowFarDistance = 40
+shadowPSSMSplitFactors = 0.2 0.5
+logicSystemManager = 4
+staticBatchingRenderingEnabled = False
+staticBatchingPhysicsEnabledInMapEditor = False
+staticBatchingPhysicsEnabledInSimulation = False
+staticBatchingGridCellSize = 30 30 30
+staticBatchingFilterByMaxTriangleCount = 512
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = Corridors
+		allowSelect = False
+	}
+}
+entity
+{
+	type = Terminal
+	uin = 3
+	classPrompt = Terminal
+	subscriptionsToDeletionEvent = 6
+	initialControl = "Gui\\RagdollDemoTerminal.gui"
+	healthFactorAtBeginning = 1
+	position = -3.256134 5.424618 1.946245
+	rotation = 0 0 -0.6811216 0.7321705
+	name = Terminal_0_D
+	logicClass = 6
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 4
+	referencesToCompileDLL = "System.dll\r\nSystem.Drawing.dll\r\n\r\nEngineApp.dll\r\nUISystem.dll\r\nFileSystem.dll\r\nLog.dll\r\nMathEx.dll\r\nRenderer.dll\r\nPhysicsSystem.dll\r\nSoundSystem.dll\r\nEntitySystem.dll\r\nMapSystem.dll\r\nUtils.dll\r\nHeightmapTerrain.dll\r\nDecorativeObjectManager.dll\r\n\r\nProjectCommon.dll\r\nProjectEntities.dll"
+	usingNamespacesToCodeGeneration = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nusing Engine;\r\nusing Engine.FileSystem;\r\nusing Engine.MathEx;\r\nusing Engine.Utils;\r\nusing Engine.Renderer;\r\nusing Engine.PhysicsSystem;\r\nusing Engine.SoundSystem;\r\nusing Engine.UISystem;\r\nusing Engine.EntitySystem;\r\nusing Engine.MapSystem;\r\n\r\nusing ProjectCommon;\r\nusing ProjectEntities;"
+	mapClassManager = 5
+	entity
+	{
+		type = LogicClassManager
+		uin = 5
+		entity
+		{
+			type = LogicEntityClass
+			uin = 6
+			subscriptionsToDeletionEvent = 3
+			entityClassName = GameGuiObject
+			className = Terminal_0
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 7
+				code = "//CreateRagdoll button\r\n((Button)Owner.MainControl.Controls[\"CreateRagdoll\"]).Click += delegate(Button sender)\r\n{\r\n\tCreateEntity(\"GirlDead\", (SpawnPoint)Entities.Instance.GetByName(\"SpawnPoint_Ragdoll\"));\r\n};\r\n\r\n//CreateCharacter button\r\n((Button)Owner.MainControl.Controls[\"CreateCharacter\"]).Click += delegate(Button sender)\r\n{\r\n\tSpawnPoint spawnPoint = (SpawnPoint)Entities.Instance.GetByName(\"SpawnPoint_Character\");\r\n\tGameCharacter girl = CreateEntity(\"Girl\", spawnPoint) as GameCharacter;\r\n\tif(girl != null && girl.Intellect != null)\r\n\t{\r\n\t\t//reduce health\r\n\t\tgirl.Health /= 4;\r\n\t\t\r\n\t\tGameCharacterAI ai = girl.Intellect as GameCharacterAI;\r\n\t\tif(ai != null)\r\n\t\t{\r\n\t\t\tai.AlwaysRun = true;\r\n\t\t\tai.AutomaticTasks = GameCharacterAI.AutomaticTasksEnum.Disabled;\r\n\t\t\tfor(int n = 0; n < 1000; n++)\r\n\t\t\t{\r\n\t\t\t\tfloat angle = MathFunctions.PI /2 + (float)n / 5;\r\n\t\t\t\tVec3 target = new Vec3(MathFunctions.Cos(angle) * 13, MathFunctions.Sin(angle) * 13, 0);\r\n\t\t\t\tai.DoTask( new GameCharacterAI.MoveTask( ai, target, .5f ), true );\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n};\r\n\r\n//Clear button\r\n((Button)Owner.MainControl.Controls[\"Clear\"]).Click += delegate(Button sender)\r\n{\r\n\tforeach( Entity entity in Map.Instance.Children )\r\n\t{\r\n\t\t//skip unit controlled by the player\r\n\t\tUnit unit = entity as Unit;\r\n\t\tif(unit != null && unit.Intellect != null && unit.Intellect is PlayerIntellect)\r\n\t\t\tcontinue;\r\n\t\t\r\n\t\tif(entity.Type.Name == \"GirlDead\" || entity.Type.Name == \"Girl\")\r\n\t\t\tentity.SetForDeletion(false);\r\n\t}\r\n};\r\n"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 8
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 8
+					parameterType = System.Boolean
+					parameterName = loaded
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 9
+				code = "bool free = true;\r\n\r\nBounds bounds = new Bounds(spawnPoint.Position);\r\nbounds.Expand(new Vec3(.5f, .5f, 1));\r\n\r\nMap.Instance.GetObjects(bounds, delegate( MapObject o )\r\n{\r\n\tif( o.PhysicsModel != null )\r\n\t\tfree = false;\r\n} );\r\nif(!free)\r\n\treturn null;\r\n\r\nMapObject obj = (MapObject)Entities.Instance.Create( typeName, Map.Instance );\r\nobj.Position = spawnPoint.Position;\r\nobj.Rotation = spawnPoint.Rotation;\r\nobj.PostCreate();\r\n\r\nreturn obj;"
+				methodName = CreateEntity
+				returnType = Engine.MapSystem.MapObject
+				parameters = 10 11
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 10
+					parameterType = System.String
+					parameterName = typeName
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 11
+					parameterType = ProjectEntities.SpawnPoint
+					parameterName = spawnPoint
+				}
+			}
+		}
+	}
+}
+entity
+{
+	type = SpawnPoint
+	uin = 12
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = -16.21416 11.75 8.742949
+	name = SpawnPoint_Ragdoll
+}
+entity
+{
+	type = SpawnPoint
+	uin = 13
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = -0.3861008 13 1.322993
+	rotation = 0 0 -0.7069529 0.7072606
+	name = SpawnPoint_Character
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 14
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.71012 -12.65603 0.7245632
+	rotation = 0.5017556 0.5017555 0.4982383 0.4982384
+	name = ExplosionBarrel_0
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 15
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.71012 -13.71653 0.7245632
+	rotation = 0.5017556 0.5017555 0.4982383 0.4982384
+	name = ExplosionBarrel_1
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 16
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.71012 -14.76373 0.7245632
+	rotation = 0.5017556 0.5017555 0.4982383 0.4982384
+	name = ExplosionBarrel_2
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 17
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.71012 -14.26443 1.670705
+	rotation = 0.5017556 0.5017555 0.4982383 0.4982384
+	name = ExplosionBarrel_3
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 18
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.71012 -13.21653 1.622861
+	rotation = 0.5017556 0.5017555 0.4982383 0.4982384
+	name = ExplosionBarrel_4
+}
+entity
+{
+	type = Box
+	uin = 19
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 19.266 -11.60653 0.6929488
+	rotation = 0 0 0.7071068 0.7071068
+	name = Box_0
+}
+entity
+{
+	type = Box
+	uin = 20
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 19.21272 -15.79593 0.6929488
+	rotation = 0 0 0.7071068 0.7071068
+	name = Box_1
+}
+entity
+{
+	type = GirlDead
+	uin = 21
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.69125 -13.97003 2.419558
+	rotation = -0.5569841 0.4573804 -0.4356247 -0.5392618
+	name = GirlDead_0
+}
+entity
+{
+	type = Box
+	uin = 22
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.10717 -15.79593 0.6929488
+	rotation = 0 0 0.7071068 0.7071068
+	name = Box_2
+}
+entity
+{
+	type = Box
+	uin = 23
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 18.16576 -11.60653 0.6929488
+	rotation = 0 0 0.7071068 0.7071068
+	name = Box_3
+}
+entity
+{
+	type = Girl
+	uin = 24
+	classPrompt = PlayerCharacter
+	contusionTimeRemaining = 0
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 0.25
+	position = 4.863899 17.13782 1.638558
+	rotation = 0 0 -0.6962904 0.7177602
+	name = Girl_2
+	weapons
+	{
+	}
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 25
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 5.863899 17.38782 0.9103527
+	rotation = -0.7086797 0 0 0.7055304
+	name = ExplosionBarrel_5
+}
+entity
+{
+	type = HangingCable
+	uin = 26
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 19.0553 3.4567 2.970347
+	name = HangingCable_0
+}
+entity
+{
+	type = HangingCable
+	uin = 27
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 19.0553 2.375807 2.970347
+	name = HangingCable_1
+}
+entity
+{
+	type = HangingCable
+	uin = 28
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 19.0553 1.301613 2.970347
+	name = HangingCable_2
+}
+entity
+{
+	type = SwitchBox
+	uin = 29
+	classPrompt = MapObject
+	position = 19.0411 5.069965 1.665637
+	rotation = 0 0 -0.7071068 0.7071068
+	scale = 1.18 1.18 1.18
+	name = SwitchBox_0
+}
+entity
+{
+	type = SwitchBox
+	uin = 30
+	classPrompt = MapObject
+	position = 19.0411 -0.5181494 1.665637
+	rotation = 0 0 -0.7071068 0.7071068
+	scale = 1.18 1.18 1.18
+	name = SwitchBox_1
+}
+entity
+{
+	type = ParkingBarrier
+	uin = 31
+	classPrompt = MapObject
+	position = 19.0755 2.27309 3.09516
+	rotation = 0 0 -0.7071068 0.7071068
+	scale = 1.549985 1 0.6267621
+	name = ParkingBarrier_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 32
+	classPrompt = StaticMesh
+	position = 0 -12 0
+	name = StaticMesh_Floor_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 33
+	classPrompt = StaticMesh
+	position = 0 12 0
+	name = StaticMesh_Floor_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 34
+	classPrompt = StaticMesh
+	position = 12 0 0
+	name = StaticMesh_Floor_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 35
+	classPrompt = StaticMesh
+	position = -12 0 0
+	name = StaticMesh_Floor_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 36
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 37
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 38
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 39
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 40
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 41
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 42
+	classPrompt = StaticMesh
+	position = 0 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 43
+	classPrompt = StaticMesh
+	position = -12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 44
+	classPrompt = StaticMesh
+	position = 12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 45
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 46
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 47
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 48
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 49
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 50
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 51
+	classPrompt = StaticMesh
+	position = -24 0 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 52
+	classPrompt = StaticMesh
+	position = -24 12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 53
+	classPrompt = StaticMesh
+	position = -24 -12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 54
+	classPrompt = StaticMesh
+	position = 12 0 6
+	name = StaticMesh_Ceiling_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 55
+	classPrompt = StaticMesh
+	position = 12 12 6
+	name = StaticMesh_Ceiling_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 56
+	classPrompt = StaticMesh
+	position = 12 -12 6
+	name = StaticMesh_Ceiling_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 57
+	classPrompt = StaticMesh
+	position = -12 0 6
+	name = StaticMesh_Ceiling_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 58
+	classPrompt = StaticMesh
+	position = -12 12 6
+	name = StaticMesh_Ceiling_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 59
+	classPrompt = StaticMesh
+	position = -12 -12 6
+	name = StaticMesh_Ceiling_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 60
+	classPrompt = StaticMesh
+	position = 0 0 6
+	name = StaticMesh_Ceiling_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 61
+	classPrompt = StaticMesh
+	position = 0 12 6
+	name = StaticMesh_Ceiling_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 62
+	classPrompt = StaticMesh
+	position = 0 -12 6
+	name = StaticMesh_Ceiling_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 63
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -20.71729 -13.06147 0.5777563
+	rotation = 0 0 0.5506705 0.8347227
+}
+entity
+{
+	type = SpawnPoint
+	uin = 64
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = -18.01317 -17.70124 0.2970235
+	rotation = 0 0 -0.3826835 -0.9238796
+	name = SpawnPoint_0
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 65
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -15.48706 -20.68667 0.2532427
+	rotation = 0 0 0.9867585 0.1621963
+}
+entity
+{
+	type = StaticMesh
+	uin = 66
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 67
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 68
+	classPrompt = StaticMesh
+	position = -24 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = Teleporter
+	uin = 69
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	healthFactorAtBeginning = 1
+	position = -20 -20 0.5683844
+	rotation = 0 0 0.3826835 0.9238796
+	name = Teleporter_0
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 70
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -14.07013 -20.68667 0.2532427
+	rotation = 0 0 0.9867585 0.1621963
+}
+entity
+{
+	type = ShotgunItem
+	uin = 71
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -20.71517 -11.00556 0.4753142
+	rotation = 0 0 0.3813629 0.9244254
+}
+entity
+{
+	type = Light
+	uin = 72
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 0.4117647 0.4117647 0.4117647
+	diffusePower = 1
+	specularColor = 1.372549 1.372549 1.372549
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 0 0 22
+	rotation = 0 -0.7071068 0 -0.7071068
+	name = Light_1
+}
+entity
+{
+	type = StaticMesh
+	uin = 73
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 74
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = -24 24 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = 12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = -12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = 0 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = 24 -24 0
+	name = StaticMesh_CornerIntDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = 24 -12 0
+	name = StaticMesh_WallDown_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallMiddle_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallUp_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 91
+	classPrompt = StaticMesh
+	position = 24 12 0
+	name = StaticMesh_WallDown_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallMiddle_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 93
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallUp_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 94
+	classPrompt = StaticMesh
+	position = 24 0 0
+	name = StaticMesh_WallDown_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallMiddle_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 96
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallUp_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = 24 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = Fan
+	uin = 100
+	classPrompt = Fan
+	forceMaximum = 10000
+	influenceRegionScale = 20 3 3
+	throttle = 0.7
+	healthFactorAtBeginning = 1
+	position = -12 12 -0.9760706
+	rotation = 0 -0.707106 0 0.707106
+	scale = 20 3 3
+	name = Fan_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 101
+	classPrompt = StaticMesh
+	position = -12 12 0
+	name = StaticMesh_GridFloor_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\GridFloor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 102
+	classPrompt = StaticMesh
+	position = 12 12 0
+	name = StaticMesh_Floor_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 103
+	classPrompt = StaticMesh
+	position = 12 -12 0
+	name = StaticMesh_Floor_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 104
+	classPrompt = StaticMesh
+	position = -12 -12 0
+	name = StaticMesh_Floor_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 105
+	classPrompt = StaticMesh
+	position = 0 0 0
+	name = StaticMesh_Floor_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 106
+	classPrompt = StaticMesh
+	position = -15 12 0.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_0
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Green
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 107
+	classPrompt = StaticMesh
+	position = -15.5 12 1.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_1
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Blue
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 108
+	classPrompt = StaticMesh
+	position = -16 12 2.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_2
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Red
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 109
+	classPrompt = StaticMesh
+	position = -17 12 4.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_3
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Blue
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 110
+	classPrompt = StaticMesh
+	position = -17.5 12 5.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_4
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Red
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 111
+	classPrompt = StaticMesh
+	position = -16.5 12 3.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_5
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Green
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 112
+	classPrompt = StaticMesh
+	position = -19 12 8.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_6
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Red
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 113
+	classPrompt = StaticMesh
+	position = -18.5 12 7.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_7
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Blue
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 114
+	classPrompt = StaticMesh
+	position = -18 12 6.5
+	scale = 3 8 1
+	name = StaticMesh_RoundBox_8
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Green
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 115
+	classPrompt = StaticMesh
+	position = -21 12 9.5
+	scale = 6 8 1
+	name = StaticMesh_RoundBox_9
+	meshName = "Base\\Simple Models\\RoundBox.mesh"
+	forceMaterial = Green
+	castDynamicShadows = True
+}

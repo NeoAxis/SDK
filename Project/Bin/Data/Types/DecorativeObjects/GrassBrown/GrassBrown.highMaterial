@@ -1,0 +1,18 @@
+highLevelMaterial GrassBrown
+{
+	template = VegetationMaterial
+	doubleSided = True
+	useNormals = False
+	alphaRejectFunction = GreaterEqual
+	alphaToCoverage = True
+	fadingByDistanceRange = 50 60
+	diffuseColor = 0.882353 1 0.882353
+	receiveObjectsPositionsFromVertices = True
+	windEffectFactor = 2
+	bendVariation = 0.005
+	detailBending = False
+	diffuse1Map
+	{
+		texture = "Types\\DecorativeObjects\\GrassBrown\\GrassBrown.dds"
+	}
+}

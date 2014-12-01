@@ -1,0 +1,8 @@
+highLevelMaterial SwitchBox
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\StaticObjects\SwitchBox\SwitchBox.dds
+	}
+}

@@ -1,0 +1,22 @@
+type SmallHealthItem
+{
+	class = HealthItem
+	health = 125
+	defaultRespawnTime = 10
+	soundTake = "Types\\Items\\HealthItems\\Health.ogg"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Items\\HealthItems\\SmallHealthItem\\SmallHealthItem.mesh"
+			castDynamicShadows = True
+			position = 0 0 0.25
+		}
+		particle
+		{
+			particleName = ItemParticle
+			position = 0 0 0.09607927
+		}
+	}
+}

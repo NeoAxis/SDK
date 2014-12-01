@@ -1,0 +1,155 @@
+type RTSFactory
+{
+	class = RTSBuilding
+	buildCost = 200
+	initialAI = DefaultRTSBuildingAI
+	lifeMax = 300
+	substance = Metal
+	physicsModel = ".\\RTSFactory.physics"
+	allowEditorCreate = True
+	soundMinDistance = 10
+	soundMaxDistance = 100
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RTSFactory.mesh"
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\RTSFactoryGlass.mesh"
+		}
+		particle
+		{
+			particleName = RTSSmallSmokeParticle2
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = -3.98146 -3.174423 4
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSSmallSmokeParticle2
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = -4.58146 -1.474423 4
+			visible = False
+		}
+		helper
+		{
+			alias = productUnitPoint
+			position = 0.2789011 -0.613782 1.717437
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = -0.6732104 -1.602299 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 1.32679 -1.602299 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 1.32679 0.3977008 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = -0.6732104 0.3977008 1.5
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSFactory.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building0
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSFactory.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building1
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSFactory.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building2
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessHalfLife
+			position = 0.1402812 -0.6145675 1.132899
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = 3 -2 3.337828
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = -0.6878157 2.786761 3
+			visible = False
+		}
+	}
+	dieObjects
+	{
+		particle
+		{
+			particleName = RTSExplosionParticle
+			position = 0 0 2
+		}
+		sound
+		{
+			soundName = "Maps\\RTSDemo\\Sounds\\Explode.ogg"
+			priority = 0.7
+			minDistance = 10
+			maxDistance = 100
+		}
+		mapObject
+		{
+			type = RTSFumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 0 0 3.1
+		}
+		mapObject
+		{
+			type = RTSFireworkBullet
+			alias = randomRotation
+			count = 5
+			position = 0 0 3.1
+		}
+		mapObject
+		{
+			type = RTSFactoryDead
+		}
+	}
+}

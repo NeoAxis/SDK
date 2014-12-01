@@ -1,0 +1,120 @@
+blocks
+{
+	block Parameter
+	{
+		uin = 1
+		parameterName = "move"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 2
+		parameterName = "run"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 3
+		parameterName = "moveSpeed"
+		//value = 1
+	}
+
+	block Parameter
+	{
+		uin = 4
+		parameterName = "moveSpeedFactor"
+		value = 1
+	}
+
+	/////////////////////////////////////////////
+
+	block Output
+	{
+		uin = 100
+		in = 105
+	}
+
+	/////////////////////////////////////////////
+	//reload trigger
+
+	block Trigger
+	{
+		uin = 105
+		triggerName = "reload"
+		off = 107
+		on = 106
+	}
+
+	block Animation
+	{
+		uin = 106
+		animationName = "reload"
+		speed = 1.5
+	}
+
+	/////////////////////////////////////////////
+	//fire trigger
+
+	block Trigger
+	{
+		uin = 107
+		triggerName = "fire"
+		off = 109
+		on = 108
+		transitionTime = .05
+	}
+
+	block Animation
+	{
+		uin = 108
+		animationName = "fire"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//fire_alternative trigger
+
+	block Trigger
+	{
+		uin = 109
+		triggerName = "fire_alternative"
+		off = 101
+		on = 110
+		transitionTime = .05
+	}
+
+	block Animation
+	{
+		uin = 110
+		animationName = "fire2"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+
+	block Transition
+	{
+		uin = 101
+		animation0 = 102 // idle animation
+		animation1 = 103 // walk animation
+		selectedIndexSource = 1
+		transitionTime = 0.5
+	}
+
+	block Animation
+	{
+		uin = 102
+		animationName = "idle"
+		speed = 1
+	}
+
+	block Animation
+	{
+		uin = 103
+		animationName = "walk"
+		speedSource = 4
+		//speed = 1
+	}
+}

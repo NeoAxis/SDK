@@ -1,0 +1,21 @@
+highLevelMaterial TankDemoTree_Leafs
+{
+	template = VegetationMaterial
+	doubleSided = True
+	alphaRejectFunction = GreaterEqual
+	halfLambert = True
+	diffusePower = 1.3
+	diffuseVertexColor = True
+	specularColor = 0.2745098 0.2745098 0.2745098
+	specularShininess = 38.1
+	bendVariation = 0.005
+	detailBending = False
+	diffuse1Map
+	{
+		texture = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree_Leafs.dds"
+	}
+	specularMap
+	{
+		texture = "Maps\\TankDemo\\Resources\\Meshes\\Trees\\TankDemoTree_Leafs_SPEC.dds"
+	}
+}

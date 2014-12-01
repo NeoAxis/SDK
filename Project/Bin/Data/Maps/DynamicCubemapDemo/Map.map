@@ -1,0 +1,389 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+relationships = 5
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+ambientLight = 0.2 0.2 0.2
+editorCameraPosition = -9.782049 12.40105 16.50177
+editorCameraDirection = 0.6552997 -0.6776831
+shadowColor = 1 1 1
+shadowFarDistance = 50
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 3
+logicClass = 5
+shadowTechnique = ShadowmapMedium
+rootEditorLayer
+{
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+		entity
+		{
+			type = LogicEntityClass
+			uin = 5
+			relationships = 2
+			entityClassName = GameMap
+			className = GameMap
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 6
+				code = "//update CubemapZone position.\r\n\r\nCubemapZone zone = Entities.Instance.GetByName(\"CubemapZone_0\") as CubemapZone;\r\nMapObject ball = Entities.Instance.GetByName(\"CubemapReflectedBall_0\") as MapObject;\r\nif(zone != null && ball != null)\r\n\tzone.Position = ball.Position;\r\n"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+			}
+		}
+	}
+}
+entity
+{
+	type = HeightmapTerrain
+	uin = 7
+	classPrompt = HeightmapTerrain
+	position = 0 0 -50
+	horizontalSize = 1000
+	verticalSize = 100
+	dataDirectory = HeightmapTerrain
+	masksSize = 1024
+	detailMapsDistance = 50
+	renderQueueGroup = WorldGeometry1
+	collision = True
+	collisionMaterialName = Default
+	bottomClipHeight = -10000
+	castDynamicShadows = False
+	receiveStaticShadows = True
+	simpleRendering = False
+	tileSize = 16
+	visible = True
+	allowVertexTextureFetchOptimization = True
+	ambientOcclusion
+	{
+		enabled = False
+		size = 1024
+		rayLength = 3
+		iterationCount = 100
+		blur = True
+		power = 1
+	}
+	lodSettings
+	{
+		enabled = True
+		maxCount = 99
+		startDistance = 50
+		distanceRatio = 3
+		showLevels = False
+	}
+	layers
+	{
+		item
+		{
+			name = base
+			baseMap = "Base\\Types\\HeightmapTerrain\\DefaultLayer0Base.jpg"
+			baseScale = 10
+			detailMap = "Base\\Types\\HeightmapTerrain\\DefaultLayer0Detail.jpg"
+			detailScale = 2
+		}
+		item
+		{
+			name = second
+			baseMap = "Base\\Types\\HeightmapTerrain\\DefaultLayer1Base.jpg"
+			baseScale = 10
+			detailMap = "Base\\Types\\HeightmapTerrain\\DefaultLayer1Detail.jpg"
+			detailScale = 2
+		}
+	}
+}
+entity
+{
+	type = SpawnPoint
+	uin = 8
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = -4.620051 24.56826 0.0428693
+	name = SpawnPoint_0
+}
+entity
+{
+	type = Light
+	uin = 9
+	classPrompt = Light
+	lightType = Directional
+	diffuseColor = 1 1 1
+	diffusePower = 1
+	specularColor = 0.7843138 0.7843138 0.7843138
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 10.03242 31.82752 9.19766
+	rotation = -0.1975436 0.5713206 -0.1440533 0.7834653
+	name = Light_0
+}
+entity
+{
+	type = CubemapZone
+	uin = 10
+	classPrompt = CubemapZone
+	updateEveryFrame = True
+	textureSize = Size512x512
+	useHDRTexture = False
+	allowHDRCompositor = False
+	globalZone = True
+	nearFarClipDistance = 0.1 100
+	drawDynamicObjects = True
+	drawEffects = True
+	shadowsEnabled = False
+	position = 12.87394 27.37457 4.172458
+	name = CubemapZone_0
+}
+entity
+{
+	type = Box
+	uin = 11
+	classPrompt = Dynamic
+	position = 10.46884 31.13427 0.5007293
+	name = Box_0
+}
+entity
+{
+	type = Box
+	uin = 12
+	classPrompt = Dynamic
+	position = 12.47048 30.73913 0.4995351
+	name = Box_1
+}
+entity
+{
+	type = Box
+	uin = 13
+	classPrompt = Dynamic
+	position = 14.30798 31.22987 0.5011599
+	name = Box_2
+}
+entity
+{
+	type = Box
+	uin = 14
+	classPrompt = Dynamic
+	position = 20.85168 30.76703 0.5021757
+	name = Box_3
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 15
+	classPrompt = Dynamic
+	position = 5.216521 32.24202 1.707977
+	rotation = -0.258819 0 0 0.9659258
+	name = ExplosionBarrel_0
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 16
+	classPrompt = Dynamic
+	position = 3.206923 30.78665 0.8003324
+	editorAlignmentMethod = ByBounds
+	name = ExplosionBarrel_1
+}
+entity
+{
+	type = ShotgunItem
+	uin = 17
+	classPrompt = WeaponItem
+	respawnTime = 10
+	position = -0.2656012 21.22603 0.4442425
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 18
+	classPrompt = WeaponItem
+	respawnTime = 10
+	position = 0.2972331 28.13301 0.5025558
+}
+entity
+{
+	type = CubemapReflectedBall
+	uin = 19
+	classPrompt = Dynamic
+	position = 13.4675 24.75951 1.848142
+	name = CubemapReflectedBall_0
+}
+entity
+{
+	type = Box
+	uin = 20
+	classPrompt = Dynamic
+	position = 13.65547 16.13906 0.5007293
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_4
+}
+entity
+{
+	type = Box
+	uin = 21
+	classPrompt = Dynamic
+	position = 12.59684 17.88319 0.4995351
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_5
+}
+entity
+{
+	type = Box
+	uin = 22
+	classPrompt = Dynamic
+	position = 10.995 18.90855 0.5011599
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_6
+}
+entity
+{
+	type = Box
+	uin = 23
+	classPrompt = Dynamic
+	position = 28.79941 24.33986 0.5007293
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_7
+}
+entity
+{
+	type = Box
+	uin = 24
+	classPrompt = Dynamic
+	position = 27.74078 26.084 0.4995351
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_8
+}
+entity
+{
+	type = Box
+	uin = 25
+	classPrompt = Dynamic
+	position = 26.13894 27.10935 0.5011599
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_9
+}
+entity
+{
+	type = Box
+	uin = 26
+	classPrompt = Dynamic
+	position = 26.88698 12.09283 0.5007293
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_10
+}
+entity
+{
+	type = Box
+	uin = 27
+	classPrompt = Dynamic
+	position = 25.82835 13.83697 0.4995351
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_11
+}
+entity
+{
+	type = Box
+	uin = 28
+	classPrompt = Dynamic
+	position = 24.22651 14.86232 0.5011599
+	rotation = 0 0 0.9150418 0.4033591
+	name = Box_12
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 29
+	classPrompt = Dynamic
+	position = 25.82185 20.8828 1.707977
+	rotation = -0.258819 0 0 0.9659258
+	name = ExplosionBarrel_2
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 30
+	classPrompt = Dynamic
+	position = 23.81225 19.42743 0.8003324
+	editorAlignmentMethod = ByBounds
+	name = ExplosionBarrel_3
+}
+entity
+{
+	type = Fog
+	uin = 31
+	classPrompt = Fog
+	mode = Exp2
+	color = 0.4156863 0.4588236 0.5450981
+	expDensity = 0.01
+}
+entity
+{
+	type = SkyDome
+	uin = 32
+	classPrompt = SkyDome
+	horizonMap = "Base\\Types\\SkyDome\\DefaultSkyDomeHorizon.png"
+	color = 1 1 1
+	power = 0.1
+	diffuse1Map
+	{
+		texture = "Base\\Types\\SkyDome\\DefaultSkyDome.jpg"
+		tiling = 5
+		scrollSpeed = 0.005 0
+	}
+	diffuse2Map
+	{
+		blending = Add
+		texture = "Base\\Types\\SkyDome\\DefaultSkyDome2.jpg"
+		tiling = 4
+		scrollSpeed = 0.018 0
+	}
+	diffuse3Map
+	{
+		blending = Add
+		tiling = 10
+		scrollSpeed = 0 0
+	}
+	diffuse4Map
+	{
+		blending = Add
+		tiling = 10
+		scrollSpeed = 0 0
+	}
+}
+entity
+{
+	type = Teleporter
+	uin = 33
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	position = -10.18241 24.70324 0.3125422
+	rotation = 0 0 3.237388E-08 1
+	name = Teleporter_0
+}

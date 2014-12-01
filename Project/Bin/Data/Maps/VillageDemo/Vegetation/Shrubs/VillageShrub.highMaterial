@@ -1,0 +1,22 @@
+highLevelMaterial VillageShrub
+{
+	template = VegetationMaterial
+	doubleSided = True
+	alphaRejectFunction = Greater
+	halfLambert = True
+	specularColor = 0.6666667 1 0.4313726
+	bendVariation = 0.05
+	detailBending = False
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\Vegetation\\Shrubs\\brunches_02_c.dds"
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\Vegetation\\Shrubs\\brunches_02_s.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\Vegetation\\Shrubs\\brunches_02_n.dds"
+	}
+}

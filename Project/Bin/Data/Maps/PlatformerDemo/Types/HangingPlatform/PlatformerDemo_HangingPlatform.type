@@ -1,0 +1,129 @@
+type PlatformerDemo_HangingPlatform
+{
+	class = Dynamic
+	physicsModel = ".\\HangingPlatform.physics"
+	allowEditorCreate = True
+	allowEmptyName = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Red
+			body = body1
+			scale = 5 1 0.2
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain0
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain1
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain2
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain3
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain4
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain5
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain6
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain7
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain8
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain9
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain10
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain11
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain12
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain13
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain14
+			scale = 0.2 0.2 1.1
+		}
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			forceMaterial = Blue
+			body = chain15
+			scale = 0.2 0.2 1.1
+		}
+	}
+}

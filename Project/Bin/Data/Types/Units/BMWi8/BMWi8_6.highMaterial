@@ -1,0 +1,28 @@
+highLevelMaterial BMWi8_6
+{
+	template = ShaderBaseMaterial
+	reflectionColor = 0.2078432 0.2078432 0.2078432
+	reflectionSpecificCubemap = ".\\Sky\\SkyBox.jpg"
+	emissionColor = 1 1 1
+	specularColor = 0.2078432 0.2078432 0.2078432
+	diffuse1Map
+	{
+		texture = ".\\Plane011DiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\Plane011SpecularMap.dds"
+	}
+	emissionMap
+	{
+		texture = ".\\Plane011GlowMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\Plane011SpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\Car_det1_normals.dds"
+	}
+}

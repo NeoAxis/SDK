@@ -1,0 +1,24 @@
+highLevelMaterial Corridor_DoorLeft
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionColor = 1 1 1
+	reflectionSpecificCubemap = "Models\\DemoCorridors\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\DoorlLeftDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\DoorlLeftSpecularMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\DoorlLeftSpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\DoorlLeftNormalsMap.dds"
+	}
+}

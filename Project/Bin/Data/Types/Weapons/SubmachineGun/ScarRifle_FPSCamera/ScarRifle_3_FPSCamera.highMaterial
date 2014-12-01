@@ -1,0 +1,6 @@
+highLevelMaterial ScarRifle_3_FPSCamera
+{
+	template = FPSWeaponMaterial
+	diffuseColor = 0 0 0 0.4980392
+	emissionColor = 0.7529413 0 0
+}

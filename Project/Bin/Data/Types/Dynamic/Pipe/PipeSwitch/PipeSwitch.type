@@ -1,0 +1,28 @@
+type PipeSwitch
+{
+	class = TurnFloatSwitch
+	turnCoefficient = 4
+	changeVelocity = 0.5
+	useMeshAlias = useMesh
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Models\\Pipes\\PipeValveBase.mesh"
+			castDynamicShadows = True
+			position = 0 0 -0.0962019
+			scale = 1.4 1.4 1.4
+		}
+		mesh
+		{
+			meshName = "Models\\Pipes\\PipeValveHandle.mesh"
+			castDynamicShadows = True
+			collision = True
+			alias = useMesh
+			position = 0 0 -0.2267959
+			scale = 1.8 1.8 1.8
+		}
+	}
+}

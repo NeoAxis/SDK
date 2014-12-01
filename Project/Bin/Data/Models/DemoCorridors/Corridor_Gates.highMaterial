@@ -1,0 +1,28 @@
+highLevelMaterial Corridor_Gates
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionColor = 0.4980392 0.4980392 0.4980392
+	reflectionSpecificCubemap = ".\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 0.4980392 0.4980392 0.4980392
+	diffuse1Map
+	{
+		texture = ".\\GatesDiffuseMap.dds"
+	}
+	diffuse2Map
+	{
+		texture = ".\\GatesAO.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\GatesDiffuseMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\GatesDiffuseMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\GatesNormalsMap.dds"
+	}
+}

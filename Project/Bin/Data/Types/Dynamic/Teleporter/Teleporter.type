@@ -1,0 +1,22 @@
+type Teleporter
+{
+	class = Teleporter
+	sendParticleName = DemoTeleporterSend
+	receiveParticleName = DemoTeleporterReceive
+	soundTeleportation = ".\\Teleport.ogg"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\TeleporterBase.mesh"
+			castDynamicShadows = True
+			collision = True
+		}
+		mesh
+		{
+			meshName = ".\\TeleporterEffect.mesh"
+			alias = active
+		}
+	}
+}

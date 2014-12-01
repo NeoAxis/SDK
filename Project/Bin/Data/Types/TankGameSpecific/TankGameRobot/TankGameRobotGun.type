@@ -1,0 +1,47 @@
+type TankGameRobotGun
+{
+	class = Gun
+	reloadTime = 1.5
+	soundReload = "Types\\Weapons\\SubmachineGun\\Reload.ogg"
+	soundEmpty = "Types\\Weapons\\SubmachineGun\\Empty.ogg"
+	soundMinDistance = 20
+	soundMaxDistance = 200
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		bulletType = TankGameRobotBullet
+		bulletExpense = 0
+		betweenFireTime = 2.1
+		soundFire = "Types\\Weapons\\SubmachineGun\\AlternativeFire.ogg"
+		useDistanceRange = 0 100
+		fireTimes = 0.1 0.2 0.3 0.4 0.5
+		fireAnimationTrigger = fire
+		fireObjects
+		{
+			light
+			{
+				diffuseColor = 1 1 0.4
+				specularColor = 1 1 1
+				attenuationFar = 10
+				attenuationPower = 1
+				ffpAttenuationQuadric = 0.2
+				castShadows = False
+				position = 1 0 0
+				lifeTime = 0.04
+			}
+			billboard
+			{
+				materialName = ItemParticle
+				size = 3 3
+				position = 1 0 0
+				lifeTime = 0.04
+			}
+		}
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+}

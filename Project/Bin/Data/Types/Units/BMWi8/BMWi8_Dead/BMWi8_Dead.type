@@ -1,0 +1,97 @@
+type BMWi8_Dead
+{
+	class = Dynamic
+	healthMax = 1000
+	physicsModel = ".\\BMWi8_Dead.physics"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_base.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_door_left.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_door_right.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_gearbox_lever.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0.436 0.009 -0.321512
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_glass.mesh"
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_pedal_accelerator.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0.9200836 0.259322 -0.1491876
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_pedal_decelerator.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0.9002182 0.2950127 -0.1869445
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_steering_wheel.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0.719 0.482 -0.01851208
+			rotation = -0.4956649 0.0321389 0.8665475 0.04877769
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_headlight_right.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_headlight_left.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_backlight_right.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = "Types\\Units\\BMWi8\\BMW_backlight_left.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			position = 0 0 -0.1163153
+		}
+	}
+}

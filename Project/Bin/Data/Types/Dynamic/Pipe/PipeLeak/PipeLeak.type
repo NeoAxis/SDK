@@ -1,0 +1,28 @@
+type PipeLeak
+{
+	class = PhysicalStream
+	length = 4
+	thickness = 0.2
+	allowEditorCreate = True
+	networkType = Synchronized
+	normalMode
+	{
+		particleName = PipeLeakSteamParticle
+	}
+	alternativeMode
+	{
+		damagePerSecond = 10
+		influenceType = FireInfluence
+		influenceTimePerSecond = 8
+		particleName = PipeLeakFlameParticle
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			scale = 0.1 0.1 0.1
+		}
+	}
+}

@@ -1,0 +1,18 @@
+highLevelMaterial TPSDemoRock
+{
+	template = ShaderBaseMaterial
+	specularScale = 0.9764706 0.9764706 0.9764706
+	specularShininess = 60.496
+	diffuse1Map
+	{
+		texture = Maps\TPSArcadeDemo\Resources\Textures\TPSDemoRock.dds
+	}
+	specularMap
+	{
+		texture = Maps\TPSArcadeDemo\Resources\Textures\TPSDemoRock_Specular.dds
+	}
+	normalMap
+	{
+		texture = Maps\TPSArcadeDemo\Resources\Textures\TPSDemoRock_Normal.dds
+	}
+}

@@ -1,0 +1,16 @@
+highLevelMaterial FlareTest
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	receiveShadows = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.5
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Types\\Dynamic\\FlareTest\\FlareTest.jpg"
+		clamp = True
+	}
+}

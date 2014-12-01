@@ -1,0 +1,17 @@
+highLevelMaterial CD_Red_Light
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Red_Light1.dds"
+		transform
+		{
+			scale = 0.5 1
+			animation
+			{
+				scrollSpeed = 0.5 0
+				scrollRound = 0.5 1
+			}
+		}
+	}
+}

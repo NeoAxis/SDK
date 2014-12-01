@@ -1,0 +1,12 @@
+highLevelMaterial TPSDemoRockStone
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Maps\TPSArcadeDemo\Resources\Textures\hnprock13.dds
+	}
+	normalMap
+	{
+		texture = Maps\TPSArcadeDemo\Resources\Textures\hnprock13_Normal.dds
+	}
+}

@@ -1,0 +1,10 @@
+highLevelMaterial ShotgunBulletsItem
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	culling = False
+	diffuse1Map
+	{
+		texture = Types\Items\BulletItems\ShotgunBulletsItem\ShotgunBulletsItem.dds
+	}
+}

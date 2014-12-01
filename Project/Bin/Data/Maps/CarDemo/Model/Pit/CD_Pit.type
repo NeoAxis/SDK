@@ -1,0 +1,43 @@
+type CD_Pit
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Pit01.mesh"
+			castDynamicShadows = True
+			collision = True
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Pit02.mesh"
+			castDynamicShadows = True
+			collision = True
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Pit03.mesh"
+			castDynamicShadows = True
+			collision = True
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Pit04.mesh"
+			castDynamicShadows = True
+			collision = True
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+	}
+}

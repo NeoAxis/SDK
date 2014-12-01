@@ -1,0 +1,13 @@
+highLevelMaterial CD_Flag
+{
+	template = VegetationMaterial
+	doubleSided = True
+	bendVariation = 0.005
+	detailBending = True
+	branchAmplitude = 0.168
+	leafAmplitude = 0.168
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Logo_Engine2.dds"
+	}
+}

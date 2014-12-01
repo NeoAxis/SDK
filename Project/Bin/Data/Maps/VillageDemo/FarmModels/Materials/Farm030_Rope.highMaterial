@@ -1,0 +1,14 @@
+highLevelMaterial Farm030_Rope
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Rope.dds"
+	}
+	diffuse2Map
+	{
+		texCoord = TexCoord1
+	}
+}

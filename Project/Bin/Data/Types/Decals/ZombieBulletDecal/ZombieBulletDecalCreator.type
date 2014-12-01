@@ -1,0 +1,17 @@
+type ZombieBulletDecalCreator
+{
+	class = DecalCreator
+	size = 0.5
+	lifeTime = 5
+	depthRenderOffset = 0.06
+	fadeTime = 5
+	creatableInMapEditor = False
+	networkType = ClientOnly
+	materials
+	{
+		item
+		{
+			materialName = ZombieBulletDecal
+		}
+	}
+}

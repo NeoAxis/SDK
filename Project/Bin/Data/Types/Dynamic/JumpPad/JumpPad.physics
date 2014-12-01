@@ -1,0 +1,13 @@
+physicsModel
+{
+	body main
+	{
+		static = true
+		shape
+		{
+			type = box
+			dimensions = .2 3 3
+			material{ friction = .5; hardness = .5; bounciness = .5 }
+		}
+	}
+}

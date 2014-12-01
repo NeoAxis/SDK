@@ -1,0 +1,29 @@
+highLevelMaterial Corridor_WallDown2
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionColor = 1 1 1
+	reflectionSpecificCubemap = ".\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\CorridorTex2DiffuseMap.dds"
+	}
+	diffuse2Map
+	{
+		texture = ".\\WallDownAO.dds"
+		texCoord = TexCoord1
+	}
+	reflectionMap
+	{
+		texture = ".\\CorridorTex2SpecularMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\CorridorTex2SpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\CorridorTex2NormalsMap.dds"
+	}
+}

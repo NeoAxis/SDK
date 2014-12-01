@@ -1,0 +1,25 @@
+highLevelMaterial Farm032_MFVThatchedBTransparent
+{
+	template = ShaderBaseMaterial
+	doubleSided = True
+	alphaRejectFunction = GreaterEqual
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVThatchedBTransparent.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\TexturesAO\\032.dds"
+		texCoord = TexCoord1
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVThatchedBTransparent_spec.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVThatchedB_nrm.dds"
+	}
+}

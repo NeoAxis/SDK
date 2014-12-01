@@ -1,0 +1,64 @@
+type ExplosionBarrel
+{
+	class = Dynamic
+	lifeMax = 50
+	impulseDamageCoefficient = 0.150
+	impulseMinimalDamage = 5000
+	soundCollision = Types\Dynamic\ExplosionBarrel\Collision.ogg
+	soundCollisionMinVelocity = 2
+	substance = Metal
+	dieLatency = 0.3
+	physicsModel = Types\Dynamic\ExplosionBarrel\ExplosionBarrel.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	automaticInfluences
+	{
+		item
+		{
+			influence = FireInfluence
+		}
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\ExplosionBarrel\ExplosionBarrel.mesh
+			castDynamicShadows = True
+			body = main
+		}
+		particle
+		{
+			particleName = FireParticle
+			alias = FireInfluence
+			position = 0 0 -0.4
+			visible = False
+		}
+		particle
+		{
+			particleName = FireParticle
+			alias = FireInfluence
+			position = 0 0 0.4
+			visible = False
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		sound
+		{
+			soundName = Sounds/Explode.ogg
+			priority = 0.8
+		}
+		mapObject
+		{
+			type = DefaultExplosionDecalCreator
+		}
+	}
+}

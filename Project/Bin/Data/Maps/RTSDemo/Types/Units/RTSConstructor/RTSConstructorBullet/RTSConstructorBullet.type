@@ -1,0 +1,34 @@
+type RTSConstructorBullet
+{
+	class = Bullet
+	velocity = 10
+	damage = -2
+	lifeTime = 1
+	creatableInMapEditor = False
+	attachedObjects
+	{
+		billboard
+		{
+			color = 0 1 0
+			materialName = RTSItemParticle
+			size = 2 2
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = RTSConstructorBulletHit
+		}
+		particle
+		{
+			particleName = RTSConstructorBulletHit2
+		}
+		sound
+		{
+			soundName = ".\\Hit.ogg"
+			minDistance = 10
+			maxDistance = 100
+		}
+	}
+}

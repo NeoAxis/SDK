@@ -1,0 +1,16 @@
+type BallGame_Ball
+{
+	class = MapObject
+	physicsModel = ".\\Ball.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Ball.mesh"
+			castDynamicShadows = True
+			body = main
+		}
+	}
+}

@@ -1,0 +1,10 @@
+highLevelMaterial ColladaTestStoneStatic
+{
+	dataSource = "_ResourceEditorSamples\\Importing3DModel\\Stone\\ColladaTest.modelImport"
+	template = ShaderBaseMaterial
+	diffuseColor = 0.6 0.6 0.6
+	diffuse1Map
+	{
+		texture = ".\\ColladaTestStoneStatic.jpg"
+	}
+}

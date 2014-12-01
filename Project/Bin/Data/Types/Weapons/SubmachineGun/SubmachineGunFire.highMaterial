@@ -1,0 +1,11 @@
+highLevelMaterial SubmachineGunFire
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	doubleSided = True
+	diffuse1Map
+	{
+		texture = "Types\\Weapons\\SubmachineGun\\SubmachineGunFire.dds"
+	}
+}

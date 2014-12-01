@@ -1,0 +1,23 @@
+highLevelMaterial Farm025_MFVTextureC
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVTextureC.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\TexturesAO\\025.dds"
+		texCoord = TexCoord1
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVTextureC_spec.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVTextureC_nrm.dds"
+	}
+}

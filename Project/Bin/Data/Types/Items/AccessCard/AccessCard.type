@@ -1,0 +1,22 @@
+type AccessCard
+{
+	class = Item
+	defaultRespawnTime = 10
+	soundTake = Types/Items/DefaultItemTake.ogg
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Items\AccessCard\AccessCard.mesh
+			castDynamicShadows = True
+			scale = 0.05 0.05 0.05
+		}
+		particle
+		{
+			particleName = ItemParticle
+			updateWhenItNotInView = False
+		}
+	}
+}

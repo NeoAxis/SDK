@@ -1,0 +1,24 @@
+highLevelMaterial Demo_PipeRack
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	reflectionColor = 1 1 1
+	reflectionSpecificCubemap = "Models\\DemoCorridors\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\PipeRackBaseDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\PipeRackBaseSpecularMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\PipeRackBaseSpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\PipeRackBaseNormalsMap.dds"
+	}
+}

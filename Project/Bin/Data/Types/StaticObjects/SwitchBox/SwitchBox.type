@@ -1,0 +1,14 @@
+type SwitchBox
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\StaticObjects\\SwitchBox\\SwitchBox.mesh"
+			castShadows = True
+			toCollision = True
+		}
+	}
+}

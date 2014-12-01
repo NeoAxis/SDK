@@ -1,0 +1,604 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameType = CatapultGame
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+ambientLight = 0.2 0.2 0.2
+editorCameraPosition = -2.085139 -19.67068 6.911196
+editorCameraDirection = 1.523187 -0.4686293
+shadowColor = 1 1 1
+shadowFarDistance = 40
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 3
+shadowTechnique = ShadowmapMedium
+rootEditorLayer
+{
+	layer
+	{
+		name = Landscape
+	}
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 5
+	classPrompt = StaticMesh
+	position = 0 0 0
+	scale = 30 30 30
+	editorLayer = "Root Layer\\Landscape"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = Gray
+}
+entity
+{
+	type = SkyBox
+	uin = 6
+	classPrompt = SkyBox
+	textureName = 
+	color = 0.2352941 0.2352941 0.2352941
+	power = 1
+}
+entity
+{
+	type = MapCamera
+	uin = 7
+	classPrompt = MapCamera
+	fov = 0
+	position = -0.01907527 -14.90697 2.642597
+	rotation = 0 0 -0.7071068 -0.7071068
+	name = MapCamera_0
+}
+entity
+{
+	type = Light
+	uin = 8
+	classPrompt = Light
+	lightType = Directional
+	diffuseColor = 1 1 1
+	diffusePower = 1
+	specularColor = 0 0 0
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = -16.54531 -3.701387 2.930234
+	rotation = 0 0.4074255 0 0.9132385
+	name = Light_0
+}
+entity
+{
+	type = CatapultGame_Catapult
+	uin = 9
+	classPrompt = Dynamic
+	position = 0 -9.064934 0
+	rotation = 0 0 0.7071068 0.7071068
+	name = Catapult_0
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 10
+	classPrompt = Dynamic
+	position = -3.204984 8.17915 0.5035601
+	name = SimpleBox_0
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 11
+	classPrompt = Dynamic
+	position = -1.923917 8.22324 0.5055722
+	name = SimpleBox_1
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 12
+	classPrompt = Dynamic
+	position = -0.6894767 8.217882 0.5061364
+	name = SimpleBox_2
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 13
+	classPrompt = Dynamic
+	position = 0.5620901 8.218475 0.5090314
+	name = SimpleBox_3
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 14
+	classPrompt = Dynamic
+	position = 1.780102 8.271967 0.5009581
+	name = SimpleBox_4
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 15
+	classPrompt = Dynamic
+	position = 1.147196 8.200447 1.512205
+	name = SimpleBox_5
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 16
+	classPrompt = Dynamic
+	position = -0.02863024 8.240024 1.512038
+	name = SimpleBox_6
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 17
+	classPrompt = Dynamic
+	position = -1.228571 8.185787 1.50761
+	name = SimpleBox_7
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 18
+	classPrompt = Dynamic
+	position = -2.451504 8.134703 1.511621
+	name = SimpleBox_8
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 19
+	classPrompt = Dynamic
+	position = 0.6989414 8.117389 2.519795
+	name = SimpleBox_9
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 20
+	classPrompt = Dynamic
+	position = -0.4722456 8.146063 2.513494
+	name = SimpleBox_10
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 21
+	classPrompt = Dynamic
+	position = -1.644702 8.122696 2.513718
+	name = SimpleBox_11
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 22
+	classPrompt = Dynamic
+	position = 0.145 8.061136 3.52457
+	name = SimpleBox_12
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 23
+	classPrompt = Dynamic
+	position = -1.12351 8.0632 3.517709
+	name = SimpleBox_13
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 24
+	classPrompt = Dynamic
+	position = -0.3202477 7.979259 4.530757
+	name = SimpleBox_14
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 25
+	classPrompt = Dynamic
+	position = 2.96392 8.260283 0.5042567
+	name = SimpleBox_15
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 26
+	classPrompt = Dynamic
+	position = 2.352493 8.253674 1.506447
+	name = SimpleBox_16
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 27
+	classPrompt = Dynamic
+	position = 1.996011 8.143167 2.51636
+	name = SimpleBox_17
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 28
+	classPrompt = Dynamic
+	position = 1.350376 8.045664 3.520233
+	name = SimpleBox_18
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 29
+	classPrompt = Dynamic
+	position = 0.9262567 7.999829 4.531059
+	name = SimpleBox_19
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 30
+	classPrompt = Dynamic
+	position = 0.3917177 7.958909 5.536887
+	name = SimpleBox_20
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 31
+	classPrompt = Dynamic
+	position = 7.381513 8.17915 0.5035601
+	name = SimpleBox_21
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 32
+	classPrompt = Dynamic
+	position = 8.66258 8.22324 0.5055722
+	name = SimpleBox_22
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 33
+	classPrompt = Dynamic
+	position = 9.897019 8.217882 0.5061364
+	name = SimpleBox_23
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 34
+	classPrompt = Dynamic
+	position = 11.14859 8.218475 0.5090314
+	name = SimpleBox_24
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 35
+	classPrompt = Dynamic
+	position = 12.3666 8.271967 0.5009581
+	name = SimpleBox_25
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 36
+	classPrompt = Dynamic
+	position = 11.73369 8.200447 1.512205
+	name = SimpleBox_26
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 37
+	classPrompt = Dynamic
+	position = 10.55787 8.240024 1.512038
+	name = SimpleBox_27
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 38
+	classPrompt = Dynamic
+	position = 9.357925 8.185787 1.50761
+	name = SimpleBox_28
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 39
+	classPrompt = Dynamic
+	position = 8.134993 8.134703 1.511621
+	name = SimpleBox_29
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 40
+	classPrompt = Dynamic
+	position = 11.28544 8.117389 2.519795
+	name = SimpleBox_30
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 41
+	classPrompt = Dynamic
+	position = 10.11425 8.146063 2.513494
+	name = SimpleBox_31
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 42
+	classPrompt = Dynamic
+	position = 8.941794 8.122696 2.513718
+	name = SimpleBox_32
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 43
+	classPrompt = Dynamic
+	position = 10.7315 8.061136 3.52457
+	name = SimpleBox_33
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 44
+	classPrompt = Dynamic
+	position = 9.462986 8.0632 3.517709
+	name = SimpleBox_34
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 45
+	classPrompt = Dynamic
+	position = 10.26625 7.979259 4.530757
+	name = SimpleBox_35
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 46
+	classPrompt = Dynamic
+	position = 13.55042 8.260283 0.5042567
+	name = SimpleBox_36
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 47
+	classPrompt = Dynamic
+	position = 12.93899 8.253674 1.506447
+	name = SimpleBox_37
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 48
+	classPrompt = Dynamic
+	position = 12.58251 8.143167 2.51636
+	name = SimpleBox_38
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 49
+	classPrompt = Dynamic
+	position = 11.93687 8.045664 3.520233
+	name = SimpleBox_39
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 50
+	classPrompt = Dynamic
+	position = 11.51275 7.999829 4.531059
+	name = SimpleBox_40
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 51
+	classPrompt = Dynamic
+	position = 10.97821 7.958909 5.536887
+	name = SimpleBox_41
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 52
+	classPrompt = Dynamic
+	position = -15.08339 8.17915 0.5035601
+	name = SimpleBox_42
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 53
+	classPrompt = Dynamic
+	position = -13.80233 8.22324 0.5055722
+	name = SimpleBox_43
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 54
+	classPrompt = Dynamic
+	position = -12.56789 8.217882 0.5061364
+	name = SimpleBox_44
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 55
+	classPrompt = Dynamic
+	position = -13.10698 8.185787 1.50761
+	name = SimpleBox_45
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 56
+	classPrompt = Dynamic
+	position = -14.32991 8.134703 1.511621
+	name = SimpleBox_46
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 57
+	classPrompt = Dynamic
+	position = -12.35066 8.146063 2.513494
+	name = SimpleBox_47
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 58
+	classPrompt = Dynamic
+	position = -13.52311 8.122696 2.513718
+	name = SimpleBox_48
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 59
+	classPrompt = Dynamic
+	position = -13.00192 8.0632 3.517709
+	name = SimpleBox_49
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 60
+	classPrompt = Dynamic
+	position = -12.19866 7.979259 4.530757
+	name = SimpleBox_50
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 61
+	classPrompt = Dynamic
+	position = -11.31632 8.218475 0.5090314
+	name = SimpleBox_51
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 62
+	classPrompt = Dynamic
+	position = -10.09831 8.271967 0.5009581
+	name = SimpleBox_52
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 63
+	classPrompt = Dynamic
+	position = -10.73122 8.200447 1.512205
+	name = SimpleBox_53
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 64
+	classPrompt = Dynamic
+	position = -11.90704 8.240024 1.512038
+	name = SimpleBox_54
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 65
+	classPrompt = Dynamic
+	position = -11.17947 8.117389 2.519795
+	name = SimpleBox_55
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 66
+	classPrompt = Dynamic
+	position = -11.73341 8.061136 3.52457
+	name = SimpleBox_56
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 67
+	classPrompt = Dynamic
+	position = -8.914487 8.260283 0.5042567
+	name = SimpleBox_57
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 68
+	classPrompt = Dynamic
+	position = -9.525917 8.253674 1.506447
+	name = SimpleBox_58
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 69
+	classPrompt = Dynamic
+	position = -9.882397 8.143167 2.51636
+	name = SimpleBox_59
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 70
+	classPrompt = Dynamic
+	position = -10.52804 8.045664 3.520233
+	name = SimpleBox_60
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 71
+	classPrompt = Dynamic
+	position = -10.95216 7.999829 4.531059
+	name = SimpleBox_61
+}
+entity
+{
+	type = CatapultGame_SimpleBox
+	uin = 72
+	classPrompt = Dynamic
+	position = -11.4867 7.958909 5.536887
+	name = SimpleBox_62
+}

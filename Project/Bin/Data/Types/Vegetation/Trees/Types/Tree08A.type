@@ -1,0 +1,15 @@
+type Tree08A
+{
+	class = MapObject
+	allowEditorCreate = True
+	allowEmptyName = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Vegetation\\Trees\\Meshes\\Tree08A.mesh"
+			castDynamicShadows = True
+			collision = True
+		}
+	}
+}

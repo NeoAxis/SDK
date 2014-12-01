@@ -1,0 +1,25 @@
+highLevelMaterial Corridor_Ceiling
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionSpecificCubemap = ".\\SkyBox\\CorridorSkyBox.jpg"
+	emissionColor = 1 1 1
+	emissionPower = 1.3
+	specularColor = 0.01960784 0.01960784 0.01960784
+	diffuse1Map
+	{
+		texture = ".\\CeilingDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\CeilingSpecularMap.dds"
+	}
+	emissionMap
+	{
+		texture = ".\\CeilingGlowMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\CeilingSpecularMap.dds"
+	}
+}

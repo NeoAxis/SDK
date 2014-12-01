@@ -1,0 +1,16 @@
+type CD_Grass_Dec
+{
+	class = DecorativeObject
+	batchSize = 25
+	distanceBetweenObjects = 0.3
+	visibilityDistance = 300
+	storeObjectsPositionsInVertices = True
+	scaleRange = 0.8 1.2
+	items
+	{
+		item
+		{
+			meshName = ".\\CD_Grass_Dec.mesh"
+		}
+	}
+}

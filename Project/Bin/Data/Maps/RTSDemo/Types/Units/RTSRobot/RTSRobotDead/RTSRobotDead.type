@@ -1,0 +1,19 @@
+type RTSRobotDead
+{
+	class = Corpse
+	lifeTime = 10
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\RTSDemo\\Types\\Units\\RTSRobot\\Robot.mesh"
+			castDynamicShadows = True
+			animationTree = ".\\RobotDead.animationTree"
+		}
+		particle
+		{
+			particleName = RTSSmallSmokeParticle2
+			position = 0.7 0 0.3
+		}
+	}
+}

@@ -1,0 +1,14 @@
+type DynamicSinusoidSurface
+{
+	class = DynamicSinusoidSurface
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Types\\InvisiblePoint.mesh"
+			useOwnerScale = False
+			onlyForEditor = True
+		}
+	}
+}

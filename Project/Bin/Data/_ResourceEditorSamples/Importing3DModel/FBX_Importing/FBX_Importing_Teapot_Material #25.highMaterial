@@ -1,0 +1,8 @@
+highLevelMaterial "FBX_Importing_Teapot_Material #25"
+{
+	dataSource = "_ResourceEditorSamples\\Importing3DModel\\FBX_Importing\\Teapot.modelImport"
+	template = ShaderBaseMaterial
+	diffuseColor = 1 0 0
+	specularColor = 0.9 0.9 0.9
+	specularShininess = 20
+}

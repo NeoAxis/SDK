@@ -1,0 +1,54 @@
+type TurretGun
+{
+	class = Gun
+	soundMinDistance = 10
+	soundMaxDistance = 100
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		bulletType = TurretBullet
+		bulletExpense = 0
+		dispersionAngle = 0.5
+		betweenFireTime = 0.05
+		soundFire = "Types\\Weapons\\SubmachineGun\\AlternativeFire.ogg"
+		startOffsetPosition = 1.8 0 0
+		useDistanceRange = 0 150
+		fireTimes = 
+		fireAnimationTrigger = fire
+		fireObjects
+		{
+			light
+			{
+				diffuseColor = 1 1 0.4
+				specularColor = 1 1 1
+				attenuationFar = 10
+				attenuationPower = 1
+				ffpAttenuationQuadric = 0.2
+				castShadows = False
+				position = 1.8 0 0
+				lifeTime = 0.04
+			}
+			billboard
+			{
+				materialName = ItemParticle
+				size = 3 3
+				position = 1.8 0 0
+				lifeTime = 0.04
+			}
+		}
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Units\\Turret\\TurretGun\\TurretGun.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

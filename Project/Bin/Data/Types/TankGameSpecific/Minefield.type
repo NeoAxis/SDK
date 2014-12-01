@@ -1,0 +1,15 @@
+type Minefield
+{
+	class = Minefield
+	allowEditorCreate = True
+	networkType = ServerOnly
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Base\Types\InvisiblePoint.mesh
+			useOwnerScale = False
+			onlyForEditor = True
+		}
+	}
+}

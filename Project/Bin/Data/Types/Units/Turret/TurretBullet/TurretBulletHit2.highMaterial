@@ -1,0 +1,15 @@
+highLevelMaterial TurretBulletHit2
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.6
+	depthOffset = -0.4
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Types\\Units\\Turret\\TurretBullet\\TurretBulletHit.tga"
+	}
+}

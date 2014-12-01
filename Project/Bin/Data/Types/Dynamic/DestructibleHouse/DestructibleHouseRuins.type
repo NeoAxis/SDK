@@ -1,0 +1,15 @@
+type DestructibleHouseRuins
+{
+	class = Dynamic
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\DestructibleHouse\DestructibleHouseRuins.mesh
+			castDynamicShadows = True
+			collision = True
+		}
+	}
+}

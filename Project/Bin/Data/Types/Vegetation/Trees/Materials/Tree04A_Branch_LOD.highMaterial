@@ -1,0 +1,22 @@
+highLevelMaterial Tree04A_Branch_LOD
+{
+	template = VegetationMaterial
+	receiveSimpleShadows = True
+	alphaRejectFunction = Greater
+	halfLambert = True
+	translucencyColor = 1 1 1
+	translucencyPower = 0.75
+	translucencyClearness = 1
+	bendVariation = 0.005
+	detailBending = True
+	branchAmplitude = 0.1
+	leafAmplitude = 0.1
+	diffuse1Map
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Branch4A-Diffuse.dds"
+	}
+	translucencyMap
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Branch4A-Translucency.dds"
+	}
+}

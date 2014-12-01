@@ -1,0 +1,22 @@
+highLevelMaterial FarmBridge_Floor
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVFloor.dds"
+	}
+	diffuse2Map
+	{
+		texCoord = TexCoord1
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVFloor_spec.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVFloor_NRM.dds"
+	}
+}

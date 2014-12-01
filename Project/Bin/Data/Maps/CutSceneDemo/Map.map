@@ -1,0 +1,2635 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.5882353 0.5882353 0.5882353
+editorCameraPosition = 10.32392 -17.83921 8.015573
+editorCameraDirection = 2.141167 -0.4975448
+shadowColor = 1 1 1
+shadowFarDistance = 40
+shadowPSSMSplitFactors = 0.2 0.5
+logicSystemManager = 5
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = Corridors
+		allowSelect = False
+	}
+}
+entity
+{
+	type = Light
+	uin = 3
+	classPrompt = Light
+	subscriptionsToDeletionEvent = 121
+	enabled = True
+	lightType = Spot
+	diffuseColor = 1 1 1
+	diffusePower = 1.5
+	specularColor = 1 1 1
+	specularPower = 3
+	attenuationNear = 0
+	attenuationFar = 50
+	attenuationPower = 1
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0.01
+	spotlightInnerAngle = 60
+	spotlightOuterAngle = 70
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = -1.998556 -1.507627 2.583075
+	name = Light_0
+	logicClass = 121
+}
+entity
+{
+	type = Terminal
+	uin = 4
+	classPrompt = Terminal
+	subscriptionsToDeletionEvent = 44 249
+	initialControl = "Gui\\CutSceneDemoTerminal.gui"
+	healthFactorAtBeginning = 1
+	position = 17.51691 -11.38136 1.964551
+	rotation = 0 0 -0.7061533 0.708059
+	name = Terminal_0
+	logicClass = 44
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 5
+	mapClassManager = 6
+	entity
+	{
+		type = LogicClassManager
+		uin = 6
+		entity
+		{
+			type = LogicEntityClass
+			uin = 7
+			subscriptionsToDeletionEvent = 127
+			entityClassName = Region
+			className = Region_CutScene
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 8
+				actions = 10
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 9
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 9
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+				entity
+				{
+					type = LogicIfThenElseAction
+					uin = 10
+					conditionAction = 11
+					trueActions = 26 29 13 22 24 33 39 37 42 19 31 16
+					falseActions = 
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 11
+						variableName = obj
+						dotPathAction = 12
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 12
+							asCast = False
+							castTypeName = PlayerCharacter
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 13
+						className = CutSceneManager
+						propertyName = CutSceneEnable
+						dotPathAction = 14
+						entity
+						{
+							type = LogicAssignPropertyAction
+							uin = 14
+							valueAction = 15
+							entity
+							{
+								type = LogicGetConstantValueAction
+								uin = 15
+								valueType = System.Boolean
+								value = True
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 16
+						className = CutSceneManager
+						propertyName = CutSceneEnable
+						dotPathAction = 17
+						entity
+						{
+							type = LogicAssignPropertyAction
+							uin = 17
+							valueAction = 18
+							entity
+							{
+								type = LogicGetConstantValueAction
+								uin = 18
+								valueType = System.Boolean
+								value = False
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 19
+						className = CutSceneManager
+						methodName = FadeInOut
+						parameterActions = 20 21
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 20
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 21
+							valueType = System.Single
+							value = 1
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 22
+						className = CutSceneManager
+						methodName = SetCamera
+						parameterActions = 23
+						parameterTypeNames
+						{
+							item
+							{
+								value = MapObject
+							}
+						}
+						entity
+						{
+							type = LogicCallGetEntityMethodAction
+							uin = 23
+							subscriptionsToDeletionEvent = 140
+							entity = 140
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 24
+						className = LogicUtils
+						methodName = Wait
+						parameterActions = 25
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 25
+							valueType = System.Single
+							value = 2
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 26
+						className = CutSceneManager
+						methodName = FadeInOut
+						parameterActions = 27 28
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 27
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 28
+							valueType = System.Single
+							value = 1
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 29
+						className = LogicUtils
+						methodName = Wait
+						parameterActions = 30
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 30
+							valueType = System.Single
+							value = 1
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 31
+						className = LogicUtils
+						methodName = Wait
+						parameterActions = 32
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 32
+							valueType = System.Single
+							value = 1
+						}
+					}
+					entity
+					{
+						type = LogicDeclareLocalVariableAction
+						uin = 33
+						variableTypeName = MapObject
+						variableName = newObj
+						valueAction = 34
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 34
+							className = Entities
+							methodName = Create
+							parameterActions = 35 36
+							parameterTypeNames
+							{
+								item
+								{
+									value = String
+								}
+								item
+								{
+									value = Entity
+								}
+							}
+							entity
+							{
+								type = LogicGetConstantValueAction
+								uin = 35
+								valueType = System.String
+								value = Box
+							}
+							entity
+							{
+								type = LogicCallStaticSystemMethodAction
+								uin = 36
+								className = Map
+								propertyName = Instance
+							}
+						}
+					}
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 37
+						variableName = newObj
+						dotPathAction = 38
+						entity
+						{
+							type = LogicCallNonStaticMethodAction
+							uin = 38
+							methodName = PostCreate
+						}
+					}
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 39
+						variableName = newObj
+						dotPathAction = 40
+						entity
+						{
+							type = LogicCallNonStaticMethodAction
+							uin = 40
+							methodName = CopyTransform
+							parameterActions = 41
+							parameterTypeNames
+							{
+								item
+								{
+									value = MapObject
+								}
+							}
+							entity
+							{
+								type = LogicCallGetEntityMethodAction
+								uin = 41
+								subscriptionsToDeletionEvent = 144
+								entity = 144
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 42
+						className = LogicUtils
+						methodName = Wait
+						parameterActions = 43
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 43
+							valueType = System.Single
+							value = 3
+						}
+					}
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 44
+			subscriptionsToDeletionEvent = 4
+			entityClassName = GameGuiObject
+			className = Terminal_0
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 45
+				actions = 46 49 51 54 56 58 61 63
+				methodName = SimpleCamera_Click
+				returnType = System.Void
+				parameters = 66
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 46
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 47 48
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 47
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 48
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 49
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 50
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 50
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 51
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 52
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 52
+						valueAction = 53
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 53
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 54
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 55
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 55
+						subscriptionsToDeletionEvent = 145
+						entity = 145
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 56
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 57
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 57
+						valueType = System.Single
+						value = 3
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 58
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 59 60
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 59
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 60
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 61
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 62
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 62
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 63
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 64
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 64
+						valueAction = 65
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 65
+							valueType = System.Boolean
+							value = False
+						}
+					}
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 66
+					parameterType = Engine.UISystem.Button
+					parameterName = sender
+				}
+			}
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 67
+				actions = 69 76
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 68
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 68
+					parameterType = System.Boolean
+					parameterName = loaded
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 69
+					entityOwnerProperty = True
+					dotPathAction = 70
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 70
+						propertyName = MainControl
+						dotPathAction = 71
+						entity
+						{
+							type = LogicCallNonStaticMethodAction
+							uin = 71
+							propertyName = Controls
+							dotPathAction = 72
+							entity
+							{
+								type = LogicCallNonStaticMethodAction
+								uin = 72
+								propertyName = Item
+								parameterActions = 73
+								dotPathAction = 74
+								parameterTypeNames
+								{
+									item
+									{
+										value = String
+									}
+								}
+								entity
+								{
+									type = LogicGetConstantValueAction
+									uin = 73
+									valueType = System.String
+									value = SimpleCamera
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 74
+									asCast = True
+									castTypeName = Button
+									dotPathAction = 75
+									entity
+									{
+										type = LogicEventAction
+										uin = 75
+										eventName = Click
+										methodName = SimpleCamera_Click
+									}
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 76
+					entityOwnerProperty = True
+					dotPathAction = 77
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 77
+						propertyName = MainControl
+						dotPathAction = 78
+						entity
+						{
+							type = LogicCallNonStaticMethodAction
+							uin = 78
+							propertyName = Controls
+							dotPathAction = 79
+							entity
+							{
+								type = LogicCallNonStaticMethodAction
+								uin = 79
+								propertyName = Item
+								parameterActions = 80
+								dotPathAction = 81
+								parameterTypeNames
+								{
+									item
+									{
+										value = String
+									}
+								}
+								entity
+								{
+									type = LogicGetConstantValueAction
+									uin = 80
+									valueType = System.String
+									value = CurveCamera
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 81
+									asCast = True
+									castTypeName = Button
+									dotPathAction = 82
+									entity
+									{
+										type = LogicEventAction
+										uin = 82
+										eventName = Click
+										methodName = CurveCamera_Click
+									}
+								}
+							}
+						}
+					}
+				}
+			}
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 83
+				actions = 85 88 90 112 107 102 116 100 93 95 250 97
+				methodName = CurveCamera_Click
+				returnType = System.Void
+				parameters = 84
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 84
+					parameterType = Engine.UISystem.Button
+					parameterName = sender
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 85
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 86 87
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 86
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 87
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 88
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 89
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 89
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 90
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 91
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 91
+						valueAction = 92
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 92
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 93
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 94
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 94
+						subscriptionsToDeletionEvent = 146
+						entity = 146
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 95
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 96
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 96
+						valueType = System.Single
+						value = 28
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 97
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 98
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 98
+						valueAction = 99
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 99
+							valueType = System.Boolean
+							value = False
+						}
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 100
+					variableName = character
+					dotPathAction = 101
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 101
+						methodName = PostCreate
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 102
+					variableName = character
+					dotPathAction = 103
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 103
+						propertyName = Rotation
+						dotPathAction = 104
+						entity
+						{
+							type = LogicAssignPropertyAction
+							uin = 104
+							valueAction = 105
+							entity
+							{
+								type = LogicCallGetEntityMethodAction
+								uin = 105
+								subscriptionsToDeletionEvent = 173
+								entity = 173
+								dotPathAction = 106
+								entity
+								{
+									type = LogicCallNonStaticMethodAction
+									uin = 106
+									propertyName = Rotation
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 107
+					variableName = character
+					dotPathAction = 108
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 108
+						propertyName = Position
+						dotPathAction = 109
+						entity
+						{
+							type = LogicAssignPropertyAction
+							uin = 109
+							valueAction = 110
+							entity
+							{
+								type = LogicCallGetEntityMethodAction
+								uin = 110
+								subscriptionsToDeletionEvent = 173
+								entity = 173
+								dotPathAction = 111
+								entity
+								{
+									type = LogicCallNonStaticMethodAction
+									uin = 111
+									propertyName = Position
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicDeclareLocalVariableAction
+					uin = 112
+					variableTypeName = GameCharacter
+					variableName = character
+					valueAction = 113
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 113
+						className = Entities
+						methodName = Create
+						parameterActions = 115 114
+						parameterTypeNames
+						{
+							item
+							{
+								value = String
+							}
+							item
+							{
+								value = Entity
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 114
+							className = Map
+							propertyName = Instance
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 115
+							valueType = System.String
+							value = Zombie
+						}
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 116
+					variableName = character
+					dotPathAction = 117
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 117
+						propertyName = InitialFaction
+						dotPathAction = 118
+						entity
+						{
+							type = LogicAssignPropertyAction
+							uin = 118
+							valueAction = 119
+							entity
+							{
+								type = LogicCallStaticSystemMethodAction
+								uin = 119
+								className = EntityTypes
+								methodName = GetByName
+								parameterActions = 120
+								parameterTypeNames
+								{
+									item
+									{
+										value = String
+									}
+								}
+								entity
+								{
+									type = LogicGetConstantValueAction
+									uin = 120
+									valueType = System.String
+									value = GoodFaction
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 250
+					variableName = character
+					dotPathAction = 251
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 251
+						methodName = SetForDeletion
+						parameterActions = 252
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 252
+							valueType = System.Boolean
+							value = False
+						}
+					}
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 121
+			subscriptionsToDeletionEvent = 167 3
+			entityClassName = MapObject
+			className = TestLamp_Move
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicVariable
+				uin = 122
+				variableType = System.Single
+				variableName = moveTime
+				supportSerialization = False
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 123
+				code = "MapCurve mapCurve = (MapCurve)Entities.Instance.GetByName(\"MapCurve_MoveLamp\");\r\n\r\nmoveTime += Entity.TickDelta;\r\nif(moveTime >= mapCurve.GetCurveMaxTime())\r\n\tmoveTime -= mapCurve.GetCurveMaxTime();\r\n\r\nVec3 center = new Vec3(0,0,2);\r\n\r\nOwner.Position = mapCurve.CalculateCurvePointByTime(moveTime);\r\n\r\nVec3 diff = center - Owner.Position;\r\nRadian horizontalAngle = MathFunctions.ATan( diff.Y, diff.X );\r\nRadian verticalAngle = MathFunctions.ATan( diff.Z, diff.ToVec2().Length() );\r\nOwner.Rotation = new Angles( 0, 0, -horizontalAngle.InDegrees() ).ToQuat() * \r\n\tnew Angles( 0, verticalAngle.InDegrees(), 0 ).ToQuat();\r\n"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+			}
+		}
+	}
+}
+entity
+{
+	type = Stone
+	uin = 124
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 249
+	position = -41.41072 -1.950536 -0.4065142
+	rotation = 0 0 0.8660254 0.5
+	name = Stone_0
+}
+entity
+{
+	type = Stone
+	uin = 125
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 249
+	position = -40.15559 0.7166741 -0.04709435
+	rotation = 0 0 0.5 0.8660254
+	scale = 0.6896552 0.6896552 0.6896552
+	name = Stone_1
+}
+entity
+{
+	type = Stone
+	uin = 126
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 249
+	position = -43.62518 0.4106321 -0.4900246
+	name = Stone_2
+}
+entity
+{
+	type = Region
+	uin = 127
+	classPrompt = Region
+	subscriptionsToDeletionEvent = 7
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = 13.70415 9.0952 0.7270796
+	scale = 7.293657 7.293657 7.293657
+	name = Region_CutScene
+	logicClass = 7
+	checkType = Bounds
+}
+entity
+{
+	type = TestLamp
+	uin = 128
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 10.05178 5.451957 0.7818992
+	name = TestLamp_0
+}
+entity
+{
+	type = TestLamp
+	uin = 129
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 17.32811 5.400274 0.8123084
+	name = TestLamp_1
+}
+entity
+{
+	type = TestLamp
+	uin = 130
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 17.31069 12.73827 0.7901019
+	name = TestLamp_2
+}
+entity
+{
+	type = TestLamp
+	uin = 131
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 10.07478 12.69812 0.7574099
+	name = TestLamp_3
+}
+entity
+{
+	type = TestLamp
+	uin = 132
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 10.05178 5.451957 2.064724
+	name = TestLamp_4
+}
+entity
+{
+	type = TestLamp
+	uin = 133
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 10.07478 12.69812 2.040236
+	name = TestLamp_5
+}
+entity
+{
+	type = TestLamp
+	uin = 134
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 17.32811 5.400274 2.095134
+	name = TestLamp_6
+}
+entity
+{
+	type = TestLamp
+	uin = 135
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 17.31069 12.73827 2.072927
+	name = TestLamp_7
+}
+entity
+{
+	type = TestLamp
+	uin = 136
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 10.05178 5.451957 3.314243
+	name = TestLamp_8
+}
+entity
+{
+	type = TestLamp
+	uin = 137
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 10.07478 12.69812 3.289754
+	name = TestLamp_9
+}
+entity
+{
+	type = TestLamp
+	uin = 138
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 17.32811 5.400274 3.344654
+	name = TestLamp_10
+}
+entity
+{
+	type = TestLamp
+	uin = 139
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 17.31069 12.73827 3.322446
+	name = TestLamp_11
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 140
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 141 142 23
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 140 141 142
+	automaticTimeStep = 3
+	owner = 140
+	time = 0
+	position = 11.42064 -0.5792019 4.238652
+	rotation = -0.2241439 0.1294095 0.4829629 0.8365163
+	name = MapCameraCurve_RegionScene
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 141
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 140
+	fov = 0
+	owner = 140
+	time = 3
+	position = 5.318023 9.291943 1.516843
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 142
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 140
+	fov = 0
+	owner = 140
+	time = 6
+	position = 13.83067 16.07765 3.882755
+	rotation = 0.1830127 0.1830127 -0.6830127 0.6830127
+}
+entity
+{
+	type = CutSceneManager
+	uin = 143
+	classPrompt = CutSceneManager
+}
+entity
+{
+	type = HelperPoint
+	uin = 144
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 41
+	position = 14.78142 9.423115 8.451414
+	name = HelperPoint_CreateObject
+}
+entity
+{
+	type = MapCamera
+	uin = 145
+	classPrompt = MapCamera
+	subscriptionsToDeletionEvent = 55
+	fov = 0
+	position = 2.082842 -9.814308 8.208123
+	rotation = -0.1658787 0.2091867 0.7653998 0.5855668
+	name = MapCamera_Simple
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 146
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 147 148 149 150 151 152 153 154 155 156 157 158 159 160 94
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 146 147 148 149 150 151 154 152 153 155 156 157 158 159 160
+	automaticTimeStep = 2
+	owner = 146
+	time = 0
+	position = 9.409698 -4.540973 6.285407
+	rotation = 0.1426954 0.02559255 -0.9738962 -0.1746692
+	name = MapCameraCurve_0
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 147
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 2
+	position = 6.117253 -11.18712 7.417253
+	rotation = 0.03122875 -0.08501749 -0.8561724 -0.5086902
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 148
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 4
+	position = -2.299708 -11.87127 7.417253
+	rotation = 0.1566061 -0.1294391 -0.6237949 -0.7547185
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 149
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 6
+	position = -11.10411 -6.745015 7.417253
+	rotation = 0.06217813 -0.3122541 -0.3152745 -0.8939984
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 150
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 8
+	position = -13.8653 1.037525 7.417253
+	rotation = 0.009454362 -0.2001037 0.04623798 -0.9786374
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 151
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 30
+	owner = 146
+	time = 10
+	position = -14.1776 2.001716 8.539131
+	rotation = 0.02316237 -0.2893702 0.06091433 -0.9549962
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 152
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 14
+	position = -14.24912 3.679096 8.539131
+	rotation = 0.02484099 -0.1954985 0.05297226 -0.9789571
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 153
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 16
+	position = -13.50738 6.446301 8.539131
+	rotation = -0.01340764 -0.1966137 0.2411585 -0.9502661
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 154
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 30
+	owner = 146
+	time = 12
+	position = -14.23203 2.856162 8.539131
+	rotation = -0.004977174 0.06338276 -0.07812627 0.9949141
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 155
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 18
+	position = -12.14898 8.428384 8.539131
+	rotation = -0.863013 0.08205824 0.3336512 -0.37034
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 156
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 20
+	position = -10.52717 10.11184 8.539131
+	rotation = -0.6613376 0.553039 0.054124 0.5038359
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 157
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 22
+	position = -8.725861 11.19441 8.539131
+	rotation = 0.1660433 0.1819005 -0.4457897 0.8605886
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 158
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 24
+	position = 1.089595 5.056069 3.992792
+	rotation = 0.2024463 0.1402627 -0.6265834 0.7394149
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 159
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 0
+	owner = 146
+	time = 26
+	position = 5.784075 -1.682836 4.841693
+	rotation = -0.2140106 0.1218918 0.9376526 0.2452523
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 160
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 146
+	fov = 150
+	owner = 146
+	time = 28
+	position = 5.825912 -6.585307 5.515292
+	rotation = -0.1967317 0.1481715 0.8987522 0.3627476
+}
+entity
+{
+	type = MapCurve
+	uin = 161
+	classPrompt = MapCurve
+	subscriptionsToDeletionEvent = 162 163 164 165 166 168 169 170 171 172
+	curveType = UniformCubicSpline
+	points = 161 162 163 164 165 166 168 169 170 171 172
+	automaticTimeStep = 4
+	owner = 161
+	time = 0
+	position = -6.59846 0.09030724 5.341268
+	name = MapCurve_MoveLamp
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 162
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 4
+	position = -4.483302 5.06783 5.564692
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 163
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 8
+	position = 4.767766 4.339926 2.717014
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 164
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 12
+	position = 5.852493 -3.508834 7.969028
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 165
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 16
+	position = -0.003859282 -7.126559 5.989438
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 166
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 20
+	position = -4.994462 -6.109812 5.956701
+}
+entity
+{
+	type = TestLamp
+	uin = 167
+	classPrompt = Dynamic
+	subscriptionsToDeletionEvent = 121
+	healthFactorAtBeginning = 1
+	position = -2.832997 -0.181083 4.266256
+	name = TestLamp_Move
+	logicClass = 121
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 168
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 24
+	position = -4.994462 3.360353 6.120263
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 169
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 28
+	position = 5.294497 3.614664 8.120263
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 170
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 32
+	position = 6.248311 -4.859612 7.27086
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 171
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 36
+	position = -7.276081 -4.208964 8.469445
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 172
+	classPrompt = MapCurvePoint
+	subscriptionsToDeletionEvent = 161
+	owner = 161
+	time = 40
+	position = -6.59846 0.09030724 5.341268
+}
+entity
+{
+	type = HelperPoint
+	uin = 173
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 105 110
+	position = -2.817864 -2.672381 1.231668
+	rotation = 0 0 -0.4099574 -0.9121046
+	name = HelperPoint_Character
+}
+entity
+{
+	type = Ball
+	uin = 174
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -0.06093121 3.960938 0.8765998
+	name = Ball_0
+}
+entity
+{
+	type = Ball
+	uin = 175
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = -1.367897 3.714912 0.8837807
+	name = Ball_1
+}
+entity
+{
+	type = Tree05A
+	uin = 176
+	classPrompt = MapObject
+	position = -0.03551069 0.1364534 0.03854162
+	scale = 0.8333333 0.8333333 0.8333333
+}
+entity
+{
+	type = StaticMesh
+	uin = 177
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 -12 0
+	name = StaticMesh_Floor_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 178
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 12 0
+	name = StaticMesh_Floor_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 179
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 0 0
+	name = StaticMesh_Floor_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 180
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 0 0
+	name = StaticMesh_Floor_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 181
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 182
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 183
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 184
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 185
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 186
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 187
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 188
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 189
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 190
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 191
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 192
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 193
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 194
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 195
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 196
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 0 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 197
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 198
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 -12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 199
+	classPrompt = StaticMesh
+	position = 12 0 6
+	name = StaticMesh_Ceiling_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 200
+	classPrompt = StaticMesh
+	position = 12 12 6
+	name = StaticMesh_Ceiling_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 201
+	classPrompt = StaticMesh
+	position = 12 -12 6
+	name = StaticMesh_Ceiling_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 202
+	classPrompt = StaticMesh
+	position = -12 0 6
+	name = StaticMesh_Ceiling_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 203
+	classPrompt = StaticMesh
+	position = -12 12 6
+	name = StaticMesh_Ceiling_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 204
+	classPrompt = StaticMesh
+	position = -12 -12 6
+	name = StaticMesh_Ceiling_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 205
+	classPrompt = StaticMesh
+	position = 0 0 6
+	name = StaticMesh_Ceiling_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 206
+	classPrompt = StaticMesh
+	position = 0 12 6
+	name = StaticMesh_Ceiling_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 207
+	classPrompt = StaticMesh
+	position = 0 -12 6
+	name = StaticMesh_Ceiling_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 208
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 209
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 210
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 211
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 212
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 213
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -24 24 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 214
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 215
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 216
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 217
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 218
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 219
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 220
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 221
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 222
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 223
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 -24 0
+	name = StaticMesh_CornerIntDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 224
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 -24 6
+	name = StaticMesh_CornerIntMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 225
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 226
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 -12 0
+	name = StaticMesh_WallDown_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 227
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 -12 6
+	name = StaticMesh_WallMiddle_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 228
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallUp_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 229
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 12 0
+	name = StaticMesh_WallDown_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 230
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 12 6
+	name = StaticMesh_WallMiddle_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 231
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallUp_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 232
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 0 0
+	name = StaticMesh_WallDown_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 233
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 0 6
+	name = StaticMesh_WallMiddle_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 234
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallUp_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 235
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 236
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 237
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 24 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 238
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 12 0
+	name = StaticMesh_Floor_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 239
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 12 0
+	name = StaticMesh_Floor_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 240
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 12 -12 0
+	name = StaticMesh_Floor_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 241
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = -12 -12 0
+	name = StaticMesh_Floor_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 242
+	classPrompt = StaticMesh
+	subscriptionsToDeletionEvent = 249
+	position = 0 0 0
+	name = StaticMesh_Floor_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = Teleporter
+	uin = 243
+	classPrompt = Teleporter
+	subscriptionsToDeletionEvent = 249
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	healthFactorAtBeginning = 1
+	position = 19.6426 -19.52313 0.5683844
+	rotation = 0 0 0.9238796 0.3826835
+	name = Teleporter_0
+	editorLayer = "Root Layer\\Corridors"
+}
+entity
+{
+	type = SpawnPoint
+	uin = 244
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = 17.34384 -17.5363 0.3046471
+	rotation = 0 0 -0.9238796 -0.3826835
+	name = SpawnPoint_0
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 245
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 20.32927 -15.01019 0.2549645
+	rotation = 0 0 0.8124338 -0.5830535
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 246
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 20.32927 -13.59326 0.2549645
+	rotation = 0 0 0.8124338 -0.5830535
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 247
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 12.70407 -20.24042 0.5777563
+	rotation = 0 0 0.9796209 0.2008553
+}
+entity
+{
+	type = ShotgunItem
+	uin = 248
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = 10.64816 -20.2383 0.4753142
+	rotation = 0 0 0.9233318 0.3840033
+}
+entity
+{
+	type = DecorativeObjectManager
+	uin = 249
+	classPrompt = DecorativeObjectManager
+	subscriptionsToDeletionEvent = 242 4 124 125 126 178 177 179 180 181 183 185 187 188 189 190 192 194 196 197 198 208 210 211 213 214 216 218 220 221 222 223 224 226 227 229 230 232 233 235 237 238 239 240 241 243
+	enabled = True
+	visible = True
+	geometries = 242 4 124 125 126 178 177 179 180 181 183 185 187 188 189 190 192 194 196 197 198 208 210 211 213 214 216 218 220 221 222 223 224 226 227 229 230 232 233 235 237 238 239 240 241 243
+	itemDataVersion = 2
+	typeItems
+	{
+		item
+		{
+			type = FlowerWhite
+			itemCount = 29
+		}
+		item
+		{
+			type = FlowerYellow
+			itemCount = 37
+		}
+		item
+		{
+			type = GrassBrown
+			itemCount = 96
+		}
+		item
+		{
+			type = GrassGreen
+			itemCount = 76
+		}
+	}
+}

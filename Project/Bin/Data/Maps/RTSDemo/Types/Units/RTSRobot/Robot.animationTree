@@ -1,0 +1,108 @@
+// Need Animation Tree Editor
+
+blocks
+{
+	block Output
+	{
+		uin = 1
+		in = 100
+	}
+
+	/////////////////////////////////////////////
+	//Attack trigger
+
+	block Trigger
+	{
+		uin = 100
+		triggerName = "fire"
+		off = 200
+		on = 101
+	}
+
+	block Animation
+	{
+		uin = 101
+		animationName = "attack"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//Select walk or idle
+
+	block Transition
+	{
+		uin = 200
+	
+		selectedIndexSource = 201
+		animation0 = 400 // go to idle animation
+		animation1 = 310 // go to walk
+	}
+
+	block Parameter
+	{
+		uin = 201
+		parameterName = "move"
+		value = 0
+	}
+
+	/////////////////////////////////////////////
+	//Walk
+
+	block Direction8Sides
+	{
+		uin = 310
+
+		angleSource = 311
+		speedMultiplierSource = 316
+
+		forward = 312
+		backward = 315
+		left = 312
+		right = 312
+		forwardLeft = 312
+		forwardRight = 312
+		backwardLeft = 315
+		backwardRight = 315
+	}
+
+	block Parameter
+	{
+		uin = 311
+		parameterName = "moveAngle"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 316
+		parameterName = "moveSpeed"
+		value = 1
+	}
+
+	block Animation
+	{
+		uin = 312
+		animationName = "walkAgressive"
+		speed = 0.6
+	}
+
+	block Animation
+	{
+		uin = 315
+		animationName = "walkAgressive"
+		speed = -0.6
+	}
+
+	/////////////////////////////////////////////
+	//Idle
+
+	block Animation
+	{
+		uin = 400
+		animationName = "idleAgressive"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+
+}

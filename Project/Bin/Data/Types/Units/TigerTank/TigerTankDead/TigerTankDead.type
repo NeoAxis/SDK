@@ -1,0 +1,37 @@
+type TigerTankDead
+{
+	class = Dynamic
+	lifeMax = 2000
+	targetPriority = 1
+	physicsModel = ".\\TigerTankDead.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Units\\TigerTank\\Base.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+			body = chassis
+		}
+	}
+	dieObjects
+	{
+		sound
+		{
+			soundName = "Types\\Units\\TigerTank\\Sounds\\Die.ogg"
+			priority = 0.7
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = 2 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = -2 0 0
+		}
+	}
+}

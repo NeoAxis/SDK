@@ -1,0 +1,9 @@
+highLevelMaterial CD_Gravel
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.9568627 0.9568627 0.9568627
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Gravel.dds"
+	}
+}

@@ -1,0 +1,14 @@
+type StaticBox
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			forceMaterial = StaticBox
+			toCollision = True
+		}
+	}
+}

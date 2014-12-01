@@ -1,0 +1,40 @@
+type Terminal
+{
+	class = Terminal
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Dynamic\\Terminal\\Terminal.mesh"
+			castDynamicShadows = True
+			collision = True
+			position = 0.3 0 -0.09
+			scale = 0.844 0.844 0.844
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\Terminal\\TerminalBack.mesh"
+			castDynamicShadows = True
+			collision = True
+			position = 0.3 0 -0.09
+			scale = 0.844 0.844 0.844
+		}
+		gui
+		{
+			position = 0.29 0 -0.1
+			rotation = 0.5 0.5 0.5 0.5
+			scale = 1.74666 1.31 0
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\Terminal\\TerminalClientNotSupportedInfo.mesh"
+			alias = clientNotSupported
+			position = 0.2618876 0 -0.09
+			rotation = 0 0 -1 -4.371139E-08
+			scale = 0.844 0.844 0.844
+			visible = False
+		}
+	}
+}

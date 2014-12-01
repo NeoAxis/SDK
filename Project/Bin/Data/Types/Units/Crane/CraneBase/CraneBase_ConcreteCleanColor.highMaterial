@@ -1,0 +1,23 @@
+highLevelMaterial CraneBase_ConcreteCleanColor
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\Units\Crane\Textures\dif_ConcreteClean_01.dds
+		texCoord = TexCoord3
+	}
+	diffuse2Map
+	{
+		texture = Types\Units\Crane\Textures\crc_sig01.dds
+		texCoord = TexCoord2
+	}
+	diffuse3Map
+	{
+		texture = Types\Units\Crane\Textures\col_wall01.dds
+		texCoord = TexCoord1
+	}
+	diffuse4Map
+	{
+		texture = Types\Units\Crane\Textures\Ocl_Base.dds
+	}
+}

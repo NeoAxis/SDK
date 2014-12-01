@@ -1,0 +1,8 @@
+highLevelMaterial BMWi8_4
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\tyrediff.dds"
+	}
+}

@@ -1,0 +1,40 @@
+highLevelMaterial OgreHeadAnimated
+{
+	template = ShaderBaseMaterial
+	emissionColor = 1 1 1
+	specularColor = 0.6666667 0.6666667 0.6666667
+	diffuse1Map
+	{
+		texture = ".\\OgreHead.dds"
+	}
+	diffuse2Map
+	{
+		transform
+		{
+			animation
+			{
+				rotateSpeed = 0.003
+			}
+		}
+	}
+	emissionMap
+	{
+		texture = "Gui\\Textures\\Engine.png"
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 0.03 0
+				rotateSpeed = 0.02
+			}
+		}
+	}
+	specularMap
+	{
+		texture = ".\\OgreHead_Specular.dds"
+	}
+	normalMap
+	{
+		texture = ".\\OgreHead_NormalHeight.png"
+	}
+}

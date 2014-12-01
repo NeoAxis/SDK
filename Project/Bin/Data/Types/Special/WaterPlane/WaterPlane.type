@@ -1,0 +1,65 @@
+type WaterPlane
+{
+	class = WaterPlane
+	physicsDensity = 1000
+	allowEditorCreate = True
+	allowEmptyName = True
+	networkType = Synchronized
+	splashes
+	{
+		item
+		{
+			splashType = Bullet
+			soundName = Types\Special\WaterPlane\WaterSplash.ogg
+			particles
+			{
+				item
+				{
+					particleName = WaterSplash
+					scale = 1
+				}
+				item
+				{
+					particleName = WaterSplashWave
+					scale = 1
+				}
+			}
+		}
+		item
+		{
+			splashType = Body
+			soundName = Types\Special\WaterPlane\WaterSplash.ogg
+			particles
+			{
+				item
+				{
+					particleName = WaterSplash
+					scale = 1.7
+				}
+				item
+				{
+					particleName = WaterSplashWave
+					scale = 1.7
+				}
+			}
+		}
+		item
+		{
+			splashType = Explosion
+			soundName = Types\Special\WaterPlane\WaterSplash.ogg
+			particles
+			{
+				item
+				{
+					particleName = WaterSplash
+					scale = 3
+				}
+				item
+				{
+					particleName = WaterSplashWave
+					scale = 3
+				}
+			}
+		}
+	}
+}

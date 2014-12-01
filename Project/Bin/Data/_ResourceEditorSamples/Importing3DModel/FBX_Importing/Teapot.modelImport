@@ -1,0 +1,18 @@
+sourceFile = "_ResourceEditorSamples\\Importing3DModel\\FBX_Importing\\Teapot.fbx"
+materialsNamePrefix = FBX_Importing_Teapot_
+objects
+{
+	mesh
+	{
+		name = Teapot001
+		pivotPosition = 0.01829286 0.003590196 0.02199176
+		sources
+		{
+			item
+			{
+				name = Teapot001
+				position = -0.00318861 0.003590202 -0.1355083
+			}
+		}
+	}
+}

@@ -1,0 +1,17 @@
+highLevelMaterial RTSHeadquaters2
+{
+	template = ShaderBaseMaterial
+	specularScale = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\RTSHeadquaters2.dds"
+	}
+	specularMap
+	{
+		texture = ".\\RTSHeadquatersSpecular.dds"
+	}
+	normalMap
+	{
+		texture = ".\\RTSHeadquatersNormals.dds"
+	}
+}

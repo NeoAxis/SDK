@@ -1,0 +1,14 @@
+highLevelMaterial SubmachineGunSmokeParticle
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	useNormals = False
+	depthWrite = False
+	softParticles = True
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Types\\Bullets\\SubmachineGunGrenade\\WhiteSmoke.png"
+		clamp = True
+	}
+}

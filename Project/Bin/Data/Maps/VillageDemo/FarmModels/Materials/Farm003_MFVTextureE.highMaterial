@@ -1,0 +1,20 @@
+highLevelMaterial Farm003_MFVTextureE
+{
+	template = ShaderBaseMaterial
+	alphaRejectFunction = GreaterEqual
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVTextureE.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\TexturesAO\\003.dds"
+		texCoord = TexCoord1
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\MFVTextureE_spec.dds"
+	}
+}

@@ -1,0 +1,14 @@
+highLevelMaterial RTSRockBig
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	specularShininess = 14.73
+	diffuse1Map
+	{
+		texture = ".\\RockBigDiffuse.dds"
+	}
+	specularMap
+	{
+		texture = ".\\RockBigSpecular.dds"
+	}
+}

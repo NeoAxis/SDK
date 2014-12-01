@@ -1,0 +1,15 @@
+type VillageApiaryHive
+{
+	class = Dynamic
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageApiaryHive\\VillageApiaryHive.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageApiaryHive\\meshU3D_018.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

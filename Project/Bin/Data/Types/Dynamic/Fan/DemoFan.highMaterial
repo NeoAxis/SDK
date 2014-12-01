@@ -1,0 +1,25 @@
+highLevelMaterial DemoFan
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionColor = 1 1 1
+	reflectionPower = 1.4
+	reflectionSpecificCubemap = "Models\\DemoCorridors\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\FanDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\FanSpecMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\FanSpecMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\FanNormalsMap.dds"
+	}
+}

@@ -1,0 +1,6 @@
+type JigsawPuzzleManager
+{
+	class = JigsawPuzzleManager
+	allowEditorCreate = True
+	networkType = Synchronized
+}

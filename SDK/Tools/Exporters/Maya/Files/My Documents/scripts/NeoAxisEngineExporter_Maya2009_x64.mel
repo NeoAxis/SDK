@@ -1,0 +1,54 @@
+// ===== Load Plug-in
+loadPlugin "NeoAxisEngineExporter_Maya2009_x64";
+
+// ===== Create NeoAxisEngine menu
+setParent "MayaWindow";
+menu -label "NeoAxis Engine" -tearOff false;
+	menuItem -label "Configure Export" -command "NeoAxisEngineSettings";
+	menuItem -label "Export" -command "NeoAxisEngineExporter";	
+	menuItem -divider true;
+	menuItem -label "Import Settings" -command "NeoAxisEngineImportSettings";
+	menuItem -label "Export Settings" -command "NeoAxisEngineExportSettings";
+	menuItem -label "Clear Settings" -command "NeoAxisEngineClearSettings";
+	menuItem -divider true;
+	menuItem -label "About" -command "NeoAxisEngineAbout";
+
+// ===== Launch exporter UI
+global proc NeoAxisEngineExporter()
+{
+	print ("NeoAxisEngineExport -export" + ";\n");
+	eval ("NeoAxisEngineExport -export");
+}
+
+// ===== Launch exporter settings
+global proc NeoAxisEngineSettings()
+{
+	print ("NeoAxisEngineExport -settings"+ ";\n");
+	eval ("NeoAxisEngineExport -settings");
+}
+
+global proc NeoAxisEngineImportSettings()
+{
+	print ("NeoAxisEngineExport -import_settings"+ ";\n");
+	eval ("NeoAxisEngineExport -import_settings");
+}
+
+global proc NeoAxisEngineExportSettings()
+{
+	print ("NeoAxisEngineExport -export_settings"+ ";\n");
+	eval ("NeoAxisEngineExport -export_settings");
+}
+
+// ===== Launch exporter settings clearing
+global proc NeoAxisEngineClearSettings()
+{
+	print ("NeoAxisEngineExport -clear_settings"+ ";\n");
+	eval ("NeoAxisEngineExport -clear_settings");
+}
+
+// ===== Launch exporter about box
+global proc NeoAxisEngineAbout()
+{
+	print ("NeoAxisEngineExport -about"+ ";\n");
+	eval ("NeoAxisEngineExport -about");
+}

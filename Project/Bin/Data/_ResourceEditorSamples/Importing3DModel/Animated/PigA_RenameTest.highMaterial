@@ -1,0 +1,12 @@
+highLevelMaterial PigA_RenameTest
+{
+	dataSource = "_ResourceEditorSamples\\Importing3DModel\\Animated\\PigA.modelImport"
+	template = ShaderBaseMaterial
+	diffuseColor = 1 1 1
+	specularColor = 0 0 0 0
+	specularShininess = 20
+	diffuse1Map
+	{
+		texture = ".\\PigA.jpg"
+	}
+}

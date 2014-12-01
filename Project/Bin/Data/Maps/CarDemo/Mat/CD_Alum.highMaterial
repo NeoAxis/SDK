@@ -1,0 +1,7 @@
+highLevelMaterial CD_Alum
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.4313726 0.454902 0.4784314
+	reflectionColor = 0.509804 0.509804 0.509804
+	specularColor = 0.4666667 0.4666667 0.4666667
+}

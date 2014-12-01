@@ -1,0 +1,53 @@
+type RTSMineDead
+{
+	class = Dynamic
+	substance = Metal
+	lifeTime = 5
+	physicsModel = ".\\RTSMineDead.physics"
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RTSMineBase.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+		}
+		mesh
+		{
+			meshName = ".\\RTSMinePipes.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineTower.mesh"
+			castDynamicShadows = True
+			forceMaterial = Black
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessHalfLife
+			position = -1.5 -1.5 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = 1.5 1.5 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = -1.2 1.3 3
+			visible = False
+		}
+	}
+}

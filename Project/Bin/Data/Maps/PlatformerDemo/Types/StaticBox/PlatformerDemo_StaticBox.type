@@ -1,0 +1,15 @@
+type PlatformerDemo_StaticBox
+{
+	class = MapObject
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			castDynamicShadows = True
+			collision = True
+		}
+	}
+}

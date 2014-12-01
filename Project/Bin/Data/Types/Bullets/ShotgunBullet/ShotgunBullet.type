@@ -1,0 +1,43 @@
+type ShotgunBullet
+{
+	class = Bullet
+	velocity = 70
+	damage = 5
+	impulse = 7000
+	lifeTime = 0.3
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		billboard
+		{
+			color = 1 1 0.5 0.5
+			materialName = DefaultFlare
+			size = 0.7 0.7
+		}
+		particle
+		{
+			particleName = ShotgunBulletParticle
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = ShotgunBulletHitParticle
+		}
+		particle
+		{
+			particleName = ShotgunBulletHitParticle2
+		}
+		sound
+		{
+			soundName = "Types/Bullets/ShotgunBullet/Die.ogg"
+			volume = 0.5
+		}
+		mapObject
+		{
+			type = DefaultBulletDecalCreator
+		}
+	}
+}

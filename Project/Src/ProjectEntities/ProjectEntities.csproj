@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" ToolsVersion="4.0">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>9.0.21022</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{3F0C9CE6-824F-4B8F-A4F3-68A70F7CF63A}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>ProjectEntities</RootNamespace>
+    <AssemblyName>ProjectEntities</AssemblyName>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <OldToolsVersion>3.5</OldToolsVersion>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <NoWarn>1591</NoWarn>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <DocumentationFile>ProjectEntities.xml</DocumentationFile>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>..\..\Bin\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <GenerateSerializationAssemblies>Off</GenerateSerializationAssemblies>
+    <NoWarn>1591</NoWarn>
+    <DocumentationFile>ProjectEntities.xml</DocumentationFile>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="DecorativeObjectManager, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\DecorativeObjectManager.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EngineApp, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\EngineApp.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="EntitySystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\EntitySystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="FileSystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\FileSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="HeightmapTerrain, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\HeightmapTerrain.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Log, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Log.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MapSystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\MapSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="MathEx, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\MathEx.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Networking, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Networking.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="PhysicsSystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\PhysicsSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Renderer, Version=0.0.0.0, Culture=neutral, processorArchitecture=x86">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Renderer.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="SoundSystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\SoundSystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="UISystem, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\UISystem.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+    <Reference Include="Utils, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Utils.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Action Specific\Car.cs" />
+    <Compile Include="Action Specific\TurretAI.cs" />
+    <Compile Include="Action Specific\Crane.cs" />
+    <Compile Include="Action Specific\Turret.cs" />
+    <Compile Include="AI.cs" />
+    <Compile Include="Aircraft.cs" />
+    <Compile Include="BooleanSwitch.cs" />
+    <Compile Include="Action Specific\Tank.cs" />
+    <Compile Include="ExampleEntityExtendedProperties.cs" />
+    <Compile Include="RenderableCurve.cs" />
+    <Compile Include="WaterPlaneClipVolume.cs" />
+    <Compile Include="DynamicSinusoidSurface.cs" />
+    <Compile Include="SimpleMap.cs" />
+    <Compile Include="Terminal.cs" />
+    <Compile Include="Decal.cs" />
+    <Compile Include="DecalCreator.cs" />
+    <Compile Include="Influences.cs" />
+    <Compile Include="JigsawPuzzleGame Specific\JigsawPuzzlePiece.cs" />
+    <Compile Include="JigsawPuzzleGame Specific\JigsawPuzzleManager.cs" />
+    <Compile Include="TankGame Specific\Minefield.cs" />
+    <Compile Include="TankGame Specific\TankGameExtendedProperties.cs" />
+    <Compile Include="TankGame Specific\TankGameUnitAI.cs" />
+    <Compile Include="ExampleMagicObject.cs" />
+    <Compile Include="CutSceneManager.cs" />
+    <Compile Include="DynamicCollision.cs" />
+    <Compile Include="ObserveCameraArea.cs" />
+    <Compile Include="RTS Specific\RTSFactionManager.cs" />
+    <Compile Include="RTS Specific\RTSBuildingAI.cs" />
+    <Compile Include="RTS Specific\RTSBuilding.cs" />
+    <Compile Include="RTS Specific\RTSCharacter.cs" />
+    <Compile Include="RTS Specific\RTSMine.cs" />
+    <Compile Include="RTS Specific\RTSUnitAI.cs" />
+    <Compile Include="InfluenceRegion.cs" />
+    <Compile Include="AutomaticOpenDoor.cs" />
+    <Compile Include="Bullet.cs" />
+    <Compile Include="BulletItem.cs" />
+    <Compile Include="Action Specific\Character.cs" />
+    <Compile Include="Corpse.cs" />
+    <Compile Include="Door.cs" />
+    <Compile Include="Firework.cs" />
+    <Compile Include="JumpBlowMeleeWeapon.cs" />
+    <Compile Include="Action Specific\MapChangeRegion.cs" />
+    <Compile Include="MeleeWeapon.cs" />
+    <Compile Include="Action Specific\GameCharacterAI.cs" />
+    <Compile Include="Dynamic.cs" />
+    <Compile Include="Explosion.cs" />
+    <Compile Include="Faction.cs" />
+    <Compile Include="Fan.cs" />
+    <Compile Include="Action Specific\GameCharacter.cs" />
+    <Compile Include="GameGuiObject.cs" />
+    <Compile Include="GameMap.cs" />
+    <Compile Include="GameWorld.cs" />
+    <Compile Include="General.cs" />
+    <Compile Include="Gun.cs" />
+    <Compile Include="WaterPlane.cs" />
+    <Compile Include="WeaponItem.cs" />
+    <Compile Include="HealthItem.cs" />
+    <Compile Include="Influence.cs" />
+    <Compile Include="InfluenceItem.cs" />
+    <Compile Include="Intellect.cs" />
+    <Compile Include="Item.cs" />
+    <Compile Include="ItemCreator.cs" />
+    <Compile Include="Action Specific\JumpPad.cs" />
+    <Compile Include="Action Specific\PlayerCharacter.cs" />
+    <Compile Include="Action Specific\PlayerIntellect.cs" />
+    <Compile Include="PlayerManager.cs" />
+    <Compile Include="Teleporter.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SpawnPoint.cs" />
+    <Compile Include="FloatSwitch.cs" />
+    <Compile Include="RTS Specific\RTSUnit.cs" />
+    <Compile Include="PhysicalStream.cs" />
+    <Compile Include="Switch.cs" />
+    <Compile Include="TurnFloatSwitch.cs" />
+    <Compile Include="Unit.cs" />
+    <Compile Include="Weapon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{B4F97281-0DBD-4835-9ED8-7DFB966E87FF}" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\Components\GridBasedNavigationSystem\GridBasedNavigationSystem\GridBasedNavigationSystem.csproj">
+      <Project>{7B152401-E638-41BC-86DA-F88B9FF06CA1}</Project>
+      <Name>GridBasedNavigationSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\RecastNavigationSystem\RecastNavigationSystem\RecastNavigationSystem.csproj">
+      <Project>{4BC8BEC2-7892-48F8-B5F8-C3A9E1768BCC}</Project>
+      <Name>RecastNavigationSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\ProjectCommon\ProjectCommon.csproj">
+      <Project>{E4C09433-ECC3-404C-A303-E9A93F241B91}</Project>
+      <Name>ProjectCommon</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>

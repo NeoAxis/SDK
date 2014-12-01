@@ -1,0 +1,24 @@
+type FlareTest
+{
+	class = MapObject
+	allowEditorCreate = True
+	networkType = ClientOnly
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			scale = 0.1 0.1 0.1
+			onlyForEditor = True
+		}
+		billboard
+		{
+			color = 0.909804 0.909804 1
+			materialName = FlareTest
+			size = 3 3
+			fadeVelocity = 4
+			cameraVisibleCheck = True
+		}
+	}
+}

@@ -1,0 +1,5 @@
+type BadFaction
+{
+	class = Faction
+	creatableInMapEditor = False
+}

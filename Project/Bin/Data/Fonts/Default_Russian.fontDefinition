@@ -1,0 +1,39 @@
+fontDefinition
+{
+	type = TrueType
+	trueTypeFontName = "Fonts\\Tahoma.ttf"
+	inGame3DGuiHeightInPixels = 32
+	textureSize = 512
+	textureIndentBetweenCharacters = 8
+	sizeMultiplier = 1.1 0.9
+	advanceMultiplier = 0.95
+	drawOffsetY = -0.15
+	charactersRanges
+	{
+		item
+		{
+			begin = 0
+			end = 0
+		}
+		item
+		{
+			begin = 32
+			end = 127
+		}
+		item
+		{
+			begin = 160
+			end = 191
+		}
+		item
+		{
+			begin = 1025
+			end = 1025
+		}
+		item
+		{
+			begin = 1040
+			end = 1105
+		}
+	}
+}

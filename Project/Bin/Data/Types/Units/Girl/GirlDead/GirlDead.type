@@ -1,0 +1,19 @@
+type GirlDead
+{
+	class = Dynamic
+	substance = Flesh
+	physicsModel = "Types\\Units\\Girl\\GirlDead\\GirlDead.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Units\\Girl\\Girl.mesh"
+			castDynamicShadows = True
+			linkBonesToBodies = True
+			position = 0 0 -1.15
+			rotation = 0 0 -0.7071068 -0.7071068
+		}
+	}
+}

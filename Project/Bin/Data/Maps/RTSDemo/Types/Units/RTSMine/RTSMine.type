@@ -1,0 +1,144 @@
+type RTSMine
+{
+	class = RTSMine
+	buildCost = 100
+	initialAI = DefaultRTSBuildingAI
+	lifeMax = 200
+	substance = Metal
+	physicsModel = ".\\RTSMine.physics"
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RTSMineBase.mesh"
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\RTSMinePipes.mesh"
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineTower.mesh"
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\RTSMinePropeller.mesh"
+			castDynamicShadows = True
+		}
+		particle
+		{
+			particleName = RTSGeyserParticle
+			updateWhenItNotInView = False
+			position = 0 0 3
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineBase.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building0
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineBase.mesh"
+			castDynamicShadows = True
+			alias = building1
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineTower.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building1
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineBase.mesh"
+			castDynamicShadows = True
+			alias = building2
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSMineTower.mesh"
+			castDynamicShadows = True
+			alias = building2
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSMinePipes.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building2
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSMinePropeller.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building2
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessHalfLife
+			position = -1.5 -1.5 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = 1.5 1.5 1.5
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = -1.2 1.3 3
+			visible = False
+		}
+	}
+	dieObjects
+	{
+		particle
+		{
+			particleName = RTSExplosionParticle
+		}
+		sound
+		{
+			soundName = "Maps\\RTSDemo\\Sounds\\Explode.ogg"
+			priority = 0.7
+			minDistance = 10
+			maxDistance = 100
+		}
+		mapObject
+		{
+			type = RTSFumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 0 0 2.5
+		}
+		mapObject
+		{
+			type = RTSFireworkBullet
+			alias = randomRotation
+			count = 5
+			position = 0 0 2.5
+		}
+		mapObject
+		{
+			type = RTSMineDead
+		}
+	}
+}

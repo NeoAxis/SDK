@@ -1,0 +1,10 @@
+type TurretDemo_MonsterSuicideObjectHitExplosion
+{
+	class = Explosion
+	radius = 7
+	damage = 550
+	impulse = 210000
+	influenceType = FireInfluence
+	influenceMaxTime = 5
+	creatableInMapEditor = False
+}

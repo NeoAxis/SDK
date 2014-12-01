@@ -1,0 +1,30 @@
+type DecorativeStones
+{
+	class = DecorativeObject
+	batchSize = 25
+	distanceBetweenObjects = 0.7
+	visibilityDistance = 30
+	items
+	{
+		item
+		{
+			meshName = ".\\Stone01.mesh"
+		}
+		item
+		{
+			meshName = ".\\Stone02.mesh"
+		}
+		item
+		{
+			meshName = ".\\Stone03.mesh"
+		}
+		item
+		{
+			meshName = ".\\Stone04.mesh"
+		}
+		item
+		{
+			meshName = ".\\Stone05.mesh"
+		}
+	}
+}

@@ -1,0 +1,16 @@
+highLevelMaterial FlowerWhite
+{
+	template = VegetationMaterial
+	useNormals = False
+	alphaRejectFunction = GreaterEqual
+	alphaToCoverage = True
+	fadingByDistanceRange = 45 55
+	receiveObjectsPositionsFromVertices = True
+	windEffectFactor = 2
+	bendVariation = 0.005
+	detailBending = False
+	diffuse1Map
+	{
+		texture = "Types\\DecorativeObjects\\FlowerWhite\\FlowerWhite.dds"
+	}
+}

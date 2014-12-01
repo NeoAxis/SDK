@@ -1,0 +1,119 @@
+type CD_Roadside
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Roadside.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside01.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside02.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside03.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside04.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside05.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside06.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside07.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside08.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside09.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside10.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside11.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside12.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside13.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside14.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Roadside15.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+	}
+}

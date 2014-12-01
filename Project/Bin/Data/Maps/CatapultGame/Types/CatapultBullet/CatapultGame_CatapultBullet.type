@@ -1,0 +1,15 @@
+type CatapultGame_CatapultBullet
+{
+	class = Dynamic
+	physicsModel = ".\\CatapultBullet.physics"
+	creatableInMapEditor = False
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\CatapultBullet.mesh"
+			castDynamicShadows = True
+			body = body1
+		}
+	}
+}

@@ -1,0 +1,13 @@
+highLevelMaterial SmallHealthItem
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	diffuse1Map
+	{
+		texture = Types\Items\HealthItems\SmallHealthItem\SmallHealthItem.dds
+	}
+	normalMap
+	{
+		texture = Types\Items\HealthItems\SmallHealthItem\SmallHealthItem_Normals.dds
+	}
+}

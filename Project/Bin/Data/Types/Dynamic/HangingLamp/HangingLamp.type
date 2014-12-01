@@ -1,0 +1,26 @@
+type HangingLamp
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\HangingLamp\HangingLamp.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\HangingLamp\HangingLamp.mesh
+			body = body1
+		}
+		light
+		{
+			lightType = Spot
+			specularColor = 1 1 1
+			attenuationFar = 10
+			attenuationQuadric = 0.4
+			spotlightInnerAngle = 105
+			spotlightOuterAngle = 125
+			position = 0 0 0.07813811
+			rotation = 0 -0.7069845 0 -0.707229
+		}
+	}
+}

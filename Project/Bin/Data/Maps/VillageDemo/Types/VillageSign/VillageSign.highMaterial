@@ -1,0 +1,24 @@
+highLevelMaterial VillageSign
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\Types\\VillageSign\\Sign.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\VillageDemo\\Types\\VillageSign\\Sign_AO.dds"
+		texCoord = TexCoord1
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\Types\\VillageSign\\Sign_Specular.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\Types\\VillageSign\\Sign_Normal.dds"
+	}
+}

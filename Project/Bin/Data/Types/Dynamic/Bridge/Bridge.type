@@ -1,0 +1,115 @@
+type Bridge
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\Bridge\Bridge.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = base1
+			scale = 6 2.5 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = base2
+			scale = 6 2.5 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body0
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body1
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body2
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body3
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body4
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body5
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body6
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body7
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body8
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body9
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body10
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body11
+			scale = 5 3 0.3
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\Bridge\BridgeCell.mesh
+			castDynamicShadows = True
+			body = body12
+			scale = 5 3 0.3
+		}
+	}
+}

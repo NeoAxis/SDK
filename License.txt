@@ -1,0 +1,84 @@
+NeoAxis 3D Engine 3.0 Free SDK License Agreement
+==================
+
+Copyright (C) 2014 NeoAxis Group Ltd. All rights reserved.
+
+Except where otherwise noted, all of the documentation and software 
+included in the NeoAxis 3D Engine Free License Setup package is 
+copyrighted by NeoAxis Group Ltd.
+
+1. LICENSE AGREEMENT
+   This document is an agreement between NeoAxis Group Ltd ("Licensor")
+   and Licensee regarding the use of the "NeoAxis 3D Engine Free 
+   License Package" by Licensee.
+
+2. DEFINITIONS 
+   When used in this document, the following terms have the meanings 
+   described below: 
+   a. "Products X" means the products that Licensee wishes to 
+      use The SDK to develop. 
+   b. "The SDK" means the "NeoAxis 3D Engine Free SDK".
+
+3. COPYRIGHT
+   All material contained in the distribution library is Copyright
+   (C) NeoAxis Group Ltd unless otherwise noted.
+
+4. OWNERSHIP
+   The title and ownership of the Software and shall remain with
+   Licensor. All rights to patents, copyrights, or any other 
+   intellectual property rights shall remain with the Licensor, or 
+   their respective owner.
+
+5. LICENSE GRANT
+   a. All redistributions must retain all occurrences of the above 
+      copyright notice and web site addresses that are currently in
+      place (for example: Engine Logo).
+   b. Modified versions in binary form must be plainly marked as such,
+      and must not be misrepresented as being the original software.
+   c. Licensee may sell the Software.
+   d. Licensee may use the Software in a commercial product.
+   e. Licensee may use the Software in object code form as as part a 
+      commercial product on the condition the Licenses agrees to
+      all the terms of this contract.
+   f. Licensee has the right to distribute any parts of the Software 
+      except files with art content from the folder:
+      - Project\Bin\Data\Types\Vegetation\Trees.
+
+   If you do not accept this disclaimer of warranty or it is not
+   enforceable in your jurisdiction, then you may not use the Software.
+
+6. DISCLAIMER OF WARRANTY
+   The Software is provided "AS IS" and any warranty, expressed or 
+   implied, including with out limitation, the implied warranties of 
+   merchantability and fitness for a particular purpose, and 
+   non-infringement of any third party rights are disclaimed.
+
+   If you do not accept this disclaimer of warranty or it is not
+   enforceable in your jurisdiction, then you may not use the Software.
+
+7. NO LIABILITY
+   Licensee agrees that use of the Software is at their own risk.
+   Licensee agrees that they or any third party shall not have any
+   claim against Licensor or anyone associated directly or indirectly 
+   with Licensor for any direct, indirect, consequential, special, 
+   exemplary, punitive, and/or other damages (including with out 
+   limitation harm, injury, loss of profits, loss of data and/or 
+   business interruption) from any cause, in connection to the use 
+   and/or distribution of the Software.
+
+   If you do not accept this disclaimer of warranty or it is not
+   enforceable in your jurisdiction, then you may not use the Software.
+
+8. MISCELLANEOUS
+   If any provision in this agreement is unenforceable or invalid it 
+   shall not affect the rest of the agreement. The licensee agrees to 
+   replace any unenforceable or invalid provision with a valid 
+   provision that upholds the intent of the provision to the greatest
+   extent possible.
+
+9. AGREEMENT
+   This agreement constitutes the complete agreement concerning this 
+   license. Any change to this agreement must be made in writing.
+
+NeoAxis Group Ltd.
+http://www.neoaxis.com/

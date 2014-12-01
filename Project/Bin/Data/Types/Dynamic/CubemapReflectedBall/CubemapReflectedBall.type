@@ -1,0 +1,16 @@
+type CubemapReflectedBall
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\CubemapReflectedBall\CubemapReflectedBall.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\CubemapReflectedBall\CubemapReflectedBall.mesh
+			castDynamicShadows = True
+			scale = 2 2 2
+		}
+	}
+}

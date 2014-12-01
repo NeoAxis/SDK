@@ -1,0 +1,18 @@
+type VillageSplashDown
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		particle
+		{
+			particleName = VillageSplashDown
+			updateWhenItNotInView = False
+		}
+		mesh
+		{
+			meshName = "Base\\Types\\InvisiblePoint.mesh"
+			onlyForEditor = True
+		}
+	}
+}

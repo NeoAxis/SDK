@@ -1,0 +1,56 @@
+type Robot
+{
+	class = GameCharacter
+	optimalAttackDistanceRange = 0 40
+	height = 3
+	radius = 0.6
+	mass = 210
+	heightFromPositionToGround = 1.7
+	walkForce = 1120000
+	flyControlMaxSpeed = 3
+	flyControlForce = 147000
+	initialAI = DefaultGameCharacterAI
+	viewRadius = 60
+	fpsCameraOffset = 0.4 0 1.2
+	healthMax = 150
+	targetPriority = 1
+	substance = Metal
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Units\\Robot\\Robot.mesh"
+			castDynamicShadows = True
+			animationTree = "Types\\Units\\Robot\\Robot.animationTree"
+			position = 0 0 -1.75
+		}
+		mapObject
+		{
+			type = RobotGun
+			position = 0.6 -0.3 -0.15
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = RobotDead
+			copyVelocitiesFromParent = True
+			position = 0 0 -1.4
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		sound
+		{
+			soundName = "Sounds\\Explode.ogg"
+			priority = 0.7
+		}
+		mapObject
+		{
+			type = ExplosionBarrelExplosion
+		}
+	}
+}

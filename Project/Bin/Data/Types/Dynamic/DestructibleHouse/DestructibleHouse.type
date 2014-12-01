@@ -1,0 +1,128 @@
+type DestructibleHouse
+{
+	class = Dynamic
+	lifeMax = 700
+	allowEditorCreate = True
+	networkType = Synchronized
+	automaticInfluences
+	{
+		item
+		{
+			influence = FireInfluence
+		}
+		item
+		{
+			influence = SmokeInfluence
+			lifeCoefficientRange = 0 0.25
+		}
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\DestructibleHouse\DestructibleHouse.mesh
+			castDynamicShadows = True
+			collision = True
+		}
+		particle
+		{
+			particleName = DestructibleHouseFileParticle
+			updateWhenItNotInView = False
+			alias = FireInfluence
+			position = -4.793827 4.595476 4.411753
+			visible = False
+		}
+		particle
+		{
+			particleName = DestructibleHouseFileParticle
+			updateWhenItNotInView = False
+			alias = FireInfluence
+			position = 0.3888287 4.595476 4.411753
+			visible = False
+		}
+		particle
+		{
+			particleName = DestructibleHouseFileParticle
+			updateWhenItNotInView = False
+			alias = FireInfluence
+			position = -3.282546 -4.613338 4.411753
+			visible = False
+		}
+		particle
+		{
+			particleName = DestructibleHouseFileParticle
+			updateWhenItNotInView = False
+			alias = FireInfluence
+			position = 4.561577 -4.613338 4.411753
+			visible = False
+		}
+		particle
+		{
+			particleName = DestructibleHouseFileParticle
+			updateWhenItNotInView = False
+			alias = FireInfluence
+			position = 6.708531 -0.1478402 4.411753
+			visible = False
+		}
+		particle
+		{
+			particleName = DestructibleHouseFileParticle
+			updateWhenItNotInView = False
+			alias = FireInfluence
+			position = -6.622275 -0.1478402 4.411753
+			visible = False
+		}
+		particle
+		{
+			particleName = SmokeParticle
+			updateWhenItNotInView = False
+			alias = SmokeInfluence
+			position = 4.366764 4.7835 2.080508
+			visible = False
+		}
+		particle
+		{
+			particleName = SmokeParticle
+			updateWhenItNotInView = False
+			alias = SmokeInfluence
+			position = -0.7116106 -4.979528 2.080508
+			visible = False
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = DestructibleHouseRuins
+		}
+		sound
+		{
+			soundName = Sounds\Explode.ogg
+			priority = 0.7
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = 3 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = -3 0 0
+		}
+		mapObject
+		{
+			type = FumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 3 0 1
+		}
+		mapObject
+		{
+			type = FumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = -3 0 1
+		}
+	}
+}

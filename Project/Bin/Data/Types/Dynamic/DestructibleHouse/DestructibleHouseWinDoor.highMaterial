@@ -1,0 +1,8 @@
+highLevelMaterial DestructibleHouseWinDoor
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\Dynamic\DestructibleHouse\DestructibleHouseColor.dds
+	}
+}

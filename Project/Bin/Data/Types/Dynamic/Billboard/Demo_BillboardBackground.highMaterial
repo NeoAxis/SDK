@@ -1,0 +1,8 @@
+highLevelMaterial Demo_BillboardBackground
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	doubleSided = True
+	halfLambert = True
+	diffuseColor = 0 0.1372549 0.4470588 0.1568628
+}

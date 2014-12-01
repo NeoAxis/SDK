@@ -1,0 +1,15 @@
+type CatapultGame_SimpleBox
+{
+	class = Dynamic
+	physicsModel = ".\\SimpleBox.physics"
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\SimpleBox.mesh"
+			castDynamicShadows = True
+			body = body1
+		}
+	}
+}

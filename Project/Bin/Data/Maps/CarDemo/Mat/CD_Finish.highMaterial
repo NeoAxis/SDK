@@ -1,0 +1,8 @@
+highLevelMaterial CD_Finish
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Finish.dds"
+	}
+}

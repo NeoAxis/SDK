@@ -1,0 +1,19 @@
+highLevelMaterial BMWi8_Glass
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	lighting = False
+	useNormals = False
+	receiveShadows = False
+	diffuseColor = 0.1176471 0.1176471 0.1372549
+	reflectionColor = 0.3529412 0.3529412 0.3529412
+	reflectionSpecificCubemap = ".\\Sky\\SkyBox.jpg"
+	diffuse1Map
+	{
+		texture = ".\\glas2opa.png"
+	}
+	reflectionMap
+	{
+		texture = ".\\glas2opa.png"
+	}
+}

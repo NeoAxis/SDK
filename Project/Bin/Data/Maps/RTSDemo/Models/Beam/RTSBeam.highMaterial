@@ -1,0 +1,15 @@
+highLevelMaterial RTSBeam
+{
+	template = ShaderBaseMaterial
+	diffuseVertexColor = True
+	specularColor = 1 1 1
+	specularShininess = 10.153
+	diffuse1Map
+	{
+		texture = ".\\Beam.dds"
+	}
+	specularMap
+	{
+		texture = ".\\Beam_SPEC.dds"
+	}
+}

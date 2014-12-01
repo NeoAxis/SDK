@@ -1,0 +1,16 @@
+type WaterPlaneClipVolume
+{
+	class = WaterPlaneClipVolume
+	allowEditorCreate = True
+	allowEmptyName = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Base\Types\InvisiblePoint.mesh
+			useOwnerScale = False
+			onlyForEditor = True
+		}
+	}
+}

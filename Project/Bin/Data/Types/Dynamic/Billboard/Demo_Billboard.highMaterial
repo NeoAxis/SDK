@@ -1,0 +1,24 @@
+highLevelMaterial Demo_Billboard
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	reflectionColor = 1 1 1
+	reflectionSpecificCubemap = "Models\\DemoCorridors\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\BillboardDiffuse.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\BillboardSpecular.dds"
+	}
+	specularMap
+	{
+		texture = ".\\BillboardSpecular.dds"
+	}
+	normalMap
+	{
+		texture = ".\\BillboardNormals.dds"
+	}
+}

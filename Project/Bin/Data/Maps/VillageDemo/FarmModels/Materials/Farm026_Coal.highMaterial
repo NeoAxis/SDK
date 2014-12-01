@@ -1,0 +1,24 @@
+highLevelMaterial Farm026_Coal
+{
+	template = ShaderBaseMaterial
+	emissionColor = 1 1 1
+	emissionPower = 5
+	specularColor = 1 1 1
+	specularShininess = 100
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Coal.dds"
+	}
+	emissionMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Coal_EMI.dds"
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Coal_SPEC.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Coal_NRM.dds"
+	}
+}

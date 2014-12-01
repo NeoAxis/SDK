@@ -1,0 +1,27 @@
+type RTSRobotBullet
+{
+	class = Bullet
+	velocity = 200
+	damage = 6
+	lifeTime = 1
+	creatableInMapEditor = False
+	attachedObjects
+	{
+		billboard
+		{
+			materialName = RTSItemParticle
+			size = 2 2
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = RTSRobotBulletHit
+		}
+		particle
+		{
+			particleName = RTSRobotBulletHit2
+		}
+	}
+}

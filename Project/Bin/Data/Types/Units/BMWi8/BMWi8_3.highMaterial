@@ -1,0 +1,8 @@
+highLevelMaterial BMWi8_3
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\tyr2dif.dds"
+	}
+}

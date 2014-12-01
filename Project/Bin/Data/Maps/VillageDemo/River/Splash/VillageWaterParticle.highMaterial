@@ -1,0 +1,21 @@
+highLevelMaterial VillageWaterParticle
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	receiveShadows = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.5
+	diffusePower = 3
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\River\\Splash\\Splash.dds"
+		clamp = True
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\VillageDemo\\River\\Splash\\Splash2.dds"
+	}
+}

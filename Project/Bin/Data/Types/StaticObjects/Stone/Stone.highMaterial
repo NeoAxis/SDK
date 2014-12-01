@@ -1,0 +1,8 @@
+highLevelMaterial Stone
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\StaticObjects\Stone\Stone.dds
+	}
+}

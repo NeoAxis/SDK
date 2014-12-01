@@ -1,0 +1,17 @@
+highLevelMaterial FarmRock_19SG
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\Rock\\rock_008_c.dds"
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\Rock\\rock_008_s.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\Rock\\rock_008_N.dds"
+	}
+}

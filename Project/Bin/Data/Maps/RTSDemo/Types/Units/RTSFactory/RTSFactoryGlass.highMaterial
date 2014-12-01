@@ -1,0 +1,10 @@
+highLevelMaterial RTSFactoryGlass
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	receiveShadows = False
+	diffuse1Map
+	{
+		texture = ".\\Glass.jpg"
+	}
+}

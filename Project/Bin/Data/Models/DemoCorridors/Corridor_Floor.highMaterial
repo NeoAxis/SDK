@@ -1,0 +1,24 @@
+highLevelMaterial Corridor_Floor
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionColor = 1 1 1
+	reflectionSpecificCubemap = ".\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\FloorDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\FloorSpecularMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\FloorSpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\FloorNormalsMap.dds"
+	}
+}

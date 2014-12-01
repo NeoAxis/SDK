@@ -1,0 +1,14 @@
+type CarDemo_Cone
+{
+	class = MapObject
+	physicsModel = ".\\Cone.physics"
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Cone.mesh"
+			castDynamicShadows = True
+			receiveStaticShadows = True
+		}
+	}
+}

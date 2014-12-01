@@ -1,0 +1,5 @@
+highLevelMaterial Rabbit
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 1 0 0
+}

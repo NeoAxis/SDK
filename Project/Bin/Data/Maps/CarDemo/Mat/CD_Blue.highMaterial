@@ -1,0 +1,5 @@
+highLevelMaterial CD_Blue
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0.372549 0.6431373 0.7098039
+}

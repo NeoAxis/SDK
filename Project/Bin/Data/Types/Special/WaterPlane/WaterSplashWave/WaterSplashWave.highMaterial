@@ -1,0 +1,11 @@
+highLevelMaterial WaterSplashWave
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = Types\Special\WaterPlane\WaterSplashWave\WaterSplashWave.jpg
+		clamp = True
+	}
+}

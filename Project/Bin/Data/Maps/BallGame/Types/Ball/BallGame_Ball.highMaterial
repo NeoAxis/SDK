@@ -1,0 +1,15 @@
+highLevelMaterial BallGame_Ball
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0 1 0
+	specularColor = 1 1 1
+	specularShininess = 21.595
+	diffuse1Map
+	{
+		texture = ".\\Ball.dds"
+	}
+	normalMap
+	{
+		texture = ".\\Ball_Normals.dds"
+	}
+}

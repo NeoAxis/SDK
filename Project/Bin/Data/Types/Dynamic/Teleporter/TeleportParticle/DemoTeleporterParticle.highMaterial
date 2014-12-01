@@ -1,0 +1,19 @@
+highLevelMaterial DemoTeleporterParticle
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	useNormals = False
+	softParticles = True
+	softParticlesFadingLength = 1.63
+	diffusePower = 3
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = ".\\TeleportParticle.dds"
+	}
+	diffuse2Map
+	{
+		blending = Add
+	}
+}

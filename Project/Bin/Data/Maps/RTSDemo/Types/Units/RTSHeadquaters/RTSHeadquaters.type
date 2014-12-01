@@ -1,0 +1,157 @@
+type RTSHeadquaters
+{
+	class = RTSBuilding
+	buildCost = 300
+	initialAI = DefaultRTSBuildingAI
+	lifeMax = 400
+	substance = Metal
+	physicsModel = ".\\RTSHeadquaters.physics"
+	allowEditorCreate = True
+	soundMinDistance = 10
+	soundMaxDistance = 100
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RTSHeadquaters.mesh"
+			castDynamicShadows = True
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 3.95 -4.98 0.77
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 1.95 -4.98 0.77
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 3.95 -2.98 0.77
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 1.95 -2.98 0.77
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSItemParticle
+			updateWhenItNotInView = False
+			alias = productUnit
+			position = 2.95 -3.98 0.77
+			visible = False
+		}
+		helper
+		{
+			alias = productUnitPoint
+			position = 3.05 -4.08 1.97
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessHalfLife
+			position = 1.05 0.6299999 0.47
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = 4.55 2.23 2.28
+			visible = False
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = 2.74 -3.36 0.61
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSHeadquaters_Platform.mesh"
+			alias = buildPlatform
+			position = 3 -3.88 0.55
+			rotation = 0 0 -0.7660444 0.6427876
+		}
+		particle
+		{
+			particleName = RTSBigFireParticle
+			updateWhenItNotInView = False
+			alias = lessQuarterLife
+			position = -4.15 -1.98 0.3400002
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSHeadquaters.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building0
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSHeadquaters.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building1
+			visible = False
+		}
+		mesh
+		{
+			meshName = ".\\RTSHeadquaters.mesh"
+			forceMaterial = RTSBuildMaterial
+			alias = building2
+			visible = False
+		}
+	}
+	dieObjects
+	{
+		particle
+		{
+			particleName = RTSExplosionParticle
+		}
+		sound
+		{
+			soundName = "Maps\\RTSDemo\\Sounds\\Explode.ogg"
+			priority = 0.7
+			minDistance = 10
+			maxDistance = 100
+		}
+		mapObject
+		{
+			type = RTSFumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 0 0 3.1
+		}
+		mapObject
+		{
+			type = RTSFireworkBullet
+			alias = randomRotation
+			count = 5
+			position = 0 0 3.1
+		}
+		mapObject
+		{
+			type = RTSHeadquatersDead
+		}
+	}
+}

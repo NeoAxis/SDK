@@ -1,0 +1,15 @@
+type VillageDoor4
+{
+	class = MapObject
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageDoor4\\VillageDoor4.physics"
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageDoor4\\meshU3D_012.mesh"
+			castDynamicShadows = True
+			body = bodyDoor
+		}
+	}
+}

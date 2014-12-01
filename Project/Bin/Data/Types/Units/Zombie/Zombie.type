@@ -1,0 +1,72 @@
+type Zombie
+{
+	class = GameCharacter
+	optimalAttackDistanceRange = 0 1
+	walkForwardMaxSpeed = 2
+	walkForce = 280000
+	flyControlMaxSpeed = 3
+	flyControlForce = 49000
+	initialAI = DefaultGameCharacterAI
+	viewRadius = 40
+	fpsCameraOffset = 0.3 0 0.7
+	lifeMax = 40
+	targetPriority = 1
+	substance = Flesh
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Zombie\Zombie.mesh
+			castDynamicShadows = True
+			position = 0 0 -1.15
+			animationTree = "Types\\Units\\Zombie\\Zombie.animationTree"
+			boneSlot influenceSlot1
+			{
+				bone = joint4
+			}
+			boneSlot influenceSlot2
+			{
+				bone = joint66
+			}
+		}
+		mapObject
+		{
+			type = ZombieStomachGun
+			position = 0.3 0 -0.1
+		}
+		mapObject
+		{
+			type = ZombieMeleeWeapon
+			position = 1 0 0
+		}
+		particle
+		{
+			particleName = FireParticle
+			alias = FireInfluence
+			boneSlot = influenceSlot1
+			visible = False
+		}
+		particle
+		{
+			particleName = FireParticle
+			alias = FireInfluence
+			boneSlot = influenceSlot2
+			visible = False
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = ZombieDead
+			copyVelocitiesFromParent = True
+			position = 0 0 -0.8
+		}
+		sound
+		{
+			soundName = Types\Units\Zombie\Die.ogg
+		}
+	}
+}

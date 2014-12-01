@@ -1,0 +1,370 @@
+type BMWi8
+{
+	class = Car
+	enginePeakTorque = 1000
+	engineMaxRPM = 12000
+	allowPlayerControl = True
+	fpsCameraOffset = 0.2 0 0.3
+	healthMax = 500
+	physicsModel = ".\\BMWi8.physics"
+	networkType = Synchronized
+	engineTorqueCurve
+	{
+		item
+		{
+			normalizedTorque = 0
+			normalizedRev = 0.8
+		}
+		item
+		{
+			normalizedTorque = 0.33
+			normalizedRev = 1
+		}
+		item
+		{
+			normalizedTorque = 1
+			normalizedRev = 0.8
+		}
+	}
+	gears
+	{
+		item
+		{
+			number = -1
+			ratio = -16
+		}
+		item
+		{
+			number = 0
+			ratio = 0
+		}
+		item
+		{
+			number = 1
+			ratio = 16
+		}
+		item
+		{
+			number = 2
+			ratio = 8
+		}
+		item
+		{
+			number = 3
+			ratio = 6
+		}
+		item
+		{
+			number = 4
+			ratio = 4.4
+		}
+		item
+		{
+			number = 5
+			ratio = 4
+		}
+	}
+	wheelFrontLeft
+	{
+		mass = 20
+		wheelDampingRate = 0.25
+		wheelMaxBrakeTorque = 1500
+		wheelMaxHandBrakeTorque = 0
+		wheelMaxSteer = 60
+		wheelToeAngle = 0
+		suspensionSpringStrength = 35000
+		suspensionSpringDamperRate = 4500
+		suspensionMaxCompression = 0.15
+		suspensionMaxDroop = 0.1
+		suspensionSprungMassCoefficient = 0.25
+		suspensionForceApplicationPointOffset = 0 0 0
+		tireForceApplicationPointOffset = 0 0 0
+	}
+	wheelFrontRight
+	{
+		mass = 20
+		wheelDampingRate = 0.25
+		wheelMaxBrakeTorque = 1500
+		wheelMaxHandBrakeTorque = 0
+		wheelMaxSteer = 60
+		wheelToeAngle = 0
+		suspensionSpringStrength = 35000
+		suspensionSpringDamperRate = 4500
+		suspensionMaxCompression = 0.15
+		suspensionMaxDroop = 0.1
+		suspensionSprungMassCoefficient = 0.25
+		suspensionForceApplicationPointOffset = 0 0 0
+		tireForceApplicationPointOffset = 0 0 0
+	}
+	wheelRearLeft
+	{
+		mass = 20
+		wheelDampingRate = 0.25
+		wheelMaxBrakeTorque = 1500
+		wheelMaxHandBrakeTorque = 4000
+		wheelMaxSteer = 0
+		wheelToeAngle = 0
+		suspensionSpringStrength = 35000
+		suspensionSpringDamperRate = 4500
+		suspensionMaxCompression = 0.3
+		suspensionMaxDroop = 0.1
+		suspensionSprungMassCoefficient = 0.25
+		suspensionForceApplicationPointOffset = 0 0 0
+		tireForceApplicationPointOffset = 0 0 0
+	}
+	wheelRearRight
+	{
+		mass = 20
+		wheelDampingRate = 0.25
+		wheelMaxBrakeTorque = 1500
+		wheelMaxHandBrakeTorque = 4000
+		wheelMaxSteer = 0
+		wheelToeAngle = 0
+		suspensionSpringStrength = 35000
+		suspensionSpringDamperRate = 4500
+		suspensionMaxCompression = 0.3
+		suspensionMaxDroop = 0.1
+		suspensionSprungMassCoefficient = 0.25
+		suspensionForceApplicationPointOffset = 0 0 0
+		tireForceApplicationPointOffset = 0 0 0
+	}
+	tireTypes
+	{
+		item
+		{
+			name = Wets
+			wheelFrontLeft
+			{
+				tireLatStiffX = 2
+				tireLatStiffY = 18
+				tireLongitudinalStiffnessPerUnitGravity = 1000
+				tireCamberStiffness = 57
+				frictionVsSlipGraphZeroLongitudinalSlip = 1
+				frictionVsSlipGraphLongitudinalSlipWithMaximumFriction = 0.1
+				frictionVsSlipGraphMaximumFriction = 1
+				frictionVsSlipGraphEndPointOfGraph = 1
+				frictionVsSlipGraphValueOfFrictionForSlipsGreaterThanEndPointOfGraph = 1
+			}
+			wheelFrontRight
+			{
+				tireLatStiffX = 2
+				tireLatStiffY = 18
+				tireLongitudinalStiffnessPerUnitGravity = 1000
+				tireCamberStiffness = 57
+				frictionVsSlipGraphZeroLongitudinalSlip = 1
+				frictionVsSlipGraphLongitudinalSlipWithMaximumFriction = 0.1
+				frictionVsSlipGraphMaximumFriction = 1
+				frictionVsSlipGraphEndPointOfGraph = 1
+				frictionVsSlipGraphValueOfFrictionForSlipsGreaterThanEndPointOfGraph = 1
+			}
+			wheelRearLeft
+			{
+				tireLatStiffX = 2
+				tireLatStiffY = 18
+				tireLongitudinalStiffnessPerUnitGravity = 1000
+				tireCamberStiffness = 57
+				frictionVsSlipGraphZeroLongitudinalSlip = 1
+				frictionVsSlipGraphLongitudinalSlipWithMaximumFriction = 0.1
+				frictionVsSlipGraphMaximumFriction = 1
+				frictionVsSlipGraphEndPointOfGraph = 1
+				frictionVsSlipGraphValueOfFrictionForSlipsGreaterThanEndPointOfGraph = 1
+			}
+			wheelRearRight
+			{
+				tireLatStiffX = 2
+				tireLatStiffY = 18
+				tireLongitudinalStiffnessPerUnitGravity = 1000
+				tireCamberStiffness = 57
+				frictionVsSlipGraphZeroLongitudinalSlip = 1
+				frictionVsSlipGraphLongitudinalSlipWithMaximumFriction = 0.1
+				frictionVsSlipGraphMaximumFriction = 1
+				frictionVsSlipGraphEndPointOfGraph = 1
+				frictionVsSlipGraphValueOfFrictionForSlipsGreaterThanEndPointOfGraph = 1
+			}
+			frictionMultipliers
+			{
+				item
+				{
+					surfaceMaterialName = Snow
+					value = 0.3
+				}
+				item
+				{
+					surfaceMaterialName = Tarmac
+					value = 1
+				}
+				item
+				{
+					surfaceMaterialName = Dirt
+					value = 0.7
+				}
+				item
+				{
+					surfaceMaterialName = Ice
+					value = 0.1
+				}
+			}
+		}
+	}
+	steerVsForwardSpeedTable
+	{
+		item
+		{
+			forwardSpeed = 0
+			steer = 0.75
+		}
+		item
+		{
+			forwardSpeed = 5
+			steer = 0.75
+		}
+		item
+		{
+			forwardSpeed = 30
+			steer = 0.125
+		}
+		item
+		{
+			forwardSpeed = 120
+			steer = 0.1
+		}
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\BMW_base.mesh"
+			castDynamicShadows = True
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = ".\\BMW_door_left.mesh"
+			castDynamicShadows = True
+			transparentObjectSortPriority = 99
+			position = 0 0 -0.116315
+		}
+		mesh
+		{
+			meshName = ".\\BMW_door_right.mesh"
+			castDynamicShadows = True
+			transparentObjectSortPriority = 99
+			position = 0 0 -0.116315
+		}
+		mesh
+		{
+			meshName = ".\\BMW_gearbox_lever.mesh"
+			castDynamicShadows = True
+			position = 0.436 0.009 -0.321512
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mesh
+		{
+			meshName = ".\\BMW_glass.mesh"
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = ".\\BMW_pedal_accelerator.mesh"
+			castDynamicShadows = True
+			position = 0.9200836 0.259322 -0.1491876
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mesh
+		{
+			meshName = ".\\BMW_pedal_decelerator.mesh"
+			castDynamicShadows = True
+			position = 0.9002182 0.2950127 -0.1869445
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mesh
+		{
+			meshName = ".\\BMW_steering_wheel.mesh"
+			castDynamicShadows = True
+			position = 0.719 0.482 -0.01851208
+			rotation = -0.4956649 0.0321389 0.8665475 0.04877769
+		}
+		mesh
+		{
+			meshName = ".\\BMW_wheel.mesh"
+			castDynamicShadows = True
+			alias = wheelRearRight
+			position = -1.674288 -0.8829645 -0.6248374
+		}
+		mesh
+		{
+			meshName = ".\\BMW_wheel.mesh"
+			castDynamicShadows = True
+			alias = wheelFrontRight
+			position = 1.588777 -0.908258 -0.5839973
+		}
+		mesh
+		{
+			meshName = ".\\BMW_wheel2.mesh"
+			castDynamicShadows = True
+			alias = wheelFrontLeft
+			position = 1.588777 0.908258 -0.5839973
+		}
+		mesh
+		{
+			meshName = ".\\BMW_wheel2.mesh"
+			castDynamicShadows = True
+			alias = wheelRearLeft
+			position = -1.674288 0.8829645 -0.6248374
+		}
+		mesh
+		{
+			meshName = ".\\BMW_headlight_right.mesh"
+			castDynamicShadows = True
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = ".\\BMW_headlight_left.mesh"
+			castDynamicShadows = True
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = ".\\BMW_backlight_right.mesh"
+			castDynamicShadows = True
+			position = 0 0 -0.1163153
+		}
+		mesh
+		{
+			meshName = ".\\BMW_backlight_left.mesh"
+			castDynamicShadows = True
+			position = 0 0 -0.1163153
+		}
+	}
+	dieObjects
+	{
+		mapObject
+		{
+			type = BMWi8_Dead
+			copyVelocitiesFromParent = True
+		}
+		sound
+		{
+			soundName = ".\\Sounds\\Die.ogg"
+			priority = 0.7
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = 2 0 0
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+			position = -2 0 0
+		}
+		mapObject
+		{
+			type = FumingSplinterBullet
+			alias = randomRotation
+			count = 10
+			position = 0 0 1
+		}
+	}
+}

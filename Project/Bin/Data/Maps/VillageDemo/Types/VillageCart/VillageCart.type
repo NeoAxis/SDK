@@ -1,0 +1,39 @@
+type VillageCart
+{
+	class = Dynamic
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageCart\\VillageCart.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageCart\\meshU3D_031.mesh"
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageCart\\meshU3D_009.mesh"
+			castDynamicShadows = True
+			body = body2
+		}
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageCart\\meshU3D_009.mesh"
+			castDynamicShadows = True
+			body = body3
+		}
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageCart\\meshU3D_009.mesh"
+			castDynamicShadows = True
+			body = body4
+		}
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageCart\\meshU3D_009.mesh"
+			castDynamicShadows = True
+			body = body5
+		}
+	}
+}

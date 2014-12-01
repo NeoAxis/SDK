@@ -1,0 +1,31 @@
+highLevelMaterial DemoTeleporterGlow
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	doubleSided = True
+	diffuseColor = 0.6431373 1 0.7019608 0.345098
+	diffuseScaleDynamic = True
+	diffuse1Map
+	{
+		texture = ".\\TeleporterGlow.dds"
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 0.1 0
+			}
+		}
+	}
+	diffuse2Map
+	{
+		texture = ".\\TeleporterGlow.dds"
+		transform
+		{
+			animation
+			{
+				scrollSpeed = -0.05 0
+			}
+		}
+	}
+}

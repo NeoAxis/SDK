@@ -1,0 +1,19 @@
+highLevelMaterial OgreHead
+{
+	template = ShaderBaseMaterial
+	specularColor = 0.6666667 0.6666667 0.6666667
+	heightFromNormalMapAlpha = True
+	heightScale = 0.03
+	diffuse1Map
+	{
+		texture = "Types\\StaticObjects\\OgreHead\\OgreHead.dds"
+	}
+	specularMap
+	{
+		texture = "Types\\StaticObjects\\OgreHead\\OgreHead_Specular.dds"
+	}
+	normalMap
+	{
+		texture = "Types\\StaticObjects\\OgreHead\\OgreHead_NormalHeight.png"
+	}
+}

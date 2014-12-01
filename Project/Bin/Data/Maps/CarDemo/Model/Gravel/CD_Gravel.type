@@ -1,0 +1,87 @@
+type CD_Gravel
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Gravel.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel01.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel01_1.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel01_2.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel02.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel03.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel04.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel05.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel06.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Gravel07.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+	}
+}

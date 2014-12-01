@@ -1,0 +1,15 @@
+type RTSPipeDirect4
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\PipeDirect4.mesh"
+			castDynamicShadows = True
+			collision = True
+			scale = 0.005 0.005 0.005
+		}
+	}
+}

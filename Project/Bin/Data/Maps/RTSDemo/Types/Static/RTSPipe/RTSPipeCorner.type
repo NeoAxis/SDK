@@ -1,0 +1,15 @@
+type RTSPipeCorner
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\PipeCorner.mesh"
+			castDynamicShadows = True
+			collision = True
+			scale = 0.005 0.005 0.005
+		}
+	}
+}

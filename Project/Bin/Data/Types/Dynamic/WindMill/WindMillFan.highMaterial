@@ -1,0 +1,10 @@
+highLevelMaterial WindMillFan
+{
+	template = ShaderBaseMaterial
+	alphaRejectFunction = GreaterEqual
+	alphaToCoverage = True
+	diffuse1Map
+	{
+		texture = "Types\\Dynamic\\WindMill\\WindMillFan.dds"
+	}
+}

@@ -1,0 +1,27 @@
+type StaticSoundTest
+{
+	class = MapObject
+	allowEditorCreate = True
+	networkType = ClientOnly
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = White
+			scale = 0.1 0.1 0.1
+		}
+		billboard
+		{
+			color = 0.8117648 0.7882354 1
+			materialName = DefaultFlare
+			size = 1 3
+			fadeVelocity = 3
+		}
+		sound
+		{
+			soundName = Types\Dynamic\StaticSoundTest\StaticSound.ogg
+		}
+	}
+}

@@ -1,0 +1,16 @@
+type GrassGreen
+{
+	class = DecorativeObject
+	batchSize = 25
+	distanceBetweenObjects = 0.3
+	visibilityDistance = 100
+	storeObjectsPositionsInVertices = True
+	scaleRange = 0.8 1.2
+	items
+	{
+		item
+		{
+			meshName = ".\\GrassGreen.mesh"
+		}
+	}
+}

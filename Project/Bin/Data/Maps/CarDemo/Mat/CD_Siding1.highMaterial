@@ -1,0 +1,8 @@
+highLevelMaterial CD_Siding1
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Siding1.dds"
+	}
+}

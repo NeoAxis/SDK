@@ -1,0 +1,17 @@
+type PathfindingDemo_DestructibleBox
+{
+	class = Dynamic
+	lifeMax = 50
+	substance = Metal
+	physicsModel = ".\\Box.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

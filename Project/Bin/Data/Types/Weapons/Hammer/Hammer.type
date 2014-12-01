@@ -1,0 +1,33 @@
+type Hammer
+{
+	class = MeleeWeapon
+	characterBoneSlot = hand
+	networkType = Synchronized
+	fpsCameraAttachPosition = 0.4 -0.2 -0.3
+	normalMode
+	{
+		damage = 20
+		impulse = 35000
+		kickCheckRadius = 1
+		soundKick = Types\Units\Zombie\Kick.ogg
+		betweenFireTime = 0.6
+		soundFire = Types\Units\Zombie\Blow.ogg
+		useDistanceRange = 0 2
+		fireTimes = 0.4
+		fireAnimationTrigger = blow
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationName = fire
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Weapons\Hammer\Hammer.mesh
+			castDynamicShadows = True
+			boneSlot = hand
+		}
+	}
+}

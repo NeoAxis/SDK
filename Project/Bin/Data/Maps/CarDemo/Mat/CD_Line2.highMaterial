@@ -1,0 +1,8 @@
+highLevelMaterial CD_Line2
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Line2.dds"
+	}
+}

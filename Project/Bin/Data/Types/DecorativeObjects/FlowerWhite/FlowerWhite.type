@@ -1,0 +1,16 @@
+type FlowerWhite
+{
+	class = DecorativeObject
+	batchSize = 25
+	distanceBetweenObjects = 0.6
+	visibilityDistance = 55
+	storeObjectsPositionsInVertices = True
+	scaleRange = 0.8 1.2
+	items
+	{
+		item
+		{
+			meshName = ".\\FlowerWhite.mesh"
+		}
+	}
+}

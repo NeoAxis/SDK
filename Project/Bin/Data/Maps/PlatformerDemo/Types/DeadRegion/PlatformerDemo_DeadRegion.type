@@ -1,0 +1,5 @@
+type PlatformerDemo_DeadRegion
+{
+	class = InfluenceRegion
+	allowEditorCreate = True
+}

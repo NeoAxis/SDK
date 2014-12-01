@@ -1,0 +1,5 @@
+type RTSFactionManager
+{
+	class = RTSFactionManager
+	allowEditorCreate = True
+}

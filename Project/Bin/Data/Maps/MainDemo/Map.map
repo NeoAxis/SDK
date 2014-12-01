@@ -1,0 +1,3225 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.5882353 0.5882353 0.5882353
+editorCameraPosition = -1.817599 -18.33327 3.029539
+editorCameraDirection = 0.8836951 -0.4528759
+shadowColor = 1 1 1
+shadowFarDistance = 40
+shadowPSSMSplitFactors = 0.2 0.5
+logicSystemManager = 3
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = ZonesAndPortals
+	}
+	layer
+	{
+		name = Corridors
+		allowSelect = False
+	}
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+		entity
+		{
+			type = LogicEntityClass
+			uin = 5
+			relationships = 58
+			entityClassName = MapObject
+			className = HangingBillboard_0
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 6
+				code = "((GameGuiObject)Owner).MainControl.Controls[\"Version\"].Text = EngineVersionInformation.Version;\r\n\r\n"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 7
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 7
+					parameterType = System.Boolean
+					parameterName = loaded
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 8
+			relationships = 56 153 154
+			entityClassName = Terminal
+			className = Terminal_Maps
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 9
+				code = "listBox = (ListBox)Owner.MainControl.Controls[ \"List\" ];\r\n\r\n//maps listBox\r\n{\r\n\tstring selectMapName = \"Maps\\\\VillageDemo\\\\Map\\\\Map.map\";\r\n\tif(!string.IsNullOrEmpty(GameWorld.Instance.NeedChangeMapName) && \r\n\t\tGameWorld.Instance.NeedChangeMapSpawnPointName == \"Teleporter_Maps\")\r\n\t{\r\n\t\tif(!string.IsNullOrEmpty(GameWorld.Instance.NeedChangeMapPreviousMapName))\r\n\t\t\tselectMapName = GameWorld.Instance.NeedChangeMapPreviousMapName;\r\n//\t\tselectMapName = GameWorld.Instance.ShouldChangeMapName;\r\n\t}\r\n\t\r\n\tstring[] mapList = VirtualDirectory.GetFiles( \"\", \"*.map\", System.IO.SearchOption.AllDirectories );\t\r\n\tforeach( string name in mapList )\r\n\t{\r\n\t\tlistBox.Items.Add( name );\r\n\t\t//if( string.Compare( name.Replace( \'/\', \'\\\\\' ), Map.Instance.VirtualFileName.Replace( \'/\', \'\\\\\' ), true ) == 0 )\r\n\t\tif( string.Compare( name.Replace( \'/\', \'\\\\\' ), selectMapName.Replace( \'/\', \'\\\\\' ), true ) == 0 )\r\n\t\t\tlistBox.SelectedIndex = listBox.Items.Count - 1;\r\n\t}\r\n\r\n\tlistBox.SelectedIndexChange += listBox_SelectedIndexChanged;\r\n\tif( listBox.Items.Count != 0 && listBox.SelectedIndex == -1 )\r\n\t\tlistBox.SelectedIndex = 0;\r\n\tif( listBox.Items.Count != 0 )\r\n\t\tlistBox_SelectedIndexChanged( null );\r\n}\r\n"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 10
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 10
+					parameterType = System.Boolean
+					parameterName = loaded
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 11
+				code = "Texture texture = null;\r\nstring description = \"\";\r\n\r\nListBox listBox = (ListBox)Owner.MainControl.Controls[ \"List\" ];\r\nif( listBox.SelectedIndex != -1 )\r\n{\r\n\tstring mapName = (string)listBox.SelectedItem;\r\n\tstring mapDirectory = System.IO.Path.GetDirectoryName( mapName );\r\n\r\n\t//get texture\r\n\tstring textureName = mapDirectory + \"\\\\Description\\\\Preview\";\r\n\tstring textureFileName = null;\r\n\tstring[] extensions = new string[] { \"dds\", \"tga\", \"png\", \"jpg\" };\r\n\tforeach( string extension in extensions )\r\n\t{\r\n\t\tstring fileName = textureName + \".\" + extension;\r\n\t\tif( VirtualFile.Exists( fileName ) )\r\n\t\t{\r\n\t\t\ttextureFileName = fileName;\r\n\t\t\tbreak;\r\n\t\t}\r\n\t}\r\n\tif( textureFileName != null )\r\n\t\ttexture = TextureManager.Instance.Load( textureFileName );\r\n\r\n\t//get description text\r\n\tstring descriptionFileName = mapDirectory + \"\\\\Description\\\\Description.config\";\r\n\tif( VirtualFile.Exists( descriptionFileName ) )\r\n\t{\r\n\t\tstring error;\r\n\t\tTextBlock block = TextBlockUtils.LoadFromVirtualFile( descriptionFileName, out error );\r\n\t\tif( block != null )\r\n\t\t\tdescription = block.GetAttribute( \"description\" );\r\n\t}\r\n\t\r\n\tActivateTeleporter(mapName);\r\n}\r\n\r\nOwner.MainControl.Controls[ \"Preview\" ].BackTexture = texture;\r\nOwner.MainControl.Controls[ \"Description\" ].Text = description;\r\n"
+				methodName = listBox_SelectedIndexChanged
+				returnType = System.Void
+				parameters = 12
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 12
+					parameterType = System.Object
+					parameterName = sender
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 13
+				code = "Teleporter teleporter = (Teleporter)Entities.Instance.GetByName(\"Teleporter_Maps\");\r\nteleporter.Active = true;\r\nteleporter.ChangeMapName = mapName;\r\n\r\n"
+				methodName = ActivateTeleporter
+				returnType = System.Void
+				parameters = 14
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 14
+					parameterType = System.String
+					parameterName = mapName
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 15
+				variableType = Engine.UISystem.ListBox
+				variableName = listBox
+				supportSerialization = False
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 16
+			relationships = 304
+			entityClassName = Terminal
+			className = Terminal_Actions
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 17
+				code = "Button button;\r\n\r\n//TeleportZombie button\r\nbutton = Owner.MainControl.Controls[ \"TeleportZombie\" ] as Button;\r\nif( button != null )\r\n{\r\n\tbutton.Click += delegate( Button sender )\r\n\t{\r\n\t\tTeleporter teleporter = (Teleporter)Entities.Instance.GetByName( \"Teleporter_InsideMap1\" );\r\n\t\tif( teleporter != null )\r\n\t\t{\r\n\t\t\tMapObject unit = (MapObject)Entities.Instance.Create( \"Zombie\", Map.Instance );\r\n\t\t\tunit.Position = new Vec3( 1000, 1000, 0 );\r\n\t\t\tunit.PostCreate();\t\t\t\r\n\t\t\tteleporter.ReceiveObject( unit, null );\r\n\t\t}\r\n\t};\r\n}\r\n\r\n//TeleportBug button\r\nbutton = Owner.MainControl.Controls[ \"TeleportBug\" ] as Button;\r\nif( button != null )\r\n{\r\n\tbutton.Click += delegate( Button sender )\r\n\t{\r\n\t\tTeleporter teleporter = (Teleporter)Entities.Instance.GetByName( \"Teleporter_InsideMap1\" );\r\n\t\tif( teleporter != null )\r\n\t\t{\r\n\t\t\tMapObject unit = (MapObject)Entities.Instance.Create( \"Bug\", Map.Instance );\r\n\t\t\tunit.Position = new Vec3( 1000, 1000, 0 );\r\n\t\t\tunit.PostCreate();\t\t\t\r\n\t\t\tteleporter.ReceiveObject( unit, null );\r\n\t\t}\r\n\t};\r\n}"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 18
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 18
+					parameterType = System.Boolean
+					parameterName = loaded
+				}
+			}
+		}
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 19
+	classPrompt = StaticMesh
+	position = -12 -48 0
+	name = StaticMesh_Floor_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 20
+	classPrompt = StaticMesh
+	position = 0 -60 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 21
+	classPrompt = StaticMesh
+	position = -12 -60 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 22
+	classPrompt = StaticMesh
+	position = -24 -48 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 23
+	classPrompt = StaticMesh
+	position = -24 -36 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 24
+	classPrompt = StaticMesh
+	position = -12 -48 0
+	name = StaticMesh_Ceiling_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 25
+	classPrompt = StaticMesh
+	position = -12 -36 0
+	name = StaticMesh_Ceiling_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 26
+	classPrompt = StaticMesh
+	position = 0 -48 0
+	name = StaticMesh_Ceiling_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 27
+	classPrompt = StaticMesh
+	position = 0 -36 0
+	name = StaticMesh_Ceiling_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 28
+	classPrompt = StaticMesh
+	position = -18 -54 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 29
+	classPrompt = StaticMesh
+	position = -18 -30 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 30
+	classPrompt = StaticMesh
+	position = -12 -24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 31
+	classPrompt = StaticMesh
+	position = 6 -54 0
+	name = StaticMesh_CornerIntDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 32
+	classPrompt = StaticMesh
+	position = 12 -36 0
+	name = StaticMesh_WallDown_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 33
+	classPrompt = StaticMesh
+	position = 12 -48 0
+	name = StaticMesh_WallDown_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 34
+	classPrompt = StaticMesh
+	position = 6 -30 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 35
+	classPrompt = StaticMesh
+	position = 0 -36 0
+	name = StaticMesh_Floor_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 36
+	classPrompt = StaticMesh
+	position = 0 -48 0
+	name = StaticMesh_Floor_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = Light
+	uin = 37
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 0.4117647 0.4117647 0.4117647
+	diffusePower = 1
+	specularColor = 1.372549 1.372549 1.372549
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 1.5 -44.5 22
+	rotation = 0 -0.7071068 0 -0.7071068
+	name = Light_1
+}
+entity
+{
+	type = SpawnPoint
+	uin = 38
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = 1.246365 -15.05575 0.2094604
+	rotation = 0 0 0.1826784 0.9831727
+	name = SpawnPoint_0
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 39
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 7.021692 -32.87362 0.2532396
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 40
+	classPrompt = HealthItem
+	respawnTime = 10
+	position = 7.028091 -34.65057 0.2532396
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 41
+	classPrompt = WeaponItem
+	respawnTime = 10
+	position = 6.803857 -29.28896 0.5777563
+	rotation = 0 0 0.9796209 0.2008553
+}
+entity
+{
+	type = ShotgunItem
+	uin = 42
+	classPrompt = WeaponItem
+	respawnTime = 10
+	position = 6.90271 -30.9477 0.4753142
+	rotation = 0 0 0.9233318 0.3840033
+}
+entity
+{
+	type = StaticMesh
+	uin = 43
+	classPrompt = StaticMesh
+	position = -12 -12 0
+	rotation = 0 0 -1 7.54979E-08
+	name = StaticMesh_Wall_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 44
+	classPrompt = StaticMesh
+	position = 0 -24 0
+	rotation = 0 0 -0.7071068 0.7071069
+	name = StaticMesh_Pass_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Pass.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 45
+	classPrompt = StaticMesh
+	position = 0 -12 0
+	name = StaticMesh_Floor_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 46
+	classPrompt = StaticMesh
+	position = 6 -18 0
+	name = StaticMesh_CornerInt_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 47
+	classPrompt = StaticMesh
+	position = -6 -18 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerInt_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 48
+	classPrompt = StaticMesh
+	position = -6 -5.999998 0
+	rotation = 0 0 1 7.54979E-08
+	name = StaticMesh_CornerInt_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 49
+	classPrompt = StaticMesh
+	position = 6 -6.000002 0
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_CornerInt_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerInt.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 50
+	classPrompt = StaticMesh
+	position = 0 0 0
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Wall_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 51
+	classPrompt = StaticMesh
+	position = 0 -12 0
+	name = StaticMesh_Ceiling_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 52
+	classPrompt = StaticMesh
+	position = 0 -24 0
+	rotation = 0 0 -0.7071068 0.7071069
+	name = StaticMesh_Gates_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Gates.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = Teleporter
+	uin = 53
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\VillageDemo\\Map\\Map.map"
+	changeMapSpawnObjectName = Teleporter_0
+	position = 5.659526 -6.31593 0.5683842
+	rotation = 0 0 -0.9238796 0.3826833
+	name = Teleporter_Maps
+}
+entity
+{
+	type = Teleporter
+	uin = 54
+	classPrompt = Teleporter
+	relationships = 55 55
+	active = True
+	destination = 55
+	position = -18.5 -53.5 0.5683804
+	rotation = 0 0 3.154343E-08 -1
+	name = Teleporter_InsideMap1
+}
+entity
+{
+	type = Teleporter
+	uin = 55
+	classPrompt = Teleporter
+	relationships = 54 54
+	active = True
+	destination = 54
+	position = -6.5 -18 0.5683842
+	name = Teleporter_InsideMap2
+}
+entity
+{
+	type = Terminal
+	uin = 56
+	classPrompt = Terminal
+	relationships = 8
+	initialControl = "Gui\\MainDemoMapsTerminal.gui"
+	position = 1.5 -5.5 2
+	rotation = 0 0 -0.7071067 0.7071069
+	name = Terminal_Maps
+	logicClass = 8
+}
+entity
+{
+	type = Door
+	uin = 57
+	classPrompt = AutomaticOpenDoor
+	noAutomaticOpen = False
+	opened = False
+	needOpen = False
+	openDoorOffsetCoefficient = 0
+	position = 0 -24 2
+	rotation = 0 0 0.7071068 0.7071068
+	name = Door_0
+}
+entity
+{
+	type = HangingBillboard
+	uin = 58
+	classPrompt = GameGuiObject
+	relationships = 5
+	initialControl = "Gui/MainDemoWelcomeBillboard.gui"
+	position = 7.519269 -13.6587 2.632324
+	rotation = 0 0 1 7.54979E-08
+	name = HangingBillboard_0
+	logicClass = 5
+}
+entity
+{
+	type = StaticMesh
+	uin = 59
+	classPrompt = StaticMesh
+	position = 8.5 -11.5 1
+	name = StaticMesh_PipeDirect4_0
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 60
+	classPrompt = StaticMesh
+	position = 8.5 -11.5 0.5
+	name = StaticMesh_PipeRackBase_0
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 61
+	classPrompt = StaticMesh
+	position = 8.5 -15.5 1
+	name = StaticMesh_PipeDirect4_1
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 62
+	classPrompt = StaticMesh
+	position = 8.5 -15.5 0.5
+	name = StaticMesh_PipeRackBase_1
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 63
+	classPrompt = StaticMesh
+	position = 8.5 -7.5 1
+	name = StaticMesh_PipeDirect4_2
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 64
+	classPrompt = StaticMesh
+	position = 8.5 -7.5 0.5
+	name = StaticMesh_PipeRackBase_2
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 65
+	classPrompt = StaticMesh
+	position = 8.5 -19.5 1
+	name = StaticMesh_PipeDirect4_3
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 66
+	classPrompt = StaticMesh
+	position = 8.5 -19.5 0.5
+	name = StaticMesh_PipeRackBase_3
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 67
+	classPrompt = StaticMesh
+	position = 8.5 -5 1
+	rotation = 8.742278E-08 1 -3.821371E-15 4.371139E-08
+	name = StaticMesh_PipeCorner_0
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 68
+	classPrompt = StaticMesh
+	position = 8.5 -5 0
+	rotation = 0.7071068 0 0 0.7071068
+	name = StaticMesh_PipeDirect1_0
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 69
+	classPrompt = StaticMesh
+	position = 9 -37.5 1
+	name = StaticMesh_PipeDirect4_5
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 70
+	classPrompt = StaticMesh
+	position = 9 -37.5 0.5
+	name = StaticMesh_PipeRackBase_4
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 71
+	classPrompt = StaticMesh
+	position = 9 -37.5 1.5
+	name = StaticMesh_PipeRackX_0
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 72
+	classPrompt = StaticMesh
+	position = 9 -37.5 2
+	name = StaticMesh_PipeDirect4_6
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 73
+	classPrompt = StaticMesh
+	position = 9 -37.5 2.5
+	name = StaticMesh_PipeRackX_1
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 74
+	classPrompt = StaticMesh
+	position = 9 -37.5 3
+	name = StaticMesh_PipeDirect4_7
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = 9 -41.5 1
+	name = StaticMesh_PipeDirect4_8
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = 9 -41.5 0.5
+	name = StaticMesh_PipeRackBase_5
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = 9 -41.5 1.5
+	name = StaticMesh_PipeRackX_2
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = 9 -41.5 2
+	name = StaticMesh_PipeDirect4_9
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = 9 -41.5 2.5
+	name = StaticMesh_PipeRackX_3
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = 9 -41.5 3
+	name = StaticMesh_PipeDirect4_10
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = 9 -49.5 1
+	name = StaticMesh_PipeDirect4_11
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = 9 -49.5 0.5
+	name = StaticMesh_PipeRackBase_6
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = 9 -49.5 1.5
+	name = StaticMesh_PipeRackX_4
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = 9 -49.5 2
+	name = StaticMesh_PipeDirect4_12
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = 9 -49.5 2.5
+	name = StaticMesh_PipeRackX_5
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = 9 -49.5 3
+	name = StaticMesh_PipeDirect4_13
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = 9 -46 1
+	name = StaticMesh_PipeDirect1_1
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = 9 -45.5 0.5
+	name = StaticMesh_PipeRackBase_7
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = 9 -45.5 1.5
+	name = StaticMesh_PipeRackX_6
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = 9 -45.5 2
+	name = StaticMesh_PipeDirect4_14
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 91
+	classPrompt = StaticMesh
+	position = 9 -45.5 2.5
+	name = StaticMesh_PipeRackX_7
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = 9 -45.5 3
+	name = StaticMesh_PipeDirect4_15
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 93
+	classPrompt = StaticMesh
+	position = 9 -56 1.5
+	name = StaticMesh_PipeRackX_8
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 94
+	classPrompt = StaticMesh
+	position = 9 -57.5 2
+	name = StaticMesh_PipeDirect4_17
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = 9 -56 2.5
+	name = StaticMesh_PipeRackX_9
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 96
+	classPrompt = StaticMesh
+	position = 9 -57.5 3
+	name = StaticMesh_PipeDirect4_18
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = 9 -53.5 1
+	name = StaticMesh_PipeDirect4_19
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = 9 -53.5 2
+	name = StaticMesh_PipeDirect4_20
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = 9 -53.5 3
+	name = StaticMesh_PipeDirect4_21
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 100
+	classPrompt = StaticMesh
+	position = 9 -33.5 1
+	name = StaticMesh_PipeDirect4_22
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 101
+	classPrompt = StaticMesh
+	position = 9 -33.5 0.5
+	name = StaticMesh_PipeRackBase_10
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 102
+	classPrompt = StaticMesh
+	position = 9 -33.5 1.5
+	name = StaticMesh_PipeRackX_12
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 103
+	classPrompt = StaticMesh
+	position = 9 -33.5 2
+	name = StaticMesh_PipeDirect4_23
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 104
+	classPrompt = StaticMesh
+	position = 9 -33.5 2.5
+	name = StaticMesh_PipeRackX_13
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 105
+	classPrompt = StaticMesh
+	position = 9 -33.5 3
+	name = StaticMesh_PipeDirect4_24
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 106
+	classPrompt = StaticMesh
+	position = 9 -29.5 1
+	name = StaticMesh_PipeDirect4_25
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 107
+	classPrompt = StaticMesh
+	position = 9 -29.5 0.5
+	name = StaticMesh_PipeRackBase_11
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 108
+	classPrompt = StaticMesh
+	position = 9 -29.5 1.5
+	name = StaticMesh_PipeRackX_14
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 109
+	classPrompt = StaticMesh
+	position = 9 -29.5 2
+	name = StaticMesh_PipeDirect4_26
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 110
+	classPrompt = StaticMesh
+	position = 9 -29.5 2.5
+	name = StaticMesh_PipeRackX_15
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 111
+	classPrompt = StaticMesh
+	position = 9 -29.5 3
+	name = StaticMesh_PipeDirect4_27
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 112
+	classPrompt = StaticMesh
+	position = 9 -25.5 2
+	name = StaticMesh_PipeDirect4_29
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 113
+	classPrompt = StaticMesh
+	position = 9 -25.5 3
+	name = StaticMesh_PipeDirect4_30
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 114
+	classPrompt = StaticMesh
+	position = 9 -47 1
+	rotation = 0 -0.7071068 0 0.7071068
+	name = StaticMesh_PipeFork3_0
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 115
+	classPrompt = StaticMesh
+	position = 9 -45 1
+	name = StaticMesh_PipeDirect1_2
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 116
+	classPrompt = StaticMesh
+	position = 9 -44 1
+	name = StaticMesh_PipeDirect1_3
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 117
+	classPrompt = StaticMesh
+	position = 7 -47 1
+	rotation = 0.5000001 0.5000001 0.5000001 0.5000001
+	name = StaticMesh_PipeCorner_1
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 118
+	classPrompt = StaticMesh
+	position = -5.5 -57 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeDirect4_34
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 119
+	classPrompt = StaticMesh
+	position = -5.5 -57 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeRackBase_15
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 120
+	classPrompt = StaticMesh
+	position = -3 -57 1
+	rotation = -0.707107 -0.7071068 -8.940697E-08 -3.908102E-15
+	name = StaticMesh_PipeCorner_2
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 121
+	classPrompt = StaticMesh
+	position = -3 -57 0
+	rotation = 0.5 -0.5 -0.5 0.5000001
+	name = StaticMesh_PipeDirect1_5
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 122
+	classPrompt = StaticMesh
+	position = -21 -57 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeFork3_1
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 123
+	classPrompt = StaticMesh
+	position = -21 -57 2
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_PipeDirect1_6
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 124
+	classPrompt = StaticMesh
+	position = -9.5 -57 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeRackBase_16
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 125
+	classPrompt = StaticMesh
+	position = -9.5 -57 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeDirect4_35
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 126
+	classPrompt = StaticMesh
+	position = -13.5 -57 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeRackBase_17
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 127
+	classPrompt = StaticMesh
+	position = -13.5 -57 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeDirect4_36
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 128
+	classPrompt = StaticMesh
+	position = -17.5 -57 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeRackBase_18
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 129
+	classPrompt = StaticMesh
+	position = -17.5 -57 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeDirect4_37
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 130
+	classPrompt = StaticMesh
+	position = -21 -57 3
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_PipeDirect1_7
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 131
+	classPrompt = StaticMesh
+	position = -21 -57 4
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_PipeDirect1_8
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 132
+	classPrompt = StaticMesh
+	position = -21.5 -57 5
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_PipeDirect1_9
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 133
+	classPrompt = StaticMesh
+	position = -20 -57 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeDirect1_15
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 134
+	classPrompt = StaticMesh
+	position = -20 -57 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeRackBase_19
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 135
+	classPrompt = StaticMesh
+	position = 0 -24 0
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_PassDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Pass.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 136
+	classPrompt = StaticMesh
+	position = 12 -12 0
+	name = StaticMesh_Wall_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Wall.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 137
+	classPrompt = StaticMesh
+	position = 7 -3.5 1
+	rotation = 0.5000001 -0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_0
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 138
+	classPrompt = StaticMesh
+	position = 7 -3.5 0
+	rotation = 0.5000001 -0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_1
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 139
+	classPrompt = StaticMesh
+	position = -7.500001 -3.5 1
+	rotation = 0 0 0.7071069 0.7071068
+	name = StaticMesh_2
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 140
+	classPrompt = StaticMesh
+	position = 4.500001 -3.500001 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_3
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 141
+	classPrompt = StaticMesh
+	position = 4.500001 -3.5 1
+	rotation = 0 0 0.7071069 0.7071068
+	name = StaticMesh_4
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 142
+	classPrompt = StaticMesh
+	position = -7.500001 -3.499999 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_5
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 143
+	classPrompt = StaticMesh
+	position = 0.5 -3.5 1
+	rotation = 0 0 0.7071069 0.7071068
+	name = StaticMesh_6
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 144
+	classPrompt = StaticMesh
+	position = -3.5 -3.5 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_7
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 145
+	classPrompt = StaticMesh
+	position = -3.5 -3.5 1
+	rotation = 0 0 0.7071069 0.7071068
+	name = StaticMesh_9
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 146
+	classPrompt = StaticMesh
+	position = 0.5 -3.5 0.5
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_10
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Teleporter
+	uin = 147
+	classPrompt = Teleporter
+	active = False
+	changeMapName = "Maps\\VillageDemo\\Map\\Map.map"
+	changeMapSpawnObjectName = Teleporter_0
+	position = -6.5 -6 0.5683842
+	rotation = 0 0 -1.043081E-07 1
+	name = Teleporter_0
+}
+entity
+{
+	type = Teleporter
+	uin = 148
+	classPrompt = Teleporter
+	active = False
+	changeMapName = "Maps\\VillageDemo\\Map\\Map.map"
+	changeMapSpawnObjectName = Teleporter_0
+	position = -6.5 -10 0.5683842
+	rotation = 0 0 -1.043081E-07 1
+	name = Teleporter_1
+}
+entity
+{
+	type = Teleporter
+	uin = 149
+	classPrompt = Teleporter
+	active = False
+	changeMapName = "Maps\\VillageDemo\\Map\\Map.map"
+	changeMapSpawnObjectName = Teleporter_0
+	position = -6.5 -14 0.5683842
+	rotation = 0 0 -1.043081E-07 1
+	name = Teleporter_2
+}
+entity
+{
+	type = Teleporter
+	uin = 150
+	classPrompt = Teleporter
+	active = False
+	changeMapName = "Maps\\VillageDemo\\Map\\Map.map"
+	changeMapSpawnObjectName = Teleporter_0
+	position = -18.5 -49.5 0.5683842
+	rotation = 0 0 -1.043081E-07 1
+	name = Teleporter_3
+}
+entity
+{
+	type = StaticMesh
+	uin = 151
+	classPrompt = StaticMesh
+	position = -10 -3.5 1
+	rotation = 0.5000001 0.5000001 0.5000001 0.5000001
+	name = StaticMesh_8
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 152
+	classPrompt = StaticMesh
+	position = -10 -3.5 0
+	rotation = 0.5000001 0.5000001 0.5000001 0.5000001
+	name = StaticMesh_11
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Terminal
+	uin = 153
+	classPrompt = Terminal
+	relationships = 8
+	position = -4 -20.5 2
+	rotation = 0 0 0.707107 0.7071068
+	name = Terminal_0
+}
+entity
+{
+	type = Terminal
+	uin = 154
+	classPrompt = Terminal
+	relationships = 8
+	position = 8 -19.5 2
+	rotation = 0 0 0.9659258 0.258819
+	name = Terminal_1
+}
+entity
+{
+	type = StaticMesh
+	uin = 155
+	classPrompt = StaticMesh
+	position = 7 -21 0
+	rotation = -0.7071068 0 0 0.7071068
+	name = StaticMesh_12
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 156
+	classPrompt = StaticMesh
+	position = 7 -21 4
+	rotation = -0.7071068 0 0 0.7071068
+	name = StaticMesh_13
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 157
+	classPrompt = StaticMesh
+	position = 8.5 -22 1
+	rotation = -3.090862E-08 -0.7071068 -0.7071068 -3.090862E-08
+	name = StaticMesh_18
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 158
+	classPrompt = StaticMesh
+	position = 8.5 -22 0
+	rotation = -3.090862E-08 -0.7071068 -0.7071068 -3.090862E-08
+	name = StaticMesh_19
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 159
+	classPrompt = StaticMesh
+	position = 8 -37.5 3.5
+	rotation = -0.7071068 0 0 0.7071068
+	name = StaticMesh_24
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 160
+	classPrompt = StaticMesh
+	position = 8 -37.5 1
+	rotation = -0.5000001 -0.5000001 0.5000001 0.5000001
+	name = StaticMesh_25
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 161
+	classPrompt = StaticMesh
+	position = 7 -37.5 1
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_27
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 162
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = 7 -37.5 1
+	rotation = -2.634179E-09 -2.634179E-09 -0.7071069 0.7071069
+	name = PipeSwitch_1
+}
+entity
+{
+	type = StaticMesh
+	uin = 163
+	classPrompt = StaticMesh
+	position = 4.5 -21 3.5
+	rotation = -0.7071068 0 0 0.7071068
+	name = StaticMesh_17
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 164
+	classPrompt = StaticMesh
+	position = 4.5 -21 1
+	rotation = -0.5000001 -0.5000001 0.5000001 0.5000001
+	name = StaticMesh_20
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 165
+	classPrompt = StaticMesh
+	position = 4.5 -21 -1.5
+	rotation = -0.7071068 0 0 0.7071068
+	name = StaticMesh_21
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 166
+	classPrompt = StaticMesh
+	position = 3.5 -21 1
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_22
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 167
+	classPrompt = StaticMesh
+	position = 2.5 -21 1
+	rotation = -0.707107 0.707107 0 0
+	name = StaticMesh_23
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 168
+	classPrompt = StaticMesh
+	position = 2.5 -21 -1.5
+	rotation = 0.7071068 0 0 0.7071068
+	name = StaticMesh_30
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 169
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = 3.5 -21 1
+	rotation = -2.634179E-09 -2.634179E-09 -0.7071069 0.7071069
+	name = PipeSwitch_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 170
+	classPrompt = StaticMesh
+	position = 9.5 -21.5 0.5
+	name = StaticMesh_31
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 171
+	classPrompt = StaticMesh
+	position = -9 -8 0.5
+	name = StaticMesh_14
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 172
+	classPrompt = StaticMesh
+	position = -9 -8 1
+	name = StaticMesh_15
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 173
+	classPrompt = StaticMesh
+	position = -9 -8 2
+	name = StaticMesh_16
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 174
+	classPrompt = StaticMesh
+	position = -9 -8 1.5
+	name = StaticMesh_32
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 175
+	classPrompt = StaticMesh
+	position = -9 -12 0.5
+	name = StaticMesh_33
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 176
+	classPrompt = StaticMesh
+	position = -9 -12 1
+	name = StaticMesh_34
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 177
+	classPrompt = StaticMesh
+	position = -9 -12 2
+	name = StaticMesh_35
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 178
+	classPrompt = StaticMesh
+	position = -9 -12 1.5
+	name = StaticMesh_36
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 179
+	classPrompt = StaticMesh
+	position = -9 -16 2
+	name = StaticMesh_37
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 180
+	classPrompt = StaticMesh
+	position = -9 -16 1
+	name = StaticMesh_38
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 181
+	classPrompt = StaticMesh
+	position = -9 -16 0.5
+	name = StaticMesh_39
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 182
+	classPrompt = StaticMesh
+	position = -9 -16 1.5
+	name = StaticMesh_40
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 183
+	classPrompt = StaticMesh
+	position = -9 -5.5 2
+	rotation = 0.707107 0 0 0.707107
+	name = StaticMesh_41
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 184
+	classPrompt = StaticMesh
+	position = -9 -5.5 0
+	rotation = 0.707107 0 0 0.707107
+	name = StaticMesh_42
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 185
+	classPrompt = StaticMesh
+	position = -9 -5.5 1
+	rotation = 0.7071068 0 0 0.7071068
+	name = StaticMesh_43
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 186
+	classPrompt = StaticMesh
+	position = -9 -18.5 3
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_44
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 187
+	classPrompt = StaticMesh
+	position = -9 -18.5 2
+	rotation = -0.7071069 0 0 0.7071068
+	name = StaticMesh_45
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 188
+	classPrompt = StaticMesh
+	position = -9 -18.5 1
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_46
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 189
+	classPrompt = StaticMesh
+	position = -9 -18.5 4
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_47
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 190
+	classPrompt = StaticMesh
+	position = -9 -17.5 0.5
+	name = StaticMesh_48
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 191
+	classPrompt = StaticMesh
+	position = -6 -3.5 1
+	rotation = 0.7071069 0.7071071 0 0
+	name = StaticMesh_49
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 192
+	classPrompt = StaticMesh
+	position = -6 -3.5 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_50
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 193
+	classPrompt = StaticMesh
+	position = 8 -38.5 1
+	rotation = -0.5000001 -0.5000001 0.5000001 0.5000001
+	name = StaticMesh_51
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 194
+	classPrompt = StaticMesh
+	position = 7 -38.5 1
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_53
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 195
+	classPrompt = StaticMesh
+	position = 6 -38.5 1
+	rotation = -0.707107 0.707107 0 0
+	name = StaticMesh_66
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 196
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = 7 -38.5 1
+	rotation = -2.634179E-09 -2.634179E-09 -0.7071069 0.7071069
+	name = PipeSwitch_2
+}
+entity
+{
+	type = StaticMesh
+	uin = 197
+	classPrompt = StaticMesh
+	position = 8 -38.5 3.5
+	rotation = -0.7071068 0 0 0.7071068
+	name = StaticMesh_67
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 198
+	classPrompt = StaticMesh
+	position = 9 -58 1
+	rotation = -3.090862E-08 0.7071069 0.7071068 3.090862E-08
+	name = StaticMesh_69
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 199
+	classPrompt = StaticMesh
+	position = 9 -58 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_70
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 200
+	classPrompt = StaticMesh
+	position = 9 -56 0.5
+	name = StaticMesh_71
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 201
+	classPrompt = StaticMesh
+	position = 9 -53.5 0.5
+	name = StaticMesh_PipeRackBase_9
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 202
+	classPrompt = StaticMesh
+	position = 9 -53.5 1.5
+	name = StaticMesh_PipeRackX_10
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 203
+	classPrompt = StaticMesh
+	position = 9 -53.5 2.5
+	name = StaticMesh_PipeRackX_11
+	meshName = "Models\\Pipes\\PipeRackX.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 204
+	classPrompt = StaticMesh
+	position = 9 -56 1
+	name = StaticMesh_72
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 205
+	classPrompt = StaticMesh
+	position = 9 -57 1
+	name = StaticMesh_73
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 206
+	classPrompt = StaticMesh
+	position = 8 -47 1
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_PipeDirect1_4
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 207
+	classPrompt = StaticMesh
+	position = 7 -47 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_74
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 208
+	classPrompt = StaticMesh
+	position = 6 -38.5 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_75
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 209
+	classPrompt = StaticMesh
+	position = 6 -37.5 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_26
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 210
+	classPrompt = StaticMesh
+	position = 8 -37.5 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_29
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 211
+	classPrompt = StaticMesh
+	position = 8 -38.5 0
+	rotation = -8.728897E-09 0.7071068 -0.7071068 7.194917E-08
+	name = StaticMesh_52
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 212
+	classPrompt = StaticMesh
+	position = 6 -37.5 1
+	rotation = -0.707107 0.707107 0 0
+	name = StaticMesh_28
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 213
+	classPrompt = StaticMesh
+	position = 4.642861 -56.35715 1
+	name = StaticMesh_68
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 214
+	classPrompt = StaticMesh
+	position = 4.642861 -57.35715 1
+	rotation = -0.707107 0 0 0.707107
+	name = StaticMesh_76
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 215
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = 4.642861 -56.35715 1
+	rotation = -3.725292E-09 0 -1 0
+	name = PipeSwitch_3
+}
+entity
+{
+	type = StaticMesh
+	uin = 216
+	classPrompt = StaticMesh
+	position = 4.642861 -57.35715 3.5
+	rotation = -0.5000001 0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_77
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 217
+	classPrompt = StaticMesh
+	position = 3.642861 -57.35715 1
+	rotation = -0.707107 0 0 0.707107
+	name = StaticMesh_78
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 218
+	classPrompt = StaticMesh
+	position = 3.642861 -56.35715 1
+	name = StaticMesh_79
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 219
+	classPrompt = StaticMesh
+	position = 3.642861 -55.35715 1
+	rotation = 0 1 0 0
+	name = StaticMesh_80
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 220
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = 3.642861 -56.35715 1
+	rotation = -3.725292E-09 0 -1 0
+	name = PipeSwitch_4
+}
+entity
+{
+	type = StaticMesh
+	uin = 221
+	classPrompt = StaticMesh
+	position = 3.642861 -57.35715 3.5
+	rotation = -0.5000001 0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_81
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 222
+	classPrompt = StaticMesh
+	position = 3.642861 -55.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_82
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 223
+	classPrompt = StaticMesh
+	position = 4.642861 -55.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_83
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 224
+	classPrompt = StaticMesh
+	position = 4.642861 -57.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_84
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 225
+	classPrompt = StaticMesh
+	position = 3.642861 -57.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_85
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 226
+	classPrompt = StaticMesh
+	position = 4.642861 -55.35715 1
+	rotation = 0 1 0 0
+	name = StaticMesh_86
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 227
+	classPrompt = StaticMesh
+	position = -0.3571391 -56.35715 1
+	name = StaticMesh_87
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 228
+	classPrompt = StaticMesh
+	position = -0.3571392 -57.35715 1
+	rotation = -0.707107 0 0 0.707107
+	name = StaticMesh_88
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 229
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = -0.3571391 -56.35715 1
+	rotation = -3.725292E-09 0 -1 0
+	name = PipeSwitch_5
+}
+entity
+{
+	type = StaticMesh
+	uin = 230
+	classPrompt = StaticMesh
+	position = -0.3571392 -57.35715 3.5
+	rotation = -0.5000001 0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_89
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 231
+	classPrompt = StaticMesh
+	position = -1.357139 -57.35715 1
+	rotation = -0.707107 0 0 0.707107
+	name = StaticMesh_90
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 232
+	classPrompt = StaticMesh
+	position = -1.357139 -56.35715 1
+	name = StaticMesh_91
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 233
+	classPrompt = StaticMesh
+	position = -1.357139 -55.35715 1
+	rotation = 0 1 0 0
+	name = StaticMesh_92
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeSwitch
+	uin = 234
+	classPrompt = TurnFloatSwitch
+	value = 0
+	position = -1.357139 -56.35715 1
+	rotation = -3.725292E-09 0 -1 0
+	name = PipeSwitch_6
+}
+entity
+{
+	type = StaticMesh
+	uin = 235
+	classPrompt = StaticMesh
+	position = -1.357139 -57.35715 3.5
+	rotation = -0.5000001 0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_93
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 236
+	classPrompt = StaticMesh
+	position = -1.357139 -55.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_94
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 237
+	classPrompt = StaticMesh
+	position = -0.3571389 -55.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_95
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 238
+	classPrompt = StaticMesh
+	position = -0.3571392 -57.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_96
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 239
+	classPrompt = StaticMesh
+	position = -1.357139 -57.35715 0
+	rotation = 0.5000001 0.5000001 -0.5000001 -0.5
+	name = StaticMesh_97
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 240
+	classPrompt = StaticMesh
+	position = -0.3571389 -55.35715 1
+	rotation = 0 1 0 0
+	name = StaticMesh_98
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 241
+	classPrompt = StaticMesh
+	position = 9 -26 1
+	rotation = -0.7071069 -6.181724E-08 3.552714E-15 -0.7071068
+	name = StaticMesh_99
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 242
+	classPrompt = StaticMesh
+	position = 9 -27 1
+	rotation = 0 0 1 -4.371139E-08
+	name = StaticMesh_100
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 243
+	classPrompt = StaticMesh
+	position = 9 -26 0
+	rotation = -0.7071068 -3.963752E-08 1.028578E-07 0.7071068
+	name = StaticMesh_101
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 244
+	classPrompt = StaticMesh
+	position = -21 -51.5 2
+	name = StaticMesh_54
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 245
+	classPrompt = StaticMesh
+	position = -21 -51.5 1
+	name = StaticMesh_55
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 246
+	classPrompt = StaticMesh
+	position = -21 -54 3
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_56
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 247
+	classPrompt = StaticMesh
+	position = -21 -54 2
+	rotation = -0.7071069 0 0 0.7071068
+	name = StaticMesh_57
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 248
+	classPrompt = StaticMesh
+	position = -21 -54 1
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_58
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 249
+	classPrompt = StaticMesh
+	position = -21 -54 4
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_59
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 250
+	classPrompt = StaticMesh
+	position = -21 -51.5 1.5
+	name = StaticMesh_60
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 251
+	classPrompt = StaticMesh
+	position = -21 -51.5 0.5
+	name = StaticMesh_61
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 252
+	classPrompt = StaticMesh
+	position = -21 -53 0.5
+	name = StaticMesh_62
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 253
+	classPrompt = StaticMesh
+	position = -21 -43.5 0.5
+	name = StaticMesh_63
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 254
+	classPrompt = StaticMesh
+	position = -21 -43.5 1
+	name = StaticMesh_64
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 255
+	classPrompt = StaticMesh
+	position = -21 -43.5 2
+	name = StaticMesh_65
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 256
+	classPrompt = StaticMesh
+	position = -21 -43.5 1.5
+	name = StaticMesh_102
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 257
+	classPrompt = StaticMesh
+	position = -21 -47.5 0.5
+	name = StaticMesh_103
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 258
+	classPrompt = StaticMesh
+	position = -21 -47.5 1
+	name = StaticMesh_104
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 259
+	classPrompt = StaticMesh
+	position = -21 -47.5 2
+	name = StaticMesh_105
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 260
+	classPrompt = StaticMesh
+	position = -21 -47.5 1.5
+	name = StaticMesh_106
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 261
+	classPrompt = StaticMesh
+	position = -21 -41 0
+	rotation = 0.707107 0 0 0.707107
+	name = StaticMesh_107
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 262
+	classPrompt = StaticMesh
+	position = -21 -41 2
+	rotation = 0.707107 0 0 0.707107
+	name = StaticMesh_108
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 263
+	classPrompt = StaticMesh
+	position = -21 -41 1
+	rotation = 0.7071068 0 0 0.7071068
+	name = StaticMesh_109
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Teleporter
+	uin = 264
+	classPrompt = Teleporter
+	active = False
+	changeMapName = "Maps\\VillageDemo\\Map\\Map.map"
+	changeMapSpawnObjectName = Teleporter_0
+	position = -18.5 -45.5 0.5683842
+	rotation = 0 0 -1.043081E-07 1
+	name = Teleporter_4
+}
+entity
+{
+	type = StaticMesh
+	uin = 265
+	classPrompt = StaticMesh
+	position = -21 -39.5 3
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_110
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 266
+	classPrompt = StaticMesh
+	position = -21 -39.5 2
+	rotation = -0.7071069 0 0 0.7071068
+	name = StaticMesh_111
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 267
+	classPrompt = StaticMesh
+	position = -21 -39.5 1
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_112
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 268
+	classPrompt = StaticMesh
+	position = -21 -39.5 4
+	rotation = -0.7071071 0 0 0.7071069
+	name = StaticMesh_113
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 269
+	classPrompt = StaticMesh
+	position = -21 -38.5 0.5
+	name = StaticMesh_114
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 270
+	classPrompt = StaticMesh
+	position = -21 -37 1.5
+	name = StaticMesh_115
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 271
+	classPrompt = StaticMesh
+	position = -21 -37 0.5
+	name = StaticMesh_116
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 272
+	classPrompt = StaticMesh
+	position = -21 -37 2
+	name = StaticMesh_117
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 273
+	classPrompt = StaticMesh
+	position = -21 -37 1
+	name = StaticMesh_118
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 274
+	classPrompt = StaticMesh
+	position = -21 -33 0.5
+	name = StaticMesh_119
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 275
+	classPrompt = StaticMesh
+	position = -21 -33 1.5
+	name = StaticMesh_120
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 276
+	classPrompt = StaticMesh
+	position = -21 -29 1
+	name = StaticMesh_121
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 277
+	classPrompt = StaticMesh
+	position = -21 -29 2
+	name = StaticMesh_122
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 278
+	classPrompt = StaticMesh
+	position = -21 -33 1
+	name = StaticMesh_123
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 279
+	classPrompt = StaticMesh
+	position = -21 -33 2
+	name = StaticMesh_124
+	meshName = "Models\\Pipes\\PipeDirect4.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 280
+	classPrompt = StaticMesh
+	position = -21 -29 0.5
+	name = StaticMesh_125
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 281
+	classPrompt = StaticMesh
+	position = -21 -29 1.5
+	name = StaticMesh_126
+	meshName = "Models\\Pipes\\PipeRackBase.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 282
+	classPrompt = StaticMesh
+	position = -21 -26.5 0
+	rotation = 0.707107 0 0 0.707107
+	name = StaticMesh_127
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 283
+	classPrompt = StaticMesh
+	position = -21 -26.5 2
+	rotation = 0.707107 0 0 0.707107
+	name = StaticMesh_128
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 284
+	classPrompt = StaticMesh
+	position = -21 -26.5 1
+	rotation = 0.7071068 0 0 0.7071068
+	name = StaticMesh_129
+	meshName = "Models\\Pipes\\PipeFork3.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = WoodBox
+	uin = 285
+	classPrompt = Dynamic
+	position = -18.31852 -28.41168 0.7789661
+	name = WoodBox_0
+}
+entity
+{
+	type = WoodBox
+	uin = 286
+	classPrompt = Dynamic
+	position = -19.67613 -28.60814 0.7789661
+	name = WoodBox_1
+}
+entity
+{
+	type = WoodBox
+	uin = 287
+	classPrompt = Dynamic
+	position = -19.8106 -30.86263 0.7789661
+	rotation = 0 0 0.1305262 0.9914449
+	name = WoodBox_2
+}
+entity
+{
+	type = WoodBox
+	uin = 288
+	classPrompt = Dynamic
+	position = -19.73753 -28.57687 1.788966
+	name = WoodBox_3
+}
+entity
+{
+	type = WoodBox
+	uin = 289
+	classPrompt = Dynamic
+	position = -19.73753 -28.57687 2.808966
+	rotation = 0 0 -0.1305262 0.9914449
+	name = WoodBox_4
+}
+entity
+{
+	type = WoodBox
+	uin = 290
+	classPrompt = Dynamic
+	position = -19.67613 -37.10814 0.7789661
+	name = WoodBox_5
+}
+entity
+{
+	type = WoodBox
+	uin = 291
+	classPrompt = Dynamic
+	position = -19.73753 -36.94474 1.788966
+	rotation = 0 0 0.06123484 0.9981234
+	name = WoodBox_6
+}
+entity
+{
+	type = WoodBox
+	uin = 292
+	classPrompt = Dynamic
+	position = -19.73753 -37.30307 2.808966
+	rotation = 0 0 -0.1305262 0.9914449
+	name = WoodBox_7
+}
+entity
+{
+	type = WoodBox
+	uin = 293
+	classPrompt = Dynamic
+	position = 7.856508 -50.22202 1.788966
+	rotation = 0 0 0.999261 -0.03843844
+	name = WoodBox_9
+}
+entity
+{
+	type = WoodBox
+	uin = 294
+	classPrompt = Dynamic
+	position = 7.802631 -50.056 0.7789661
+	rotation = 0 0 0.9997395 0.02282327
+	name = WoodBox_10
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 295
+	classPrompt = Dynamic
+	position = 7.882437 -53.2327 1.069674
+	name = ExplosionBarrel_1
+}
+entity
+{
+	type = Ball
+	uin = 296
+	classPrompt = Dynamic
+	position = -7.54213 -54.50726 0.7682185
+	name = Ball_0
+}
+entity
+{
+	type = Box
+	uin = 297
+	classPrompt = Dynamic
+	position = -4.958945 -54.68233 0.7683648
+	name = Box_0
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 298
+	classPrompt = Dynamic
+	position = -3.802047 -55.85394 0.9708796
+	rotation = 0.5256017 -0.496945 0.5017427 0.4743868
+	name = ExplosionBarrel_2
+}
+entity
+{
+	type = Box
+	uin = 299
+	classPrompt = Dynamic
+	position = -6.309498 -54.80613 0.7683648
+	name = Box_1
+}
+entity
+{
+	type = Box
+	uin = 300
+	classPrompt = Dynamic
+	position = -6.301454 -54.70221 1.775041
+	rotation = 0 0 -0.0771776 0.9970174
+	name = Box_2
+}
+entity
+{
+	type = Box
+	uin = 301
+	classPrompt = Dynamic
+	position = -4.966989 -54.78625 1.775041
+	rotation = 0 0 -0.0771776 0.9970174
+	name = Box_3
+}
+entity
+{
+	type = Box
+	uin = 302
+	classPrompt = Dynamic
+	position = -9.398619 -55.60608 0.7750406
+	rotation = 0 0 -0.0771776 0.9970174
+	name = Box_4
+}
+entity
+{
+	type = WoodBox
+	uin = 303
+	classPrompt = Dynamic
+	position = 7.856508 -54.79102 1.386773
+	rotation = 0.02618792 0.6807868 -0.7314724 0.02813764
+	name = WoodBox_8
+}
+entity
+{
+	type = Terminal
+	uin = 304
+	classPrompt = Terminal
+	relationships = 16
+	initialControl = "Gui\\MainDemoActionsTerminal.gui"
+	position = -17.89137 -41.85469 2
+	rotation = 0 0 1.192093E-07 1
+	name = Terminal_Actions
+	logicClass = 16
+}
+entity
+{
+	type = StaticMesh
+	uin = 305
+	classPrompt = StaticMesh
+	position = -22 -57 0
+	rotation = 0.5 0.5 0.5000001 0.5
+	name = StaticMesh_130
+	meshName = "Models\\Pipes\\PipeDirect1.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 306
+	classPrompt = StaticMesh
+	position = -22 -57 1
+	rotation = 0.5 0.5 0.5000001 0.5
+	name = StaticMesh_131
+	meshName = "Models\\Pipes\\PipeCorner.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 307
+	classPrompt = StaticMesh
+	position = -12 -36 0
+	name = StaticMesh_132
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}

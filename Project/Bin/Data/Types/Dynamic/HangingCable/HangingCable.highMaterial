@@ -1,0 +1,8 @@
+highLevelMaterial HangingCable
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\Dynamic\HangingCable\HangingCable.dds
+	}
+}

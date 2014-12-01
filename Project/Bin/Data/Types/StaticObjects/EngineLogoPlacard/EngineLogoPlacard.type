@@ -1,0 +1,48 @@
+type EngineLogoPlacard
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Plane.mesh"
+			forceMaterial = EngineLogoPlacard
+			collision = True
+			rotation = 0.4998778 0.4998778 0.5001222 0.5001222
+			scale = 7.1 4.3 6
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			forceMaterial = Gray
+			collision = True
+			position = 0 0 2.2
+			scale = 0.1 7.3 0.1
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			forceMaterial = Gray
+			collision = True
+			position = 0 0 -2.2
+			scale = 0.1 7.3 0.1
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			forceMaterial = Gray
+			collision = True
+			position = 0 -3.6 0
+			scale = 0.1 0.1 4.3
+		}
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			forceMaterial = Gray
+			collision = True
+			position = 0 3.6 0
+			scale = 0.1 0.1 4.3
+		}
+	}
+}

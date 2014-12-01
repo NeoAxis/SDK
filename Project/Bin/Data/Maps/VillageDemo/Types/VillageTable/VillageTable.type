@@ -1,0 +1,15 @@
+type VillageTable
+{
+	class = Dynamic
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageTable\\VillageTable.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageTable\\meshU3D_037.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

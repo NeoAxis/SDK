@@ -1,0 +1,19 @@
+highLevelMaterial Tree03A_Bark
+{
+	template = VegetationMaterial
+	specularColor = 1 1 1
+	detailBending = False
+	bendVariation = 0.005
+	diffuse1Map
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Bark3A.dds"
+	}
+	specularMap
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Bark3A_S.dds"
+	}
+	normalMap
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Bark3A_N.dds"
+	}
+}

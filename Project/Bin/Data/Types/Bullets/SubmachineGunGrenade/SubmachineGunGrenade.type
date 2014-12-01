@@ -1,0 +1,56 @@
+type SubmachineGunGrenade
+{
+	class = Bullet
+	velocity = 40
+	damage = 60
+	impulse = 140000
+	gravity = 9.81
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Bullets\\SubmachineGunGrenade\\SubmachineGunGrenade.mesh"
+			scale = 0.5 0.5 0.5
+		}
+		particle
+		{
+			particleName = SubmachineGunGrenadeParticle
+			startTime = 0.05
+		}
+		light
+		{
+			diffuseColor = 1 1 0.4
+			specularColor = 1 1 1
+			attenuationFar = 7
+			ffpAttenuationConstant = 0
+			ffpAttenuationQuadric = 0.4
+			castShadows = False
+		}
+	}
+	hitObjects
+	{
+		mapObject
+		{
+			type = SubmachineGunGrenadeHitExplosion
+		}
+		particle
+		{
+			particleName = ExplosionParticle
+		}
+		particle
+		{
+			particleName = ExplosionParticle2
+		}
+		sound
+		{
+			soundName = "Types\\Bullets\\SubmachineGunGrenade\\SubmachineGunGrenadeHit.ogg"
+			priority = 0.8
+		}
+		mapObject
+		{
+			type = DefaultExplosionDecalCreator
+		}
+	}
+}

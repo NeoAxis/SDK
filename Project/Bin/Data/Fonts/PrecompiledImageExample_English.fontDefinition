@@ -1,0 +1,899 @@
+fontDefinition
+{
+	textureMipMaps = True
+	textureCharacterSizeScale = 0.05859375 0.05859375
+	texture
+	{
+		index = 0
+		fileName = Fonts\PrecompiledImageExample_English_00.png
+	}
+	character
+	{
+		index = 32
+		advance = 0.3
+		drawOffset = -0.3333333 0.6666667
+		textureCoordinates = 0.3613281 0.6015625 0.4023438 0.640625
+	}
+	character
+	{
+		index = 33
+		advance = 0.3
+		drawOffset = -0.2333333 -0.1333333
+		textureCoordinates = 0.3242188 0.4003906 0.3710938 0.4765625
+	}
+	character
+	{
+		index = 34
+		advance = 0.4
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.578125 0.5332031 0.6347656 0.5878906
+	}
+	character
+	{
+		index = 35
+		advance = 0.7
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.3300781 0.2460938 0.4042969 0.3222656
+	}
+	character
+	{
+		index = 36
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0 0 0.06640625 0.08789063
+	}
+	character
+	{
+		index = 37
+		advance = 0.9666666
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.3945313 0.08789063 0.484375 0.1660156
+	}
+	character
+	{
+		index = 38
+		advance = 0.6666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.484375 0.08789063 0.5625 0.1660156
+	}
+	character
+	{
+		index = 39
+		advance = 0.2
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.6347656 0.5332031 0.6816406 0.5878906
+	}
+	character
+	{
+		index = 40
+		advance = 0.3666667
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.1914063 0 0.2480469 0.08789063
+	}
+	character
+	{
+		index = 41
+		advance = 0.3666667
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.2480469 0 0.3046875 0.08789063
+	}
+	character
+	{
+		index = 42
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.7207031 0.4648438 0.7851563 0.5292969
+	}
+	character
+	{
+		index = 43
+		advance = 0.7
+		drawOffset = -0.2666667 -0.03333334
+		textureCoordinates = 0.9082031 0.3925781 0.9804688 0.4609375
+	}
+	character
+	{
+		index = 44
+		advance = 0.3
+		drawOffset = -0.3 0.3666667
+		textureCoordinates = 0.4550781 0.5390625 0.5078125 0.5957031
+	}
+	character
+	{
+		index = 45
+		advance = 0.3333333
+		drawOffset = -0.3 0.1666667
+		textureCoordinates = 0.1191406 0.6074219 0.1757813 0.6523438
+	}
+	character
+	{
+		index = 46
+		advance = 0.3
+		drawOffset = -0.2666667 0.3666667
+		textureCoordinates = 0.9140625 0.5253906 0.9609375 0.5722656
+	}
+	character
+	{
+		index = 47
+		advance = 0.3666667
+		drawOffset = -0.3333333 -0.1666667
+		textureCoordinates = 0.7753906 0 0.8359375 0.0859375
+	}
+	character
+	{
+		index = 48
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.3984375 0.1660156 0.4648438 0.2441406
+	}
+	character
+	{
+		index = 49
+		advance = 0.5333334
+		drawOffset = -0.2333333 -0.1333333
+		textureCoordinates = 0.9394531 0.3164063 1 0.3925781
+	}
+	character
+	{
+		index = 50
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.4140625 0.3203125 0.4804688 0.3964844
+	}
+	character
+	{
+		index = 51
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.59375 0.1640625 0.6582031 0.2421875
+	}
+	character
+	{
+		index = 52
+		advance = 0.5333334
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.2773438 0.3242188 0.3457031 0.4003906
+	}
+	character
+	{
+		index = 53
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.5292969 0.1660156 0.59375 0.2441406
+	}
+	character
+	{
+		index = 54
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.06640625 0.1699219 0.1328125 0.2480469
+	}
+	character
+	{
+		index = 55
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.546875 0.3203125 0.6132813 0.3964844
+	}
+	character
+	{
+		index = 56
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.8554688 0.0859375 0.9238281 0.1640625
+	}
+	character
+	{
+		index = 57
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.1992188 0.1699219 0.265625 0.2480469
+	}
+	character
+	{
+		index = 58
+		advance = 0.3333333
+		drawOffset = -0.2333333 0.03333334
+		textureCoordinates = 0.6054688 0.4667969 0.6523438 0.5332031
+	}
+	character
+	{
+		index = 59
+		advance = 0.3333333
+		drawOffset = -0.3 0.03333334
+		textureCoordinates = 0.1777344 0.4003906 0.2304688 0.4765625
+	}
+	character
+	{
+		index = 60
+		advance = 0.7
+		drawOffset = -0.2333333 0
+		textureCoordinates = 0.2792969 0.4765625 0.3496094 0.5429688
+	}
+	character
+	{
+		index = 61
+		advance = 0.7
+		drawOffset = -0.2666667 0.1
+		textureCoordinates = 0.5078125 0.5332031 0.578125 0.5878906
+	}
+	character
+	{
+		index = 62
+		advance = 0.7
+		drawOffset = -0.2333333 0
+		textureCoordinates = 0.2089844 0.4765625 0.2792969 0.5429688
+	}
+	character
+	{
+		index = 63
+		advance = 0.4666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0 0.4003906 0.0625 0.4765625
+	}
+	character
+	{
+		index = 64
+		advance = 0.9
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.1757813 0.08789063 0.2617188 0.1699219
+	}
+	character
+	{
+		index = 65
+		advance = 0.5666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.1777344 0.2480469 0.2539063 0.3242188
+	}
+	character
+	{
+		index = 66
+		advance = 0.5666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.140625 0.3242188 0.2089844 0.4003906
+	}
+	character
+	{
+		index = 67
+		advance = 0.5666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.7128906 0.0859375 0.7851563 0.1640625
+	}
+	character
+	{
+		index = 68
+		advance = 0.6666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.7734375 0.2421875 0.8457031 0.3183594
+	}
+	character
+	{
+		index = 69
+		advance = 0.5333334
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.6132813 0.3203125 0.6796875 0.3964844
+	}
+	character
+	{
+		index = 70
+		advance = 0.5
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.8105469 0.3183594 0.875 0.3945313
+	}
+	character
+	{
+		index = 71
+		advance = 0.6333333
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.6386719 0.0859375 0.7128906 0.1640625
+	}
+	character
+	{
+		index = 72
+		advance = 0.6666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0 0.3242188 0.0703125 0.4003906
+	}
+	character
+	{
+		index = 73
+		advance = 0.3666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.1210938 0.4003906 0.1777344 0.4765625
+	}
+	character
+	{
+		index = 74
+		advance = 0.4
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.0625 0.4003906 0.1210938 0.4765625
+	}
+	character
+	{
+		index = 75
+		advance = 0.5666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.8457031 0.2402344 0.9160156 0.3164063
+	}
+	character
+	{
+		index = 76
+		advance = 0.4666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.7460938 0.3183594 0.8105469 0.3945313
+	}
+	character
+	{
+		index = 77
+		advance = 0.7666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.2539063 0.2480469 0.3300781 0.3242188
+	}
+	character
+	{
+		index = 78
+		advance = 0.6333333
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.9160156 0.2402344 0.9863281 0.3164063
+	}
+	character
+	{
+		index = 79
+		advance = 0.7
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.5625 0.0859375 0.6386719 0.1640625
+	}
+	character
+	{
+		index = 80
+		advance = 0.5333334
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.6796875 0.3183594 0.7460938 0.3945313
+	}
+	character
+	{
+		index = 81
+		advance = 0.7
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.5039063 0 0.5800781 0.0859375
+	}
+	character
+	{
+		index = 82
+		advance = 0.6
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.7011719 0.2421875 0.7734375 0.3183594
+	}
+	character
+	{
+		index = 83
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.9238281 0.0859375 0.9921875 0.1640625
+	}
+	character
+	{
+		index = 84
+		advance = 0.5666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.4042969 0.2441406 0.4785156 0.3203125
+	}
+	character
+	{
+		index = 85
+		advance = 0.6333333
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.7851563 0.0859375 0.8554688 0.1640625
+	}
+	character
+	{
+		index = 86
+		advance = 0.5666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.4785156 0.2441406 0.5527344 0.3203125
+	}
+	character
+	{
+		index = 87
+		advance = 0.8666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.7792969 0.1640625 0.8710938 0.2402344
+	}
+	character
+	{
+		index = 88
+		advance = 0.5666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.5527344 0.2441406 0.6269531 0.3203125
+	}
+	character
+	{
+		index = 89
+		advance = 0.5666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.6269531 0.2421875 0.7011719 0.3183594
+	}
+	character
+	{
+		index = 90
+		advance = 0.5333334
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.0703125 0.3242188 0.140625 0.4003906
+	}
+	character
+	{
+		index = 91
+		advance = 0.3666667
+		drawOffset = -0.2666667 -0.1666667
+		textureCoordinates = 0.3046875 0 0.359375 0.08789063
+	}
+	character
+	{
+		index = 92
+		advance = 0.3666667
+		drawOffset = -0.3333333 -0.1666667
+		textureCoordinates = 0.8359375 0 0.8964844 0.0859375
+	}
+	character
+	{
+		index = 93
+		advance = 0.3666667
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.359375 0 0.4140625 0.08789063
+	}
+	character
+	{
+		index = 94
+		advance = 0.7
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.2480469 0.5429688 0.3222656 0.6035156
+	}
+	character
+	{
+		index = 95
+		advance = 0.5333334
+		drawOffset = -0.3333333 0.5333334
+		textureCoordinates = 0.046875 0.6074219 0.1191406 0.6523438
+	}
+	character
+	{
+		index = 96
+		advance = 0.5333334
+		drawOffset = -0.2333333 -0.2
+		textureCoordinates = 0.8613281 0.5273438 0.9140625 0.5761719
+	}
+	character
+	{
+		index = 97
+		advance = 0.5
+		drawOffset = -0.3333333 0
+		textureCoordinates = 0.6367188 0.3964844 0.7011719 0.4667969
+	}
+	character
+	{
+		index = 98
+		advance = 0.5333334
+		drawOffset = -0.2666667 -0.1666667
+		textureCoordinates = 0.328125 0.08789063 0.3945313 0.1679688
+	}
+	character
+	{
+		index = 99
+		advance = 0.4333333
+		drawOffset = -0.3333333 0
+		textureCoordinates = 0.7011719 0.3945313 0.765625 0.4648438
+	}
+	character
+	{
+		index = 100
+		advance = 0.5333334
+		drawOffset = -0.3333333 -0.1666667
+		textureCoordinates = 0.2617188 0.08789063 0.328125 0.1679688
+	}
+	character
+	{
+		index = 101
+		advance = 0.5
+		drawOffset = -0.3333333 0
+		textureCoordinates = 0.5703125 0.3964844 0.6367188 0.4667969
+	}
+	character
+	{
+		index = 102
+		advance = 0.3
+		drawOffset = -0.3333333 -0.1666667
+		textureCoordinates = 0.7207031 0.1640625 0.7792969 0.2421875
+	}
+	character
+	{
+		index = 103
+		advance = 0.5333334
+		drawOffset = -0.3333333 0
+		textureCoordinates = 0.1328125 0.1699219 0.1992188 0.2480469
+	}
+	character
+	{
+		index = 104
+		advance = 0.5333334
+		drawOffset = -0.2666667 -0.1666667
+		textureCoordinates = 0.4648438 0.1660156 0.5292969 0.2441406
+	}
+	character
+	{
+		index = 105
+		advance = 0.2
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.2773438 0.4003906 0.3242188 0.4765625
+	}
+	character
+	{
+		index = 106
+		advance = 0.2666667
+		drawOffset = -0.3666667 -0.1333333
+		textureCoordinates = 0.8964844 0 0.9511719 0.0859375
+	}
+	character
+	{
+		index = 107
+		advance = 0.4666667
+		drawOffset = -0.2666667 -0.1666667
+		textureCoordinates = 0 0.1699219 0.06640625 0.2480469
+	}
+	character
+	{
+		index = 108
+		advance = 0.2
+		drawOffset = -0.2666667 -0.1666667
+		textureCoordinates = 0.9511719 0 0.9960938 0.078125
+	}
+	character
+	{
+		index = 109
+		advance = 0.8333333
+		drawOffset = -0.2666667 0
+		textureCoordinates = 0.828125 0.3945313 0.9082031 0.4628906
+	}
+	character
+	{
+		index = 110
+		advance = 0.5333334
+		drawOffset = -0.2666667 0
+		textureCoordinates = 0 0.4765625 0.06445313 0.5449219
+	}
+	character
+	{
+		index = 111
+		advance = 0.5333334
+		drawOffset = -0.3333333 0
+		textureCoordinates = 0.5019531 0.3964844 0.5703125 0.4667969
+	}
+	character
+	{
+		index = 112
+		advance = 0.5333334
+		drawOffset = -0.2666667 0
+		textureCoordinates = 0.3320313 0.1679688 0.3984375 0.2460938
+	}
+	character
+	{
+		index = 113
+		advance = 0.5333334
+		drawOffset = -0.3333333 0
+		textureCoordinates = 0.265625 0.1679688 0.3320313 0.2460938
+	}
+	character
+	{
+		index = 114
+		advance = 0.3333333
+		drawOffset = -0.2666667 0.03333334
+		textureCoordinates = 0.5488281 0.4667969 0.6054688 0.5332031
+	}
+	character
+	{
+		index = 115
+		advance = 0.4333333
+		drawOffset = -0.3 0
+		textureCoordinates = 0.765625 0.3945313 0.828125 0.4648438
+	}
+	character
+	{
+		index = 116
+		advance = 0.3333333
+		drawOffset = -0.3333333 -0.1
+		textureCoordinates = 0.3710938 0.3984375 0.4296875 0.4726563
+	}
+	character
+	{
+		index = 117
+		advance = 0.5333334
+		drawOffset = -0.3 0.03333334
+		textureCoordinates = 0.06445313 0.4765625 0.1289063 0.5449219
+	}
+	character
+	{
+		index = 118
+		advance = 0.4666667
+		drawOffset = -0.3333333 0.03333334
+		textureCoordinates = 0.3496094 0.4765625 0.4179688 0.5429688
+	}
+	character
+	{
+		index = 119
+		advance = 0.7333333
+		drawOffset = -0.3333333 0.03333334
+		textureCoordinates = 0.1289063 0.4765625 0.2089844 0.5429688
+	}
+	character
+	{
+		index = 120
+		advance = 0.4666667
+		drawOffset = -0.3333333 0.03333334
+		textureCoordinates = 0.4179688 0.4726563 0.4863281 0.5390625
+	}
+	character
+	{
+		index = 121
+		advance = 0.4666667
+		drawOffset = -0.3333333 0.03333334
+		textureCoordinates = 0.2089844 0.3242188 0.2773438 0.4003906
+	}
+	character
+	{
+		index = 122
+		advance = 0.4333333
+		drawOffset = -0.3333333 0.03333334
+		textureCoordinates = 0.4863281 0.4667969 0.5488281 0.5332031
+	}
+	character
+	{
+		index = 123
+		advance = 0.4666667
+		drawOffset = -0.3333333 -0.1666667
+		textureCoordinates = 0.06640625 0 0.1289063 0.08789063
+	}
+	character
+	{
+		index = 124
+		advance = 0.3666667
+		drawOffset = -0.2 -0.1666667
+		textureCoordinates = 0.4589844 0 0.5039063 0.08789063
+	}
+	character
+	{
+		index = 125
+		advance = 0.4666667
+		drawOffset = -0.3 -0.1666667
+		textureCoordinates = 0.1289063 0 0.1914063 0.08789063
+	}
+	character
+	{
+		index = 126
+		advance = 0.7
+		drawOffset = -0.2666667 0.1
+		textureCoordinates = 0.6816406 0.53125 0.7558594 0.5839844
+	}
+	character
+	{
+		index = 160
+		advance = 0.3
+		drawOffset = -0.3333333 0.6666667
+		textureCoordinates = 0.4023438 0.6015625 0.4433594 0.640625
+	}
+	character
+	{
+		index = 161
+		advance = 0.3
+		drawOffset = -0.2333333 -0.1333333
+		textureCoordinates = 0.2304688 0.4003906 0.2773438 0.4765625
+	}
+	character
+	{
+		index = 162
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.6464844 0 0.7109375 0.0859375
+	}
+	character
+	{
+		index = 163
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.4804688 0.3203125 0.546875 0.3964844
+	}
+	character
+	{
+		index = 164
+		advance = 0.5333334
+		drawOffset = -0.3 0
+		textureCoordinates = 0.6523438 0.4667969 0.7207031 0.53125
+	}
+	character
+	{
+		index = 165
+		advance = 0.5333334
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.3457031 0.3222656 0.4140625 0.3984375
+	}
+	character
+	{
+		index = 166
+		advance = 0.3666667
+		drawOffset = -0.2 -0.1666667
+		textureCoordinates = 0.4140625 0 0.4589844 0.08789063
+	}
+	character
+	{
+		index = 167
+		advance = 0.5333334
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.7109375 0 0.7753906 0.0859375
+	}
+	character
+	{
+		index = 168
+		advance = 0.5333334
+		drawOffset = -0.2333333 -0.1333333
+		textureCoordinates = 0.1757813 0.6054688 0.2324219 0.6503906
+	}
+	character
+	{
+		index = 169
+		advance = 0.9
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0 0.08789063 0.08789063 0.1699219
+	}
+	character
+	{
+		index = 170
+		advance = 0.4666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.8496094 0.4628906 0.9101563 0.5273438
+	}
+	character
+	{
+		index = 171
+		advance = 0.5666667
+		drawOffset = -0.3 0.03333334
+		textureCoordinates = 0.06640625 0.5449219 0.1328125 0.6074219
+	}
+	character
+	{
+		index = 172
+		advance = 0.7
+		drawOffset = -0.2666667 0.1666667
+		textureCoordinates = 0.3222656 0.5429688 0.3945313 0.6015625
+	}
+	character
+	{
+		index = 173
+		advance = 0.3333333
+		drawOffset = -0.3 0.1666667
+		textureCoordinates = 0.2324219 0.6054688 0.2890625 0.6503906
+	}
+	character
+	{
+		index = 174
+		advance = 0.9
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.08789063 0.08789063 0.1757813 0.1699219
+	}
+	character
+	{
+		index = 175
+		advance = 0.5333334
+		drawOffset = -0.3333333 -0.2333333
+		textureCoordinates = 0.2890625 0.6035156 0.3613281 0.6464844
+	}
+	character
+	{
+		index = 176
+		advance = 0.4666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.3945313 0.5429688 0.4550781 0.6015625
+	}
+	character
+	{
+		index = 177
+		advance = 0.7
+		drawOffset = -0.2666667 -0.1
+		textureCoordinates = 0.4296875 0.3964844 0.5019531 0.4667969
+	}
+	character
+	{
+		index = 178
+		advance = 0.4666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.1328125 0.5429688 0.1914063 0.6054688
+	}
+	character
+	{
+		index = 179
+		advance = 0.4666667
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.9101563 0.4609375 0.96875 0.5253906
+	}
+	character
+	{
+		index = 180
+		advance = 0.5333334
+		drawOffset = -0.1333333 -0.2
+		textureCoordinates = 0.8085938 0.5292969 0.8613281 0.578125
+	}
+	character
+	{
+		index = 181
+		advance = 0.5333334
+		drawOffset = -0.2666667 0.03333334
+		textureCoordinates = 0.875 0.3164063 0.9394531 0.3925781
+	}
+	character
+	{
+		index = 182
+		advance = 0.5333334
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.5800781 0 0.6464844 0.0859375
+	}
+	character
+	{
+		index = 183
+		advance = 0.3333333
+		drawOffset = -0.2333333 0.03333334
+		textureCoordinates = 0 0.6074219 0.046875 0.6542969
+	}
+	character
+	{
+		index = 184
+		advance = 0.5333334
+		drawOffset = -0.2 0.4666667
+		textureCoordinates = 0.7558594 0.5292969 0.8085938 0.5800781
+	}
+	character
+	{
+		index = 185
+		advance = 0.4666667
+		drawOffset = -0.2333333 -0.1333333
+		textureCoordinates = 0.1914063 0.5429688 0.2480469 0.6054688
+	}
+	character
+	{
+		index = 186
+		advance = 0.4666667
+		drawOffset = -0.3 -0.1333333
+		textureCoordinates = 0.7851563 0.4648438 0.8496094 0.5292969
+	}
+	character
+	{
+		index = 187
+		advance = 0.5666667
+		drawOffset = -0.2666667 0.03333334
+		textureCoordinates = 0 0.5449219 0.06640625 0.6074219
+	}
+	character
+	{
+		index = 188
+		advance = 0.9666666
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.08984375 0.2480469 0.1777344 0.3242188
+	}
+	character
+	{
+		index = 189
+		advance = 0.9666666
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0 0.2480469 0.08984375 0.3242188
+	}
+	character
+	{
+		index = 190
+		advance = 0.9666666
+		drawOffset = -0.2666667 -0.1333333
+		textureCoordinates = 0.8710938 0.1640625 0.9609375 0.2402344
+	}
+	character
+	{
+		index = 191
+		advance = 0.4666667
+		drawOffset = -0.3333333 -0.1333333
+		textureCoordinates = 0.6582031 0.1640625 0.7207031 0.2421875
+	}
+}

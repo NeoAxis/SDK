@@ -1,0 +1,42 @@
+type ZombieDead
+{
+	class = Corpse
+	substance = Flesh
+	lifeTime = 10
+	physicsModel = Types\Units\Zombie\ZombieDead\ZombieDead.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Zombie\Zombie.mesh
+			castDynamicShadows = True
+			body = main
+			position = 0 0 -0.2
+			animationTree = "Types\\Units\\Zombie\\ZombieDead\\ZombieDead.animationTree"
+			boneSlot influenceSlot1
+			{
+				bone = joint4
+			}
+			boneSlot influenceSlot2
+			{
+				bone = joint66
+			}
+		}
+		particle
+		{
+			particleName = FireParticle
+			alias = FireInfluence
+			boneSlot = influenceSlot1
+			visible = False
+		}
+		particle
+		{
+			particleName = FireParticle
+			alias = FireInfluence
+			boneSlot = influenceSlot2
+			visible = False
+		}
+	}
+}

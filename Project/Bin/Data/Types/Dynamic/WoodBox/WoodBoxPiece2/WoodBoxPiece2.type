@@ -1,0 +1,39 @@
+type WoodBoxPiece2
+{
+	class = Dynamic
+	lifeMax = 20
+	soundCollision = Types\Dynamic\WoodBox\Collision.ogg
+	soundCollisionMinVelocity = 2
+	physicsModel = Types\Dynamic\WoodBox\WoodBoxPiece2\WoodBoxPiece2.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\WoodBox\WoodBoxPiece2\WoodBoxPiece2.mesh
+			castDynamicShadows = True
+			body = main
+		}
+	}
+	dieObjects
+	{
+		sound
+		{
+			soundName = Types\Dynamic\WoodBox\DestroyPiece.ogg
+			priority = 0.7
+		}
+		mapObject
+		{
+			type = WoodBoxChip1
+			copyVelocitiesFromParent = True
+			position = 0.2852442 0.07839392 0.0002643466
+		}
+		mapObject
+		{
+			type = WoodBoxChip2
+			copyVelocitiesFromParent = True
+			position = -0.2274493 -0.1195621 -0.02449608
+		}
+	}
+}

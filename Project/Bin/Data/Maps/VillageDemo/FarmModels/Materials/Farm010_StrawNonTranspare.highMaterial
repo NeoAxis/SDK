@@ -1,0 +1,18 @@
+highLevelMaterial Farm010_StrawNonTranspare
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Straw.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\TexturesAO\\010.dds"
+		texCoord = TexCoord1
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\StrawBale_Normal.dds"
+	}
+}

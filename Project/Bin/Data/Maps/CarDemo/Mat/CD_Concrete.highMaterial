@@ -1,0 +1,12 @@
+highLevelMaterial CD_Concrete
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Concrete.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\CarDemo\\Textures\\ConcreteN.dds"
+	}
+}

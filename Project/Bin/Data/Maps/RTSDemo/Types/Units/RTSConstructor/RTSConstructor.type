@@ -1,0 +1,55 @@
+type RTSConstructor
+{
+	class = RTSCharacter
+	height = 3
+	radius = 0.75
+	maxVelocity = 2
+	optimalAttackDistanceRange = 0 11
+	buildCost = 30
+	initialAI = DefaultRTSUnitAI
+	viewRadius = 60
+	fpsCameraOffset = 0.4 0 1.2
+	lifeMax = 150
+	targetPriority = 1
+	substance = Metal
+	allowEditorCreate = True
+	soundMinDistance = 10
+	soundMaxDistance = 100
+	heightFromPositionToGround = 1.7
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Maps\RTSDemo\Types\Units\RTSRobot\Robot.mesh
+			animationTree = Maps\RTSDemo\Types\Units\RTSRobot\Robot.animationTree
+			castDynamicShadows = True
+			forceMaterial = Blue
+			position = 0 0 -1.5
+		}
+		mapObject
+		{
+			type = RTSConstructorGun
+			position = 0.6 -0.3 0.1
+		}
+	}
+	dieObjects
+	{
+		particle
+		{
+			particleName = RTSExplosionParticle
+		}
+		sound
+		{
+			soundName = "Maps\\RTSDemo\\Sounds\\Explode.ogg"
+			priority = 0.7
+			minDistance = 10
+			maxDistance = 100
+		}
+		mapObject
+		{
+			type = RTSFumingSplinterBullet
+			alias = randomRotation
+			count = 10
+		}
+	}
+}

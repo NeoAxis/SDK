@@ -1,0 +1,42 @@
+// Need Animation Tree Editor
+
+blocks
+{
+	block Output
+	{
+		uin = 1
+		in = 100
+	}
+
+	/////////////////////////////////////////////
+	//Death trigger
+
+	block Trigger
+	{
+		uin = 100
+		triggerName = "death"
+		off = 200
+		on = 101
+		transitionTime = 0
+	}
+
+	block Animation
+	{
+		uin = 101
+		animationName = "death"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//Dead
+
+	block Animation
+	{
+		uin = 200
+		animationName = "dead"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+
+}

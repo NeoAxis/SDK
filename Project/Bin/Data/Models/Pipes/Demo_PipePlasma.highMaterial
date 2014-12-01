@@ -1,0 +1,27 @@
+highLevelMaterial Demo_PipePlasma
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	useNormals = False
+	diffuse1Map
+	{
+		texture = ".\\Plasma.dds"
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 0.5 0
+			}
+		}
+	}
+	diffuse2Map
+	{
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 6 0
+			}
+		}
+	}
+}

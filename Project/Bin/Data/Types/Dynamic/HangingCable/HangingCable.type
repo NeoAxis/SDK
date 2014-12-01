@@ -1,0 +1,17 @@
+type HangingCable
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\HangingCable\HangingCable.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\HangingCable\HangingCable.mesh
+			castDynamicShadows = True
+			linkBonesToBodies = True
+			scale = 0.01 0.01 0.01
+		}
+	}
+}

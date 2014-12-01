@@ -1,0 +1,10 @@
+highLevelMaterial JigsawPuzzleImageBackground
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 0.3921569 0.3921569 0.3921569
+	diffuse1Map
+	{
+		texture = Maps\JigsawPuzzleGame\Image.jpg
+		clamp = True
+	}
+}

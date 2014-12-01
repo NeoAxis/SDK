@@ -1,0 +1,14 @@
+highLevelMaterial RTSSmokeParticle
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = ".\\SmokeParticle.tga"
+		clamp = True
+	}
+}

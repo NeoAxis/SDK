@@ -1,0 +1,260 @@
+TGame
+v7
+r0
+t323244451.543750
+cCheck dependencies
+cProcessInfoPlistFile "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Info.plist" Game-Info.plist
+cCopyStringsFile "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
+cCompileXIB "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/MainMenu.xib"
+cCpResource build/Debug/Game.app/Contents/Resources/App.icns App.icns
+cCompileC build/Game.build/Debug/Game.build/Objects-normal/i386/main.o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cCompileC build/Game.build/Debug/Game.build/Objects-normal/i386/GameAppDelegate.o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+cLd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/MacOS/Game" normal i386
+cPhaseScriptExecution "Run Script" "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Script-18044D85126771C100009E2D.sh"
+cTouch "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app"
+
+N/Developer/SDKs/MacOSX10.5.sdk
+c000000004AB44D2500000000000000EE
+t1253330213
+s238
+
+N/Developer/SDKs/MacOSX10.5.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
+c0000000040C4AA6800000000000001E5
+t1086630504
+s485
+
+N/Developer/SDKs/MacOSX10.5.sdk/usr/include/dlfcn.h
+c00000000487581E60000000000000AC7
+t1215660518
+s2759
+
+N/Developer/SDKs/MacOSX10.6.sdk
+c000000004ABBF0FD00000000000000EE
+t1253830909
+s238
+
+N/Developer/SDKs/MacOSX10.6.sdk/System/Library/Frameworks/Cocoa.framework/Headers/Cocoa.h
+c0000000040C4AA6800000000000001E5
+t1086630504
+s485
+
+N/Developer/SDKs/MacOSX10.6.sdk/usr/include/dlfcn.h
+c000000004AB98DF40000000000000B1C
+t1253674484
+s2844
+
+N/System/Library/Frameworks/Cocoa.framework/Cocoa
+c000000004A1F2D63000000000000A5E0
+t1243557219
+s42464
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/App.icns
+c000000004D2CC4B2000000000001ECB6
+t1294779570
+s126134
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/InfoPlist.strings
+c000000004C2A0B9E000000000000002D
+t1277823902
+s45
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/MainMenu.xib
+c000000004D5FCC3200000000000190D5
+t1298123826
+s102613
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.h
+c000000004D2CD3BD0000000000000171
+t1294783421
+s369
+i<Cocoa/Cocoa.h>
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m
+c000000004D9417EF00000000000015DA
+t1301551087
+s5594
+i"GameAppDelegate.h"
+i<dlfcn.h>
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game_Prefix.pch
+c00000000000000000000000000000000
+t2
+s0
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app
+t1301551651
+s0
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Info.plist
+t1301551362
+s1074
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/MacOS/Game
+t1301551649
+s20068
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/PkgInfo
+t1301551362
+s8
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/App.icns
+t1301551364
+s126134
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj/InfoPlist.strings
+t1301551363
+s92
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj/MainMenu.nib
+t1301551364
+s17990
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/Game.LinkFileList
+c000000004D94190200000000000000EF
+t1301551362
+s239
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/GameAppDelegate.o
+t1301551648
+s28852
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/main.o
+t1301551647
+s4880
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Script-18044D85126771C100009E2D.sh
+c000000004D9419020000000000000128
+t1301551362
+s296
+
+N/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m
+c000000004D2CC04C00000000000000B0
+t1294778444
+s176
+i<Cocoa/Cocoa.h>
+
+N/var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Game_Prefix-ajcxeekndvrmygapopogzyujcmhm/Game_Prefix.pch.gch
+t2
+s0
+
+N/var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Game_Prefix-blgiyzojhkhgvvesyemtokknylnc/Game_Prefix.pch.gch
+t2
+s0
+
+NGame-Info.plist
+c000000004D47521C000000000000047F
+t1296519708
+s1151
+
+CCheck dependencies
+r0
+lSLF07#2@18"Check dependencies323244444#323244444#0(0"0(0#1#0"2436399760#0"0#
+
+CCompileC build/Game.build/Debug/Game.build/Objects-normal/i386/GameAppDelegate.o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s323244446.899361
+e323244448.791755
+r1
+xCompileC
+xbuild/Game.build/Debug/Game.build/Objects-normal/i386/GameAppDelegate.o
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@78"Compile /Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m323244446#323244448#0(0"0(0#0#70"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m2436399760#1505"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O3 -Wreturn-type -isysroot /Developer/SDKs/MacOSX10.5.sdk -mfix-and-continue -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-generated-files.hmap" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-own-target-headers.hmap" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-all-target-headers.hmap" -iquote "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-project-headers.hmap" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../Engine/Src/Core/External/Cg/lib/MacOSX" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/include" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources/i386" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources" -c "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/GameAppDelegate.m" -o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/GameAppDelegate.o"0#
+
+CCompileC build/Game.build/Debug/Game.build/Objects-normal/i386/main.o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m" normal i386 objective-c com.apple.compilers.gcc.4_2
+s323244444.984487
+e323244446.899148
+r1
+xCompileC
+xbuild/Game.build/Debug/Game.build/Objects-normal/i386/main.o
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+lSLF07#2@67"Compile /Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m323244444#323244446#0(0"0(0#0#59"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m2436399760#1483"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O3 -Wreturn-type -isysroot /Developer/SDKs/MacOSX10.5.sdk -mfix-and-continue -mmacosx-version-min=10.5 -gdwarf-2 -iquote "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-generated-files.hmap" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-own-target-headers.hmap" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-all-target-headers.hmap" -iquote "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-project-headers.hmap" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../Engine/Src/Core/External/Cg/lib/MacOSX" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/include" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources/i386" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources" -c "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/main.m" -o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/main.o"0#
+
+CCompileXIB "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/MainMenu.xib"
+s323244163.111240
+e323244164.630907
+r1
+xCompileXIB
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/MainMenu.xib
+lSLF07#2@37"CompileXIB English.lproj/MainMenu.xib323244163#323244164#0(0"0(0#0#79"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/MainMenu.xib2436399760#372"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    /Developer/usr/bin/ibtool --errors --warnings --notices --output-format human-readable-text --compile "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj/MainMenu.nib" "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/MainMenu.xib"0#
+
+CCopyStringsFile "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj/InfoPlist.strings" English.lproj/InfoPlist.strings
+s323244162.545145
+e323244163.111154
+r1
+xCopyStringsFile
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj/InfoPlist.strings
+xEnglish.lproj/InfoPlist.strings
+lSLF07#2@36"Copy English.lproj/InfoPlist.strings323244162#323244163#0(0"0(0#0#84"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/English.lproj/InfoPlist.strings4858560#394"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv ICONV /usr/bin/iconv    /Developer/Library/Xcode/Plug-ins/CoreBuildTasks.xcplugin/Contents/Resources/copystrings --validate --inputencoding utf-8 --outputencoding UTF-16 English.lproj/InfoPlist.strings --outdir "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources/English.lproj"0#
+
+CCpResource build/Debug/Game.app/Contents/Resources/App.icns App.icns
+s323244164.631099
+e323244164.720508
+r1
+xCpResource
+xbuild/Debug/Game.app/Contents/Resources/App.icns
+xApp.icns
+lSLF07#2@13"Copy App.icns323244164#323244164#0(0"0(0#0#61"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/App.icns2436399760#369"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    /Developer/Library/PrivateFrameworks/DevToolsCore.framework/Resources/pbxcp -exclude .DS_Store -exclude CVS -exclude .svn -resolve-src-symlinks "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/App.icns" "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Resources"0#
+
+CLd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/MacOS/Game" normal i386
+s323244448.791962
+e323244449.081360
+r1
+xLd
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/MacOS/Game
+xnormal
+xi386
+lSLF07#2@98"Link /Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/MacOS/Game323244448#323244449#0(0"0(0#0#0"2436399760#969"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv MACOSX_DEPLOYMENT_TARGET 10.5    /Developer/usr/bin/gcc-4.2 -arch i386 -isysroot /Developer/SDKs/MacOSX10.5.sdk "-L/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug" -L/Library/Frameworks/Mono.framework/Versions/2.6.1/lib -L/Library/Frameworks/Mono.framework/Versions/2.8/lib -L/Library/Frameworks/Mono.framework/Versions/2.6.7/lib "-L/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../../../TempMonoCopy/2.6.7/lib" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../Engine/Src/Core/External/Cg/lib/MacOSX" -filelist "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/Game.LinkFileList" -mmacosx-version-min=10.5 -framework Cocoa -o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/MacOS/Game"0#
+
+CPhaseScriptExecution "Run Script" "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Script-18044D85126771C100009E2D.sh"
+s323244449.081461
+e323244451.501075
+r1
+xPhaseScriptExecution
+xRun Script
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Script-18044D85126771C100009E2D.sh
+ocp: /Temp/_Compilation/MacOS/Game.app/Contents/*: No such file or directory
+lSLF07#2@36"Run custom shell script 'Run Script'323244449#323244451#0(76"cp: /Temp/_Compilation/MacOS/Game.app/Contents/*: No such file or directory1(4@75"Cp: /Temp/_Compilation/MacOS/Game.app/Contents/*: No such file or directory323244449#0#76#0(1@0"0(0#0#0"2436399760#16279"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv ACTION build    setenv ALTERNATE_GROUP staff    setenv ALTERNATE_MODE u+w,go-w,a+rX    setenv ALTERNATE_OWNER user    setenv ALWAYS_SEARCH_USER_PATHS NO    setenv APPLE_INTERNAL_DEVELOPER_DIR /AppleInternal/Developer    setenv APPLE_INTERNAL_DIR /AppleInternal    setenv APPLE_INTERNAL_DOCUMENTATION_DIR /AppleInternal/Documentation    setenv APPLE_INTERNAL_LIBRARY_DIR /AppleInternal/Library    setenv APPLE_INTERNAL_TOOLS /AppleInternal/Developer/Tools    setenv APPLY_RULES_IN_COPY_FILES NO    setenv ARCHS i386    setenv ARCHS_STANDARD_32_64_BIT "x86_64 i386 ppc"    setenv ARCHS_STANDARD_32_BIT "i386 ppc"    setenv ARCHS_STANDARD_64_BIT x86_64    setenv BUILD_COMPONENTS "headers build"    setenv BUILD_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build"    setenv BUILD_ROOT "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build"    setenv BUILD_STYLE Debug    setenv BUILD_VARIANTS normal    setenv BUILT_PRODUCTS_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug"    setenv CACHE_ROOT /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501    setenv CCHROOT /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501    setenv CHMOD /bin/chmod    setenv CHOWN /usr/sbin/chown    setenv CLASS_FILE_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/JavaClasses"    setenv CLEAN_PRECOMPS YES    setenv CLONE_HEADERS NO    setenv CODESIGNING_FOLDER_PATH "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app"    setenv CODE_SIGNING_ALLOWED YES    setenv COMMAND_MODE legacy    setenv COMPOSITE_SDK_DIRS /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/CompositeSDKs    setenv CONFIGURATION Debug    setenv CONFIGURATION_BUILD_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug"    setenv CONFIGURATION_TEMP_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug"    setenv CONTENTS_FOLDER_PATH Game.app/Contents    setenv COPYING_PRESERVES_HFS_DATA NO    setenv COPY_PHASE_STRIP NO    setenv COPY_RESOURCES_FROM_STATIC_FRAMEWORKS YES    setenv CP /bin/cp    setenv CURRENT_ARCH i386    setenv CURRENT_VARIANT normal    setenv DEAD_CODE_STRIPPING NO    setenv DEBUGGING_SYMBOLS YES    setenv DEBUG_INFORMATION_FORMAT dwarf    setenv DEPLOYMENT_LOCATION NO    setenv DEPLOYMENT_POSTPROCESSING NO    setenv DERIVED_FILES_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources"    setenv DERIVED_FILE_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources"    setenv DERIVED_SOURCES_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources"    setenv DEVELOPER_APPLICATIONS_DIR /Developer/Applications    setenv DEVELOPER_BIN_DIR /Developer/usr/bin    setenv DEVELOPER_DIR /Developer    setenv DEVELOPER_FRAMEWORKS_DIR /Developer/Library/Frameworks    setenv DEVELOPER_FRAMEWORKS_DIR_QUOTED "\"/Developer/Library/Frameworks\""    setenv DEVELOPER_LIBRARY_DIR /Developer/Library    setenv DEVELOPER_SDK_DIR /Developer/SDKs    setenv DEVELOPER_TOOLS_DIR /Developer/Tools    setenv DEVELOPER_USR_DIR /Developer/usr    setenv DEVELOPMENT_LANGUAGE English    setenv DOCUMENTATION_FOLDER_PATH /Documentation    setenv DO_HEADER_SCANNING_IN_JAM NO    setenv DSTROOT /tmp/Game.dst    setenv DWARF_DSYM_FILE_NAME Game.app.dSYM    setenv DWARF_DSYM_FOLDER_PATH "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug"    setenv ENABLE_HEADER_DEPENDENCIES YES    setenv ENABLE_OPENMP_SUPPORT NO    setenv EXCLUDED_INSTALLSRC_SUBDIRECTORY_PATTERNS ".svn CVS"    setenv EXCLUDED_RECURSIVE_SEARCH_PATH_SUBDIRECTORIES "*.nib *.lproj *.framework *.gch (*) CVS .svn *.xcodeproj *.xcode *.pbproj *.pbxproj"    setenv EXECUTABLES_FOLDER_PATH Game.app/Contents/Executables    setenv EXECUTABLE_FOLDER_PATH Game.app/Contents/MacOS    setenv EXECUTABLE_NAME Game    setenv EXECUTABLE_PATH Game.app/Contents/MacOS/Game    setenv FILE_LIST "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects/LinkFileList"    setenv FIXED_FILES_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/FixedFiles"    setenv FRAMEWORKS_FOLDER_PATH Game.app/Contents/Frameworks    setenv FRAMEWORK_FLAG_PREFIX -framework    setenv FRAMEWORK_SEARCH_PATHS "\"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug\"  \"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../Engine/Src/Core/External/Cg/lib/MacOSX\""    setenv FRAMEWORK_VERSION A    setenv FULL_PRODUCT_NAME Game.app    setenv GCC3_VERSION 3.3    setenv GCC_C_LANGUAGE_STANDARD gnu99    setenv GCC_DYNAMIC_NO_PIC YES    setenv GCC_ENABLE_FIX_AND_CONTINUE YES    setenv GCC_INLINES_ARE_PRIVATE_EXTERN YES    setenv GCC_OPTIMIZATION_LEVEL 3    setenv GCC_PFE_FILE_C_DIALECTS "c objective-c c++ objective-c++"    setenv GCC_SYMBOLS_PRIVATE_EXTERN YES    setenv GCC_TREAT_WARNINGS_AS_ERRORS NO    setenv GCC_VERSION 4.2    setenv GCC_WARN_ABOUT_RETURN_TYPE YES    setenv GENERATE_MASTER_OBJECT_FILE NO    setenv GENERATE_PKGINFO_FILE YES    setenv GENERATE_PROFILING_CODE NO    setenv GID 20    setenv GROUP staff    setenv HEADERMAP_INCLUDES_FLAT_ENTRIES_FOR_TARGET_BEING_BUILT YES    setenv HEADERMAP_INCLUDES_FRAMEWORK_ENTRIES_FOR_ALL_PRODUCT_TYPES YES    setenv HEADERMAP_INCLUDES_NONPUBLIC_NONPRIVATE_HEADERS YES    setenv HEADERMAP_INCLUDES_PROJECT_HEADERS YES    setenv HEADER_SEARCH_PATHS "\"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/include\" "    setenv ICONV /usr/bin/iconv    setenv INFOPLIST_EXPAND_BUILD_SETTINGS YES    setenv INFOPLIST_FILE Game-Info.plist    setenv INFOPLIST_OUTPUT_FORMAT same-as-input    setenv INFOPLIST_PATH Game.app/Contents/Info.plist    setenv INFOPLIST_PREPROCESS NO    setenv INFOSTRINGS_PATH /InfoPlist.strings    setenv INSTALL_DIR /tmp/Game.dst/Users/user/Applications    setenv INSTALL_GROUP staff    setenv INSTALL_MODE_FLAG u+w,go-w,a+rX    setenv INSTALL_OWNER user    setenv INSTALL_PATH /Users/user/Applications    setenv INSTALL_ROOT /tmp/Game.dst    setenv JAVAC_DEFAULT_FLAGS "-J-Xms64m -J-XX:NewSize=4M -J-Dfile.encoding=UTF8"    setenv JAVA_APP_STUB /System/Library/Frameworks/JavaVM.framework/Resources/MacOS/JavaApplicationStub    setenv JAVA_ARCHIVE_CLASSES YES    setenv JAVA_ARCHIVE_TYPE JAR    setenv JAVA_COMPILER /usr/bin/javac    setenv JAVA_FOLDER_PATH Game.app/Contents/Resources/Java    setenv JAVA_FRAMEWORK_RESOURCES_DIRS Resources    setenv JAVA_JAR_FLAGS cv    setenv JAVA_SOURCE_SUBDIR .    setenv JAVA_USE_DEPENDENCIES YES    setenv JAVA_ZIP_FLAGS -urg    setenv JIKES_DEFAULT_FLAGS "+E +OLDCSO"    setenv KEEP_PRIVATE_EXTERNS NO    setenv LD_GENERATE_MAP_FILE NO    setenv LD_MAP_FILE_PATH "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-LinkMap-normal-i386.txt"    setenv LD_OPENMP_FLAGS -fopenmp    setenv LEX /Developer/usr/bin/lex    setenv LIBRARY_FLAG_NOSPACE YES    setenv LIBRARY_FLAG_PREFIX -l    setenv LIBRARY_SEARCH_PATHS "\"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug\"  \"/Library/Frameworks/Mono.framework/Versions/2.6.1/lib\" \"/Library/Frameworks/Mono.framework/Versions/2.8/lib\" \"/Library/Frameworks/Mono.framework/Versions/2.6.7/lib\" \"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../../../TempMonoCopy/2.6.7/lib\""    setenv LINKER_DISPLAYS_MANGLED_NAMES NO    setenv LINK_FILE_LIST_normal_i386 "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal/i386/Game.LinkFileList"    setenv LINK_WITH_STANDARD_LIBRARIES YES    setenv LOCAL_ADMIN_APPS_DIR /Applications/Utilities    setenv LOCAL_APPS_DIR /Applications    setenv LOCAL_DEVELOPER_DIR /Library/Developer    setenv LOCAL_LIBRARY_DIR /Library    setenv MACH_O_TYPE mh_execute    setenv MACOSX_DEPLOYMENT_TARGET 10.5    setenv MAC_OS_X_VERSION_ACTUAL 1065    setenv MAC_OS_X_VERSION_MAJOR 1060    setenv MAC_OS_X_VERSION_MINOR 0605    setenv NATIVE_ARCH i386    setenv NATIVE_ARCH_32_BIT i386    setenv NATIVE_ARCH_64_BIT x86_64    setenv NATIVE_ARCH_ACTUAL i386    setenv NO_COMMON YES    setenv OBJECT_FILE_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects"    setenv OBJECT_FILE_DIR_normal "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Objects-normal"    setenv OBJROOT "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build"    setenv ONLY_ACTIVE_ARCH YES    setenv OPTIMIZATION_LEVEL 0    setenv OS MACOS    setenv OSAC /usr/bin/osacompile    setenv PACKAGE_TYPE com.apple.package-type.wrapper.application    setenv PASCAL_STRINGS YES    setenv PATH_PREFIXES_EXCLUDED_FROM_HEADER_DEPENDENCIES "/usr/include /usr/local/include /System/Library/Frameworks /System/Library/PrivateFrameworks /Developer/Headers /Developer/SDKs /Developer/Platforms"    setenv PBDEVELOPMENTPLIST_PATH Game.app/Contents/pbdevelopment.plist    setenv PFE_FILE_C_DIALECTS objective-c    setenv PKGINFO_FILE_PATH "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/PkgInfo"    setenv PKGINFO_PATH Game.app/Contents/PkgInfo    setenv PLATFORM_DEVELOPER_APPLICATIONS_DIR /Developer/Applications    setenv PLATFORM_DEVELOPER_BIN_DIR /Developer/usr/bin    setenv PLATFORM_DEVELOPER_LIBRARY_DIR /Developer/Library    setenv PLATFORM_DEVELOPER_SDK_DIR /Developer/SDKs    setenv PLATFORM_DEVELOPER_TOOLS_DIR /Developer/Tools    setenv PLATFORM_DEVELOPER_USR_DIR /Developer/usr    setenv PLATFORM_NAME macosx    setenv PLIST_FILE_OUTPUT_FORMAT same-as-input    setenv PLUGINS_FOLDER_PATH Game.app/Contents/PlugIns    setenv PREBINDING NO    setenv PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR YES    setenv PRECOMP_DESTINATION_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/PrefixHeaders"    setenv PRESERVE_DEAD_CODE_INITS_AND_TERMS NO    setenv PRIVATE_HEADERS_FOLDER_PATH Game.app/Contents/PrivateHeaders    setenv PRODUCT_NAME Game    setenv PRODUCT_SETTINGS_PATH "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game-Info.plist"    setenv PRODUCT_TYPE com.apple.product-type.application    setenv PROFILING_CODE NO    setenv PROJECT Game    setenv PROJECT_DERIVED_FILE_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/DerivedSources"    setenv PROJECT_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv PROJECT_FILE_PATH "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game.xcodeproj"    setenv PROJECT_NAME Game    setenv PROJECT_TEMP_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build"    setenv PUBLIC_HEADERS_FOLDER_PATH Game.app/Contents/Headers    setenv RECURSIVE_SEARCH_PATHS_FOLLOW_SYMLINKS YES    setenv REMOVE_CVS_FROM_RESOURCES YES    setenv REMOVE_SVN_FROM_RESOURCES YES    setenv REZ_COLLECTOR_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/ResourceManagerResources"    setenv REZ_OBJECTS_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/ResourceManagerResources/Objects"    setenv REZ_SEARCH_PATHS "\"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug\" "    setenv RUN_CLANG_STATIC_ANALYZER NO    setenv SCAN_ALL_SOURCE_FILES_FOR_INCLUDES NO    setenv SCRIPTS_FOLDER_PATH Game.app/Contents/Resources/Scripts    setenv SCRIPT_INPUT_FILE_COUNT 0    setenv SCRIPT_OUTPUT_FILE_COUNT 0    setenv SDKROOT /Developer/SDKs/MacOSX10.5.sdk    setenv SDK_DIR /Developer/SDKs/MacOSX10.5.sdk    setenv SDK_NAME macosx10.5    setenv SED /usr/bin/sed    setenv SEPARATE_STRIP NO    setenv SEPARATE_SYMBOL_EDIT NO    setenv SET_DIR_MODE_OWNER_GROUP YES    setenv SET_FILE_MODE_OWNER_GROUP NO    setenv SHARED_DERIVED_FILE_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/DerivedSources"    setenv SHARED_FRAMEWORKS_FOLDER_PATH Game.app/Contents/SharedFrameworks    setenv SHARED_PRECOMPS_DIR /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders    setenv SHARED_SUPPORT_FOLDER_PATH Game.app/Contents/SharedSupport    setenv SKIP_INSTALL NO    setenv SOURCE_ROOT "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv SRCROOT "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv STANDARD_C_PLUS_PLUS_LIBRARY_TYPE dynamic    setenv STRINGS_FILE_OUTPUT_ENCODING UTF-16    setenv STRIP_INSTALLED_PRODUCT YES    setenv STRIP_STYLE all    setenv SYMBOL_REPOSITORY_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/SymbolRepositories"    setenv SYMROOT "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build"    setenv SYSTEM_ADMIN_APPS_DIR /Applications/Utilities    setenv SYSTEM_APPS_DIR /Applications    setenv SYSTEM_CORE_SERVICES_DIR /System/Library/CoreServices    setenv SYSTEM_DEMOS_DIR /Applications/Extras    setenv SYSTEM_DEVELOPER_APPS_DIR /Developer/Applications    setenv SYSTEM_DEVELOPER_BIN_DIR /Developer/usr/bin    setenv SYSTEM_DEVELOPER_DEMOS_DIR "/Developer/Applications/Utilities/Built Examples"    setenv SYSTEM_DEVELOPER_DIR /Developer    setenv SYSTEM_DEVELOPER_DOC_DIR "/Developer/ADC Reference Library"    setenv SYSTEM_DEVELOPER_GRAPHICS_TOOLS_DIR "/Developer/Applications/Graphics Tools"    setenv SYSTEM_DEVELOPER_JAVA_TOOLS_DIR "/Developer/Applications/Java Tools"    setenv SYSTEM_DEVELOPER_PERFORMANCE_TOOLS_DIR "/Developer/Applications/Performance Tools"    setenv SYSTEM_DEVELOPER_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes"    setenv SYSTEM_DEVELOPER_TOOLS /Developer/Tools    setenv SYSTEM_DEVELOPER_TOOLS_DOC_DIR "/Developer/ADC Reference Library/documentation/DeveloperTools"    setenv SYSTEM_DEVELOPER_TOOLS_RELEASENOTES_DIR "/Developer/ADC Reference Library/releasenotes/DeveloperTools"    setenv SYSTEM_DEVELOPER_USR_DIR /Developer/usr    setenv SYSTEM_DEVELOPER_UTILITIES_DIR /Developer/Applications/Utilities    setenv SYSTEM_DOCUMENTATION_DIR /Library/Documentation    setenv SYSTEM_LIBRARY_DIR /System/Library    setenv TARGETNAME Game    setenv TARGET_BUILD_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug"    setenv TARGET_NAME Game    setenv TARGET_TEMP_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build"    setenv TEMP_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build"    setenv TEMP_FILES_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build"    setenv TEMP_FILE_DIR "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build"    setenv TEMP_ROOT "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build"    setenv UID 501    setenv UNLOCALIZED_RESOURCES_FOLDER_PATH Game.app/Contents/Resources    setenv UNSTRIPPED_PRODUCT NO    setenv USER user    setenv USER_APPS_DIR /Users/user/Applications    setenv USER_LIBRARY_DIR /Users/user/Library    setenv USE_DYNAMIC_NO_PIC YES    setenv USE_HEADERMAP YES    setenv USE_HEADER_SYMLINKS NO    setenv VALID_ARCHS i386    setenv VERBOSE_PBXCP NO    setenv VERSIONPLIST_PATH Game.app/Contents/version.plist    setenv VERSION_INFO_BUILDER user    setenv VERSION_INFO_FILE Game_vers.c    setenv VERSION_INFO_STRING "\"@(#)PROGRAM:Game  PROJECT:Game-\""    setenv WRAPPER_EXTENSION app    setenv WRAPPER_NAME Game.app    setenv WRAPPER_SUFFIX .app    setenv XCODE_APP_SUPPORT_DIR /Developer/Library/Xcode    setenv XCODE_VERSION_ACTUAL 0321    setenv XCODE_VERSION_MAJOR 0300    setenv XCODE_VERSION_MINOR 0320    setenv YACC /Developer/usr/bin/yacc    /bin/sh -c "\"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Script-18044D85126771C100009E2D.sh\""0#
+
+CProcessInfoPlistFile "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Info.plist" Game-Info.plist
+s323244162.483468
+e323244162.545021
+r1
+xProcessInfoPlistFile
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Info.plist
+xGame-Info.plist
+lSLF07#2@23"Process Game-Info.plist323244162#323244162#0(0"0(0#0#68"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game-Info.plist4375320#349"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    builtin-infoPlistUtility Game-Info.plist -genpkginfo "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/PkgInfo" -expandbuildsettings -platform macosx -o "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app/Contents/Info.plist"0#
+
+CProcessPCH /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Game_Prefix-ajcxeekndvrmygapopogzyujcmhm/Game_Prefix.pch.gch Game_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+s323244197.485018
+e323244197.602735
+r0
+xProcessPCH
+x/var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Game_Prefix-ajcxeekndvrmygapopogzyujcmhm/Game_Prefix.pch.gch
+xGame_Prefix.pch
+xnormal
+xi386
+xobjective-c
+xcom.apple.compilers.gcc.4_2
+oi686-apple-darwin10-gcc-4.2.1: /Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game_Prefix.pch: No such file or directory
+oi686-apple-darwin10-gcc-4.2.1: warning: '-x objective-c-header' after last input file has no effect
+oi686-apple-darwin10-gcc-4.2.1: no input files
+lSLF07#2@26"Precompile Game_Prefix.pch323244197#323244197#0(332"i686-apple-darwin10-gcc-4.2.1: /Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game_Prefix.pch: No such file or directoryi686-apple-darwin10-gcc-4.2.1: warning: '-x objective-c-header' after last input file has no effecti686-apple-darwin10-gcc-4.2.1: no input filesCommand /Developer/usr/bin/gcc-4.2 failed with exit code 11(4@58"Command /Developer/usr/bin/gcc-4.2 failed with exit code 1323244197#4294967295#0#0(1@0"0(0#0#68"/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game_Prefix.pch2436399760#1560"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    setenv LANG en_US.US-ASCII    /Developer/usr/bin/gcc-4.2 -x objective-c-header -arch i386 -fmessage-length=0 -pipe -std=gnu99 -Wno-trigraphs -fpascal-strings -fasm-blocks -O0 -Wreturn-type -Wunused-variable -isysroot /Developer/SDKs/MacOSX10.6.sdk -mfix-and-continue -mmacosx-version-min=10.6 -gdwarf-2 -iquote "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-generated-files.hmap" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-own-target-headers.hmap" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-all-target-headers.hmap" -iquote "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/Game-project-headers.hmap" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug" "-F/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/../../../Engine/Src/Core/External/Cg/lib/MacOSX" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/include" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources/i386" "-I/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Game.build/Debug/Game.build/DerivedSources" -c "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/Game_Prefix.pch" -o /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Game_Prefix-ajcxeekndvrmygapopogzyujcmhm/Game_Prefix.pch.gch1#
+
+CProcessPCH /var/folders/Ma/MaAKT1AwEbWogeCBr58TC++++TI/-Caches-/com.apple.Xcode.501/SharedPrecompiledHeaders/Game_Prefix-blgiyzojhkhgvvesyemtokknylnc/Game_Prefix.pch.gch Game_Prefix.pch normal i386 objective-c com.apple.compilers.gcc.4_2
+r0
+
+CTouch "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app"
+s323244451.501241
+e323244451.543706
+r1
+xTouch
+x/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app
+lSLF07#2@79"Touch /Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app323244451#323244451#0(0"0(0#0#0"2436399760#160"    cd "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac"    /usr/bin/touch -c "/Volumes/VMware Shared Folders/Dev/Game/Src/Game_Mac/build/Debug/Game.app"0#
+

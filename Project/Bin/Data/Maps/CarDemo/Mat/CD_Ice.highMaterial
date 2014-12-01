@@ -1,0 +1,12 @@
+highLevelMaterial CD_Ice
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Ice.dds"
+		transform
+		{
+			scale = 0.3 0.3
+		}
+	}
+}

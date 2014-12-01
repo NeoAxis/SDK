@@ -1,0 +1,8 @@
+highLevelMaterial CD_Logo_Engine
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Logo_Engine.dds"
+	}
+}

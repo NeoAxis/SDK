@@ -1,0 +1,22 @@
+type TestLamp
+{
+	class = Dynamic
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			scale = 0.1 0.1 0.1
+			onlyForEditor = True
+		}
+		billboard
+		{
+			materialName = DefaultFlare
+			fadeVelocity = 3
+			position = 0 0 0.3
+		}
+	}
+}

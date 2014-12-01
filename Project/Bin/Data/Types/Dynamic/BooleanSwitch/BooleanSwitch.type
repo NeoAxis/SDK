@@ -1,0 +1,26 @@
+type BooleanSwitch
+{
+	class = BooleanSwitch
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\BooleanSwitch\BooleanSwitch.mesh
+			collision = True
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\BooleanSwitch\BooleanSwitchOn.mesh
+			alias = True
+			scale = 0.7 0.7 0.7
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\BooleanSwitch\BooleanSwitchOff.mesh
+			alias = False
+			scale = 0.7 0.7 0.7
+		}
+	}
+}

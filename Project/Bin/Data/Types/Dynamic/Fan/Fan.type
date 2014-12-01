@@ -1,0 +1,31 @@
+type Fan
+{
+	class = Fan
+	physicsModel = ".\\Fan.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\FanBase.mesh"
+			castDynamicShadows = True
+			body = staticBody
+			rotation = 0 0.7071068 0 0.7071068
+		}
+		mesh
+		{
+			meshName = ".\\FanBlades.mesh"
+			castDynamicShadows = True
+			body = blades
+			position = -0.5741824 0 0
+			rotation = 0 -0.7071068 0 -0.7071068
+		}
+		particle
+		{
+			particleName = DemoFanParticle
+			ownerRotation = True
+			position = -0.2461977 0 0
+		}
+	}
+}

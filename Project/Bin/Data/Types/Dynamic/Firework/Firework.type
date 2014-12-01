@@ -1,0 +1,19 @@
+type Firework
+{
+	class = Firework
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Sphere.mesh"
+			forceMaterial = Blue
+			scale = 0.3 0.3 0.3
+		}
+		sound
+		{
+			soundName = "Types\\Dynamic\\Firework\\Firework.ogg"
+			volume = 0.25
+		}
+	}
+}

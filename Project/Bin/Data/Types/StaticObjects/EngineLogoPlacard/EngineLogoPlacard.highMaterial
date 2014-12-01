@@ -1,0 +1,37 @@
+highLevelMaterial EngineLogoPlacard
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	heightFromNormalMapAlpha = True
+	heightScale = 0.05
+	diffuse1Map
+	{
+		texture = "Gui\\Textures\\Engine.png"
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 0 0.1
+			}
+		}
+	}
+	diffuse2Map
+	{
+		texture = ".\\Diffuse.dds"
+		blending = Add
+	}
+	emissionMap
+	{
+		transform
+		{
+			animation
+			{
+				scrollSpeed = 0 0.1
+			}
+		}
+	}
+	normalMap
+	{
+		texture = ".\\NormalHeight.png"
+	}
+}

@@ -1,0 +1,1326 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameType = RTS
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.2627451 0.2313726 0.2862745
+editorCameraPosition = 85.52273 -122.7104 22.97401
+editorCameraDirection = 1.938297 -0.7248743
+shadowColor = 0.7176471 0.8235295 1 0.6
+shadowFarDistance = 90
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 3
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = StaticGeometry
+	}
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+	}
+}
+entity
+{
+	type = RTSFactionManager
+	uin = 5
+	classPrompt = RTSFactionManager
+	factions
+	{
+		item
+		{
+			factionType = GoodFaction
+			money = 1000
+		}
+		item
+		{
+			factionType = BadFaction
+			money = 500
+		}
+	}
+}
+entity
+{
+	type = GridBasedNavigationSystem
+	uin = 6
+	classPrompt = GridBasedNavigationSystem
+	gridBounds = -80 -160 200 80
+	gridCellSize = 2
+	agentHeight = 2
+	agentMaxSlope = 30
+	heightByTerrainOnly = True
+	alwaysDrawGrid = False
+	drawGridDistance = 100
+}
+entity
+{
+	type = SpawnPoint
+	uin = 7
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = 53.41284 -99.72986 -2.717674
+	autoVerticalAlignment = ByCenter
+	name = SpawnPoint_0
+}
+entity
+{
+	type = RTSHeadquaters
+	uin = 8
+	classPrompt = RTSBuilding
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 115.6447 -93.34334 -2.902618
+	autoVerticalAlignment = ByCenter
+	name = RTSHeadquaters_0
+}
+entity
+{
+	type = RTSGeyser
+	uin = 9
+	classPrompt = MapObject
+	position = 108.8313 -108.9058 -2.902618
+	autoVerticalAlignment = ByCenter
+	name = RTSGeyser_0
+}
+entity
+{
+	type = RTSGeyser
+	uin = 10
+	classPrompt = MapObject
+	position = 69.35328 -104.1973 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSGeyser_1
+}
+entity
+{
+	type = RTSFactory
+	uin = 11
+	classPrompt = RTSBuilding
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 95.76819 -94.09462 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSFactory_0
+}
+entity
+{
+	type = RTSGeyser
+	uin = 12
+	classPrompt = MapObject
+	position = 88.51537 -108.2367 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSGeyser_2
+}
+entity
+{
+	type = RTSGeyser
+	uin = 13
+	classPrompt = MapObject
+	position = 84.41077 -46.48654 -2.401243
+	autoVerticalAlignment = ByCenter
+	name = RTSGeyser_3
+}
+entity
+{
+	type = RTSRobot
+	uin = 14
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 87.49442 -93.38666 -1.370676
+	name = RTSRobot_0
+}
+entity
+{
+	type = RTSRobot
+	uin = 15
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 83.49078 -108.2402 -1.370676
+	rotation = 0 0 -0.7071068 0.7071068
+	name = RTSRobot_1
+}
+entity
+{
+	type = RTSRobot
+	uin = 16
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 82.689 -96.24736 -1.370676
+	rotation = 0 0 -0.7071068 0.7071068
+	name = RTSRobot_2
+}
+entity
+{
+	type = RTSRobot
+	uin = 17
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 81.8381 -102.4588 -1.370676
+	name = RTSRobot_3
+}
+entity
+{
+	type = RTSRobot
+	uin = 18
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 80.44377 -113.071 -1.370676
+	rotation = 0 0 -0.9659258 -0.2588191
+	name = RTSRobot_4
+}
+entity
+{
+	type = RTSRobot
+	uin = 19
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 85.79154 -113.5789 -1.370676
+	rotation = 0 0 0.5 0.8660254
+	name = RTSRobot_6
+}
+entity
+{
+	type = RTSConstructor
+	uin = 20
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 86.18843 -97.01734 -1.370676
+	name = RTSConstructor_0
+}
+entity
+{
+	type = RTSConstructor
+	uin = 21
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 86.14861 -103.0386 -1.370676
+	rotation = 0 0 0.258819 0.9659258
+	name = RTSConstructor_1
+}
+entity
+{
+	type = RTSConstructor
+	uin = 22
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 76.36246 -113.1858 -1.370676
+	name = RTSConstructor_2
+}
+entity
+{
+	type = RTSRobot
+	uin = 23
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 18.0005 -85.08016 -0.3017531
+	name = RTSRobot_7
+}
+entity
+{
+	type = RTSRobot
+	uin = 24
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 1.704927 -98.10292 1.321192
+	name = RTSRobot_8
+}
+entity
+{
+	type = RTSConstructor
+	uin = 25
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 14.23907 -97.66859 -0.09420748
+	name = RTSConstructor_3
+}
+entity
+{
+	type = RTSRobot
+	uin = 26
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 8.974247 -90.26025 0.2281619
+	name = RTSRobot_10
+}
+entity
+{
+	type = RTSRobot
+	uin = 27
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 6.567698 -98.10292 0.5108205
+	name = RTSRobot_11
+}
+entity
+{
+	type = RTSRobot
+	uin = 28
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 12.94107 -109.7588 0.1324985
+	name = RTSRobot_12
+}
+entity
+{
+	type = RTSRobot
+	uin = 29
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 92.48038 -105.7938 -1.370676
+	name = RTSRobot_13
+}
+entity
+{
+	type = RTSConstructor
+	uin = 30
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 14.23907 -90.00484 -0.08615978
+	name = RTSConstructor_4
+}
+entity
+{
+	type = RTSHeadquaters
+	uin = 31
+	classPrompt = RTSBuilding
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 81.28666 12.64692 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSHeadquaters_1
+}
+entity
+{
+	type = RTSFactory
+	uin = 32
+	classPrompt = RTSBuilding
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 60.71427 12.13277 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSFactory_3
+}
+entity
+{
+	type = RTSGeyser
+	uin = 33
+	classPrompt = MapObject
+	position = 64.04833 -4.303757 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSGeyser_5
+}
+entity
+{
+	type = RTSMine
+	uin = 34
+	classPrompt = RTSMine
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 64.04833 -4.303757 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSMine_1
+}
+entity
+{
+	type = RTSRobot
+	uin = 35
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 75.06523 -1.845517 -1.408596
+	name = RTSRobot_15
+}
+entity
+{
+	type = RTSRobot
+	uin = 36
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 82.56523 1.654482 -1.408596
+	name = RTSRobot_16
+}
+entity
+{
+	type = RTSRobot
+	uin = 37
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 90.21093 5.863814 -1.408596
+	name = RTSRobot_18
+}
+entity
+{
+	type = RTSRobot
+	uin = 38
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 80.06523 -6.845518 -1.408596
+	rotation = 0 0 0.5 0.8660254
+	name = RTSRobot_19
+}
+entity
+{
+	type = RTSRobot
+	uin = 39
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 54.26904 -0.6589532 -1.408596
+	name = RTSRobot_20
+}
+entity
+{
+	type = RTSConstructor
+	uin = 40
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 70.56523 0.1544824 -1.408596
+	rotation = 0 0 0.258819 0.9659258
+	name = RTSConstructor_5
+}
+entity
+{
+	type = RTSConstructor
+	uin = 41
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 57.76904 -6.158948 -1.408596
+	rotation = 0 0 0.7071068 0.7071068
+	name = RTSConstructor_6
+}
+entity
+{
+	type = RTSConstructor
+	uin = 42
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 79.56523 -1.345517 -1.408596
+	name = RTSConstructor_7
+}
+entity
+{
+	type = RTSRobot
+	uin = 43
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 65.26904 -10.15896 -1.408596
+	rotation = 0 0 0.9659258 0.2588191
+	name = RTSRobot_22
+}
+entity
+{
+	type = RTSRobot
+	uin = 44
+	classPrompt = RTSCharacter
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = BadFaction
+	healthFactorAtBeginning = 1
+	position = 88.71093 0.8638096 -1.408596
+	name = RTSRobot_23
+}
+entity
+{
+	type = HeightmapTerrain
+	uin = 45
+	classPrompt = HeightmapTerrain
+	enabled = True
+	position = 0 0 -30
+	horizontalSize = 1000
+	verticalSize = 100
+	dataDirectory = HeightmapTerrain
+	masksSize = 1024
+	detailMapsDistance = 50
+	renderQueueGroup = WorldGeometry1
+	collision = True
+	collisionMaterialName = Default
+	collisionHeightfieldThickness = 2
+	castDynamicShadows = False
+	receiveStaticShadows = True
+	simpleRendering = False
+	tileSize = 32
+	visible = True
+	allowVertexTextureFetchOptimization = True
+	ambientOcclusion
+	{
+		enabled = True
+		size = 1024
+		rayLength = 5
+		iterationCount = 100
+		blur = True
+		power = 2
+	}
+	lodSettings
+	{
+		enabled = True
+		maxCount = 99
+		lodLevelDistances = 100 + level * 200
+		morphAreaPercent = 0.3
+		showLevels = False
+	}
+	layers
+	{
+		item
+		{
+			name = base
+			baseMap = "Maps\\RTSDemo\\Textures\\Terrain\\GroundDiffuse.dds"
+			baseScale = 31.351
+			detailScale = 2
+			baseNormalMap = "Maps\\RTSDemo\\Textures\\Terrain\\GroundNormals.dds"
+		}
+		item
+		{
+			name = second
+			baseMap = "Maps\\RTSDemo\\Textures\\Terrain\\RockWallDiffuse.dds"
+			baseScale = 38.378
+			detailScale = 2
+			baseNormalMap = "Maps\\RTSDemo\\Textures\\Terrain\\RockWallNormals.dds"
+		}
+		item
+		{
+			name = Plate
+			baseMap = "Maps\\RTSDemo\\Textures\\Terrain\\PlateDiffuse.dds"
+			baseScale = 24.324
+			detailScale = 2
+			baseNormalMap = "Maps\\RTSDemo\\Textures\\Terrain\\PlateNormals.dds"
+		}
+	}
+}
+entity
+{
+	type = Light
+	uin = 46
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 1.176471 1.176471 1.392157
+	diffusePower = 1
+	specularColor = 1.392157 1.392157 1.392157
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 85.94678 -81.83955 6.969021
+	rotation = 0.14073 -0.5977398 0.5695511 -0.5463642
+	name = Light_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 47
+	classPrompt = StaticMesh
+	position = 122.0581 12.15361 -4.08143
+	rotation = 0 -0.2588191 0 0.9659259
+	scale = 1.92 1.92 2.496
+	name = StaticMesh_RockBig_0
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 48
+	classPrompt = StaticMesh
+	position = 29.54031 -146.0792 -5.021061
+	rotation = -0.1093817 -0.2345698 -0.408218 0.8754263
+	scale = 2.584615 2.584615 3.36
+	name = StaticMesh_RockBig_1
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 49
+	classPrompt = StaticMesh
+	position = 61.52082 -188.1091 10.88189
+	rotation = -0.4242779 -0.3924122 -0.6066134 0.5459139
+	scale = 3.101539 3.101539 4.8384
+	name = StaticMesh_RockBig_2
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 50
+	classPrompt = StaticMesh
+	position = -2.966278 -64.48708 -5.021061
+	rotation = 0.05831467 -0.0156254 0.9641644 0.258347
+	scale = 2.186982 2.186982 2.843077
+	name = StaticMesh_RockBig_3
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 51
+	classPrompt = StaticMesh
+	position = -7.343399 -43.64206 -5.021061
+	rotation = -0.1575591 0.205335 -0.5880186 -0.7663207
+	scale = 3.411693 3.411693 4.4352
+	name = StaticMesh_RockBig_4
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 52
+	classPrompt = StaticMesh
+	position = -0.1468124 -123.4874 -9.235411
+	rotation = -0.1645146 -0.08685614 0.5591918 -0.8078963
+	scale = 3.367953 3.367953 4.378338
+	name = StaticMesh_RockBig_5
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 53
+	classPrompt = StaticMesh
+	position = 118.7973 28.0603 -5.96406
+	rotation = -0.08851563 0.2315212 0.3121368 -0.9171335
+	scale = 2.56 2.56 3.328
+	name = StaticMesh_RockBig_6
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 54
+	classPrompt = StaticMesh
+	position = 8.671141 4.208282 -14.25007
+	rotation = 0.05831467 -0.0156254 0.9641644 0.258347
+	scale = 2.843077 2.843077 3.696
+	name = StaticMesh_RockBig_7
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 55
+	classPrompt = StaticMesh
+	position = -4.64459 -29.80853 -9.41659
+	rotation = 0.03010798 -0.05232843 0.8637019 -0.500375
+	scale = 2.843077 2.843077 3.696
+	name = StaticMesh_RockBig_8
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 56
+	classPrompt = StaticMesh
+	position = 18.87314 -56.49952 -37.86401
+	rotation = 0.02614465 0.05441703 -0.07550359 0.9953167
+	scale = 3.411692 3.411692 4.4352
+	name = StaticMesh_RockBig_9
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 57
+	classPrompt = StaticMesh
+	position = 157.245 -40.18135 -51.42221
+	rotation = 0.02614465 0.05441703 -0.07550359 0.9953167
+	scale = 4.4352 4.4352 5.76576
+	name = StaticMesh_RockBig_10
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 58
+	classPrompt = StaticMesh
+	position = 108.4014 -27.66097 -43.69406
+	rotation = -0.01657948 -0.01575511 -0.3394098 0.940361
+	scale = 3.08 3.08 4.004
+	name = StaticMesh_RockBig_11
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = SkyDome
+	uin = 59
+	classPrompt = SkyDome
+	enabled = True
+	horizonMap = "Base\\Types\\SkyDome\\DefaultSkyDomeHorizon.png"
+	color = 0.1686275 0.09411766 0.6
+	power = 1
+	diffuse1Map
+	{
+		texture = "Base\\Types\\SkyDome\\DefaultSkyDome.jpg"
+		tiling = 5
+		scrollSpeed = 0.005 0
+	}
+	diffuse2Map
+	{
+		blending = Add
+		texture = "Base\\Types\\SkyDome\\DefaultSkyDome2.jpg"
+		tiling = 4
+		scrollSpeed = 0.018 0
+	}
+	diffuse3Map
+	{
+		blending = Add
+		tiling = 10
+		scrollSpeed = 0 0
+	}
+	diffuse4Map
+	{
+		blending = Add
+		tiling = 10
+		scrollSpeed = 0 0
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 60
+	classPrompt = StaticMesh
+	position = 44.34427 -46.30016 -10.84613
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_0
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 61
+	classPrompt = StaticMesh
+	position = 44.34427 -60.72413 -10.84613
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_1
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 62
+	classPrompt = StaticMesh
+	position = 44.34427 -31.8821 -10.84613
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_2
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 63
+	classPrompt = StaticMesh
+	position = 130.007 -70.64834 -8.499201
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_3
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 64
+	classPrompt = StaticMesh
+	position = 130.007 -56.22437 -8.499201
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_4
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 65
+	classPrompt = StaticMesh
+	position = 130.007 -41.74527 -8.499201
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_5
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 66
+	classPrompt = StaticMesh
+	position = 130.007 -27.16588 -8.499201
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_Beam_6
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 67
+	classPrompt = StaticMesh
+	position = 127.5697 -56.22437 -28.07998
+	rotation = 0.03084356 0.7064338 -0.03084356 0.7064338
+	name = StaticMesh_Beam_7
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 68
+	classPrompt = StaticMesh
+	position = 127.5697 -56.22437 -16.86846
+	rotation = 0.03084356 0.7064338 -0.03084356 0.7064338
+	name = StaticMesh_Beam_8
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 69
+	classPrompt = StaticMesh
+	position = 132.5442 -56.22437 -16.86846
+	rotation = 0.03084356 0.7064338 -0.03084356 0.7064338
+	name = StaticMesh_Beam_9
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 70
+	classPrompt = StaticMesh
+	position = 132.5442 -56.22437 -28.07998
+	rotation = 0.03084356 0.7064338 -0.03084356 0.7064338
+	name = StaticMesh_Beam_10
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 71
+	classPrompt = StaticMesh
+	position = 42.10157 -57.88508 -19.29064
+	rotation = 0.03084356 0.7064338 -0.03084356 0.7064338
+	name = StaticMesh_Beam_11
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 72
+	classPrompt = StaticMesh
+	position = 47.07612 -57.88508 -19.29064
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_12
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 73
+	classPrompt = StaticMesh
+	position = 42.10157 -42.45077 -19.29064
+	rotation = 0.03084356 0.7064338 -0.03084356 0.7064338
+	name = StaticMesh_Beam_13
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 74
+	classPrompt = StaticMesh
+	position = 47.07612 -42.45077 -19.29064
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_14
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = 9.049849 -67.48397 11.43019
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_15
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = 9.049849 -67.48397 26.1296
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_16
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = 9.049849 -53.01151 26.1296
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_17
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = 9.049849 -53.01151 11.43019
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_18
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = 1.971078 -53.01151 33.62509
+	rotation = -1.317089E-08 0 0 1
+	name = StaticMesh_Beam_19
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = 1.971078 -67.49548 33.62509
+	rotation = -1.317089E-08 0 0 1
+	name = StaticMesh_Beam_20
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = -6.395248 -67.48397 26.1296
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_21
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = -6.395248 -53.01151 26.1296
+	rotation = -9.313226E-09 0.7071069 9.313226E-09 0.7071069
+	name = StaticMesh_Beam_22
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = 119.3461 -68.60798 -9.04344
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_23
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = 104.9271 -68.60798 -9.04344
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_24
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = 139.338 -56.411 -13.40038
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_25
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = 153.757 -56.411 -13.40038
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_26
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = 113.5811 -9.137263 3.835491
+	rotation = 0.5000001 0.5000001 -0.5000001 0.5000001
+	name = StaticMesh_Beam_27
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = 113.5811 -4.162706 3.835491
+	rotation = 0.5213338 0.4777144 -0.5213338 0.4777144
+	name = StaticMesh_Beam_28
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = 110.7421 -6.405413 12.28
+	name = StaticMesh_Beam_29
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = 125.1661 -6.405415 12.28
+	name = StaticMesh_Beam_30
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 91
+	classPrompt = StaticMesh
+	position = 139.7739 -6.405415 12.28
+	name = StaticMesh_Beam_31
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = 125.1661 -15.46319 6.940231
+	rotation = 0.2418448 0.2418448 -0.6644632 0.6644632
+	name = StaticMesh_Beam_32
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 93
+	classPrompt = StaticMesh
+	position = 138.6039 -15.46319 6.940231
+	rotation = 0.2418448 0.2418448 -0.6644632 0.6644632
+	name = StaticMesh_Beam_33
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 94
+	classPrompt = StaticMesh
+	position = 53.61092 -48.36662 -10.84613
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_34
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = 104.4199 -47.53133 -11.13137
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_35
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 96
+	classPrompt = StaticMesh
+	position = 119.5326 -47.53133 -11.13137
+	rotation = 0 0 1 0
+	name = StaticMesh_Beam_36
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = 111.2973 -47.53133 -24.99425
+	rotation = 0.3826835 0 0.9238796 0
+	name = StaticMesh_Beam_37
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = 84.62247 -145.3234 -3.26614
+	rotation = 0 0 -0.9961947 -0.08715567
+	scale = 3.78 3.78 3.78
+	name = StaticMesh_ConcreteBlock_0
+	meshName = "Maps\\RTSDemo\\Models\\ConcreteBlock\\ConcreteBlock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = 87.83991 -147.8335 15.95494
+	rotation = 0 0 0.9961948 0.08715579
+	name = StaticMesh_Beam_38
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 100
+	classPrompt = StaticMesh
+	position = 55.59394 -140.205 -3.26614
+	rotation = 0 0 -0.9961947 -0.08715567
+	scale = 3.78 3.78 3.78
+	name = StaticMesh_ConcreteBlock_1
+	meshName = "Maps\\RTSDemo\\Models\\ConcreteBlock\\ConcreteBlock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 101
+	classPrompt = StaticMesh
+	position = 73.65308 -145.332 15.95494
+	rotation = 0 0 0.9961948 0.08715579
+	name = StaticMesh_Beam_39
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 102
+	classPrompt = StaticMesh
+	position = 59.15739 -142.7761 15.95494
+	rotation = 0 0 0.9961948 0.08715579
+	name = StaticMesh_Beam_40
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 103
+	classPrompt = StaticMesh
+	position = 44.97051 -140.2746 15.95494
+	rotation = 0 0 0.9961948 0.08715579
+	name = StaticMesh_Beam_41
+	meshName = "Maps\\RTSDemo\\Models\\Beam\\Beam.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 104
+	classPrompt = StaticMesh
+	position = 130.1493 -64.25353 -31.43382
+	rotation = 0 0 -1 6.705523E-08
+	scale = 3.78 3.78 3.78
+	name = StaticMesh_ConcreteBlock_2
+	meshName = "Maps\\RTSDemo\\Models\\ConcreteBlock\\ConcreteBlock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 105
+	classPrompt = StaticMesh
+	position = 21.71445 27.69678 -14.19563
+	rotation = -3.352761E-08 -0.06037179 0.4990882 -0.8644461
+	scale = 3.696 3.696 4.8048
+	name = StaticMesh_RockBig_12
+	meshName = "Maps\\RTSDemo\\Models\\RockBig\\RockBig.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Fog
+	uin = 106
+	classPrompt = Fog
+	enabled = True
+	mode = Exp2
+	color = 0.3411765 0.3137255 0.7490196
+	expDensity = 0.005
+}
+entity
+{
+	type = RTSMine
+	uin = 107
+	classPrompt = RTSMine
+	intellectShouldDeleteAfterDetach = False
+	initialFaction = GoodFaction
+	healthFactorAtBeginning = 1
+	position = 108.8313 -108.9058 -2.90262
+	autoVerticalAlignment = ByCenter
+	name = RTSMine_0
+}
+entity
+{
+	type = MapCompositorManager
+	uin = 108
+	classPrompt = MapCompositorManager
+	items
+	{
+		item
+		{
+			name = SSAO
+			Intensity = 1
+			Downsampling = 2
+			SampleLength = 2
+			OffsetScale = 0.1
+			DefaultAccessibility = 0.6
+			MaxDistance = 200
+			BlurSpread = 1
+			ShowAO = False
+			Enabled = True
+		}
+	}
+}

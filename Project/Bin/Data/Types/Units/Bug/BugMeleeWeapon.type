@@ -1,0 +1,22 @@
+type BugMeleeWeapon
+{
+	class = MeleeWeapon
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		damage = 3
+		impulse = 14000
+		soundKick = "Types\\Units\\Bug\\Blow.ogg"
+		betweenFireTime = 0.875
+		soundFire = "Types\\Units\\Bug\\JumpBlow.ogg"
+		useDistanceRange = 0 2
+		fireTimes = 0.5
+		fireAnimationTrigger = fire
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+}

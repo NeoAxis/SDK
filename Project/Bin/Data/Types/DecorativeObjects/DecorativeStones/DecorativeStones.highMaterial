@@ -1,0 +1,13 @@
+highLevelMaterial DecorativeStones
+{
+	template = ShaderBaseMaterial
+	specularShininess = 227.541
+	diffuse1Map
+	{
+		texture = Types\DecorativeObjects\DecorativeStones\DecorativeStones.dds
+	}
+	normalMap
+	{
+		texture = Types\DecorativeObjects\DecorativeStones\DecorativeStones_Normal.dds
+	}
+}

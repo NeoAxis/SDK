@@ -1,0 +1,19 @@
+type RabbitDead
+{
+	class = Dynamic
+	substance = Flesh
+	lifeTime = 10
+	physicsModel = Types\Units\Rabbit\RabbitDead\RabbitDead.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Rabbit\Rabbit.mesh
+			castDynamicShadows = True
+			body = main
+			position = 0 0 -1
+		}
+	}
+}

@@ -1,0 +1,16 @@
+type VillageSign
+{
+	class = MapObject
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageSign\\VillageSign.physics"
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageSign\\VillageSign.mesh"
+			castDynamicShadows = True
+			body = body2
+			position = 0 0 -0.01
+		}
+	}
+}

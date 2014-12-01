@@ -1,0 +1,13 @@
+highLevelMaterial HangingLampLamps
+{
+	template = ShaderBaseMaterial
+	emissionScale = 1.960784 1.960784 1.960784
+	diffuse1Map
+	{
+		texture = Types\Dynamic\HangingLamp\HangingLamp.dds
+	}
+	emissionMap
+	{
+		texture = Types\Dynamic\HangingLamp\HangingLamp.dds
+	}
+}

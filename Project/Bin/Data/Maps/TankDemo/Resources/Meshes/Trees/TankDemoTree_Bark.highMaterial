@@ -1,0 +1,17 @@
+highLevelMaterial TankDemoTree_Bark
+{
+	template = VegetationMaterial
+	specularScale = 0.6470588 0.6470588 0.6470588
+	diffuse1Map
+	{
+		texture = Maps\TankDemo\Resources\Meshes\Trees\TankDemoTree_Bark.dds
+	}
+	specularMap
+	{
+		texture = Maps\TankDemo\Resources\Meshes\Trees\TankDemoTree_Bark_SPEC.dds
+	}
+	normalMap
+	{
+		texture = Maps\TankDemo\Resources\Meshes\Trees\TankDemoTree_Bark_NRM.dds
+	}
+}

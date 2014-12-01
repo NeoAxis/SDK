@@ -1,0 +1,17 @@
+type DefaultBigBulletDecalCreator
+{
+	class = DecalCreator
+	size = 0.6
+	maxCount = 25
+	fadeTime = 2
+	applyToMapObjects = True
+	creatableInMapEditor = False
+	networkType = ClientOnly
+	materials
+	{
+		item
+		{
+			materialName = DefaultBulletDecal
+		}
+	}
+}

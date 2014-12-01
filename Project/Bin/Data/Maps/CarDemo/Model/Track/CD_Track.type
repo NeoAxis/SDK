@@ -1,0 +1,187 @@
+type CD_Track
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Track01.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track02.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track03.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track04.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track05.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track06.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track07.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track08.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track09.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track10.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track11.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track12.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track13.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track14.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track15.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track16.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track16_1.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track17.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track18.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Track19.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			castStaticShadows = True
+			receiveStaticShadows = True
+		}
+	}
+}

@@ -1,0 +1,17 @@
+highLevelMaterial StaticBox
+{
+	template = ShaderBaseMaterial
+	specularScale = 1 1 1
+	diffuse1Map
+	{
+		texture = Types\StaticObjects\StaticBox\StaticBox.dds
+	}
+	specularMap
+	{
+		texture = Types\StaticObjects\StaticBox\StaticBox_Specular.dds
+	}
+	normalMap
+	{
+		texture = Types\StaticObjects\StaticBox\StaticBox_Normal.png
+	}
+}

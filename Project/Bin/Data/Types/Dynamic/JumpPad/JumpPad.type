@@ -1,0 +1,20 @@
+type JumpPad
+{
+	class = JumpPad
+	physicsModel = "Types\\Dynamic\\JumpPad\\JumpPad.physics"
+	allowEditorCreate = True
+	allowEmptyName = False
+	networkType = Network
+	influenceSlotNames
+	{
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\JumpPad\Object.mesh
+			castShadows = True
+			body = main
+		}
+	}
+}

@@ -1,0 +1,35 @@
+type Door
+{
+	class = AutomaticOpenDoor
+	openDoorBodyOffset = 0 1 0
+	openDoor2BodyOffset = 0 -1 0
+	openTime = 1.3
+	soundOpen = "Types\\Dynamic\\Door\\Open.ogg"
+	soundClose = "Types\\Dynamic\\Door\\Close.ogg"
+	physicsModel = "Types\\Dynamic\\Door\\Door.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Dynamic\\Door\\Door.mesh"
+			body = door1
+			position = 0 -0.76 0
+		}
+		mesh
+		{
+			meshName = "Types\\Dynamic\\Door\\Door.mesh"
+			body = door2
+			position = 0 0.76 0
+			rotation = 0 0 -1 1.216796E-08
+		}
+		mapObject
+		{
+			type = Occluder
+			alias = visibleWhenClosed
+			position = 0 0 0.1328638
+			scale = 0.2 4 4
+		}
+	}
+}

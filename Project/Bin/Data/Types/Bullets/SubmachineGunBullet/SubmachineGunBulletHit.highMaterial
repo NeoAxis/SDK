@@ -1,0 +1,14 @@
+highLevelMaterial SubmachineGunBulletHit
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.4
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Types\\Bullets\\SubmachineGunBullet\\Object.tga"
+	}
+}

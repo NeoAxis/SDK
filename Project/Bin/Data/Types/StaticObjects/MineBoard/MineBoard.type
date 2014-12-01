@@ -1,0 +1,12 @@
+type MineBoard
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\StaticObjects\MineBoard\MineBoard.mesh
+		}
+	}
+}

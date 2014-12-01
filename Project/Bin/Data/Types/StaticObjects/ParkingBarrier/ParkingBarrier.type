@@ -1,0 +1,14 @@
+type ParkingBarrier
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\StaticObjects\\ParkingBarrier\\ParkingBarrier.mesh"
+			castShadows = True
+			toCollision = True
+		}
+	}
+}

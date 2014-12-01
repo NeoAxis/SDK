@@ -1,0 +1,14 @@
+highLevelMaterial CD_Start
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Asphalt.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Start.dds"
+		texCoord = TexCoord1
+		blending = AlphaBlend
+	}
+}

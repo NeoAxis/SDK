@@ -1,0 +1,14 @@
+highLevelMaterial DefaultBulletDecal
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	lighting = False
+	receiveShadows = False
+	depthWrite = False
+	diffuseScaleDynamic = True
+	diffuse1Map
+	{
+		texture = "Types\\Decals\\DefaultBulletDecal\\DefaultBulletDecal.png"
+		clamp = True
+	}
+}

@@ -1,0 +1,61 @@
+type ShotgunGravityBullet
+{
+	class = Bullet
+	velocity = 20
+	damage = 20
+	impulse = 21000
+	gravity = 9.81
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		ribbonTrail
+		{
+			trailLength = 10
+			maxChainElements = 10
+			materialName = ShotgunBulletRibbonTrail
+			lifeTimeAfterDestroy = 0.2
+			chains
+			{
+				chain
+				{
+					initialColor = 1 1 0
+					initialWidth = 0.1
+					changeColor = 3 3 3
+				}
+			}
+		}
+		particle
+		{
+			particleName = ShotgunBulletParticle
+		}
+		billboard
+		{
+			color = 1 1 0
+			materialName = DefaultFlare
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = ShotgunBulletHitParticle
+		}
+		particle
+		{
+			particleName = ShotgunBulletHitParticle2
+		}
+		particle
+		{
+			particleName = FireworkBulletHitParticle
+		}
+		sound
+		{
+			soundName = "Types/Bullets/ShotgunBullet/Die.ogg"
+		}
+		mapObject
+		{
+			type = DefaultBulletDecalCreator
+		}
+	}
+}

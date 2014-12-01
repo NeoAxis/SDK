@@ -1,0 +1,17 @@
+highLevelMaterial FarmRock_19SG_Smoothing
+{
+	template = ShaderBaseMaterial
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\Rock\\rock_011.dds"
+	}
+	specularMap
+	{
+		texture = "Maps\\VillageDemo\\Rock\\rock_011_S.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\Rock\\rock_011_N.dds"
+	}
+}

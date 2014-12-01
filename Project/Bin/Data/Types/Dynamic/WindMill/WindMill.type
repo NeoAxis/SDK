@@ -1,0 +1,21 @@
+type WindMill
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\WindMill\WindMill.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\WindMill\WindMill.mesh
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = Types\Dynamic\WindMill\WindMillFan.mesh
+			castDynamicShadows = True
+			body = bodyFan
+		}
+	}
+}

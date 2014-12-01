@@ -1,0 +1,14 @@
+type Palette
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\StaticObjects\\Palette\\Palette.mesh"
+			castShadows = True
+			toCollision = True
+		}
+	}
+}

@@ -1,0 +1,25 @@
+type ZombieStomachGun
+{
+	class = Gun
+	reloadTime = 1.5
+	soundReload = "Types\\Weapons\\SubmachineGun\\Reload.ogg"
+	soundEmpty = "Types\\Weapons\\SubmachineGun\\Empty.ogg"
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		bulletType = ZombieBullet
+		bulletExpense = 0
+		betweenFireTime = 2.1
+		soundFire = "Types\\Units\\Zombie\\StomachGunFire.ogg"
+		startOffsetRotation = 0 -0.1178926 0 0.9930264
+		useDistanceRange = 3 10
+		fireTimes = 0.6 0.7 0.8
+		fireAnimationTrigger = fireStomachGun
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+}

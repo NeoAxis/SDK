@@ -1,0 +1,6 @@
+type PlayerManager
+{
+	class = PlayerManager
+	creatableInMapEditor = False
+	networkType = Synchronized
+}

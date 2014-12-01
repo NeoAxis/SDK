@@ -1,0 +1,13 @@
+type Eyes
+{
+	class = MapObject
+	allowEditorCreate = True
+	allowEmptyName = False
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\StaticObjects\\Eyes\\Eyes.mesh"
+		}
+	}
+}

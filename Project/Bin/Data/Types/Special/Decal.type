@@ -1,0 +1,6 @@
+type Decal
+{
+	class = Decal
+	allowEmptyName = True
+	networkType = ClientOnly
+}

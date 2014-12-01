@@ -1,0 +1,1160 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.5882353 0.5882353 0.5882353
+editorCameraPosition = 2.484672 5.994997 6.243622
+editorCameraDirection = 4.063472 -0.4298461
+shadowColor = 1 1 1
+shadowFarDistance = 40
+shadowPSSMSplitFactors = 0.2 0.5
+logicSystemManager = 10
+staticBatchingRenderingEnabled = False
+staticBatchingPhysicsEnabledInMapEditor = False
+staticBatchingPhysicsEnabledInSimulation = False
+staticBatchingGridCellSize = 30 30 30
+staticBatchingFilterByMaxTriangleCount = 512
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = Corridors
+		allowSelect = False
+	}
+}
+entity
+{
+	type = Fan
+	uin = 3
+	classPrompt = Fan
+	forceMaximum = 168000
+	influenceRegionScale = 20 3 3
+	throttle = 0
+	healthFactorAtBeginning = 1
+	position = -12 -12 -0.9952391
+	rotation = 0 -0.7071068 0 0.7071068
+	scale = 20 3 3
+	name = Fan_3
+}
+entity
+{
+	type = Fan
+	uin = 4
+	classPrompt = Fan
+	forceMaximum = 168000
+	influenceRegionScale = 20 3 3
+	throttle = 0
+	healthFactorAtBeginning = 1
+	position = -12 12 -0.9952391
+	rotation = 0 -0.707106 0 0.707106
+	scale = 20 3 3
+	name = Fan_2
+}
+entity
+{
+	type = Fan
+	uin = 5
+	classPrompt = Fan
+	forceMaximum = 168000
+	influenceRegionScale = 20 3 3
+	throttle = 0
+	healthFactorAtBeginning = 1
+	position = 12 -12 -0.9952391
+	rotation = 0 -0.707106 0 0.707106
+	scale = 20 3 3
+	name = Fan_1
+}
+entity
+{
+	type = Fan
+	uin = 6
+	classPrompt = Fan
+	forceMaximum = 168000
+	influenceRegionScale = 20 3 3
+	throttle = 0
+	healthFactorAtBeginning = 1
+	position = 12 12 -0.9952391
+	rotation = 0 -0.707106 0 0.707106
+	scale = 20 3 3
+	name = Fan_0
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 7
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -20.71729 -15.40486 0.5777563
+	rotation = 0 0 0.5506705 0.8347227
+}
+entity
+{
+	type = Terminal
+	uin = 8
+	classPrompt = Terminal
+	subscriptionsToDeletionEvent = 12
+	initialControl = "Gui\\PhysicsDemoTerminal.gui"
+	healthFactorAtBeginning = 1
+	position = -11.59396 -18.7831 2.046814
+	rotation = 0 0 -1 1.216796E-08
+	name = Terminal_0
+	logicClass = 12
+}
+entity
+{
+	type = SpawnPoint
+	uin = 9
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = -17.76662 -17.51434 0.3046471
+	rotation = 0 0 -0.3826835 -0.9238796
+	name = SpawnPoint_0
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 10
+	referencesToCompileDLL = "System.dll\r\nSystem.Drawing.dll\r\n\r\nEngineApp.dll\r\nUISystem.dll\r\nFileSystem.dll\r\nLog.dll\r\nMathEx.dll\r\nRenderer.dll\r\nPhysicsSystem.dll\r\nSoundSystem.dll\r\nEntitySystem.dll\r\nMapSystem.dll\r\nUtils.dll\r\nHeightmapTerrain.dll\r\nDecorativeObjectManager.dll\r\n\r\nProjectCommon.dll\r\nProjectEntities.dll"
+	usingNamespacesToCodeGeneration = "using System;\r\nusing System.Collections.Generic;\r\nusing System.Text;\r\n\r\nusing Engine;\r\nusing Engine.FileSystem;\r\nusing Engine.MathEx;\r\nusing Engine.Utils;\r\nusing Engine.Renderer;\r\nusing Engine.PhysicsSystem;\r\nusing Engine.SoundSystem;\r\nusing Engine.UISystem;\r\nusing Engine.EntitySystem;\r\nusing Engine.MapSystem;\r\n\r\nusing ProjectCommon;\r\nusing ProjectEntities;"
+	mapClassManager = 11
+	entity
+	{
+		type = LogicClassManager
+		uin = 11
+		entity
+		{
+			type = LogicEntityClass
+			uin = 12
+			subscriptionsToDeletionEvent = 8
+			entityClassName = GameGuiObject
+			className = Terminal_0
+			customScriptCodeCreated = True
+			customScriptCode = "//for AdditionalSceneTest checkbox\r\nPhysicsScene additionalScene;\r\nPhysicsModel additionalScenePhysicsModel;\r\n\r\nvoid CreateAdditionalScene()\r\n{\r\n\tDestroyAdditionalScene();\r\n\t\r\n\tadditionalScene = PhysicsWorld.Instance.CreateScene( \"Additional\" );\r\n\tadditionalScenePhysicsModel = additionalScene.LoadPhysicsModel( \"Maps\\\\PhysicsDemo\\\\Resources\\\\SeparateSceneTest.physics\" );\r\n\tadditionalScenePhysicsModel.PushToWorld();\r\n\t\r\n\t//how to create bodies.\r\n\t//Body body = additionalScene.CreateBody();\r\n\t//add shapes here\r\n\t//body.PushedToWorld = true;\r\n}\r\n\r\nvoid DestroyAdditionalScene()\r\n{\r\n\tif( additionalScenePhysicsModel != null )\r\n\t{\r\n\t\tadditionalScenePhysicsModel.Dispose();\r\n\t\tadditionalScenePhysicsModel = null;\r\n\t}\r\n\t\r\n\tif( additionalScene != null )\r\n\t{\r\n\t\tadditionalScene.Dispose();\r\n\t\tadditionalScene = null;\r\n\t}\r\n}\r\n\r\nvoid SimulateAdditionalScene( float delta )\r\n{\r\n\tif( additionalScene != null )\r\n\t\tadditionalScene.Simulate( delta );\r\n}\r\n\r\nvoid VisualizeAdditionalScene( Camera camera )\r\n{\r\n\tif( additionalScene != null )\r\n\t{\r\n\t\tadditionalScene.DebugRender( camera.DebugGeometry, true, true, 0, 1, false, false, \r\n\t\t\tnew ColorValue( 0, 0, 0, 0 ) );\r\n\t}\r\n}\r\n"
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 13
+				code = "( (Button)Owner.MainControl.Controls[ \"Boxes\" ] ).Click += delegate(Button sender)\r\n{\r\n\tCreateManyObjects( (MapObjectType)EntityTypes.Instance.GetByName( \"Box\" ), true );\r\n};\r\n\r\n( (Button)Owner.MainControl.Controls[ \"Barrels\" ] ).Click += delegate(Button sender)\r\n{\r\n\tCreateManyObjects( (MapObjectType)EntityTypes.Instance.GetByName( \"ExplosionBarrel\" ), true );\r\n};\r\n\r\n( (Button)Owner.MainControl.Controls[ \"Carts\" ] ).Click += delegate(Button sender)\r\n{\r\n\tCreateManyObjects( (MapObjectType)EntityTypes.Instance.GetByName( \"Cart\" ), false );\r\n};\r\n\r\n( (Button)Owner.MainControl.Controls[ \"CCDTest\" ] ).Click += delegate(Button sender)\r\n{\r\n\tccdTestRemainingCount += 10;\r\n};\r\n\r\n( (Button)Owner.MainControl.Controls[ \"WoodBoxes\" ] ).Click += delegate(Button sender)\r\n{\r\n\tCreateManyObjects( (MapObjectType)EntityTypes.Instance.GetByName( \"WoodBox\" ), false );\r\n};\r\n\r\n((ScrollBar)Owner.MainControl.Controls[ \"CartsThrottle\" ]).ValueChange += delegate(ScrollBar sender)\r\n{\r\n\tUpdateCartsThrottle();\r\n};\r\n\r\n((ScrollBar)Owner.MainControl.Controls[ \"Fans\" ]).ValueChange += fansScrollBar_ValueChange;\r\n((CheckBox)Owner.MainControl.Controls[ \"HangingBall\" ]).Checked = hangingBall != null;\r\n((CheckBox)Owner.MainControl.Controls[ \"HangingBall\" ]).CheckedChange += hangingBallCheckBox_CheckedChange;\r\n\r\n//jumpPadsCheckBox = (CheckBox)MainControl.Controls[ \"JumpPads\" ];\r\n//jumpPadsCheckBox.CheckedChange += jumpPadsCheckBox_CheckedChange;\r\n\r\n//( (Button)MainControl.Controls[ \"Run\" ] ).Click += run_Click;\r\n( (Button)Owner.MainControl.Controls[ \"Clear\" ] ).Click += clear_Click;\r\n\r\n((ScrollBar)Owner.MainControl.Controls[ \"Gravity\" ]).ValueChange += delegate(ScrollBar sender)\r\n{\r\n\tPhysicsWorld.Instance.MainScene.Gravity = new Vec3(0,0,-sender.Value);\r\n};\r\n\r\n((CheckBox)Owner.MainControl.Controls[ \"AdditionalSceneTest\" ]).CheckedChange += delegate( CheckBox sender )\r\n{\r\n\tif( sender.Checked )\r\n\t\tCreateAdditionalScene();\r\n\telse\r\n\t\tDestroyAdditionalScene();\r\n};\r\n\r\nOwner.SubscribeToTickEvent();\r\n\r\nUpdateCartsThrottle();\r\n"
+				methodName = PostCreated
+				returnType = System.Void
+				parameters = 14
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 14
+					parameterType = System.Boolean
+					parameterName = loaded
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 15
+				variableType = Engine.MapSystem.MapObject
+				variableName = hangingBall
+				supportSerialization = True
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 16
+				code = "foreach( Entity entity in Map.Instance.Children )\r\n{\r\n\tbool delete = false;\r\n\r\n\tstring str = entity.UserData as string;\r\n\tif( str != null && str == \"AllowClear\" )\r\n\t\tdelete = true;\r\n\r\n\tif( entity is Corpse )\r\n\t\tdelete = true;\r\n\r\n\tstring prefix = \"WoodBox\";\r\n\tif( entity.Type.Name.Length > prefix.Length && entity.Type.Name.Substring(0, 7) == prefix )\r\n\t\tdelete = true;\r\n\r\n\tif(entity.Type.Name == \"Ball\")\r\n\t\tdelete = true;\r\n\r\n\tif(delete)\r\n\t\tentity.SetDeleted();\r\n}\r\n"
+				methodName = clear_Click
+				returnType = System.Void
+				parameters = 17
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 17
+					parameterType = Engine.UISystem.Button
+					parameterName = sender
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 18
+				code = "//const float zombieProbability = .01f;\r\n\r\nint step = many ? 5 : 20;\r\n\r\nfor( float y = -10; y < 11; y += step )\r\n{\r\n\tfor( float x = -10; x < 11; x += step )\r\n\t{\r\n\t\tif( x == 0 && y == 0 )\r\n\t\t\tcontinue;\r\n\r\n\t\tVec3 pos = new Vec3( x, y, 9 );\r\n\t\tif(mapObjectType.Name == \"WoodBox\")\r\n\t\t\tpos.Z = 2.5f;\r\n\r\n\t\t//Check busy\r\n\t\tbool busy = false;\r\n\t\tMap.Instance.GetObjects(new Bounds(pos - new Vec3(.75f, .75f, .75f), pos + new Vec3(.75f, .75f, .75f)), \r\n\t\t\tdelegate(MapObject o)\r\n\t\t\t{\r\n\t\t\t\tif(!(o is Region || o is StaticMesh))\r\n\t\t\t\t\tbusy = true;\r\n\t\t\t});\r\n\t\tif(busy)\r\n\t\t\tcontinue;\r\n\r\n\t\tEntityType type;\r\n\r\n\t\t//if( World.Instance.Random.NextFloat() < zombieProbability )\r\n\t\t//\ttype = EntityTypes.Instance.GetByName( \"Zombie\" );\r\n\t\t//else\r\n\t\t\ttype = mapObjectType;\r\n\r\n\t\tMapObject obj = (MapObject)Entities.Instance.Create( type, Map.Instance );\r\n\t\tobj.UserData = \"AllowClear\";\r\n\t\tobj.Position = pos;\r\n\r\n\t\tif( type == mapObjectType )\r\n\t\t{\r\n\t\t\tfloat dir = World.Instance.Random.NextFloat() * MathFunctions.PI;\r\n\t\t\tfloat halfAngle = dir * 0.5f;\r\n\r\n\t\t\tif(mapObjectType.Name == \"WoodBox\")\r\n\t\t\t\tobj.Rotation = new Quat( new Vec3( 0, 0, MathFunctions.Sin( halfAngle ) ), MathFunctions.Cos( halfAngle ) );\r\n\t\t\telse\r\n\t\t\t\tobj.Rotation = new Quat( new Vec3( 0, MathFunctions.Sin( halfAngle ), 0 ), MathFunctions.Cos( halfAngle ) );\r\n\t\t}\r\n\r\n\t\tobj.PostCreate();\r\n\t}\r\n}\r\n\r\nif(mapObjectType.Name == \"Cart\")\r\n\tUpdateCartsThrottle();\r\n"
+				methodName = CreateManyObjects
+				returnType = System.Void
+				parameters = 19 20
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 19
+					parameterType = Engine.MapSystem.MapObjectType
+					parameterName = mapObjectType
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 20
+					parameterType = System.Boolean
+					parameterName = many
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 21
+				code = "foreach( Entity entity in Map.Instance.Children )\r\n{\r\n\tFan fan = entity as Fan;\r\n\tif( fan != null )\r\n\t\tfan.Throttle = sender.Value;\r\n}"
+				methodName = fansScrollBar_ValueChange
+				returnType = System.Void
+				parameters = 22
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 22
+					parameterType = Engine.UISystem.ScrollBar
+					parameterName = sender
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 23
+				code = "if( sender.Checked )\r\n{\r\n\tEntityType type = EntityTypes.Instance.GetByName( \"HangingBall\" );\r\n\thangingBall = (MapObject)Entities.Instance.Create( type, Map.Instance );\r\n\thangingBall.Position = new Vec3( 0, 0, 10.45f );\r\n\thangingBall.PostCreate();\r\n}\r\nelse\r\n{\r\n\tif( hangingBall != null )\r\n\t{\r\n\t\thangingBall.SetDeleted();\r\n\t\thangingBall = null;\r\n\t}\r\n}\r\n"
+				methodName = hangingBallCheckBox_CheckedChange
+				returnType = System.Void
+				parameters = 24
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicParameter
+					uin = 24
+					parameterType = Engine.UISystem.CheckBox
+					parameterName = sender
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 25
+				code = "PhysicsWorld.Instance.MainScene.Gravity = new Vec3(0,0,-9.81f);\r\n\r\nDestroyAdditionalScene();"
+				methodName = Destroying
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 26
+				code = "float throttle = ((ScrollBar)Owner.MainControl.Controls[ \"CartsThrottle\" ]).Value;\r\n\r\n\r\nforeach( Entity entity in Map.Instance.Children )\r\n{\r\n\tMapObject obj = entity as MapObject;\r\n\tif(obj == null)\r\n\t\tcontinue;\r\n\r\n\tif(obj.Type.Name != \"Cart\")\r\n\t\tcontinue;\r\n\r\n\tforeach(Motor motor in obj.PhysicsModel.Motors)\r\n\t{\r\n\t\tGearedMotor gearedMotor = motor as GearedMotor;\r\n\t\tif(gearedMotor == null)\r\n\t\t\tcontinue;\r\n\r\n\t\tgearedMotor.Enabled = true;\r\n\t\tgearedMotor.Throttle = throttle;\r\n\t}\r\n}"
+				methodName = UpdateCartsThrottle
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = False
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 27
+				code = "if(camera != RendererWorld.Instance.DefaultCamera)\r\n\treturn;\r\n\r\nbool rayCastTest = ((CheckBox)Owner.MainControl.Controls[ \"RayCastTest\" ]).Checked;\r\nbool piercingRayCastTest = ((CheckBox)Owner.MainControl.Controls[ \"PiercingRayCastTest\" ]).Checked;\r\nbool volumeCastTest = ((CheckBox)Owner.MainControl.Controls[ \"VolumeCastTest\" ]).Checked;\r\n\r\nif(rayCastTest)\r\n{\r\n\tfor(float y = -18; y < 18; y++)\r\n\t{\r\n\t\tRay ray = new Ray(new Vec3(0,y, 10), new Vec3(0,0,-100));\r\n\r\n\t\tRayCastResult result = PhysicsWorld.Instance.RayCast( ray, (int)ContactGroup.CastOnlyContact );\r\n\r\n\t\tif(result.Shape != null)\r\n\t\t{\r\n\t\t\tcamera.DebugGeometry.Color = new ColorValue(1,1,0);\r\n\t\t\tcamera.DebugGeometry.AddLine(ray.Origin, result.Position);\r\n\r\n\t\t\tcamera.DebugGeometry.Color = new ColorValue(1,0,0);\r\n\t\t\tcamera.DebugGeometry.AddSphere(new Sphere(result.Position, .1f), 4);\r\n\r\n\t\t\tcamera.DebugGeometry.Color = new ColorValue(0,1,0);\r\n\t\t\tcamera.DebugGeometry.AddArrow(result.Position, result.Position + result.Normal * .3f);\r\n\t\t}\r\n\t}\r\n}\r\n\r\nif(piercingRayCastTest)\r\n{\r\n\tfor(float y = -18; y < 18; y++)\r\n\t{\r\n\t\tRay ray = new Ray(new Vec3(18,y, .5f), new Vec3(-36,0,0));\r\n\r\n\t\tRayCastResult[] piercingResult = PhysicsWorld.Instance.RayCastPiercing( \r\n\t\t\tray, (int)ContactGroup.CastOnlyContact );\r\n\r\n\t\tcamera.DebugGeometry.Color = new ColorValue(0,0,1);\r\n\t\tcamera.DebugGeometry.AddLine(ray.Origin, ray.Origin + ray.Direction);\r\n\r\n\t\tforeach(RayCastResult result in piercingResult)\r\n\t\t{\r\n\t\t\tcamera.DebugGeometry.Color = new ColorValue(1,0,0);\r\n\t\t\tcamera.DebugGeometry.AddSphere(new Sphere(result.Position, .1f), 4);\r\n\r\n\t\t\tcamera.DebugGeometry.Color = new ColorValue(0,1,0);\r\n\t\t\tcamera.DebugGeometry.AddArrow(result.Position, result.Position + result.Normal * .3f);\r\n\t\t}\r\n\t}\r\n}\r\n\r\nif(volumeCastTest)\r\n{\r\n\tBounds bounds = new Bounds(new Vec3(-10, -10, .2f), new Vec3(10, 10, 10.2f));\r\n\r\n\tcamera.DebugGeometry.Color = new ColorValue(1,1,0);\r\n\tcamera.DebugGeometry.AddBounds(bounds);\r\n\r\n\tBody[] result = PhysicsWorld.Instance.VolumeCast(bounds, (int)ContactGroup.CastOnlyDynamic);\r\n\tforeach(Body body in result)\r\n\t{\r\n\t\tcamera.DebugGeometry.Color = new ColorValue(0,1,0);\r\n\t\tcamera.DebugGeometry.AddSphere(new Sphere(body.Position, 1), 32);\r\n\t}\r\n\r\n/*\r\n\tBox box = new Box();\r\n\tbox.Center = new Vec3(0,0,5);\r\n\tbox.Extents = new Vec3(3,3,7);\r\n\tbox.Axis = new Angles(50, 30, 20).ToQuat().ToMat3();\r\n\r\n\tDebugGeometry.Instance.Color = new ColorValue(1,1,0);\r\n\tDebugGeometry.Instance.AddBox(box);\r\n\r\n\tBody[] result = PhysicsWorld.Instance.VolumeCast(box, (int)ContactGroup.CastOnlyDynamic);\r\n\tforeach(Body body in result)\r\n\t{\r\n\t\tDebugGeometry.Instance.Color = new ColorValue(0,1,0);\r\n\t\tDebugGeometry.Instance.AddSphere(new Sphere(body.Position, 1), 32);\r\n\t}\r\n*/\r\n\r\n/*\r\n\tSphere sphere = new Sphere(new Vec3(0,0,5), 7);\r\n\r\n\tDebugGeometry.Instance.Color = new ColorValue(1,1,0);\r\n\tDebugGeometry.Instance.AddSphere(sphere);\r\n\r\n\tBody[] result = PhysicsWorld.Instance.VolumeCast(sphere, (int)ContactGroup.CastOnlyDynamic);\r\n\tforeach(Body body in result)\r\n\t{\r\n\t\tDebugGeometry.Instance.Color = new ColorValue(0,1,0);\r\n\t\tDebugGeometry.Instance.AddSphere(new Sphere(body.Position, 1), 32);\r\n\t}\r\n*/\r\n\r\n/*\r\n\tCapsule capsule = new Capsule();\r\n\tcapsule.Point1 = new Vec3(-10,0,5);\r\n\tcapsule.Point2 = new Vec3(5,10,2);\r\n\tcapsule.Radius = 4;\r\n\r\n\tDebugGeometry.Instance.Color = new ColorValue(1,1,0);\r\n\tDebugGeometry.Instance.AddSphere(new Sphere(capsule.Point1, .1f));\r\n\tDebugGeometry.Instance.AddSphere(new Sphere(capsule.Point2, .1f));\r\n\tDebugGeometry.Instance.AddCapsule(capsule);\r\n\r\n\tBody[] result = PhysicsWorld.Instance.VolumeCast(capsule, (int)ContactGroup.CastOnlyDynamic);\r\n\tforeach(Body body in result)\r\n\t{\r\n\t\tDebugGeometry.Instance.Color = new ColorValue(0,1,0);\r\n\t\tDebugGeometry.Instance.AddSphere(new Sphere(body.Position, 1), 32);\r\n\t}\r\n*/\r\n\r\n}\r\n\r\nVisualizeAdditionalScene( camera );\r\n\r\n"
+				methodName = Render
+				returnType = System.Void
+				parameters = 28
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 28
+					parameterType = Engine.Renderer.Camera
+					parameterName = camera
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 29
+				code = "\r\n//CCD Test\r\nif( ccdTestRemainingCount > 0 )\r\n{\r\n\tccdTestRemainingTime -= Entity.TickDelta;\r\n\tif(ccdTestRemainingTime <= 0)\r\n\t{\r\n\t\tccdTestRemainingTime = .1f;\r\n\t\tccdTestRemainingCount--;\r\n\t\r\n\t\t//create entity\r\n\t\r\n\t\tMapObject obj = (MapObject)Entities.Instance.Create(\"SmallBox\", Map.Instance);\r\n\t\tobj.Position = new Vec3(0,0,.4f);\r\n\t\tobj.UserData = \"AllowClear\";\r\n\t\tobj.PostCreate();\r\n\r\n\t\tif(obj.PhysicsModel != null)\r\n\t\t{\r\n\t\t\tRadian angle = World.Instance.Random.NextFloat() * MathFunctions.PI * 2;\r\n\r\n\t\t\tVec3 linearVelocity = new Vec3(\r\n\t\t\t\tMathFunctions.Cos(angle) * 100, MathFunctions.Sin(angle) * 100, 30);\r\n\t\t\tVec3 angularVelocity = new Vec3(\r\n\t\t\t\tWorld.Instance.Random.NextFloat() * 10, \r\n\t\t\t\tWorld.Instance.Random.NextFloat() * 10, \r\n\t\t\t\tWorld.Instance.Random.NextFloat() * 10);\r\n\r\n\t\t\tforeach(Body body in obj.PhysicsModel.Bodies)\r\n\t\t\t{\r\n\t\t\t\tbody.LinearVelocity = linearVelocity;\r\n\t\t\t\tbody.AngularVelocity = angularVelocity;\r\n\t\t\t}\r\n\t\t}\r\n\r\n\t\t//sound\r\n\t\tDynamic dynamic = obj as Dynamic;\r\n\t\tif(dynamic != null)\r\n\t\t\tdynamic.SoundPlay3D( \"Types\\\\Weapons\\\\SubmachineGun\\\\AlternativeFire.ogg\", 1, false );\r\n\t}\r\n}\r\n\r\nSimulateAdditionalScene( Entity.TickDelta );\r\n"
+				methodName = Tick
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = True
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 30
+				variableType = System.Single
+				variableName = ccdTestRemainingTime
+				supportSerialization = True
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 31
+				variableType = System.Int32
+				variableName = ccdTestRemainingCount
+				supportSerialization = True
+			}
+		}
+	}
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 32
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -15.48706 -20.68667 0.2532427
+	rotation = 0 0 0.9867585 0.1621963
+}
+entity
+{
+	type = ShotgunItem
+	uin = 33
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -20.71517 -13.34895 0.4753142
+	rotation = 0 0 0.3813629 0.9244254
+}
+entity
+{
+	type = Light
+	uin = 34
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 0.4117647 0.4117647 0.4117647
+	diffusePower = 1
+	specularColor = 1.372549 1.372549 1.372549
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 0 0 22
+	rotation = 0 -0.7071068 0 -0.7071068
+	name = Light_1
+}
+entity
+{
+	type = StaticMesh
+	uin = 35
+	classPrompt = StaticMesh
+	position = -12 -12 0
+	name = StaticMesh_GridFloor_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\GridFloor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 36
+	classPrompt = StaticMesh
+	position = 12 -12 0
+	name = StaticMesh_GridFloor_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\GridFloor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 37
+	classPrompt = StaticMesh
+	position = 12 12 0
+	name = StaticMesh_GridFloor_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\GridFloor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 38
+	classPrompt = StaticMesh
+	position = -12 12 0
+	name = StaticMesh_GridFloor_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\GridFloor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 39
+	classPrompt = StaticMesh
+	position = 0 -12 0
+	name = StaticMesh_Floor_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 40
+	classPrompt = StaticMesh
+	position = 0 12 0
+	name = StaticMesh_Floor_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 41
+	classPrompt = StaticMesh
+	position = 12 0 0
+	name = StaticMesh_Floor_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 42
+	classPrompt = StaticMesh
+	position = -12 0 0
+	name = StaticMesh_Floor_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 43
+	classPrompt = StaticMesh
+	position = 0 0 0
+	name = StaticMesh_Floor_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Floor.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 44
+	classPrompt = StaticMesh
+	position = 24 -24 0
+	name = StaticMesh_CornerIntDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 45
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 46
+	classPrompt = StaticMesh
+	position = 24 -24 6
+	name = StaticMesh_CornerIntUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 47
+	classPrompt = StaticMesh
+	position = 24 -12 0
+	name = StaticMesh_WallDown_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 48
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallMiddle_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 49
+	classPrompt = StaticMesh
+	position = 24 -12 6
+	name = StaticMesh_WallUp_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 50
+	classPrompt = StaticMesh
+	position = 24 12 0
+	name = StaticMesh_WallDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 51
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 52
+	classPrompt = StaticMesh
+	position = 24 12 6
+	name = StaticMesh_WallUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 53
+	classPrompt = StaticMesh
+	position = 24 0 0
+	name = StaticMesh_WallDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 54
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 55
+	classPrompt = StaticMesh
+	position = 24 0 6
+	name = StaticMesh_WallUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 56
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntMiddle_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 57
+	classPrompt = StaticMesh
+	position = -24 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntUp_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 58
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 59
+	classPrompt = StaticMesh
+	position = 0 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 60
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 61
+	classPrompt = StaticMesh
+	position = -12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 62
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallMiddle_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 63
+	classPrompt = StaticMesh
+	position = 12 -24 6
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallUp_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 64
+	classPrompt = StaticMesh
+	position = 0 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 65
+	classPrompt = StaticMesh
+	position = -12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 66
+	classPrompt = StaticMesh
+	position = 12 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_WallDown_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 67
+	classPrompt = StaticMesh
+	position = -24 -24 0
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_CornerIntDown_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 68
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntMiddle_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 69
+	classPrompt = StaticMesh
+	position = -24 24 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntUp_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 70
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 71
+	classPrompt = StaticMesh
+	position = -24 0 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 72
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 73
+	classPrompt = StaticMesh
+	position = -24 12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 74
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallMiddle_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = -24 -12 6
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallUp_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = -24 0 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = -24 12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = -24 -12 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_WallDown_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = -24 24 0
+	rotation = 0 0 -1 8.42937E-08
+	name = StaticMesh_CornerIntDown_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntMiddle_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = 24 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntUp_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = 12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = -12 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallMiddle_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallMiddle.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = 0 24 6
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallUp_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallUp.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = 12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_9
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = -12 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_10
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = 0 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_WallDown_11
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\WallDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 91
+	classPrompt = StaticMesh
+	position = 24 24 0
+	rotation = 0 0 -0.7071069 -0.7071067
+	name = StaticMesh_CornerIntDown_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\CornerIntDown.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = 12 0 6
+	name = StaticMesh_Ceiling_0
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 93
+	classPrompt = StaticMesh
+	position = 12 12 6
+	name = StaticMesh_Ceiling_1
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 94
+	classPrompt = StaticMesh
+	position = 12 -12 6
+	name = StaticMesh_Ceiling_2
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = -12 0 6
+	name = StaticMesh_Ceiling_3
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 96
+	classPrompt = StaticMesh
+	position = -12 12 6
+	name = StaticMesh_Ceiling_4
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = -12 -12 6
+	name = StaticMesh_Ceiling_5
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = 0 0 6
+	name = StaticMesh_Ceiling_6
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = 0 12 6
+	name = StaticMesh_Ceiling_7
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = StaticMesh
+	uin = 100
+	classPrompt = StaticMesh
+	position = 0 -12 6
+	name = StaticMesh_Ceiling_8
+	editorLayer = "Root Layer\\Corridors"
+	meshName = "Models\\DemoCorridors\\Ceiling.mesh"
+	allowDecals = All
+}
+entity
+{
+	type = Teleporter
+	uin = 101
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	healthFactorAtBeginning = 1
+	position = -20 -20 0.5683844
+	rotation = 0 0 0.3826835 0.9238796
+	name = Teleporter_0
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 102
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -14.07013 -20.68667 0.2532427
+	rotation = 0 0 0.9867585 0.1621963
+}
+entity
+{
+	type = SkyBox
+	uin = 103
+	classPrompt = SkyBox
+	enabled = True
+	textureName = 
+	color = 0.8000001 0.8000001 0.8000001
+	power = 1
+}

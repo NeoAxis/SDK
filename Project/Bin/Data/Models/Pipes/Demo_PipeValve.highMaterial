@@ -1,0 +1,23 @@
+highLevelMaterial Demo_PipeValve
+{
+	template = ShaderBaseMaterial
+	reflectionColor = 1 1 1
+	reflectionSpecificCubemap = "Models\\DemoCorridors\\SkyBox\\CorridorSkyBox.jpg"
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\PipeValveDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\PipeValveSpecularMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\PipeValveSpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\PipeValveNormalsMap.dds"
+	}
+}

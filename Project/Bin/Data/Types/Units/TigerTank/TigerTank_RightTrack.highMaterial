@@ -1,0 +1,27 @@
+highLevelMaterial "TigerTank/RightTrack"
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\Diffuse.dds"
+		transform
+		{
+			dynamicParameters = True
+		}
+	}
+	specularMap
+	{
+		transform
+		{
+			dynamicParameters = True
+		}
+	}
+	normalMap
+	{
+		texture = ".\\Normal.dds"
+		transform
+		{
+			dynamicParameters = True
+		}
+	}
+}

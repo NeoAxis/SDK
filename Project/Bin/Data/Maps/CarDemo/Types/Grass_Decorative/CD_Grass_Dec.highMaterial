@@ -1,0 +1,19 @@
+highLevelMaterial CD_Grass_Dec
+{
+	template = VegetationMaterial
+	doubleSided = True
+	useNormals = False
+	alphaRejectFunction = GreaterEqual
+	alphaToCoverage = True
+	fadingByDistanceRange = 270 300
+	halfLambert = True
+	diffuseColor = 0.882353 1 0.882353
+	receiveObjectsPositionsFromVertices = True
+	windEffectFactor = 2
+	bendVariation = 0.005
+	detailBending = False
+	diffuse1Map
+	{
+		texture = ".\\CD_Grass_Dec.dds"
+	}
+}

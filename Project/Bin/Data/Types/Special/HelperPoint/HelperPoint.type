@@ -1,0 +1,13 @@
+type HelperPoint
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\HelperPoint.mesh"
+			onlyForEditor = True
+		}
+	}
+}

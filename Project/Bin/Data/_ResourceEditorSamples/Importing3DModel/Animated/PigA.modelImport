@@ -1,0 +1,54 @@
+sourceFile = "_ResourceEditorSamples\\Importing3DModel\\Animated\\PigA.x"
+baseMapFormat = JPG
+normalMapFormat = JPG
+renameMaterials
+{
+	item
+	{
+		originalName = PigA
+		newName = PigA_RenameTest
+	}
+}
+objects
+{
+	mesh
+	{
+		name = PigA
+		pivotPosition = 0.1097827 0.6405458 12.46514
+		createSkeleton = True
+		sources
+		{
+			item
+			{
+				name = PigA
+			}
+		}
+		animations
+		{
+			item
+			{
+				name = Walk
+				frameBegin = 0
+				frameEnd = 116
+			}
+			item
+			{
+				name = Idle
+				frameBegin = 117
+				frameEnd = 268
+			}
+			item
+			{
+				name = Itching
+				frameBegin = 421
+				frameEnd = 520
+			}
+			item
+			{
+				name = Feeding
+				frameBegin = 521
+				frameEnd = 621
+			}
+		}
+	}
+}

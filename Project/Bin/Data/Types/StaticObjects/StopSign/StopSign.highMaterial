@@ -1,0 +1,10 @@
+highLevelMaterial StopSign
+{
+	template = ShaderBaseMaterial
+	specularScale = 0.4980392 0.4980392 0.4980392
+	specularShininess = 60
+	diffuse1Map
+	{
+		texture = Types\StaticObjects\StopSign\StopSign.dds
+	}
+}

@@ -1,0 +1,20 @@
+highLevelMaterial Shotgun_FPSCamera
+{
+	template = FPSWeaponMaterial
+	alphaRejectFunction = GreaterEqual
+	emissionColor = 1 1 1
+	emissionPower = 5
+	specularColor = 0.7843137 0.7843137 0.7843137
+	diffuse1Map
+	{
+		texture = ".\\Shotgun_Diffuse.dds"
+	}
+	emissionMap
+	{
+		texture = ".\\Shotgun_Emission.dds"
+	}
+	specularMap
+	{
+		texture = ".\\Shotgun_Specular.dds"
+	}
+}

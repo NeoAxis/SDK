@@ -1,0 +1,8 @@
+This file is just label in order to determine whether the map support network or not.
+
+This file used in Game.exe(MultiplayerLobbyWindow.cs) and DedicatedServer.exe(MainForm.cs).
+
+
+----------
+
+This map is not supported, because RTS specific entity classes are not have networking support.

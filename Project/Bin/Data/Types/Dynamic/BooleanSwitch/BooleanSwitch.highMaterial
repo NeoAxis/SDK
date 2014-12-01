@@ -1,0 +1,9 @@
+highLevelMaterial BooleanSwitch
+{
+	template = ShaderBaseMaterial
+	specularScale = 0.5019608 0.5019608 0.5019608
+	diffuse1Map
+	{
+		texture = Types\Dynamic\BooleanSwitch\BooleanSwitch.jpg
+	}
+}

@@ -1,0 +1,8 @@
+highLevelMaterial BallDemo_Fan
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = ".\\Fan.dds"
+	}
+}

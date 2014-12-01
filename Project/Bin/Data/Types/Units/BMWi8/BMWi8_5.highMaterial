@@ -1,0 +1,14 @@
+highLevelMaterial BMWi8_5
+{
+	template = ShaderBaseMaterial
+	emissionColor = 1 1 1
+	emissionPower = 20
+	diffuse1Map
+	{
+		texture = ".\\lights.png"
+	}
+	emissionMap
+	{
+		texture = ".\\lights_glow.png"
+	}
+}

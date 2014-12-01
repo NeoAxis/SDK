@@ -1,0 +1,46 @@
+type CD_Test
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Test.mesh"
+			collision = True
+			collisionMaterialName = Tarmac
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Test01.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Test02.mesh"
+			collision = True
+			collisionMaterialName = Dirt
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Test03.mesh"
+			collision = True
+			collisionMaterialName = Ice
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Test04.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+	}
+}

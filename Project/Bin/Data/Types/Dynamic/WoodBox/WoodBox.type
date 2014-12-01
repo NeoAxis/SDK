@@ -1,0 +1,76 @@
+type WoodBox
+{
+	class = Dynamic
+	healthMax = 30
+	impulseDamageCoefficient = 0.3
+	impulseMinimalDamage = 1000
+	soundCollision = "Types\\Dynamic\\WoodBox\\Collision.ogg"
+	soundCollisionMinVelocity = 2
+	physicsModel = "Types\\Dynamic\\WoodBox\\WoodBox.physics"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Dynamic\\WoodBox\\WoodBox.mesh"
+			castDynamicShadows = True
+			body = main
+		}
+	}
+	dieObjects
+	{
+		sound
+		{
+			soundName = "Types\\Dynamic\\WoodBox\\Destroy.ogg"
+			priority = 0.7
+		}
+		mapObject
+		{
+			type = WoodBoxPiece1
+			copyVelocitiesFromParent = True
+			position = 0.1690186 0.6053506 0.4707404
+		}
+		mapObject
+		{
+			type = WoodBoxPiece1
+			copyVelocitiesFromParent = True
+			position = -0.4743722 0.6018086 0.163883
+			rotation = 0 -0.7068953 0 0.7073182
+		}
+		mapObject
+		{
+			type = WoodBoxPiece1
+			copyVelocitiesFromParent = True
+			position = -0.4743722 -0.5979761 -0.1648519
+			rotation = 0.7069846 3.090328E-08 -0.7072289 -3.091396E-08
+		}
+		mapObject
+		{
+			type = WoodBoxPiece1
+			copyVelocitiesFromParent = True
+			position = 0.09917703 -0.9551935 -0.1639675
+			rotation = -0.5 -0.5 0.5 -0.5
+		}
+		mapObject
+		{
+			type = WoodBoxPiece1
+			copyVelocitiesFromParent = True
+			position = 0.1643781 0.9617134 -0.09476867
+			rotation = -0.7071068 0 0 0.7071068
+		}
+		mapObject
+		{
+			type = WoodBoxPiece2
+			copyVelocitiesFromParent = True
+			position = -0.006040134 0.05848712 0.4691285
+			rotation = 0 0 -1 -4.371139E-08
+		}
+		mapObject
+		{
+			type = WoodBoxPiece2
+			copyVelocitiesFromParent = True
+			position = -0.006040134 0.05848712 -0.4627163
+			rotation = -1 0 0 -4.371139E-08
+		}
+	}
+}

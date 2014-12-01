@@ -1,0 +1,20 @@
+type GasFlamePipe
+{
+	class = PhysicalStream
+	allowEditorCreate = True
+	networkType = Synchronized
+	normalMode
+	{
+		particleName = GasFlamePipeParticle
+	}
+	alternativeMode
+	{
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\GasFlamePipe\GasFlamePipe.mesh
+		}
+	}
+}

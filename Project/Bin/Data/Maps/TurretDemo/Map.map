@@ -1,0 +1,1243 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameType = TurretDemo
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.2 0.2 0.2
+editorCameraPosition = -180.5794 -19.28333 6.751774
+editorCameraDirection = 5.308723 -0.2532658
+shadowColor = 0.6 0.6 0.6 0.6
+shadowFarDistance = 50
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 5
+name = GameMap_0
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+}
+entity
+{
+	type = SubmachineGunItem
+	uin = 3
+	classPrompt = WeaponItem
+	respawnTime = 10
+	position = -177.9705 -21.54029 1.647796
+	rotation = 0 0 0.8539377 0.5203751
+}
+entity
+{
+	type = SpawnPoint
+	uin = 4
+	classPrompt = SpawnPoint
+	defaultPoint = True
+	position = -191.8474 -21.36573 1.224252
+	rotation = 0 0 0.02619668 -0.9996569
+	name = SpawnPoint_0
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 5
+	mapClassManager = 6
+	entity
+	{
+		type = LogicClassManager
+		uin = 6
+	}
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 7
+	classPrompt = Dynamic
+	position = -155.3735 -8.971213 0.8659185
+	rotation = 0.7403668 0 0 0.672203
+	name = ExplosionBarrel_0
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 8
+	classPrompt = Dynamic
+	position = -149.949 -7.511244 0.7988696
+	rotation = -0.6377172 0 0 0.7702703
+	name = ExplosionBarrel_1
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 9
+	classPrompt = Dynamic
+	position = -152.0815 -13.40626 1.233196
+	rotation = 0.7987584 0 0 0.6016519
+	name = ExplosionBarrel_2
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 10
+	classPrompt = Dynamic
+	position = -155.3373 -12.24321 0.8983984
+	rotation = 0.7303111 0 0 0.6831148
+	name = ExplosionBarrel_3
+}
+entity
+{
+	type = Box
+	uin = 11
+	classPrompt = Dynamic
+	position = -151.6321 -4.969203 0.8511503
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_0
+}
+entity
+{
+	type = Box
+	uin = 12
+	classPrompt = Dynamic
+	position = -149.0801 -4.651495 0.6713637
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_1
+}
+entity
+{
+	type = Box
+	uin = 13
+	classPrompt = Dynamic
+	position = -147.5464 -11.21593 1.566233
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_2
+}
+entity
+{
+	type = Box
+	uin = 14
+	classPrompt = Dynamic
+	position = -149.8788 -13.25721 1.560782
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_3
+}
+entity
+{
+	type = Box
+	uin = 15
+	classPrompt = Dynamic
+	position = -153.0264 -10.75171 0.5896283
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_4
+}
+entity
+{
+	type = Box
+	uin = 16
+	classPrompt = Dynamic
+	position = -156.3245 -10.71875 1.128909
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_5
+}
+entity
+{
+	type = Box
+	uin = 17
+	classPrompt = Dynamic
+	position = -156.6044 -7.581179 1.473674
+	rotation = 0.06111768 0 0 0.9981306
+	name = Box_6
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 18
+	classPrompt = Dynamic
+	position = -154.5943 -13.97132 0.7836688
+	rotation = 0.06111768 0 0 0.9981306
+	name = ExplosionBarrel_4
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 19
+	classPrompt = Dynamic
+	position = -152.4823 -8.056773 1.03805
+	rotation = 0.06111768 0 0 0.9981306
+	name = ExplosionBarrel_5
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 20
+	classPrompt = Dynamic
+	position = -150.8757 -10.81534 0.813162
+	rotation = 0.06111768 0 0 0.9981306
+	name = ExplosionBarrel_6
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 21
+	classPrompt = Dynamic
+	position = -153.2998 -13.13296 0.9959517
+	rotation = 0.06111768 0 0 0.9981306
+	name = ExplosionBarrel_7
+}
+entity
+{
+	type = TestLamp
+	uin = 22
+	classPrompt = Dynamic
+	position = -174.6666 -31.91716 1.234178
+	rotation = 0 0 -0.7253879 0.6883403
+	name = TestLamp_0
+}
+entity
+{
+	type = TestLamp
+	uin = 23
+	classPrompt = Dynamic
+	position = -168.071 -32.25036 1.223217
+	rotation = 0 0 -0.7253879 0.6883403
+	name = TestLamp_1
+}
+entity
+{
+	type = TestLamp
+	uin = 24
+	classPrompt = Dynamic
+	position = -167.8653 -26.44465 1.244501
+	rotation = 0 0 -0.7253879 0.6883403
+	name = TestLamp_2
+}
+entity
+{
+	type = Turret
+	uin = 25
+	classPrompt = Turret
+	intellectShouldDeleteAfterDetach = False
+	position = -170.7749 -29.51639 2.396348
+	rotation = 0 0 -0.39768 0.9175241
+	name = Turret_Game
+}
+entity
+{
+	type = HelperPoint
+	uin = 26
+	classPrompt = MapObject
+	position = -104.1111 -101.231 1.575608
+	rotation = 0 0 -0.5817927 -0.8133371
+	name = HelperPoint_0
+	textUserData = Enemy
+}
+entity
+{
+	type = HelperPoint
+	uin = 27
+	classPrompt = MapObject
+	position = -89.28804 -85.66512 1.634053
+	rotation = 0 0 -0.5817927 -0.8133371
+	name = ww
+	textUserData = Enemy
+}
+entity
+{
+	type = HelperPoint
+	uin = 28
+	classPrompt = MapObject
+	position = -143.0145 -134.1536 2.518892
+	rotation = 0 0 -0.5817927 -0.8133371
+	name = HelperPoint_3
+	textUserData = Enemy
+}
+entity
+{
+	type = HelperPoint
+	uin = 29
+	classPrompt = MapObject
+	position = -125.3284 -130.3851 0.9313836
+	rotation = 0 0 -0.5817927 -0.8133371
+	name = HelperPoint_4
+	textUserData = Enemy
+}
+entity
+{
+	type = HelperPoint
+	uin = 30
+	classPrompt = MapObject
+	position = -79.56394 -66.89604 3.294345
+	rotation = 0 0 -0.5817927 -0.8133371
+	name = HelperPoint_5
+	textUserData = Enemy
+}
+entity
+{
+	type = HangingBillboard
+	uin = 31
+	classPrompt = GameGuiObject
+	initialControl = "Gui/TurretDemoBillboard.gui"
+	position = -160.1951 -41.5937 11.07174
+	rotation = 0 0 0.9175992 0.3975068
+	name = HangingBillboard_Game
+}
+entity
+{
+	type = GreenyNimbus
+	uin = 32
+	classPrompt = MapObject
+	position = -168.0786 -13.69269 1.208791
+	rotation = 0 0 -0.7253879 0.6883403
+	name = GreenyNimbus_1
+	textUserData = Victory
+}
+entity
+{
+	type = GreenyNimbus
+	uin = 33
+	classPrompt = MapObject
+	position = -170.1424 -37.11335 0.8904639
+	rotation = 0 0 -0.7253879 0.6883403
+	name = GreenyNimbus_2
+	textUserData = Victory
+}
+entity
+{
+	type = GreenyNimbus
+	uin = 34
+	classPrompt = MapObject
+	position = -186.5152 -29.69734 1.225472
+	rotation = 0 0 -0.7253879 0.6883403
+	name = GreenyNimbus_3
+	textUserData = Victory
+}
+entity
+{
+	type = GreenyNimbus
+	uin = 35
+	classPrompt = MapObject
+	position = -132.5065 -36.66228 -0.1285232
+	rotation = 0 0 -0.7253879 0.6883403
+	name = GreenyNimbus_4
+	textUserData = Victory
+}
+entity
+{
+	type = GreenyNimbus
+	uin = 36
+	classPrompt = MapObject
+	position = -167.3709 -68.98281 0.941306
+	rotation = 0 0 -0.7253879 0.6883403
+	name = GreenyNimbus_5
+	textUserData = Victory
+}
+entity
+{
+	type = GreenyNimbus
+	uin = 37
+	classPrompt = MapObject
+	position = -163.3047 -30.15153 1.044055
+	rotation = 0 0 -0.7253879 0.6883403
+	name = GreenyNimbus_6
+	textUserData = Victory
+}
+entity
+{
+	type = Firework
+	uin = 38
+	classPrompt = Firework
+	position = -141.9756 1.332031 0.2622091
+	name = Firework_0
+	textUserData = Victory
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 39
+	classPrompt = Dynamic
+	position = -194.9664 -50.03596 0.9981411
+	rotation = 0.6184066 0.02883381 -0.02271465 0.7850006
+	name = ExplosionBarrel_8
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 40
+	classPrompt = Dynamic
+	position = -197.1333 -45.04316 0.795909
+	rotation = 0 0.7085112 0 0.7056995
+	name = ExplosionBarrel_9
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 41
+	classPrompt = Dynamic
+	position = -192.6399 -40.91006 1.00131
+	rotation = 0.7770607 0.02308005 -0.02854217 0.6283545
+	name = ExplosionBarrel_10
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 42
+	classPrompt = Dynamic
+	position = -189.67 -47.65356 0.6805992
+	rotation = -0.6150939 -0.3548345 0.372724 0.5973516
+	name = ExplosionBarrel_11
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 43
+	classPrompt = Dynamic
+	position = -194.7063 -44.58718 0.8821479
+	rotation = 0 0.6778625 0 0.7351888
+	name = ExplosionBarrel_12
+}
+entity
+{
+	type = Box
+	uin = 44
+	classPrompt = Dynamic
+	position = -196.0905 -43.02337 1.175407
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_7
+}
+entity
+{
+	type = Box
+	uin = 45
+	classPrompt = Dynamic
+	position = -196.1499 -46.31948 0.7687886
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_8
+}
+entity
+{
+	type = Box
+	uin = 46
+	classPrompt = Dynamic
+	position = -191.6116 -49.57586 0.6797009
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_9
+}
+entity
+{
+	type = Box
+	uin = 47
+	classPrompt = Dynamic
+	position = -190.6069 -44.45697 0.9232695
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_10
+}
+entity
+{
+	type = Box
+	uin = 48
+	classPrompt = Dynamic
+	position = -193.5359 -43.45227 0.6616414
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_11
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 49
+	classPrompt = Dynamic
+	position = -190.1785 -42.44036 1.050695
+	rotation = 0 0.03670619 0 0.9993261
+	name = ExplosionBarrel_13
+}
+entity
+{
+	type = ExplosionBarrel
+	uin = 50
+	classPrompt = Dynamic
+	position = -194.1986 -47.68447 0.9560109
+	rotation = 0 0.03670619 0 0.9993261
+	name = ExplosionBarrel_14
+}
+entity
+{
+	type = Box
+	uin = 51
+	classPrompt = Dynamic
+	position = -192.6555 -45.67678 0.7788328
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_12
+}
+entity
+{
+	type = Box
+	uin = 52
+	classPrompt = Dynamic
+	position = -190.5121 -45.88906 0.8506048
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_13
+}
+entity
+{
+	type = Box
+	uin = 53
+	classPrompt = Dynamic
+	position = -192.1867 -42.43085 0.7747413
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_14
+}
+entity
+{
+	type = Box
+	uin = 54
+	classPrompt = Dynamic
+	position = -195.8275 -46.22667 1.805379
+	rotation = 0 0.03670619 0 0.9993261
+	name = Box_15
+}
+entity
+{
+	type = TestLamp
+	uin = 55
+	classPrompt = Dynamic
+	position = -167.5249 -19.95308 1.244501
+	rotation = 0 0 -0.7253879 0.6883403
+	name = TestLamp_3
+}
+entity
+{
+	type = TestLamp
+	uin = 56
+	classPrompt = Dynamic
+	position = -180.6809 -31.60173 1.234178
+	rotation = 0 0 -0.7253879 0.6883403
+	name = TestLamp_5
+}
+entity
+{
+	type = FlareTest
+	uin = 57
+	classPrompt = MapObject
+	position = -186.4668 -12.30711 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_0
+}
+entity
+{
+	type = FlareTest
+	uin = 58
+	classPrompt = MapObject
+	position = -179.8829 -12.51042 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_1
+}
+entity
+{
+	type = FlareTest
+	uin = 59
+	classPrompt = MapObject
+	position = -173.7272 -12.56901 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_2
+}
+entity
+{
+	type = FlareTest
+	uin = 60
+	classPrompt = MapObject
+	position = -167.4953 -12.89584 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_3
+}
+entity
+{
+	type = Box
+	uin = 61
+	classPrompt = Dynamic
+	position = -181.328 -14.00879 1.692649
+	rotation = 0 0 -0.7253879 0.6883403
+	name = Box_16
+}
+entity
+{
+	type = Box
+	uin = 62
+	classPrompt = Dynamic
+	position = -179.934 -14.02521 1.721452
+	rotation = 0 0 -0.7253879 0.6883403
+	name = Box_17
+}
+entity
+{
+	type = Box
+	uin = 63
+	classPrompt = Dynamic
+	position = -170.8225 -14.1379 1.679763
+	rotation = 0 0 -0.7253879 0.6883403
+	name = Box_18
+}
+entity
+{
+	type = Box
+	uin = 64
+	classPrompt = Dynamic
+	position = -169.3205 -15.10368 1.690135
+	rotation = 0 0 -0.7253879 0.6883403
+	name = Box_19
+}
+entity
+{
+	type = Box
+	uin = 65
+	classPrompt = Dynamic
+	position = -170.1049 -14.59579 2.915859
+	rotation = 0 0 -0.7253879 0.6883403
+	name = Box_20
+}
+entity
+{
+	type = FlareTest
+	uin = 66
+	classPrompt = MapObject
+	position = -186.8023 -18.29635 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_4
+}
+entity
+{
+	type = FlareTest
+	uin = 67
+	classPrompt = MapObject
+	position = -187.153 -24.98507 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_5
+}
+entity
+{
+	type = FlareTest
+	uin = 68
+	classPrompt = MapObject
+	position = -187.4633 -30.89973 1.804689
+	rotation = 0 0 -0.7253879 0.6883403
+	name = FlareTest_6
+}
+entity
+{
+	type = WoodBox
+	uin = 69
+	classPrompt = Dynamic
+	position = -169.5845 -19.15412 1.694944
+	rotation = 0 0 -0.9534582 -0.3015254
+	name = WoodBox_0
+}
+entity
+{
+	type = WoodBox
+	uin = 70
+	classPrompt = Dynamic
+	position = -173.8337 -14.33294 1.715369
+	rotation = 0 0 -0.7253879 0.6883403
+	name = WoodBox_1
+}
+entity
+{
+	type = WoodBox
+	uin = 71
+	classPrompt = Dynamic
+	position = -185.6109 -28.1207 1.721416
+	rotation = 0 0 0.06246797 0.998047
+	name = WoodBox_2
+}
+entity
+{
+	type = HeightmapTerrain
+	uin = 72
+	classPrompt = HeightmapTerrain
+	relationships = 110
+	enabled = True
+	position = 0 0 0
+	horizontalSize = 1000
+	verticalSize = 100
+	dataDirectory = HeightmapTerrain
+	masksSize = 1024
+	detailMapsDistance = 50
+	renderQueueGroup = WorldGeometry1
+	collision = True
+	collisionMaterialName = Default
+	castDynamicShadows = False
+	receiveStaticShadows = True
+	simpleRendering = False
+	tileSize = 32
+	visible = True
+	allowVertexTextureFetchOptimization = True
+	ambientOcclusion
+	{
+		enabled = True
+		size = 1024
+		rayLength = 1.5
+		iterationCount = 100
+		blur = True
+		power = 2
+	}
+	lodSettings
+	{
+		enabled = True
+		maxCount = 99
+		lodLevelDistances = 100 + level * 200
+		morphAreaPercent = 0.3
+		showLevels = False
+	}
+	layers
+	{
+		item
+		{
+			name = base
+			baseMap = "Maps\\TurretDemo\\Resources\\Textures\\hnpsand52.dds"
+			baseScale = 12.027
+			detailScale = 2
+			baseNormalMap = "Maps\\TurretDemo\\Resources\\Textures\\hnpsand52_Normal.dds"
+		}
+		item
+		{
+			name = second
+			baseMap = "Maps\\TurretDemo\\Resources\\Textures\\hnprock13.dds"
+			baseScale = 38.378
+			detailScale = 2
+			baseNormalMap = "Maps\\TurretDemo\\Resources\\Textures\\hnprock13_Normal.dds"
+		}
+		item
+		{
+			name = tri
+			baseMap = "Maps\\TurretDemo\\Resources\\Textures\\Rock2_Diffuse.dds"
+			baseScale = 36.622
+			detailScale = 2
+			baseNormalMap = "Maps\\TurretDemo\\Resources\\Textures\\Rock2_Normal.dds"
+		}
+	}
+}
+entity
+{
+	type = Fog
+	uin = 73
+	classPrompt = Fog
+	enabled = True
+	color = 0.9254902 0.8470588 1
+	expDensity = 0.002
+}
+entity
+{
+	type = Light
+	uin = 74
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 1.784314 1.784314 1.392157
+	diffusePower = 1
+	specularColor = 1.392157 1.392157 1.470588
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = -57.89117 -87.00456 36.86074
+	rotation = 0.3438196 0.02107564 -0.9249473 0.1606745
+	name = Light_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = -97.4179 35.16257 7.987642
+	rotation = 0.1210641 0.1707999 0.7977631 -0.5654598
+	scale = 10.6751 10.6751 10.6751
+	name = StaticMesh_TurretDemoRock_0
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = -56.98007 25.75332 7.987642
+	rotation = 0.07449102 0.1956533 0.6309558 -0.7470379
+	scale = 13.66753 13.66753 13.66753
+	name = StaticMesh_TurretDemoRock_1
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = -6.488461 8.704138 7.987642
+	rotation = 0.1483793 -0.3040854 0.6127198 0.714206
+	scale = 17.13532 17.13532 17.13532
+	name = StaticMesh_TurretDemoRock_2
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = 27.45713 -24.38238 18.95648
+	rotation = 0.02586149 0.103482 0.9911688 -0.07878542
+	scale = 17.13532 17.13532 17.13532
+	name = StaticMesh_TurretDemoRock_3
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = 31.89543 -53.18126 11.3014
+	rotation = -0.02627443 0.1033779 0.8354272 -0.5391513
+	scale = 16.96547 16.96547 16.96547
+	name = StaticMesh_TurretDemoRock_4
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = 82.70685 -113.1981 14.78613
+	rotation = -0.05006957 0.0941827 0.6835161 -0.7221
+	scale = 14.64315 14.64315 14.64315
+	name = StaticMesh_TurretDemoRock_5
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = 84.49511 -145.0341 3.366297
+	rotation = -0.05006957 0.0941827 0.6835161 -0.7221
+	scale = 17.13532 17.13532 17.13532
+	name = StaticMesh_TurretDemoRock_6
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = 62.51686 -72.84821 20.47994
+	rotation = 0.03013046 -0.3370111 0.3176017 0.8858019
+	scale = 24.55624 24.55624 24.55624
+	name = StaticMesh_TurretDemoRock_7
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = 6.451622 -285.9346 -0.1995525
+	rotation = -0.05006957 0.0941827 0.6835161 -0.7221
+	scale = 23.31106 23.31106 23.31106
+	name = StaticMesh_TurretDemoRock_8
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = -1.367637 -280.1993 18.12234
+	rotation = 0.07637009 0.07446443 0.8847579 0.4536807
+	scale = 23.31106 23.31106 23.31106
+	name = StaticMesh_TurretDemoRock_9
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = -36.88835 -281.7465 11.55137
+	rotation = -0.103802 0.1287797 0.4547304 0.8751351
+	scale = 17.13532 17.13532 17.13532
+	name = StaticMesh_TurretDemoRock_10
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = -110.2816 -248.4608 18.39064
+	rotation = -0.4141937 -0.2260991 -0.8412335 -0.2639116
+	scale = 22.28177 22.28177 22.28177
+	name = StaticMesh_TurretDemoRock_11
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = -186.9091 -215.8994 16.9955
+	rotation = -0.1139101 -0.5893413 -0.4857318 0.6354261
+	scale = 22.92542 22.92542 22.92542
+	name = StaticMesh_TurretDemoRock_12
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = -248.1082 -187.2003 16.9955
+	rotation = 0.02528191 -0.4712091 -0.6010162 0.6450602
+	scale = 28.50201 28.50201 28.50201
+	name = StaticMesh_TurretDemoRock_13
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = -228.9747 -8.166405 7.987642
+	rotation = 0.1210641 0.1707999 0.7977631 -0.5654598
+	scale = 25.42351 25.42351 25.42351
+	name = StaticMesh_TurretDemoRock_14
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = -243.8058 39.29119 7.987642
+	rotation = -0.004350588 -0.2093089 -0.3429615 0.9157228
+	scale = 33.31378 33.31378 33.31378
+	name = StaticMesh_TurretDemoRock_15
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 91
+	classPrompt = StaticMesh
+	position = 46.78614 -220.2619 6.250374
+	rotation = 0.02169835 0.1044343 0.9872206 -0.118399
+	scale = 22.62486 22.62486 22.62486
+	name = StaticMesh_TurretDemoRock_16
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = 144.593 -426.3848 72.70432
+	rotation = 0.5773911 0.01893839 0.8010586 -0.156736
+	scale = 99.33784 99.33784 99.33784
+	name = StaticMesh_TurretDemoRock_17
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 93
+	classPrompt = StaticMesh
+	position = -8.744816 -496.4829 127.3359
+	rotation = -0.3080002 -0.4887484 -0.3192784 0.751214
+	scale = 97.79636 97.79636 97.79636
+	name = StaticMesh_TurretDemoRock_18
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 94
+	classPrompt = StaticMesh
+	position = -80.1714 -488.1109 42.67814
+	rotation = -0.1755983 -0.7222919 -0.4073918 0.530558
+	scale = 81.75382 81.75382 81.75382
+	name = StaticMesh_TurretDemoRock_19
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = -180.2543 -457.7173 -32.07171
+	rotation = -0.4118441 0.5114902 0.1648858 0.735918
+	scale = 81.75382 81.75382 81.75382
+	name = StaticMesh_TurretDemoRock_20
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = BlueDaySky
+	uin = 96
+	classPrompt = CameraAttachedObject
+	enabled = True
+	name = BlueDaySky_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = -31.94028 -195.7287 2.228323
+	name = StaticMesh_TurretDemoRockStone_0
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRockStone.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = -68.08025 -213.1756 0.9964848
+	rotation = -0.5830613 0.5052195 0.4808355 0.4166414
+	scale = 0.8512384 0.7534413 1
+	name = StaticMesh_TurretDemoRockStone_1
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRockStone.mesh"
+	forceMaterial = TurretDemoRockStone2
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = -85.22253 -220.6017 4.304112
+	rotation = -0.5830613 0.5052195 0.4808355 0.4166414
+	scale = 1.170194 1.170194 1.170194
+	name = StaticMesh_TurretDemoRockStone_2
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRockStone.mesh"
+	forceMaterial = TurretDemoRockStone2
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 100
+	classPrompt = StaticMesh
+	position = -73.59097 -225.7236 0.9964848
+	rotation = 0.7574637 -0.1464788 -0.6246606 -0.1207973
+	scale = 1.149511 1.017446 1.350399
+	name = StaticMesh_TurretDemoRockStone_3
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\Rock\\TurretDemoRockStone.mesh"
+	forceMaterial = TurretDemoRockStone2
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 101
+	classPrompt = StaticMesh
+	position = -177.5589 -30.91754 1.847511
+	rotation = 0 0 -0.0230988 0.9997332
+	name = StaticMesh_SandBags_0
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 102
+	classPrompt = StaticMesh
+	position = -183.8327 -30.80281 1.847511
+	rotation = 0 0 -0.01788807 0.99984
+	name = StaticMesh_SandBags_1
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 103
+	classPrompt = StaticMesh
+	position = -182.9693 -12.42684 1.847511
+	rotation = 0 0 -0.01788807 0.99984
+	name = StaticMesh_SandBags_2
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 104
+	classPrompt = StaticMesh
+	position = -176.6955 -12.54157 1.847511
+	rotation = 0 0 -0.0230988 0.9997332
+	name = StaticMesh_SandBags_3
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 105
+	classPrompt = StaticMesh
+	position = -171.0168 -12.71568 1.847511
+	rotation = 0 0 -0.0230988 0.9997332
+	name = StaticMesh_SandBags_4
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 106
+	classPrompt = StaticMesh
+	position = -186.3109 -15.21051 1.847511
+	rotation = 0 0 -0.7279627 0.6856168
+	name = StaticMesh_SandBags_5
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 107
+	classPrompt = StaticMesh
+	position = -187.129 -28.11906 1.847511
+	rotation = 0 0 -0.7279627 0.6856168
+	name = StaticMesh_SandBags_6
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 108
+	classPrompt = StaticMesh
+	position = -167.987 -23.14509 1.847511
+	rotation = 0 0 -0.7279627 0.6856168
+	name = StaticMesh_SandBags_7
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 109
+	classPrompt = StaticMesh
+	position = -167.7401 -16.53297 1.847511
+	rotation = 0 0 -0.7279627 0.6856168
+	name = StaticMesh_SandBags_8
+	meshName = "Maps\\TurretDemo\\Resources\\Models\\SandBags\\SandBags.mesh"
+	allowDecals = OnlySmall
+	castDynamicShadows = True
+}
+entity
+{
+	type = DecorativeObjectManager
+	uin = 110
+	classPrompt = DecorativeObjectManager
+	relationships = 72
+	enabled = True
+	visible = True
+	geometries = 72
+	itemDataVersion = 2
+	typeItems
+	{
+	}
+}
+entity
+{
+	type = WoodBox
+	uin = 111
+	classPrompt = Dynamic
+	position = -169.5845 -17.08349 1.694944
+	rotation = 0 0 -0.867325 -0.4977423
+	name = WoodBox_3
+}
+entity
+{
+	type = WoodBox
+	uin = 112
+	classPrompt = Dynamic
+	position = -169.4104 -17.97951 2.747343
+	rotation = 0 0 -0.00812307 -0.9999671
+	name = WoodBox_4
+}
+entity
+{
+	type = WoodBox
+	uin = 113
+	classPrompt = Dynamic
+	position = -183.8489 -28.95858 1.721416
+	rotation = 0 0 0.2921777 0.956364
+	name = WoodBox_5
+}
+entity
+{
+	type = Box
+	uin = 114
+	classPrompt = Dynamic
+	position = -184.9111 -28.5527 2.728238
+	rotation = 0 0 -0.7253879 0.6883403
+	name = Box_21
+}
+entity
+{
+	type = Teleporter
+	uin = 115
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	position = -196.5032 -21.03207 1.454182
+	rotation = 0 0 -4.724045E-09 1
+	name = Teleporter_0
+}

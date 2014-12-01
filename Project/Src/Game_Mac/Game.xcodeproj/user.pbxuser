@@ -1,0 +1,161 @@
+// !$*UTF8*$!
+{
+	18DA27F913351DFD00B031E4 /* _All */ = {
+		activeExec = 0;
+	};
+	18DA281F13351EEA00B031E4 /* MyNativeDLL */ = {
+		activeExec = 0;
+	};
+	256AC3D90F4B6AC300CF3369 /* GameAppDelegate.m */ = {
+		uiCtxt = {
+			sepNavIntBoundsRect = "{{0, 0}, {852, 3172}}";
+			sepNavSelRange = "{4892, 0}";
+			sepNavVisRange = "{4462, 1023}";
+		};
+	};
+	29B97313FDCFA39411CA2CEA /* Project object */ = {
+		activeBuildConfigurationName = Release;
+		activeExecutable = CE8FE4251344507000D8F416 /* Game */;
+		activeTarget = 18DA27F913351DFD00B031E4 /* _All */;
+		codeSenseManager = CE8FE4361344509600D8F416 /* Code sense */;
+		executables = (
+			CE8FE4251344507000D8F416 /* Game */,
+		);
+		perUserDictionary = {
+			PBXConfiguration.PBXFileTableDataSource3.PBXBookmarksDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXBookmarksDataSource_NameID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					200,
+					200,
+					643,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXBookmarksDataSource_LocationID,
+					PBXBookmarksDataSource_NameID,
+					PBXBookmarksDataSource_CommentsID,
+				);
+			};
+			PBXConfiguration.PBXFileTableDataSource3.PBXFileTableDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					618,
+					20,
+					48,
+					43,
+					43,
+					20,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+					PBXFileDataSource_Target_ColumnID,
+				);
+			};
+			PBXConfiguration.PBXTargetDataSource.PBXTargetDataSource = {
+				PBXFileTableDataSourceColumnSortingDirectionKey = "-1";
+				PBXFileTableDataSourceColumnSortingKey = PBXFileDataSource_Filename_ColumnID;
+				PBXFileTableDataSourceColumnWidthsKey = (
+					20,
+					793,
+					60,
+					20,
+					48,
+					43,
+					43,
+				);
+				PBXFileTableDataSourceColumnsKey = (
+					PBXFileDataSource_FiletypeID,
+					PBXFileDataSource_Filename_ColumnID,
+					PBXTargetDataSource_PrimaryAttribute,
+					PBXFileDataSource_Built_ColumnID,
+					PBXFileDataSource_ObjectSize_ColumnID,
+					PBXFileDataSource_Errors_ColumnID,
+					PBXFileDataSource_Warnings_ColumnID,
+				);
+			};
+			PBXPerProjectTemplateStateSaveDate = 356002198;
+			PBXWorkspaceStateSaveDate = 356002198;
+		};
+		perUserProjectItems = {
+			CE86A074153829BD00A9A1AD /* PBXTextBookmark */ = CE86A074153829BD00A9A1AD /* PBXTextBookmark */;
+			CE8E98DD153827CF00174927 /* PBXTextBookmark */ = CE8E98DD153827CF00174927 /* PBXTextBookmark */;
+		};
+		sourceControlManager = CE8FE4351344509600D8F416 /* Source Control */;
+		userBuildSettings = {
+		};
+	};
+	8D1107260486CEB800E47090 /* Game */ = {
+		activeExec = 0;
+		executables = (
+			CE8FE4251344507000D8F416 /* Game */,
+		);
+	};
+	CE86A074153829BD00A9A1AD /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* GameAppDelegate.m */;
+		name = "GameAppDelegate.m: 159";
+		rLen = 0;
+		rLoc = 4892;
+		rType = 0;
+		vrLen = 1023;
+		vrLoc = 4462;
+	};
+	CE8E98DD153827CF00174927 /* PBXTextBookmark */ = {
+		isa = PBXTextBookmark;
+		fRef = 256AC3D90F4B6AC300CF3369 /* GameAppDelegate.m */;
+		name = "GameAppDelegate.m: 159";
+		rLen = 0;
+		rLoc = 4892;
+		rType = 0;
+		vrLen = 1023;
+		vrLoc = 4462;
+	};
+	CE8FE4251344507000D8F416 /* Game */ = {
+		isa = PBXExecutable;
+		activeArgIndices = (
+		);
+		argumentStrings = (
+		);
+		autoAttachOnCrash = 1;
+		breakpointsEnabled = 0;
+		configStateDict = {
+		};
+		customDataFormattersEnabled = 1;
+		dataTipCustomDataFormattersEnabled = 1;
+		dataTipShowTypeColumn = 1;
+		dataTipSortType = 0;
+		debuggerPlugin = GDBDebugging;
+		disassemblyDisplayState = 0;
+		enableDebugStr = 1;
+		environmentEntries = (
+		);
+		executableSystemSymbolLevel = 0;
+		executableUserSymbolLevel = 0;
+		libgmallocEnabled = 0;
+		name = Game;
+		showTypeColumn = 0;
+		sourceDirectories = (
+		);
+	};
+	CE8FE4351344509600D8F416 /* Source Control */ = {
+		isa = PBXSourceControlManager;
+		fallbackIsa = XCSourceControlManager;
+		isSCMEnabled = 0;
+		scmConfiguration = {
+			repositoryNamesForRoots = {
+				"" = "";
+			};
+		};
+	};
+	CE8FE4361344509600D8F416 /* Code sense */ = {
+		isa = PBXCodeSenseManager;
+		indexTemplatePath = "";
+	};
+}

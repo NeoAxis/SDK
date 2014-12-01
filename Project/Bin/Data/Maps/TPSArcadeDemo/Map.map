@@ -1,0 +1,8269 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameType = TPSArcade
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+playerUnitType = Rabbit
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.4627451 0.4627451 0.7411765
+editorCameraPosition = -447.3969 357.2467 33.58522
+editorCameraDirection = 6.198285 -0.4966905
+shadowColor = 0.7176471 0.7176471 0.7176471
+shadowPSSMSplitFactors = 0.1 0.4
+fov = 60
+nearFarClipDistance = 0.1 500
+logicSystemManager = 102
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = Hammer
+	}
+	layer
+	{
+		name = ZombieBattle
+	}
+	layer
+	{
+		name = RabbitScene
+	}
+}
+entity
+{
+	type = HeightmapTerrain
+	uin = 3
+	classPrompt = HeightmapTerrain
+	subscriptionsToDeletionEvent = 67
+	enabled = True
+	position = 0 0 0
+	horizontalSize = 1000
+	verticalSize = 100
+	dataDirectory = HeightmapTerrain
+	masksSize = 1024
+	detailMapsDistance = 50
+	renderQueueGroup = WorldGeometry1
+	collision = True
+	collisionMaterialName = Default
+	collisionHeightfieldThickness = 2
+	castDynamicShadows = True
+	receiveStaticShadows = True
+	simpleRendering = False
+	tileSize = 32
+	visible = True
+	allowVertexTextureFetchOptimization = True
+	ambientOcclusion
+	{
+		enabled = True
+		size = 1024
+		rayLength = 3
+		iterationCount = 100
+		blur = True
+		power = 1
+	}
+	lodSettings
+	{
+		enabled = True
+		maxCount = 99
+		lodLevelDistances = 100 + level * 200
+		morphAreaPercent = 0.3
+		showLevels = False
+	}
+	layers
+	{
+		item
+		{
+			name = base
+			baseMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnpsand52.dds"
+			baseScale = 5
+			detailScale = 2
+			baseNormalMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnpsand52_Normal.dds"
+		}
+		item
+		{
+			name = second
+			baseMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnprock13.dds"
+			baseScale = 15.541
+			detailScale = 2
+			baseNormalMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnprock13_Normal.dds"
+		}
+		item
+		{
+			name = Frnt
+			baseMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnprock13.dds"
+			baseScale = 80.541
+			detailScale = 2
+			baseNormalMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnprock13_Normal.dds"
+			projectionAxis = XAxis
+		}
+		item
+		{
+			name = Sand3
+			baseMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnpsand2.dds"
+			baseScale = 6.757
+			detailScale = 2
+			baseNormalMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\hnpsand2_Normal.dds"
+		}
+		item
+		{
+			name = Rock3
+			baseMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\rocks2s.dds"
+			baseScale = 26.081
+			detailScale = 2
+			baseNormalMap = "Maps\\TPSArcadeDemo\\Resources\\Textures\\rocks2s_Normal.dds"
+		}
+	}
+}
+entity
+{
+	type = Light
+	uin = 4
+	classPrompt = Light
+	enabled = True
+	lightType = Directional
+	diffuseColor = 1.784314 1.784314 0.5882353
+	diffusePower = 1
+	specularColor = 1.392157 1.392157 1.392157
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = False
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = -444.7938 365.5915 30.20116
+	rotation = -0.3899435 0.3977489 0.8293678 -0.04347084
+	name = Light_0
+}
+entity
+{
+	type = BlueDaySky
+	uin = 5
+	classPrompt = CameraAttachedObject
+	enabled = True
+	name = BlueDaySky_0
+}
+entity
+{
+	type = Fog
+	uin = 6
+	classPrompt = Fog
+	enabled = True
+	color = 1.486275 1.082353 1.082353
+	expDensity = 0.002
+}
+entity
+{
+	type = ObserveCameraArea
+	uin = 7
+	classPrompt = ObserveCameraArea
+	subscriptionsToDeletionEvent = 8
+	mapCurve = 8
+	position = -369.0913 130.7963 37.51926
+	scale = 225.2064 512.3657 156.193
+	name = ObserveCameraArea_0
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 8
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 9 10 11 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 7
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 8 10 9 11 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33
+	owner = 8
+	time = 0
+	position = -439.9742 393.5984 30.11839
+	name = MapCameraCurve_0
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 9
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 2
+	position = -442.1855 352.7322 30.26247
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 10
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 1
+	position = -441.4907 372.6539 28.50341
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 11
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 3
+	position = -445.035 333.9021 30.26247
+}
+entity
+{
+	type = SpawnPoint
+	uin = 12
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = -431.7805 364.9406 23.39792
+	rotation = 0 0 -0.7846113 0.6199879
+	scale = 1.114196 1.114196 1.114196
+	name = SpawnPoint_0
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 13
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 4
+	position = -446.2264 318.6675 32.38267
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 14
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 5
+	position = -443.1727 295.1221 36.41717
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 15
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 6
+	position = -429.3151 270.7768 41.42278
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 16
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 7
+	position = -413.5843 256.6578 42.09765
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 17
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 8
+	position = -393.0289 251.3004 41.97689
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 18
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 9
+	position = -368.3936 250.6916 41.08175
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 19
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 10
+	position = -350.015 247.1338 42.7857
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 20
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 11
+	position = -338.1082 242.8724 42.77103
+	rotation = 0 0 0.3131465 0.9497049
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 21
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 12
+	position = -334.0028 231.3046 40.77681
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 22
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 13
+	position = -333.3204 214.7673 43.69138
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 23
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 14
+	position = -324.4791 188.2139 47.12356
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 24
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 15
+	position = -316.4954 165.6118 43.37543
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 25
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 16
+	position = -314.8193 147.3163 40.51875
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 26
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 17
+	position = -316.2269 122.7064 38.92893
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 27
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 18
+	position = -319.8701 105.8647 37.0802
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 28
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 19
+	position = -324.8147 84.38739 33.7222
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 29
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 20
+	position = -330.0398 63.79187 32.36309
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 30
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 21
+	position = -328.963 40.18164 31.11207
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 31
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 22
+	position = -323.681 16.37595 31.11207
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 32
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 23
+	position = -314.0444 -6.356837 31.48433
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 33
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 8
+	fov = 0
+	owner = 8
+	time = 24
+	position = -304.1714 -28.12089 30.29245
+}
+entity
+{
+	type = Zombie
+	uin = 34
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -412.6539 273.0861 37.75086
+	name = Zombie_0
+}
+entity
+{
+	type = Zombie
+	uin = 35
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -415.2854 277.2859 37.12285
+	name = Zombie_1
+}
+entity
+{
+	type = Zombie
+	uin = 36
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -419.6828 274.5055 37.69101
+	name = Zombie_2
+}
+entity
+{
+	type = Zombie
+	uin = 37
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -416.8523 271.2027 38.00083
+	name = Zombie_3
+}
+entity
+{
+	type = StaticMesh
+	uin = 38
+	classPrompt = StaticMesh
+	position = -418.8347 306.3265 33.00126
+	rotation = 0.02624749 -0.3051109 0.008505144 0.9519172
+	scale = 0.6650612 0.5769667 0.8168345
+	name = StaticMesh_TPSDemoRockStone_0
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 39
+	classPrompt = StaticMesh
+	position = -422.8184 334.3419 31.77978
+	rotation = -0.1923997 -0.06177051 0.958104 0.2029877
+	scale = 6.116604 5.306396 7.512472
+	name = StaticMesh_TPSDemoRock_0
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 40
+	classPrompt = StaticMesh
+	position = -238.0448 204.2203 4.018701
+	rotation = 0.610502 0.2589359 -0.7163521 0.2169784
+	scale = 1.090765 1.144908 1.620891
+	name = StaticMesh_TPSDemoRockStone_1
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 41
+	classPrompt = StaticMesh
+	position = -229.8474 164.2034 6.32701
+	rotation = 0.6436123 -0.1597615 -0.703026 -0.2568939
+	scale = 1.472968 1.546082 2.188849
+	name = StaticMesh_TPSDemoRockStone_2
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 42
+	classPrompt = StaticMesh
+	position = -228.2364 122.6371 34.05401
+	rotation = 0.610502 0.2589359 -0.7163521 0.2169784
+	scale = 1.438155 1.902086 2.692858
+	name = StaticMesh_TPSDemoRockStone_3
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 43
+	classPrompt = StaticMesh
+	position = -299.2134 110.718 31.8084
+	rotation = 0.610502 0.2589359 -0.7163521 0.2169784
+	scale = 0.5519698 0.5205187 0.7272233
+	name = StaticMesh_stone_moss2_0
+	meshName = "Stone_Mosse\\stone_moss2.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 44
+	classPrompt = StaticMesh
+	position = -317.5991 -56.08091 -8.535702
+	rotation = 0.7761524 0.1934111 -0.5324101 0.276983
+	scale = 1.075988 1.423089 2.014723
+	name = StaticMesh_TPSDemoRockStone_4
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 45
+	classPrompt = StaticMesh
+	position = -298.8152 -24.44028 -8.535702
+	rotation = 0.7436038 0.2049391 -0.5761222 0.2704389
+	scale = 1.388677 1.423089 2.014723
+	name = StaticMesh_TPSDemoRockStone_5
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 46
+	classPrompt = StaticMesh
+	position = -330.757 -27.87874 -8.535702
+	rotation = 0.6872191 0.3502521 -0.5099888 0.3807434
+	scale = 1.203974 1.006489 1.424926
+	name = StaticMesh_TPSDemoRockStone_6
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 47
+	classPrompt = StaticMesh
+	position = -342.2513 -17.997 -12.0823
+	rotation = 0.7089423 0.3038875 -0.5341254 0.3460698
+	scale = 1.203974 1.006489 1.424926
+	name = StaticMesh_TPSDemoRockStone_7
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 48
+	classPrompt = StaticMesh
+	position = -385.5091 292.5066 51.14795
+	rotation = 0.02624749 -0.3051109 0.008505144 0.9519172
+	scale = 0.6650612 0.5769667 0.8168345
+	name = StaticMesh_TPSDemoRockStone_8
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 49
+	classPrompt = StaticMesh
+	position = -321.9003 260.0902 39.22238
+	rotation = 0.5477389 0.33006 -0.7205443 0.2680647
+	scale = 0.3258212 0.2826627 0.4001767
+	name = StaticMesh_TPSDemoRockStone_9
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 50
+	classPrompt = StaticMesh
+	position = -316.2298 256.5225 41.15775
+	rotation = -0.7401716 -0.2746519 0.5783393 -0.2055148
+	scale = 0.4399886 0.3817074 0.5403982
+	name = StaticMesh_TPSDemoRockStone_10
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 51
+	classPrompt = StaticMesh
+	position = -328.8042 243.2895 29.18684
+	rotation = 0.4135363 0.2935449 -0.6309662 0.5871123
+	scale = 0.4399886 0.3817074 0.5403982
+	name = StaticMesh_stone_moss2_1
+	meshName = "Stone_Mosse\\stone_moss2.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 52
+	classPrompt = StaticMesh
+	position = -305.2223 234.4921 29.18684
+	rotation = 0.4135363 0.2935449 -0.6309662 0.5871123
+	scale = 0.4399886 0.3817074 0.5403982
+	name = StaticMesh_TPSDemoRockStone_11
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 53
+	classPrompt = StaticMesh
+	position = -299.9463 243.9462 29.24937
+	rotation = -0.1964501 0.4675342 0.4356258 0.7436729
+	scale = 0.4399886 0.3817074 0.5403982
+	name = StaticMesh_TPSDemoRockStone_12
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 54
+	classPrompt = StaticMesh
+	position = -174.734 -94.85867 45.77284
+	rotation = -0.4187466 -0.7343214 0.2662488 -0.4631797
+	scale = 1.567533 1.331483 2.338525
+	name = StaticMesh_TPSDemoRockStone_13
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 55
+	classPrompt = StaticMesh
+	position = -165.1214 -125.5617 38.74302
+	rotation = -0.3614829 -0.6979921 0.350604 -0.5091308
+	scale = 1.567533 1.331483 2.338525
+	name = StaticMesh_TPSDemoRockStone_14
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 56
+	classPrompt = StaticMesh
+	position = -246.3813 -44.02024 33.59867
+	rotation = -0.4187466 -0.7343214 0.2662488 -0.4631797
+	scale = 2.148181 1.824692 3.204764
+	name = StaticMesh_TPSDemoRockStone_15
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 57
+	classPrompt = StaticMesh
+	position = -298.7295 115.803 31.8084
+	rotation = -0.402826 0.7345223 -0.4470863 0.313564
+	scale = 0.4324093 0.4763643 0.6655348
+	name = StaticMesh_stone_moss2_2
+	meshName = "Stone_Mosse\\stone_moss2.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 58
+	classPrompt = StaticMesh
+	position = -412.0815 311.183 38.26208
+	rotation = 0.02758738 0.01958165 -0.0004526675 0.9994276
+	scale = 0.4999047 0.433687 0.6139877
+	name = StaticMesh_TPSDemoRockStone_16
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 59
+	classPrompt = StaticMesh
+	position = -407.55 289.6859 38
+	rotation = 0.02758738 0.01958165 -0.0004526675 0.9994276
+	scale = 0.4999047 0.433687 0.6139877
+	name = StaticMesh_stone_moss2_3
+	meshName = "Stone_Mosse\\stone_moss2.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 60
+	classPrompt = StaticMesh
+	position = -418.2335 295.5623 35.9789
+	rotation = 0.2321755 -0.23954 -0.6027538 0.724847
+	scale = 0.4570209 0.3964835 0.5613174
+	name = StaticMesh_stone_moss2_4
+	meshName = "Stone_Mosse\\stone_moss2.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 61
+	classPrompt = StaticMesh
+	position = -241.591 227.3294 0.6613364
+	rotation = 0.610502 0.2589359 -0.7163521 0.2169784
+	scale = 0.9669648 1.144908 1.620891
+	name = StaticMesh_TPSDemoRockStone_17
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 62
+	classPrompt = StaticMesh
+	position = -299.5733 68.8377 26.69221
+	rotation = 0.610502 0.2589359 -0.7163521 0.2169784
+	scale = 0.608656 0.6655837 0.9298956
+	name = StaticMesh_TPSDemoRockStone_18
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 63
+	classPrompt = StaticMesh
+	position = -298.6649 59.98405 25.4002
+	rotation = 0.7599969 -0.08057173 -0.644896 0.004749928
+	scale = 0.8188565 0.7721982 1.078848
+	name = StaticMesh_stone_moss2_5
+	meshName = "Stone_Mosse\\stone_moss2.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 64
+	classPrompt = StaticMesh
+	position = -298.4739 84.42178 26.69221
+	rotation = 0.7500861 0.09420353 -0.6530036 0.04564403
+	scale = 0.8051255 1.041311 1.230059
+	name = StaticMesh_TPSDemoRockStone_19
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 65
+	classPrompt = StaticMesh
+	position = -299.631 26.86595 29.63641
+	rotation = 0.05007505 -0.7626136 -0.1145416 -0.6346602
+	scale = 0.3434436 0.3238742 0.4524889
+	name = StaticMesh_TPSDemoRockStone_20
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 66
+	classPrompt = StaticMesh
+	position = -414.5954 355.3592 24.69263
+	rotation = -0.009006059 -0.1105814 -0.3201006 0.9408648
+	scale = 0.6894802 0.5981512 0.8468262
+	name = StaticMesh_TPSDemoRockStone_21
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = DecorativeObjectManager
+	uin = 67
+	classPrompt = DecorativeObjectManager
+	subscriptionsToDeletionEvent = 3
+	enabled = True
+	visible = True
+	geometries = 3
+	itemDataVersion = 2
+	typeItems
+	{
+		item
+		{
+			type = DecorativeStones
+			itemCount = 2826
+		}
+		item
+		{
+			type = GrassBrown
+			itemCount = 4146
+		}
+	}
+}
+entity
+{
+	type = StaticMesh
+	uin = 68
+	classPrompt = StaticMesh
+	position = -417.506 344.8231 31.70045
+	rotation = -0.2912738 -0.08260378 0.9328132 0.1954385
+	scale = 4.784086 4.150383 5.87586
+	name = StaticMesh_TPSDemoRock_1
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 69
+	classPrompt = StaticMesh
+	position = -416.2013 351.2644 34.31523
+	rotation = -0.1893196 -0.06111781 0.9587174 0.2031852
+	scale = 4.784086 4.150383 5.87586
+	name = StaticMesh_TPSDemoRock_2
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 70
+	classPrompt = StaticMesh
+	position = -415.9659 356.7273 31.44848
+	rotation = -0.1893196 -0.06111781 0.9587174 0.2031852
+	scale = 6.268843 5.438467 7.699451
+	name = StaticMesh_TPSDemoRock_3
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 71
+	classPrompt = StaticMesh
+	position = -420.0277 341.8543 31.70045
+	rotation = -0.2912738 -0.08260378 0.9328132 0.1954385
+	scale = 4.784086 4.150383 5.87586
+	name = StaticMesh_TPSDemoRock_4
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 72
+	classPrompt = StaticMesh
+	position = -392.5363 340.5534 52.06831
+	rotation = 0.2267256 0.03449411 -0.964663 0.129736
+	scale = 7.542025 6.543002 9.263186
+	name = StaticMesh_TPSDemoRock_5
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 73
+	classPrompt = StaticMesh
+	position = -390.3138 332.8985 54.20617
+	rotation = 0.03584572 0.008747375 -0.9903001 0.1339581
+	scale = 6.793849 5.893931 8.344271
+	name = StaticMesh_TPSDemoRock_6
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 74
+	classPrompt = StaticMesh
+	position = -396.3203 330.0452 48.45564
+	rotation = -0.2519577 -0.03788614 0.9583822 -0.1287863
+	scale = 6.793849 5.893931 8.344271
+	name = StaticMesh_TPSDemoRock_7
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = -421.0944 320.4048 29.25185
+	rotation = -0.4168583 0.388348 0.5835299 -0.5787128
+	scale = 4.784086 4.150383 5.87586
+	name = StaticMesh_TPSDemoRock_8
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = -370.1277 381.9539 66.50943
+	rotation = -0.01829874 0.001417428 -0.9907798 0.1342359
+	scale = 6.549595 5.68203 8.044272
+	name = StaticMesh_TPSDemoRock_9
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = -444.9174 311.2242 24.99548
+	rotation = 0.02756682 -0.03873956 0.001157034 0.9988685
+	scale = 0.4999047 0.433687 0.6139877
+	name = StaticMesh_TPSDemoRockStone_22
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = -368.9135 326.373 67.73879
+	rotation = 0.05410326 -0.5538262 0.07527094 0.8274565
+	scale = 6.793849 5.893931 8.344271
+	name = StaticMesh_TPSDemoRock_10
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = -364.1499 326.2183 75.94453
+	rotation = 0.4049324 -0.5776528 0.3955388 0.5881298
+	scale = 2.842604 2.466071 3.491313
+	name = StaticMesh_TPSDemoRock_11
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = -361.7821 313.5082 87.09769
+	rotation = 0.3665148 -0.3927876 0.5617456 0.6291481
+	scale = 6.413472 5.563938 7.877087
+	name = StaticMesh_TPSDemoRock_12
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = -369.0101 315.6548 71.85487
+	rotation = 0.4876409 -0.5289375 0.4605407 0.519937
+	scale = 12.449 10.8 15.28998
+	name = StaticMesh_TPSDemoRock_13
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = -345.8638 299.7938 70.32597
+	rotation = 0.02502587 0.6995148 0.05051345 -0.7123916
+	scale = 7.451088 6.464114 9.151497
+	name = StaticMesh_TPSDemoRock_14
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = -352.4972 305.6545 74.38998
+	rotation = 0.4876409 -0.5289375 0.4605407 0.519937
+	scale = 7.451088 6.464114 9.151497
+	name = StaticMesh_TPSDemoRock_15
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = -394.9207 372.4033 41.58934
+	rotation = 0.1598677 -0.3331366 -0.3540896 0.8591177
+	scale = 0.8847312 0.7675392 1.086635
+	name = StaticMesh_TPSDemoRockStone_23
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = -379.0908 388.2325 57.00944
+	rotation = -0.01829874 0.001417428 -0.9907798 0.1342359
+	scale = 6.549595 5.68203 8.044272
+	name = StaticMesh_TPSDemoRock_16
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = -380.4143 301.2614 54.63009
+	rotation = -0.06106199 -0.1197096 -0.8806274 0.4543534
+	scale = 9.038373 7.841144 11.10102
+	name = StaticMesh_TPSDemoRock_17
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = -385.7646 303.3733 51.71045
+	rotation = -0.06106199 -0.1197096 -0.8806274 0.4543534
+	scale = 5.855845 5.080175 7.192205
+	name = StaticMesh_TPSDemoRock_18
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = -378.2682 358.2473 58.52969
+	rotation = 0.2646026 -0.03731135 -0.9493017 -0.16559
+	scale = 10.73877 9.316304 13.18946
+	name = StaticMesh_TPSDemoRock_19
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = -285.019 -9.995197 21.07159
+	rotation = 0.7436038 0.2049391 -0.5761222 0.2704389
+	scale = 0.709353 0.726931 1.029145
+	name = StaticMesh_TPSDemoRockStone_24
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = -254.4341 253.3705 31.58315
+	rotation = 0.1857179 0.01107913 -0.8629844 0.4697283
+	scale = 13.73147 11.91259 16.86512
+	name = StaticMesh_TPSDemoRock_20
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 91
+	classPrompt = StaticMesh
+	position = -216.3225 170.8628 29.2547
+	rotation = 0.1280956 0.1349274 -0.9511839 -0.2462437
+	scale = 23.76685 20.61868 29.19068
+	name = StaticMesh_TPSDemoRock_21
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = -294.9121 55.16588 38.58641
+	rotation = 0.2866707 0.6927437 0.4978064 -0.4360223
+	scale = 9.424814 8.176398 11.57565
+	name = StaticMesh_TPSDemoRock_22
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 93
+	classPrompt = StaticMesh
+	position = -288.8256 64.61301 48.41527
+	rotation = 0.04214042 0.7485306 0.3261356 -0.5758144
+	scale = 9.424814 8.176398 11.57565
+	name = StaticMesh_TPSDemoRock_23
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 94
+	classPrompt = StaticMesh
+	position = -280.5245 254.6792 40.68568
+	rotation = 0.1592853 0.09613576 -0.5457475 0.8170352
+	scale = 9.410306 8.16381 11.55783
+	name = StaticMesh_TPSDemoRock_24
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = -226.386 -66.01321 27.982
+	rotation = 0.02901639 -0.8012538 0.03592611 -0.5965404
+	scale = 1.393407 1.183578 2.078755
+	name = StaticMesh_TPSDemoRockStone_25
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 96
+	classPrompt = StaticMesh
+	position = -246.0621 -129.3706 38.58641
+	rotation = 0.3031859 0.6856765 0.5081102 -0.4239702
+	scale = 14.23694 12.35111 17.48595
+	name = StaticMesh_TPSDemoRock_25
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = -268.5911 -141.1523 38.58641
+	rotation = 0.682418 0.1350093 0.6964951 -0.1759925
+	scale = 17.73723 15.38775 21.78504
+	name = StaticMesh_TPSDemoRock_26
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = -292.4918 -165.7848 38.58641
+	rotation = 0.3011647 0.7252134 0.5983339 -0.159256
+	scale = 20.22327 17.54449 24.83842
+	name = StaticMesh_TPSDemoRock_27
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = -323.0923 -191.5275 38.58641
+	rotation = 0.50747 0.4035671 0.3042561 -0.6978801
+	scale = 19.18911 16.64731 23.56825
+	name = StaticMesh_TPSDemoRock_28
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 100
+	classPrompt = StaticMesh
+	position = -322.8286 -145.4114 -3.359982
+	rotation = 0.7129626 -0.1450108 -0.5829471 -0.3617036
+	scale = 1.25518 1.066166 1.872541
+	name = StaticMesh_TPSDemoRockStone_26
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 101
+	classPrompt = StaticMesh
+	position = -368.4987 273.1525 50.2135
+	rotation = 0.7758884 -0.5045801 0.2928402 0.2400862
+	scale = 4.331455 3.757708 5.319937
+	name = StaticMesh_TPSDemoRock_29
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRock.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 102
+	mapClassManager = 103
+	entity
+	{
+		type = LogicClassManager
+		uin = 103
+		entity
+		{
+			type = LogicEntityClass
+			uin = 104
+			subscriptionsToDeletionEvent = 646 656
+			entityClassName = Region
+			className = Region_Hammer
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 105
+				actions = 107 168 171 166 163 177 154 187 180 156 174 161 158
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 106
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 106
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+				entity
+				{
+					type = LogicIfThenElseAction
+					uin = 107
+					conditionAction = 114
+					trueActions = 110
+					falseActions = 
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 108
+						variableName = obj
+						dotPathAction = 109
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 109
+							asCast = False
+						}
+					}
+					entity
+					{
+						type = LogicReturnAction
+						uin = 110
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 111
+						className = BooleanUtils
+						methodName = Negation
+						parameterActions = 112
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 112
+							variableName = obj
+							dotPathAction = 113
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 113
+								asCast = False
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 114
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 116 115
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 115
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 116
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 117
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 117
+								variableName = obj
+								dotPathAction = 118
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 118
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 119
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 120 123
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 120
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 121
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 121
+								variableName = obj
+								dotPathAction = 122
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 122
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 123
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 124
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 125 128
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 125
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 126
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 126
+								variableName = obj
+								dotPathAction = 127
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 127
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 128
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 129
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 130 133
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 130
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 131
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 131
+								variableName = obj
+								dotPathAction = 132
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 132
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 133
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 134
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 135 138
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 135
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 136
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 136
+								variableName = obj
+								dotPathAction = 137
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 137
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 138
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 139
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 140 143
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 140
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 141
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 141
+								variableName = obj
+								dotPathAction = 142
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 142
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 143
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 144
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 145 148
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 145
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 146
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 146
+								variableName = obj
+								dotPathAction = 147
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 147
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 148
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 149
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 150 153
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 150
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 151
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 151
+								variableName = obj
+								dotPathAction = 152
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 152
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 153
+							variableName = visited
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 154
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 155
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 155
+						subscriptionsToDeletionEvent = 651
+						entity = 651
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 156
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 157
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 157
+						valueType = System.Single
+						value = 3
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 158
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 159
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 159
+						valueAction = 160
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 160
+							valueType = System.Boolean
+							value = False
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 161
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 162
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 162
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 163
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 164
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 164
+						valueAction = 165
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 165
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 166
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 167
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 167
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 168
+					variableName = visited
+					dotPathAction = 169
+					entity
+					{
+						type = LogicAssignVariableAction
+						uin = 169
+						valueAction = 170
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 170
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 171
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 172 173
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 172
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 173
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 174
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 175 176
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 175
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 176
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 177
+					variableName = obj
+					dotPathAction = 178
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 178
+						methodName = CopyTransform
+						parameterActions = 179
+						parameterTypeNames
+						{
+							item
+							{
+								value = MapObject
+							}
+						}
+						entity
+						{
+							type = LogicCallGetEntityMethodAction
+							uin = 179
+							subscriptionsToDeletionEvent = 655
+							entity = 655
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 180
+					className = CutSceneManager
+					methodName = SetMessage
+					parameterActions = 181 182 183
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = ColorValue
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 181
+						valueType = System.String
+						value = Cool!
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 182
+						valueType = System.Single
+						value = 2
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 183
+						className = ColorValue
+						methodName = Construct
+						parameterActions = 184 185 186
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 184
+							valueType = System.Single
+							value = 0
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 185
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 186
+							valueType = System.Single
+							value = 0
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 187
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 188
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 188
+						valueType = System.Single
+						value = 3
+					}
+				}
+			}
+			entity
+			{
+				type = LogicVariable
+				uin = 189
+				variableType = System.Boolean
+				variableName = visited
+				supportSerialization = True
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 190
+			subscriptionsToDeletionEvent = 656 689
+			entityClassName = Region
+			className = Region_Battle
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicVariable
+				uin = 191
+				variableType = System.Boolean
+				variableName = visited
+				supportSerialization = True
+			}
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 192
+				actions = 194 307 313 318 321 361 347 344 352 355 358 327 330 335 338
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 193
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 193
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+				entity
+				{
+					type = LogicIfThenElseAction
+					uin = 194
+					conditionAction = 301
+					trueActions = 306
+					falseActions = 
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 195
+						variableName = obj
+						dotPathAction = 197
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 196
+							asCast = False
+						}
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 197
+							asCast = False
+						}
+					}
+					entity
+					{
+						type = LogicReturnAction
+						uin = 198
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 199
+						className = BooleanUtils
+						methodName = Negation
+						parameterActions = 203
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 200
+							variableName = obj
+							dotPathAction = 202
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 201
+								asCast = False
+							}
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 202
+								asCast = False
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 203
+							variableName = obj
+							dotPathAction = 204
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 204
+								asCast = False
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 205
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 213 216
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 206
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 207
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 211
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 208
+								variableName = obj
+								dotPathAction = 210
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 209
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 210
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 211
+								variableName = obj
+								dotPathAction = 212
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 212
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 213
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 214
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 214
+								variableName = obj
+								dotPathAction = 215
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 215
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 216
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 217
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 225 228
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 218
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 222
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 219
+								variableName = obj
+								dotPathAction = 221
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 220
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 221
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 222
+								variableName = obj
+								dotPathAction = 223
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 223
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 224
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 225
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 226
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 226
+								variableName = obj
+								dotPathAction = 227
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 227
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 228
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 229
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 237 240
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 230
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 234
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 231
+								variableName = obj
+								dotPathAction = 233
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 232
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 233
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 234
+								variableName = obj
+								dotPathAction = 235
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 235
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 236
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 237
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 238
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 238
+								variableName = obj
+								dotPathAction = 239
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 239
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 240
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 241
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 249 252
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 242
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 246
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 243
+								variableName = obj
+								dotPathAction = 245
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 244
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 245
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 246
+								variableName = obj
+								dotPathAction = 247
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 247
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 248
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 249
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 250
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 250
+								variableName = obj
+								dotPathAction = 251
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 251
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 252
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 253
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 261 264
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 254
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 258
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 255
+								variableName = obj
+								dotPathAction = 257
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 256
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 257
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 258
+								variableName = obj
+								dotPathAction = 259
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 259
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 260
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 261
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 262
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 262
+								variableName = obj
+								dotPathAction = 263
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 263
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 264
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 265
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 273 276
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 266
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 270
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 267
+								variableName = obj
+								dotPathAction = 269
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 268
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 269
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 270
+								variableName = obj
+								dotPathAction = 271
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 271
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 272
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 273
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 274
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 274
+								variableName = obj
+								dotPathAction = 275
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 275
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 276
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 277
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 285 288
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 278
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 282
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 279
+								variableName = obj
+								dotPathAction = 281
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 280
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 281
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 282
+								variableName = obj
+								dotPathAction = 283
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 283
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 284
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 285
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 286
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 286
+								variableName = obj
+								dotPathAction = 287
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 287
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 288
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 289
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 297 300
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 290
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 294
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 291
+								variableName = obj
+								dotPathAction = 293
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 292
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 293
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 294
+								variableName = obj
+								dotPathAction = 295
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 295
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 296
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 297
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 298
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 298
+								variableName = obj
+								dotPathAction = 299
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 299
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 300
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 301
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 302 305
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 302
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 303
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 303
+								variableName = obj
+								dotPathAction = 304
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 304
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 305
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicReturnAction
+						uin = 306
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 307
+					variableName = visited
+					dotPathAction = 311
+					entity
+					{
+						type = LogicAssignVariableAction
+						uin = 308
+						valueAction = 310
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 309
+							valueType = System.Boolean
+							value = True
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 310
+							valueType = System.Boolean
+							value = True
+						}
+					}
+					entity
+					{
+						type = LogicAssignVariableAction
+						uin = 311
+						valueAction = 312
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 312
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 313
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 316 317
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 314
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 315
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 316
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 317
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 318
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 320
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 319
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 320
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 321
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 325
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 322
+						valueAction = 324
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 323
+							valueType = System.Boolean
+							value = True
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 324
+							valueType = System.Boolean
+							value = True
+						}
+					}
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 325
+						valueAction = 326
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 326
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 327
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 329
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 328
+						valueType = System.Single
+						value = 8
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 329
+						valueType = System.Single
+						value = 15
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 330
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 333 334
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 331
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 332
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 333
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 334
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 335
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 337
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 336
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 337
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 338
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 342
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 339
+						valueAction = 341
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 340
+							valueType = System.Boolean
+							value = False
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 341
+							valueType = System.Boolean
+							value = False
+						}
+					}
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 342
+						valueAction = 343
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 343
+							valueType = System.Boolean
+							value = False
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 344
+					subscriptionsToDeletionEvent = 363
+					logicMethod = 363
+					entityOwnerProperty = False
+					parameterActions = 345 346
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+						item
+						{
+							value = FactionType
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 345
+						subscriptionsToDeletionEvent = 657
+						entity = 657
+					}
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 346
+						variableName = objFaction
+					}
+				}
+				entity
+				{
+					type = LogicDeclareLocalVariableAction
+					uin = 347
+					variableTypeName = FactionType
+					variableName = objFaction
+					valueAction = 348
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 348
+						variableName = obj
+						dotPathAction = 349
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 349
+							asCast = True
+							castTypeName = Unit
+							dotPathAction = 350
+							entity
+							{
+								type = LogicCallNonStaticMethodAction
+								uin = 350
+								propertyName = Intellect
+								dotPathAction = 351
+								entity
+								{
+									type = LogicCallNonStaticMethodAction
+									uin = 351
+									propertyName = Faction
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 352
+					subscriptionsToDeletionEvent = 363
+					logicMethod = 363
+					entityOwnerProperty = False
+					parameterActions = 354 353
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+						item
+						{
+							value = FactionType
+						}
+					}
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 353
+						variableName = objFaction
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 354
+						subscriptionsToDeletionEvent = 658
+						entity = 658
+					}
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 355
+					subscriptionsToDeletionEvent = 363
+					logicMethod = 363
+					entityOwnerProperty = False
+					parameterActions = 357 356
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+						item
+						{
+							value = FactionType
+						}
+					}
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 356
+						variableName = objFaction
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 357
+						subscriptionsToDeletionEvent = 659
+						entity = 659
+					}
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 358
+					subscriptionsToDeletionEvent = 363
+					logicMethod = 363
+					entityOwnerProperty = False
+					parameterActions = 360 359
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+						item
+						{
+							value = FactionType
+						}
+					}
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 359
+						variableName = objFaction
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 360
+						subscriptionsToDeletionEvent = 660
+						entity = 660
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 361
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 362
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 362
+						subscriptionsToDeletionEvent = 661
+						entity = 661
+					}
+				}
+			}
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 363
+				subscriptionsToDeletionEvent = 344 352 355 358
+				actions = 364 370 375 368
+				methodName = CreateBattleUnit
+				returnType = System.Void
+				parameters = 373 374
+				isEntityEventMethod = False
+				entity
+				{
+					type = LogicDeclareLocalVariableAction
+					uin = 364
+					variableTypeName = Unit
+					variableName = obj
+					valueAction = 365
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 365
+						className = Entities
+						methodName = Create
+						parameterActions = 366 367
+						parameterTypeNames
+						{
+							item
+							{
+								value = String
+							}
+							item
+							{
+								value = Entity
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 366
+							valueType = System.String
+							value = Zombie
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 367
+							className = Map
+							propertyName = Instance
+						}
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 368
+					variableName = obj
+					dotPathAction = 369
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 369
+						methodName = PostCreate
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 370
+					variableName = obj
+					dotPathAction = 371
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 371
+						methodName = CopyTransform
+						parameterActions = 372
+						parameterTypeNames
+						{
+							item
+							{
+								value = MapObject
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 372
+							variableName = helper
+						}
+					}
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 373
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = helper
+				}
+				entity
+				{
+					type = LogicParameter
+					uin = 374
+					parameterType = ProjectEntities.FactionType
+					parameterName = faction
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 375
+					variableName = obj
+					dotPathAction = 376
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 376
+						propertyName = InitialFaction
+						dotPathAction = 377
+						entity
+						{
+							type = LogicAssignPropertyAction
+							uin = 377
+							valueAction = 378
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 378
+								variableName = faction
+							}
+						}
+					}
+				}
+			}
+		}
+		entity
+		{
+			type = LogicEntityClass
+			uin = 379
+			subscriptionsToDeletionEvent = 689
+			entityClassName = Region
+			className = Region_RabbitHead
+			customScriptCodeCreated = False
+			entity
+			{
+				type = LogicVariable
+				uin = 380
+				variableType = System.Boolean
+				variableName = visited
+				supportSerialization = True
+			}
+			entity
+			{
+				type = LogicDesignerMethod
+				uin = 381
+				actions = 383 506 556 512 517 561 520 543 526 529 534 562 549 545 571 564 573 575 547 582 589 591 598 554 552 563 604 602 600 606 610 608 612 617 622 615 614 620 634 624 626 628 619 618 630 641 642 632 537
+				methodName = ObjectIn
+				returnType = System.Void
+				parameters = 382
+				isEntityEventMethod = True
+				entity
+				{
+					type = LogicParameter
+					uin = 382
+					parameterType = Engine.MapSystem.MapObject
+					parameterName = obj
+				}
+				entity
+				{
+					type = LogicIfThenElseAction
+					uin = 383
+					conditionAction = 490
+					trueActions = 496 495
+					falseActions = 
+					entity
+					{
+						type = LogicGetVariableAction
+						uin = 384
+						variableName = obj
+						dotPathAction = 386
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 385
+							asCast = False
+						}
+						entity
+						{
+							type = LogicCallAsIsMethodAction
+							uin = 386
+							asCast = False
+						}
+					}
+					entity
+					{
+						type = LogicReturnAction
+						uin = 387
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 388
+						className = BooleanUtils
+						methodName = Negation
+						parameterActions = 392
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 389
+							variableName = obj
+							dotPathAction = 391
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 390
+								asCast = False
+							}
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 391
+								asCast = False
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 392
+							variableName = obj
+							dotPathAction = 393
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 393
+								asCast = False
+							}
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 394
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 402 405
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 395
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 396
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 400
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 397
+								variableName = obj
+								dotPathAction = 399
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 398
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 399
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 400
+								variableName = obj
+								dotPathAction = 401
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 401
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 402
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 403
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 403
+								variableName = obj
+								dotPathAction = 404
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 404
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 405
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 406
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 414 417
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 407
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 411
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 408
+								variableName = obj
+								dotPathAction = 410
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 409
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 410
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 411
+								variableName = obj
+								dotPathAction = 412
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 412
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 413
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 414
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 415
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 415
+								variableName = obj
+								dotPathAction = 416
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 416
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 417
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 418
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 426 429
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 419
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 423
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 420
+								variableName = obj
+								dotPathAction = 422
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 421
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 422
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 423
+								variableName = obj
+								dotPathAction = 424
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 424
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 425
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 426
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 427
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 427
+								variableName = obj
+								dotPathAction = 428
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 428
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 429
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 430
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 438 441
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 431
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 435
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 432
+								variableName = obj
+								dotPathAction = 434
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 433
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 434
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 435
+								variableName = obj
+								dotPathAction = 436
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 436
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 437
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 438
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 439
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 439
+								variableName = obj
+								dotPathAction = 440
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 440
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 441
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 442
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 450 453
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 443
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 447
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 444
+								variableName = obj
+								dotPathAction = 446
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 445
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 446
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 447
+								variableName = obj
+								dotPathAction = 448
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 448
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 449
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 450
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 451
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 451
+								variableName = obj
+								dotPathAction = 452
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 452
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 453
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 454
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 462 465
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 455
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 459
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 456
+								variableName = obj
+								dotPathAction = 458
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 457
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 458
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 459
+								variableName = obj
+								dotPathAction = 460
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 460
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 461
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 462
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 463
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 463
+								variableName = obj
+								dotPathAction = 464
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 464
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 465
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 466
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 474 477
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 467
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 471
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 468
+								variableName = obj
+								dotPathAction = 470
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 469
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 470
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 471
+								variableName = obj
+								dotPathAction = 472
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 472
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 473
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 474
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 475
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 475
+								variableName = obj
+								dotPathAction = 476
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 476
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 477
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 478
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 486 489
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 479
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 483
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 480
+								variableName = obj
+								dotPathAction = 482
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 481
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 482
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 483
+								variableName = obj
+								dotPathAction = 484
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 484
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 485
+							variableName = visited
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 486
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 487
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 487
+								variableName = obj
+								dotPathAction = 488
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 488
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 489
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 490
+						className = BooleanUtils
+						methodName = Or
+						parameterActions = 491 494
+						parameterTypeNames
+						{
+							item
+							{
+								value = Boolean
+							}
+							item
+							{
+								value = Boolean
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 491
+							className = BooleanUtils
+							methodName = Negation
+							parameterActions = 492
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 492
+								variableName = obj
+								dotPathAction = 493
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 493
+									asCast = False
+									castTypeName = PlayerCharacter
+								}
+							}
+						}
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 494
+							variableName = visited
+						}
+					}
+					entity
+					{
+						type = LogicReturnAction
+						uin = 495
+					}
+					entity
+					{
+						type = LogicIfThenElseAction
+						uin = 496
+						conditionAction = 500
+						trueActions = 497
+						falseActions = 
+						entity
+						{
+							type = LogicGetVariableAction
+							uin = 497
+							variableName = obj
+							dotPathAction = 498
+							entity
+							{
+								type = LogicCallAsIsMethodAction
+								uin = 498
+								asCast = True
+								castTypeName = Dynamic
+								dotPathAction = 499
+								entity
+								{
+									type = LogicCallNonStaticMethodAction
+									uin = 499
+									methodName = Die
+								}
+							}
+						}
+						entity
+						{
+							type = LogicCallStaticSystemMethodAction
+							uin = 500
+							className = BooleanUtils
+							methodName = And
+							parameterActions = 501 504
+							parameterTypeNames
+							{
+								item
+								{
+									value = Boolean
+								}
+								item
+								{
+									value = Boolean
+								}
+							}
+							entity
+							{
+								type = LogicCallStaticSystemMethodAction
+								uin = 501
+								className = BooleanUtils
+								methodName = Negation
+								parameterActions = 502
+								parameterTypeNames
+								{
+									item
+									{
+										value = Boolean
+									}
+								}
+								entity
+								{
+									type = LogicGetVariableAction
+									uin = 502
+									variableName = obj
+									dotPathAction = 503
+									entity
+									{
+										type = LogicCallAsIsMethodAction
+										uin = 503
+										asCast = False
+										castTypeName = PlayerCharacter
+									}
+								}
+							}
+							entity
+							{
+								type = LogicGetVariableAction
+								uin = 504
+								variableName = obj
+								dotPathAction = 505
+								entity
+								{
+									type = LogicCallAsIsMethodAction
+									uin = 505
+									asCast = False
+									castTypeName = GameCharacter
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 506
+					variableName = visited
+					dotPathAction = 510
+					entity
+					{
+						type = LogicAssignVariableAction
+						uin = 507
+						valueAction = 509
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 508
+							valueType = System.Boolean
+							value = True
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 509
+							valueType = System.Boolean
+							value = True
+						}
+					}
+					entity
+					{
+						type = LogicAssignVariableAction
+						uin = 510
+						valueAction = 511
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 511
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 512
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 515 516
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 513
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 514
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 515
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 516
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 517
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 519
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 518
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 519
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 520
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 524
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 521
+						valueAction = 523
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 522
+							valueType = System.Boolean
+							value = True
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 523
+							valueType = System.Boolean
+							value = True
+						}
+					}
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 524
+						valueAction = 525
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 525
+							valueType = System.Boolean
+							value = True
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 526
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 528
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 527
+						valueType = System.Single
+						value = 8
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 528
+						valueType = System.Single
+						value = 20
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 529
+					className = CutSceneManager
+					methodName = FadeInOut
+					parameterActions = 532 533
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 530
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 531
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 532
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 533
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 534
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 536
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 535
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 536
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 537
+					className = CutSceneManager
+					propertyName = CutSceneEnable
+					dotPathAction = 541
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 538
+						valueAction = 540
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 539
+							valueType = System.Boolean
+							value = False
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 540
+							valueType = System.Boolean
+							value = False
+						}
+					}
+					entity
+					{
+						type = LogicAssignPropertyAction
+						uin = 541
+						valueAction = 542
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 542
+							valueType = System.Boolean
+							value = False
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 543
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 544
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 544
+						subscriptionsToDeletionEvent = 681
+						entity = 681
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 545
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 546
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 546
+						subscriptionsToDeletionEvent = 690
+						entity = 690
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 547
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 548
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 548
+						valueType = System.Single
+						value = 4
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 549
+					variableName = obj
+					dotPathAction = 550
+					entity
+					{
+						type = LogicCallNonStaticMethodAction
+						uin = 550
+						methodName = CopyTransform
+						parameterActions = 551
+						parameterTypeNames
+						{
+							item
+							{
+								value = MapObject
+							}
+						}
+						entity
+						{
+							type = LogicCallGetEntityMethodAction
+							uin = 551
+							subscriptionsToDeletionEvent = 677
+							entity = 677
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 552
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 553
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 553
+						valueType = System.Single
+						value = 3
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 554
+					className = CutSceneManager
+					methodName = FadeIn
+					parameterActions = 555
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 555
+						valueType = System.Single
+						value = 3
+					}
+				}
+				entity
+				{
+					type = LogicGetVariableAction
+					uin = 556
+					variableName = obj
+					dotPathAction = 557
+					entity
+					{
+						type = LogicCallAsIsMethodAction
+						uin = 557
+						asCast = True
+						castTypeName = Dynamic
+						dotPathAction = 558
+						entity
+						{
+							type = LogicCallNonStaticMethodAction
+							uin = 558
+							propertyName = Health
+							dotPathAction = 559
+							entity
+							{
+								type = LogicAssignPropertyAction
+								uin = 559
+								valueAction = 560
+								entity
+								{
+									type = LogicGetConstantValueAction
+									uin = 560
+									valueType = System.Single
+									value = 100000
+								}
+							}
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCommentAction
+					uin = 561
+					text = First camera
+				}
+				entity
+				{
+					type = LogicCommentAction
+					uin = 562
+					text = Talk scene
+				}
+				entity
+				{
+					type = LogicCommentAction
+					uin = 563
+					text = Black screen actions
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 564
+					className = CutSceneManager
+					methodName = SetMessage
+					parameterActions = 570 565 566
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = ColorValue
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 565
+						valueType = System.Single
+						value = 3
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 566
+						className = ColorValue
+						methodName = Construct
+						parameterActions = 567 568 569
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 567
+							valueType = System.Single
+							value = 0
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 568
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 569
+							valueType = System.Single
+							value = 0
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 570
+						valueType = System.String
+						value = WOW!
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 571
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 572
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 572
+						valueType = System.Single
+						value = 2
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 573
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 574
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 574
+						valueType = System.Single
+						value = 4
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 575
+					className = CutSceneManager
+					methodName = SetMessage
+					parameterActions = 581 576 577
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = ColorValue
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 576
+						valueType = System.Single
+						value = 3
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 577
+						className = ColorValue
+						methodName = Construct
+						parameterActions = 578 579 580
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 578
+							valueType = System.Single
+							value = 0
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 579
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 580
+							valueType = System.Single
+							value = 0
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 581
+						valueType = System.String
+						value = Amazing!!!
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 582
+					className = CutSceneManager
+					methodName = SetMessage
+					parameterActions = 587 588 583
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = ColorValue
+						}
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 583
+						className = ColorValue
+						methodName = Construct
+						parameterActions = 584 585 586
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 584
+							valueType = System.Single
+							value = 0
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 585
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 586
+							valueType = System.Single
+							value = 0
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 587
+						valueType = System.String
+						value = Somewhere I saw the similar face!
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 588
+						valueType = System.Single
+						value = 4
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 589
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 590
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 590
+						valueType = System.Single
+						value = 7
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 591
+					className = CutSceneManager
+					methodName = SetMessage
+					parameterActions = 597 592 593
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = ColorValue
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 592
+						valueType = System.Single
+						value = 4
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 593
+						className = ColorValue
+						methodName = Construct
+						parameterActions = 594 595 596
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 594
+							valueType = System.Single
+							value = 0
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 595
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 596
+							valueType = System.Single
+							value = 0
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 597
+						valueType = System.String
+						value = Ok.....I need to consider it from different sides....
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 598
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 599
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 599
+						valueType = System.Single
+						value = 4
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 600
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 601
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 601
+						valueType = System.Single
+						value = 2
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 602
+					className = CutSceneManager
+					methodName = PlaySound
+					parameterActions = 603
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 603
+						valueType = System.String
+						value = "Types\\Items\\HealthItems\\Health.ogg"
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 604
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 605
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 605
+						valueType = System.Single
+						value = 2
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 606
+					className = CutSceneManager
+					methodName = PlaySound
+					parameterActions = 607
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 607
+						valueType = System.String
+						value = "Types\\Items\\HealthItems\\Health.ogg"
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 608
+					className = CutSceneManager
+					methodName = PlaySound
+					parameterActions = 609
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 609
+						valueType = System.String
+						value = "Types\\Items\\HealthItems\\Health.ogg"
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 610
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 611
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 611
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 612
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 613
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 613
+						valueType = System.Single
+						value = 7
+					}
+				}
+				entity
+				{
+					type = LogicCommentAction
+					uin = 614
+					text = Nark scene
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 615
+					className = CutSceneManager
+					methodName = FadeOut
+					parameterActions = 616
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 616
+						valueType = System.Single
+						value = 3
+					}
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 617
+					subscriptionsToDeletionEvent = 644
+					logicMethod = 644
+					entityOwnerProperty = False
+					parameterActions = 
+					parameterTypeNames
+					{
+					}
+				}
+				entity
+				{
+					type = LogicCommentAction
+					uin = 618
+					text = End
+				}
+				entity
+				{
+					type = LogicCallThisMethodAction
+					uin = 619
+					subscriptionsToDeletionEvent = 645
+					logicMethod = 645
+					entityOwnerProperty = False
+					parameterActions = 
+					parameterTypeNames
+					{
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 620
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 621
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 621
+						valueType = System.Single
+						value = 14
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 622
+					className = CutSceneManager
+					methodName = SetCamera
+					parameterActions = 623
+					parameterTypeNames
+					{
+						item
+						{
+							value = MapObject
+						}
+					}
+					entity
+					{
+						type = LogicCallGetEntityMethodAction
+						uin = 623
+						subscriptionsToDeletionEvent = 697
+						entity = 697
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 624
+					className = CutSceneManager
+					methodName = PlaySound
+					parameterActions = 625
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 625
+						valueType = System.String
+						value = "Types\\Units\\Rabbit\\Die.ogg"
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 626
+					className = CutSceneManager
+					methodName = FadeIn
+					parameterActions = 627
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 627
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 628
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 629
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 629
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 630
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 631
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 631
+						valueType = System.Single
+						value = 4
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 632
+					className = LogicUtils
+					methodName = Wait
+					parameterActions = 633
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 633
+						valueType = System.Single
+						value = 1
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 634
+					className = CutSceneManager
+					methodName = SetMessage
+					parameterActions = 635 636 637
+					parameterTypeNames
+					{
+						item
+						{
+							value = String
+						}
+						item
+						{
+							value = Single
+						}
+						item
+						{
+							value = ColorValue
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 635
+						valueType = System.String
+						value = AAAAAAAAaaaaa!!!!
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 636
+						valueType = System.Single
+						value = 1
+					}
+					entity
+					{
+						type = LogicCallStaticSystemMethodAction
+						uin = 637
+						className = ColorValue
+						methodName = Construct
+						parameterActions = 639 640 638
+						parameterTypeNames
+						{
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+							item
+							{
+								value = Single
+							}
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 638
+							valueType = System.Single
+							value = 0
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 639
+							valueType = System.Single
+							value = 1
+						}
+						entity
+						{
+							type = LogicGetConstantValueAction
+							uin = 640
+							valueType = System.Single
+							value = 0
+						}
+					}
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 641
+					className = CutSceneManager
+					methodName = ResetCamera
+				}
+				entity
+				{
+					type = LogicCallStaticSystemMethodAction
+					uin = 642
+					className = CutSceneManager
+					methodName = FadeOut
+					parameterActions = 643
+					parameterTypeNames
+					{
+						item
+						{
+							value = Single
+						}
+					}
+					entity
+					{
+						type = LogicGetConstantValueAction
+						uin = 643
+						valueType = System.Single
+						value = 1
+					}
+				}
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 644
+				subscriptionsToDeletionEvent = 617
+				code = "Compositor compositor = CompositorManager.Instance.GetByName( \"Glass\" );\r\nif( compositor != null && compositor.IsSupported() )\r\n{\r\n\t//create MapCompositorManager\r\n\tif( MapCompositorManager.Instance == null )\r\n\t{\r\n\t\tEntity manager = Entities.Instance.Create( \"MapCompositorManager\", Map.Instance );\r\n\t\tmanager.PostCreate();\r\n\t}\r\n\r\n\t//update MotionBlur item\r\n\tif( MapCompositorManager.Instance != null )\r\n\t{\r\n\t\tCompositorParameters item = (CompositorParameters)MapCompositorManager.Instance.GetItem( \"Glass\" );\r\n\t\tif( item == null )\r\n\t\t\titem = (CompositorParameters)MapCompositorManager.Instance.AddItem( \"Glass\" );\r\n\t\tif( item != null )\r\n\t\t\titem.Enabled = true;\r\n\t}\r\n}\r\n"
+				methodName = AddPostEffects
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = False
+			}
+			entity
+			{
+				type = LogicScriptMethod
+				uin = 645
+				subscriptionsToDeletionEvent = 619
+				code = "if( MapCompositorManager.Instance != null )\r\n{\r\n\tCompositorParameters item = (CompositorParameters)MapCompositorManager.Instance.GetItem( \"Glass\" );\r\n\tif( item != null )\r\n\t\titem.Enabled = false;\r\n}\r\n"
+				methodName = RemovePostEffects
+				returnType = System.Void
+				parameters = 
+				isEntityEventMethod = False
+			}
+		}
+	}
+}
+entity
+{
+	type = Region
+	uin = 646
+	classPrompt = Region
+	subscriptionsToDeletionEvent = 104
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -436.4569 313.6057 27.75663
+	rotation = 0 0 -0.9978595 0.06539379
+	scale = 15.04886 17.66317 1
+	name = Region_0
+	logicClass = 104
+	editorLayer = "Root Layer\\Hammer"
+	checkType = Bounds
+}
+entity
+{
+	type = CutSceneManager
+	uin = 647
+	classPrompt = CutSceneManager
+}
+entity
+{
+	type = DynamicCollision
+	uin = 648
+	classPrompt = DynamicCollision
+	active = True
+	position = -430.6081 372.4424 25.85106
+	rotation = 0 0 -0.7812811 0.6241795
+	scale = 2.598897 19.00799 4.640931
+	name = DynamicCollision_4
+}
+entity
+{
+	type = MapCurvePoint
+	uin = 649
+	classPrompt = MapCurvePoint
+	time = 1
+	position = -317.2253 176.8994 55.93423
+	rotation = 0 0 -0.9776439 0.2102675
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = HammerItem
+	uin = 650
+	classPrompt = WeaponItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -436.3315 312.9541 28.22131
+	rotation = 0 0 -0.4958559 0.8684048
+	editorLayer = "Root Layer\\Hammer"
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 651
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 652 653 654 155
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 651 652 653 654
+	automaticTimeStep = 3
+	owner = 651
+	time = 0
+	position = -446.2303 314.3952 34.28384
+	rotation = -0.01692514 0.258265 0.06316561 0.9638583
+	name = MapCameraCurve_1
+	editorLayer = "Root Layer\\Hammer"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 652
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 651
+	fov = 0
+	owner = 651
+	time = 3
+	position = -439.431 311.4458 28.74233
+	rotation = 0 0 -0.3214307 -0.9469332
+	editorLayer = "Root Layer\\Hammer"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 653
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 651
+	fov = 0
+	owner = 651
+	time = 6
+	position = -434.9167 312.04 30.06832
+	rotation = 0.1437901 -0.2152016 -0.8663086 -0.427226
+	editorLayer = "Root Layer\\Hammer"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 654
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 651
+	fov = 0
+	owner = 651
+	time = 9
+	position = -431.5133 316.4784 30.09517
+	rotation = 0.1517333 -0.04162972 -0.9776866 0.1391848
+	editorLayer = "Root Layer\\Hammer"
+}
+entity
+{
+	type = HelperPoint
+	uin = 655
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 179
+	position = -436.9781 315.9574 28.32748
+	rotation = 0 0 -0.6593529 0.7518337
+	name = HelperPoint_1
+	editorLayer = "Root Layer\\Hammer"
+}
+entity
+{
+	type = Region
+	uin = 656
+	classPrompt = Region
+	subscriptionsToDeletionEvent = 104 190
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -319.8562 203.985 38.24155
+	rotation = 0 0 -0.9776439 0.2102675
+	scale = 16.53618 14.96773 1
+	name = Region_1
+	logicClass = 190
+	editorLayer = "Root Layer\\ZombieBattle"
+	checkType = Bounds
+}
+entity
+{
+	type = HelperPoint
+	uin = 657
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 345
+	position = -313.3019 186.402 38.54313
+	rotation = 0 0 0.379028 -0.9253853
+	name = HelperPoint_BattleUnit1
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = HelperPoint
+	uin = 658
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 354
+	position = -317.4071 184.1057 38.5411
+	rotation = 0 0 0.2898961 -0.9570583
+	name = HelperPoint_BattleUnit2
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = HelperPoint
+	uin = 659
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 357
+	position = -314.149 178.8561 38.53815
+	rotation = 0 0 0.4008063 -0.9161628
+	name = HelperPoint_BattleUnit3
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = HelperPoint
+	uin = 660
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 360
+	position = -317.3935 178.8714 38.53815
+	rotation = 0 0 0.1500745 -0.9886748
+	name = HelperPoint_BattleUnit4
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 661
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 662 663 664 665 362 666 667
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 661 662 663 664 665 666 667
+	automaticTimeStep = 3
+	owner = 661
+	time = 0
+	position = -324.9975 189.846 52.98695
+	rotation = -0.05067865 -0.2269893 0.2831349 -0.9304527
+	name = MapCameraCurve_Battle
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 662
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 661
+	fov = 0
+	owner = 661
+	time = 3
+	position = -322.3208 184.382 52.61479
+	rotation = -0.1324276 -0.317166 0.1642204 -0.9246083
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 663
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 661
+	fov = 0
+	owner = 661
+	time = 6
+	position = -317.9288 171.5124 52.91919
+	rotation = 0.05261701 -0.3726894 -0.2590967 -0.8894958
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 664
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 661
+	fov = 0
+	owner = 661
+	time = 9
+	position = -305.3633 164.1499 50.57367
+	rotation = -0.3651563 0.1675831 0.684697 0.6080846
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 665
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 661
+	fov = 0
+	owner = 661
+	time = 12
+	position = -295.0064 169.3399 46.76436
+	rotation = -0.3118134 0.1127451 0.8108012 0.482351
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 666
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 661
+	fov = 0
+	owner = 661
+	time = 15
+	position = -294.5334 175.9212 46.44606
+	rotation = -0.3258076 0.003855569 0.8341419 0.4450191
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 667
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 661
+	fov = 0
+	owner = 661
+	time = 18
+	position = -296.1866 179.7899 45.07844
+	rotation = -0.325108 -0.02168573 0.8664479 0.3782896
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = PipeLeak
+	uin = 668
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -303.6084 20.23986 28.29906
+	rotation = 0.5917047 -0.3871505 0.5917047 0.3871505
+	name = PipeLeak_6
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = PipeLeak
+	uin = 669
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -304.3551 14.4569 28.29906
+	rotation = 0.5917047 -0.3871505 0.5917047 0.3871505
+	name = PipeLeak_8
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = PipeLeak
+	uin = 670
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -433.5652 370.2166 23.05625
+	rotation = -0.7027302 0.07855076 -0.7027302 -0.07855076
+	name = PipeLeak_7
+}
+entity
+{
+	type = PipeLeak
+	uin = 671
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -427.3506 368.6471 23.05625
+	rotation = -0.7027302 0.07855076 -0.7027302 -0.07855076
+	name = PipeLeak_9
+}
+entity
+{
+	type = RabbitHead
+	uin = 672
+	classPrompt = MapObject
+	position = -302.2068 17.03275 29.79906
+	rotation = 0 0 0.9984441 0.05576213
+	name = RabbitHead_0
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = PipeLeak
+	uin = 673
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -299.0262 19.47628 28.29906
+	rotation = 0.5917047 -0.3871505 0.5917047 0.3871505
+	name = PipeLeak_5
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = PipeLeak
+	uin = 674
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -299.7141 13.6081 28.29906
+	rotation = 0.5917047 -0.3871505 0.5917047 0.3871505
+	name = PipeLeak_12
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = PipeLeak
+	uin = 675
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 0.3
+	healthFactorAtBeginning = 1
+	position = -302.9969 16.04224 30.79906
+	rotation = -0.03942972 -0.7060065 0.7060065 0.03942972
+	name = PipeLeak_13
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = PipeLeak
+	uin = 676
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 0.3
+	healthFactorAtBeginning = 1
+	position = -302.9377 18.36739 30.79906
+	rotation = -0.03942972 -0.7060065 0.7060065 0.03942972
+	name = PipeLeak_14
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = HelperPoint
+	uin = 677
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 551
+	position = -309.8201 19.07567 28.90967
+	rotation = 0 0 -0.05576213 0.9984441
+	name = HelperPoint_RabbitHeadPoint
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = RTSGeyser
+	uin = 678
+	classPrompt = MapObject
+	position = -431.1465 371.2544 23.06456
+	rotation = 0 0 -0.9938107 -0.1110876
+	name = RTSGeyser_5
+}
+entity
+{
+	type = RTSGeyser
+	uin = 679
+	classPrompt = MapObject
+	position = -430.1129 371.0192 23.0857
+	rotation = 0 0 -0.9938107 -0.1110876
+	name = RTSGeyser_6
+}
+entity
+{
+	type = RTSGeyser
+	uin = 680
+	classPrompt = MapObject
+	position = -429.123 370.7543 23.10488
+	rotation = 0 0 -0.9938107 -0.1110876
+	name = RTSGeyser_7
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 681
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 682 683 684 685 686 687 688 544
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 681 682 683 684 685 686 687 688
+	automaticTimeStep = 3
+	owner = 681
+	time = 0
+	position = -332.4566 49.72514 40.04087
+	rotation = -0.03012051 0.3901545 0.07083439 0.9175264
+	name = MapCameraCurve_RabbitHead
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 682
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 3
+	position = -325.488 34.27528 39.75158
+	rotation = -0.05490193 0.3889843 0.2468839 0.8858472
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 683
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 6
+	position = -322.6546 22.50063 38.87349
+	rotation = -0.04237769 0.3611475 -0.1079909 0.9252647
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 684
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 9
+	position = -313.4652 21.10665 37.23016
+	rotation = -0.0773 0.3424067 -0.09882914 0.9311365
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 685
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 12
+	position = -319.2558 18.54989 38.92336
+	rotation = -0.0956043 0.3743804 -0.1013784 0.916745
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 686
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 15
+	position = -319.7725 15.65447 41.11795
+	rotation = -0.1078452 0.3626162 0.03552147 0.9249957
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 687
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 18
+	position = -314.2512 11.90441 41.11795
+	rotation = -0.1448361 0.3162708 0.3521305 0.8689069
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 688
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 681
+	fov = 0
+	owner = 681
+	time = 21
+	position = -303.994 15.82945 30.99376
+	rotation = -0.08196628 0.2815221 0.1957997 0.9357826
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = Region
+	uin = 689
+	classPrompt = Region
+	subscriptionsToDeletionEvent = 190 379
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -315.4833 47.82001 27.78228
+	rotation = 0 0 0.7468448 0.6649984
+	scale = 9.091402 14.96773 1
+	name = Region_RabbitHead
+	logicClass = 379
+	editorLayer = "Root Layer\\RabbitScene"
+	checkType = Bounds
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 690
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 691 692 693 694 695 546 696
+	fov = 0
+	curveType = UniformCubicSpline
+	points = 690 691 692 693 694 695 696
+	automaticTimeStep = 4
+	owner = 690
+	time = 0
+	position = -302.3076 23.96017 34.00266
+	rotation = 0.3060685 0.1551084 -0.8248875 0.4492485
+	name = MapCameraCurve_RabbitHead2
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 691
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 690
+	fov = 0
+	owner = 690
+	time = 4
+	position = -307.7352 25.08661 35.64
+	rotation = 0.2007594 0.334087 -0.5333461 0.7507486
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 692
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 690
+	fov = 0
+	owner = 690
+	time = 8
+	position = -312.3521 22.22967 35.64
+	rotation = 0.08864725 0.3795525 -0.2774514 0.8781244
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 693
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 690
+	fov = 0
+	owner = 690
+	time = 12
+	position = -312.9007 18.17623 35.64
+	rotation = -0.0290981 0.3886794 -0.001716927 0.9209117
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 694
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 690
+	fov = 0
+	owner = 690
+	time = 16
+	position = -310.343 14.27246 35.64
+	rotation = -0.1682137 0.3516 0.3327151 0.8587096
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 695
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 690
+	fov = 0
+	owner = 690
+	time = 20
+	position = -306.287 11.49106 35.64
+	rotation = -0.282192 0.2688607 0.616183 0.6843975
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 696
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 690
+	fov = 0
+	owner = 690
+	time = 24
+	position = -303.9502 12.00616 35.64
+	rotation = -0.3519181 0.167547 0.7987598 0.4583278
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurve
+	uin = 697
+	classPrompt = MapCameraCurve
+	subscriptionsToDeletionEvent = 698 699 700 623
+	fov = 130
+	curveType = UniformCubicSpline
+	points = 697 698 699 700
+	automaticTimeStep = 0
+	owner = 697
+	time = 0
+	position = -310.7471 19.19322 29.67816
+	rotation = -0.1741323 -0.3897666 0.7289704 -0.5351281
+	name = MapCameraCurve_NarkFPS
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 698
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 697
+	fov = 130
+	owner = 697
+	time = 7
+	position = -310.1341 17.65938 29.60307
+	rotation = 0 0 0.7218478 -0.6920519
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 699
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 697
+	fov = 0
+	owner = 697
+	time = 12
+	position = -309.2512 17.83627 29.60307
+	rotation = -0.1364221 -0.20871 0.5305911 -0.8101248
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapCameraCurvePoint
+	uin = 700
+	classPrompt = MapCameraCurvePoint
+	subscriptionsToDeletionEvent = 697
+	fov = 0
+	owner = 697
+	time = 14
+	position = -308.4462 18.40202 29.60307
+	rotation = 0 0 0.1151515 -0.9933479
+	editorLayer = "Root Layer\\RabbitScene"
+}
+entity
+{
+	type = MapChangeRegion
+	uin = 701
+	classPrompt = MapChangeRegion
+	mapName = "Maps/MainDemo/Map.map"
+	spawnPointName = Teleporter_Maps
+	saveWeapons = False
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -429.8462 371.0305 23.18139
+	rotation = 0 0 -0.7837782 0.6210408
+	scale = 2.593412 5.171934 4.842277
+	name = MapChangeRegion_1
+	checkType = Bounds
+}
+entity
+{
+	type = StaticMesh
+	uin = 702
+	classPrompt = StaticMesh
+	position = -443.1333 318.8775 26.22535
+	rotation = -0.00125182 0.9984407 -0.02756268 -0.04853176
+	scale = 0.1951163 0.1692711 0.2396437
+	name = StaticMesh_TPSDemoRockStone_27
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 703
+	classPrompt = StaticMesh
+	position = -428.7878 320.4345 27.7844
+	rotation = 0.67125 0.1924995 -0.688747 0.194924
+	scale = 0.1951163 0.1692711 0.2396437
+	name = StaticMesh_TPSDemoRockStone_28
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = DynamicCollision
+	uin = 704
+	classPrompt = DynamicCollision
+	active = True
+	position = -442.5319 355.281 24.55343
+	rotation = 0 0 -0.9970872 -0.07627232
+	scale = 2.598897 37.41027 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 705
+	classPrompt = DynamicCollision
+	active = True
+	position = -445.1189 319.7716 28.0169
+	rotation = -0.004629493 -0.07346188 -0.9972113 0.01233428
+	scale = 2.598897 37.41027 4.784215
+}
+entity
+{
+	type = StaticMesh
+	uin = 706
+	classPrompt = StaticMesh
+	position = -434.5953 372.4679 23.47276
+	rotation = -0.07122841 0.03585182 -0.1204649 0.9895099
+	scale = 0.1969873 0.1284998 0.2728714
+	name = StaticMesh_TPSDemoRockStone_29
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 707
+	classPrompt = StaticMesh
+	position = -425.5225 370.0072 23.80656
+	rotation = 0.04215001 0.06769208 -0.9745501 -0.2095087
+	scale = 0.1969873 0.1284998 0.2728714
+	name = StaticMesh_TPSDemoRockStone_30
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 708
+	classPrompt = StaticMesh
+	position = -425.818 370.8307 25.11133
+	rotation = -0.8805053 0.2228818 0.4152049 0.05137952
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_31
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 709
+	classPrompt = StaticMesh
+	position = -433.4544 371.7766 25.11133
+	rotation = -0.4138603 0.617861 0.596352 0.3022131
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_32
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 710
+	classPrompt = StaticMesh
+	position = -430.6374 371.9675 27.07961
+	rotation = -0.002344467 0.2067946 0.9736065 0.09655175
+	scale = 0.2050519 0.1 0.2083366
+	name = StaticMesh_TPSDemoRockStone_33
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 711
+	classPrompt = StaticMesh
+	position = -433.4544 373.08 25.11133
+	rotation = -0.4138603 0.617861 0.596352 0.3022131
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_34
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 712
+	classPrompt = StaticMesh
+	position = -426.4757 369.937 25.11133
+	rotation = -0.683586 0.48987 0.2502953 0.4796777
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_35
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 713
+	classPrompt = StaticMesh
+	position = -424.0232 370.0072 25.55939
+	rotation = 0.2372081 0.6311882 -0.7263467 -0.1332482
+	scale = 0.1897686 0.09240624 0.2728714
+	name = StaticMesh_TPSDemoRockStone_36
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 714
+	classPrompt = StaticMesh
+	position = -436.3116 373.3093 25.03798
+	rotation = 0.2410804 0.6318902 -0.7250707 -0.1298784
+	scale = 0.1450578 0.09240624 0.2728714
+	name = StaticMesh_TPSDemoRockStone_37
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = DynamicCollision
+	uin = 715
+	classPrompt = DynamicCollision
+	active = True
+	position = -420.5128 297.3765 35.936
+	rotation = 0 0 -0.2178328 -0.9759864
+	scale = 2.598897 14.18528 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 716
+	classPrompt = DynamicCollision
+	active = True
+	position = -412.9205 286.293 37.97296
+	rotation = 0 0 -0.3816167 -0.9243209
+	scale = 2.598897 14.18528 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 717
+	classPrompt = DynamicCollision
+	active = True
+	position = -402.3209 277.9698 40.52523
+	rotation = 0 0 -0.4827734 -0.8757456
+	scale = 2.598897 14.18528 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 718
+	classPrompt = DynamicCollision
+	active = True
+	position = -390.7697 273.0168 42.28419
+	rotation = 0 0 -0.6034343 -0.7974131
+	scale = 2.598897 14.18528 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 719
+	classPrompt = DynamicCollision
+	active = True
+	position = -365.1795 270.1345 43.09084
+	rotation = 0 0 -0.7037587 -0.7104395
+	scale = 2.598897 37.78254 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 720
+	classPrompt = DynamicCollision
+	active = True
+	position = -437.3439 285.6048 33.72923
+	rotation = 0.009930333 -0.07293469 -0.9752478 0.2085046
+	scale = 2.598897 37.41027 4.784215
+}
+entity
+{
+	type = DynamicCollision
+	uin = 721
+	classPrompt = DynamicCollision
+	active = True
+	position = -420.8049 268.1225 35.23374
+	rotation = 0.000540074 -0.05025302 -0.8734277 0.4843541
+	scale = 2.598897 28.58571 6.991432
+}
+entity
+{
+	type = DynamicCollision
+	uin = 722
+	classPrompt = DynamicCollision
+	active = True
+	position = -390.4793 257.1583 36.89845
+	rotation = 0 0 -0.6391864 -0.7690521
+	scale = 2.598897 37.40179 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 723
+	classPrompt = DynamicCollision
+	active = True
+	position = -339.1747 252.3123 36.16613
+	rotation = 0 0 -0.6391864 -0.7690521
+	scale = 2.598897 14.18528 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 724
+	classPrompt = DynamicCollision
+	active = True
+	position = -358.9387 253.6474 37.22263
+	rotation = 0 0 -0.7247092 -0.6890553
+	scale = 2.598897 26.54595 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 725
+	classPrompt = DynamicCollision
+	active = True
+	position = -328.3789 246.3866 36.38507
+	rotation = 0 0 -0.3602629 -0.9328511
+	scale = 2.598897 14.18528 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 726
+	classPrompt = DynamicCollision
+	active = True
+	position = -324.3224 237.7622 36.38507
+	rotation = 0 0 -0.9989422 -0.04598817
+	scale = 2.598897 7.636624 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 727
+	classPrompt = DynamicCollision
+	active = True
+	position = -327.7583 230.181 36.38507
+	rotation = 0 0 -0.3113948 0.9502808
+	scale = 2.598897 10.49724 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 728
+	classPrompt = DynamicCollision
+	active = True
+	position = -335.0916 268.4991 43.48338
+	rotation = 0 0 -0.6514717 -0.7586733
+	scale = 2.598897 22.70006 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 729
+	classPrompt = DynamicCollision
+	active = True
+	position = -314.3864 255.1251 41.29303
+	rotation = 0 0 -0.3279867 -0.9446827
+	scale = 2.598897 30.15586 9.150887
+}
+entity
+{
+	type = DynamicCollision
+	uin = 730
+	classPrompt = DynamicCollision
+	active = True
+	position = -314.3258 221.1501 36.37294
+	rotation = 0 0 -0.9986619 -0.05171862
+	scale = 2.598897 16.16873 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 731
+	classPrompt = DynamicCollision
+	active = True
+	position = -309.6018 235.5363 36.11539
+	rotation = 0 0 -0.976307 -0.2163906
+	scale = 2.598897 18.32953 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 732
+	classPrompt = DynamicCollision
+	active = True
+	position = -309.7499 206.672 36.87075
+	rotation = 0 0 -0.9523296 0.3050717
+	scale = 2.598897 18.32953 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 733
+	classPrompt = DynamicCollision
+	active = True
+	position = -301.0663 188.0734 37.42096
+	rotation = 0 0 -0.991153 0.1327258
+	scale = 2.598897 23.46937 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 734
+	classPrompt = DynamicCollision
+	active = True
+	position = -332.8032 221.4403 39.81551
+	rotation = 0 0 -0.152308 0.9883333
+	scale = 2.598897 10.49724 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 735
+	classPrompt = DynamicCollision
+	active = True
+	position = -324.4402 188.532 40.68637
+	rotation = 0 0 0.1752282 0.9845282
+	scale = 2.598897 33.60073 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 736
+	classPrompt = DynamicCollision
+	active = True
+	position = -331.6575 212.6786 39.81551
+	rotation = 0 0 0.06132241 0.9981183
+	scale = 2.598897 19.73931 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 737
+	classPrompt = DynamicCollision
+	active = True
+	position = -298.5037 169.3727 37.42096
+	rotation = 0 0 -0.9998541 -0.01708815
+	scale = 2.598897 14.7576 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 738
+	classPrompt = DynamicCollision
+	active = True
+	position = -297.2108 155.1416 37.42096
+	rotation = 0 0 -0.9940454 0.1089683
+	scale = 2.598897 14.7576 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 739
+	classPrompt = DynamicCollision
+	active = True
+	position = -294.3417 140.8978 38.1351
+	rotation = 0 0 -0.9961228 0.08797599
+	scale = 2.598897 14.7576 4.640931
+}
+entity
+{
+	type = DynamicCollision
+	uin = 740
+	classPrompt = DynamicCollision
+	active = True
+	position = -294.9776 117.4618 39.61264
+	rotation = 0 0 -0.04469945 0.9990007
+	scale = 2.598897 35.8904 8.088565
+}
+entity
+{
+	type = DynamicCollision
+	uin = 741
+	classPrompt = DynamicCollision
+	active = True
+	position = -316.6697 164.2145 39.18418
+	rotation = 0 0 0.135142 0.9908265
+	scale = 2.598897 18.35144 6.261785
+}
+entity
+{
+	type = DynamicCollision
+	uin = 742
+	classPrompt = DynamicCollision
+	active = True
+	position = -311.6283 141.5403 35.11497
+	rotation = 0 0 0.03346921 0.99944
+	scale = 2.598897 8.777326 6.261785
+}
+entity
+{
+	type = DynamicCollision
+	uin = 743
+	classPrompt = DynamicCollision
+	active = True
+	position = -312.0401 131.9021 32.46726
+	rotation = 0 0 -0.07116255 0.997465
+	scale = 2.598897 11.50713 6.261785
+}
+entity
+{
+	type = DynamicCollision
+	uin = 744
+	classPrompt = DynamicCollision
+	active = True
+	position = -315.7438 109.1817 29.84364
+	rotation = 0 0 -0.09376699 0.9955944
+	scale = 2.598897 35.29139 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 745
+	classPrompt = DynamicCollision
+	active = True
+	position = -298.3079 82.83965 39.61264
+	rotation = 0 0 -0.04469945 0.9990007
+	scale = 2.598897 35.8904 16.42184
+}
+entity
+{
+	type = DynamicCollision
+	uin = 746
+	classPrompt = DynamicCollision
+	active = True
+	position = -296.3773 31.1056 36.84585
+	rotation = 0 0 0.09737451 0.9952481
+	scale = 2.598897 35.8904 9.588188
+}
+entity
+{
+	type = DynamicCollision
+	uin = 747
+	classPrompt = DynamicCollision
+	active = True
+	position = -301.0627 56.20406 31.94675
+	rotation = 0 0 0.001024812 0.9999998
+	scale = 2.598897 18.47297 21.29354
+}
+entity
+{
+	type = DynamicCollision
+	uin = 748
+	classPrompt = DynamicCollision
+	active = True
+	position = -322.2366 81.05795 26.71896
+	rotation = 0 0 -0.1325382 0.9911781
+	scale = 2.598897 22.61081 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 749
+	classPrompt = DynamicCollision
+	active = True
+	position = -325.8034 62.80237 25.40896
+	rotation = 0 0 -0.08220585 0.9966155
+	scale = 2.598897 15.03689 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 750
+	classPrompt = DynamicCollision
+	active = True
+	position = -327.3853 48.32414 25.40896
+	rotation = 0 0 0.03061727 0.9995314
+	scale = 2.598897 15.03689 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 751
+	classPrompt = DynamicCollision
+	active = True
+	position = -326.2113 33.55714 25.40896
+	rotation = 0 0 0.08611354 0.9962855
+	scale = 2.598897 15.03689 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 752
+	classPrompt = DynamicCollision
+	active = True
+	position = -323.0301 19.0516 24.31013
+	rotation = 0 0 0.191285 0.9815347
+	scale = 2.598897 15.03689 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 753
+	classPrompt = DynamicCollision
+	active = True
+	position = -315.8665 2.145344 22.91433
+	rotation = 0 0 0.2120598 0.9772568
+	scale = 2.598897 21.36662 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 754
+	classPrompt = DynamicCollision
+	active = True
+	position = -307.3174 -11.2196 22.42147
+	rotation = 0 0 0.280908 0.9597349
+	scale = 2.598897 14.26677 9.581546
+}
+entity
+{
+	type = DynamicCollision
+	uin = 755
+	classPrompt = DynamicCollision
+	active = True
+	position = -420.9067 335.7079 29.38627
+	rotation = 0 0 0.01250781 -0.999922
+	scale = 2.598897 67.46614 13.50681
+}
+entity
+{
+	type = DynamicCollision
+	uin = 756
+	classPrompt = DynamicCollision
+	active = True
+	position = -312.7527 150.5582 35.11497
+	rotation = 0 0 0.1272458 0.9918715
+	scale = 2.598897 10.6084 6.261785
+}
+entity
+{
+	type = Zombie
+	uin = 757
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -380.0868 261.9576 39.7136
+	rotation = 0 0 0.915529 0.402252
+	name = Zombie_4
+}
+entity
+{
+	type = Zombie
+	uin = 758
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -380.1801 259.6098 39.10935
+	rotation = 0 0 -0.9669512 0.2549616
+	name = Zombie_5
+}
+entity
+{
+	type = Zombie
+	uin = 759
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -375.9579 261.4551 39.84739
+	name = Zombie_6
+}
+entity
+{
+	type = Zombie
+	uin = 760
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -376.0466 258.9968 39.47724
+	rotation = 0 0 0.9217909 0.3876875
+	name = Zombie_7
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 761
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -351.1498 262.2038 38.56192
+}
+entity
+{
+	type = StaticMesh
+	uin = 762
+	classPrompt = StaticMesh
+	position = -314.8648 211.6162 38.17511
+	rotation = 0.67125 0.1924995 -0.688747 0.194924
+	scale = 0.1951163 0.1692711 0.2396437
+	name = StaticMesh_TPSDemoRockStone_38
+	editorLayer = "Root Layer\\ZombieBattle"
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 763
+	classPrompt = StaticMesh
+	position = -330.3651 210.0592 40.28745
+	rotation = -0.003857079 0.989354 -0.02732016 -0.1428913
+	scale = 0.1951163 0.1692711 0.2396437
+	name = StaticMesh_TPSDemoRockStone_39
+	editorLayer = "Root Layer\\ZombieBattle"
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Zombie
+	uin = 764
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -303.805 171.0935 38.70142
+	rotation = 0 0 0.9906523 0.136411
+	name = Zombie_8
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = Zombie
+	uin = 765
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -303.3897 173.402 38.67101
+	rotation = 0 0 0.9666017 0.2562832
+	name = Zombie_9
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = Zombie
+	uin = 766
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -303.3026 176.5854 38.64943
+	rotation = 0 0 0.9811517 0.1932392
+	name = Zombie_10
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = Zombie
+	uin = 767
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -330.8345 255.0054 38.56649
+	rotation = 0 0 -0.8890237 0.4578612
+	name = Zombie_11
+}
+entity
+{
+	type = Zombie
+	uin = 768
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -334.8747 257.9662 39.44529
+	rotation = 0 0 0.915529 0.4022519
+	name = Zombie_12
+}
+entity
+{
+	type = StaticMesh
+	uin = 769
+	classPrompt = StaticMesh
+	position = -426.6221 320.4345 27.7844
+	rotation = 0.4611713 0.5243602 -0.474592 0.5358453
+	scale = 0.1951163 0.1692711 0.2396437
+	name = StaticMesh_TPSDemoRockStone_40
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = Zombie
+	uin = 770
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -305.7287 168.6343 38.70142
+	rotation = 0 0 0.9906523 0.136411
+	name = Zombie_13
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = Zombie
+	uin = 771
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -306.6066 170.9485 38.64248
+	rotation = 0 0 0.9200125 0.3918891
+	name = Zombie_14
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = Zombie
+	uin = 772
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -302.2388 168.7415 38.64248
+	rotation = 0 0 0.9200125 0.3918891
+	name = Zombie_15
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 773
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -303.4691 160.8135 37.74283
+	editorLayer = "Root Layer\\ZombieBattle"
+}
+entity
+{
+	type = Zombie
+	uin = 774
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -305.2953 110.1322 33.39701
+	name = Zombie_16
+}
+entity
+{
+	type = Zombie
+	uin = 775
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -307.7727 111.4321 33.79101
+	name = Zombie_17
+}
+entity
+{
+	type = Zombie
+	uin = 776
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -310.2722 112.4771 33.58437
+	name = Zombie_18
+}
+entity
+{
+	type = Zombie
+	uin = 777
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -308.5697 92.85925 29.00483
+	rotation = 0 0 0.6281404 0.7781
+	name = Zombie_19
+}
+entity
+{
+	type = Zombie
+	uin = 778
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -311.0676 93.32767 28.86688
+	name = Zombie_20
+}
+entity
+{
+	type = Zombie
+	uin = 779
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -313.564 93.79093 28.87708
+	name = Zombie_21
+}
+entity
+{
+	type = Zombie
+	uin = 780
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -311.6534 90.75929 28.29913
+	name = Zombie_22
+}
+entity
+{
+	type = Zombie
+	uin = 781
+	classPrompt = GameCharacter
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = -308.1721 88.59612 28.34743
+	rotation = 0 0 0.6392653 0.7689863
+	name = Zombie_24
+}
+entity
+{
+	type = StaticMesh
+	uin = 782
+	classPrompt = StaticMesh
+	position = -307.8779 51.40627 27.72544
+	rotation = 0.67125 0.1924995 -0.688747 0.194924
+	scale = 0.1951163 0.1692711 0.2396437
+	name = StaticMesh_TPSDemoRockStone_41
+	editorLayer = "Root Layer\\ZombieBattle"
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 783
+	classPrompt = StaticMesh
+	position = -325.2268 49.84927 28.01295
+	rotation = -0.003857079 0.989354 -0.02732016 -0.1428913
+	scale = 0.1951163 0.1692711 0.3123955
+	name = StaticMesh_TPSDemoRockStone_42
+	editorLayer = "Root Layer\\ZombieBattle"
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = DynamicCollision
+	uin = 784
+	classPrompt = DynamicCollision
+	active = True
+	position = -295.6566 -9.844404 27.25639
+	rotation = 0 0 -0.9361169 -0.3516893
+	scale = 2.598897 19.00799 4.640931
+}
+entity
+{
+	type = StaticMesh
+	uin = 785
+	classPrompt = StaticMesh
+	position = -293.7362 -6.350013 24.8781
+	rotation = -0.005659148 0.07954127 -0.9117216 0.4029956
+	scale = 0.1969873 0.1284998 0.2728714
+	name = StaticMesh_TPSDemoRockStone_43
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 786
+	classPrompt = StaticMesh
+	position = -296.0603 -9.592562 28.48494
+	rotation = 0.1764516 0.1078625 0.4153985 0.8858194
+	scale = 0.2050519 0.1 0.2083366
+	name = StaticMesh_TPSDemoRockStone_44
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 787
+	classPrompt = StaticMesh
+	position = -292.1793 -5.241148 26.44331
+	rotation = 0.6662375 0.1163293 -0.2595547 -0.6893673
+	scale = 0.1450578 0.09240624 0.2728714
+	name = StaticMesh_TPSDemoRockStone_45
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeLeak
+	uin = 788
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -296.2065 -6.184309 24.46158
+	rotation = -0.2922138 0.643903 -0.2922138 -0.643903
+	name = PipeLeak_15
+}
+entity
+{
+	type = RTSGeyser
+	uin = 789
+	classPrompt = MapObject
+	position = -296.4451 -8.805387 24.46989
+	rotation = 0 0 -0.4132527 -0.9106165
+	name = RTSGeyser_0
+}
+entity
+{
+	type = RTSGeyser
+	uin = 790
+	classPrompt = MapObject
+	position = -297.144 -9.602405 24.49103
+	rotation = 0 0 -0.4132527 -0.9106165
+	name = RTSGeyser_4
+}
+entity
+{
+	type = MapChangeRegion
+	uin = 791
+	classPrompt = MapChangeRegion
+	mapName = "Maps/MainDemo/Map.map"
+	spawnPointName = Teleporter_Maps
+	saveWeapons = False
+	enabled = True
+	shapeType = Box
+	filter = OnlyDynamicBodies
+	position = -297.261 -9.84236 24.58673
+	rotation = 0 0 -0.9346987 -0.3554411
+	scale = 2.593412 5.171934 4.842277
+	name = MapChangeRegion_2
+	checkType = Bounds
+}
+entity
+{
+	type = StaticMesh
+	uin = 792
+	classPrompt = StaticMesh
+	position = -294.8873 -7.024316 26.51666
+	rotation = 0.318952 0.6717902 0.04562148 0.6669986
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_46
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 793
+	classPrompt = StaticMesh
+	position = -293.741 -7.644734 26.51666
+	rotation = 0.318952 0.6717902 0.04562148 0.6669986
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_47
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 794
+	classPrompt = StaticMesh
+	position = -300.2191 -13.15768 25.2119
+	rotation = 0.07972705 -0.001561534 -0.3188432 -0.9444473
+	scale = 0.1969873 0.1284998 0.2728714
+	name = StaticMesh_TPSDemoRockStone_48
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 795
+	classPrompt = StaticMesh
+	position = -300.9327 -14.47623 26.96472
+	rotation = 0.6636524 0.1192966 -0.2573128 -0.6921883
+	scale = 0.1897686 0.09240624 0.2728714
+	name = StaticMesh_TPSDemoRockStone_49
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = PipeLeak
+	uin = 796
+	classPrompt = PhysicalStream
+	alternativeMode = False
+	throttle = 1
+	healthFactorAtBeginning = 1
+	position = -300.545 -10.90256 24.46158
+	rotation = -0.2922138 0.643903 -0.2922138 -0.643903
+	name = PipeLeak_16
+}
+entity
+{
+	type = StaticMesh
+	uin = 797
+	classPrompt = StaticMesh
+	position = -299.3542 -13.2898 26.51666
+	rotation = -0.2592176 0.8705011 0.1683852 0.3829901
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_50
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 798
+	classPrompt = StaticMesh
+	position = -299.827 -12.28597 26.51666
+	rotation = 0.07093847 0.8379917 -0.2839637 0.4605465
+	scale = 0.1 0.1 0.1301848
+	name = StaticMesh_TPSDemoRockStone_51
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = RTSGeyser
+	uin = 799
+	classPrompt = MapObject
+	position = -297.8481 -10.34689 24.51021
+	rotation = 0 0 -0.4132527 -0.9106165
+	name = RTSGeyser_8
+}
+entity
+{
+	type = DynamicCollision
+	uin = 800
+	classPrompt = DynamicCollision
+	active = True
+	position = -291.3765 5.29777 32.08304
+	rotation = 0 0 0.09737451 0.9952481
+	scale = 2.598897 19.9479 9.588188
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 801
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -316.1523 55.44121 27.9654
+}
+entity
+{
+	type = StaticMesh
+	uin = 802
+	classPrompt = StaticMesh
+	position = -298.0898 10.82669 28.69131
+	rotation = -0.004587204 0.7440287 0.09306923 0.6616184
+	scale = 0.2055446 0.1938327 0.2708062
+	name = StaticMesh_TPSDemoRockStone_52
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 803
+	classPrompt = StaticMesh
+	position = -300.9576 10.5005 27.7093
+	rotation = -0.9882576 -0.1361739 -0.05569132 0.04126162
+	scale = 0.2055446 0.1938327 0.2708062
+	name = StaticMesh_TPSDemoRockStone_53
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 804
+	classPrompt = StaticMesh
+	position = -302.3051 23.96562 28.69131
+	rotation = 0.6606031 0.3423497 -0.5469748 0.3836916
+	scale = 0.2055446 0.1938327 0.2708062
+	name = StaticMesh_TPSDemoRockStone_54
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 805
+	classPrompt = StaticMesh
+	position = -303.5653 27.06019 28.69131
+	rotation = 0.2477892 -0.09963529 -0.6375403 0.7226453
+	scale = 0.2055446 0.1938327 0.2708062
+	name = StaticMesh_TPSDemoRockStone_55
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 806
+	classPrompt = StaticMesh
+	position = -318.2949 16.07769 25.60556
+	rotation = 0.1409365 -0.1905745 -0.6164951 0.7508346
+	scale = 0.2055446 0.1938327 0.2708062
+	name = StaticMesh_TPSDemoRockStone_56
+	meshName = "Maps\\TPSArcadeDemo\\Resources\\Models\\TPSDemoRockStone.mesh"
+	castDynamicShadows = True
+}
+entity
+{
+	type = SmallHealthItem
+	uin = 807
+	classPrompt = HealthItem
+	respawnTime = 10
+	healthFactorAtBeginning = 1
+	position = -303.2758 159.1698 37.74283
+	editorLayer = "Root Layer\\ZombieBattle"
+}

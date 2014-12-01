@@ -1,0 +1,22 @@
+type ZombieMeleeWeapon
+{
+	class = MeleeWeapon
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		damage = 5
+		impulse = 35000
+		soundKick = "Types\\Units\\Zombie\\Kick.ogg"
+		betweenFireTime = 1
+		soundFire = "Types\\Units\\Zombie\\Blow.ogg"
+		useDistanceRange = 0 2
+		fireTimes = 0.5
+		fireAnimationTrigger = fire
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+}

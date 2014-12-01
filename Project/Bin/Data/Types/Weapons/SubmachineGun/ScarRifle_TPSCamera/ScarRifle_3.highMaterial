@@ -1,0 +1,6 @@
+highLevelMaterial ScarRifle_3
+{
+	template = ShaderBaseMaterial
+	diffuseColor = 0 0 0 0.4980392
+	emissionColor = 0.7529413 0 0
+}

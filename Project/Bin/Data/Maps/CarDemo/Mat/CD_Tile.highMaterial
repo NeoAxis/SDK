@@ -1,0 +1,8 @@
+highLevelMaterial CD_Tile
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Tile.dds"
+	}
+}

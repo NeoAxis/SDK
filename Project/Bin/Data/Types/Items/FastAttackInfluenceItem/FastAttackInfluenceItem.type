@@ -1,0 +1,23 @@
+type FastAttackInfluenceItem
+{
+	class = InfluenceItem
+	influenceType = FastAttackInfluence
+	influenceTime = 10
+	defaultRespawnTime = 10
+	soundTake = Types/Items/DefaultItemTake.ogg
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Items\FastAttackInfluenceItem\Main.mesh
+			castDynamicShadows = True
+		}
+		particle
+		{
+			particleName = ItemParticle
+			updateWhenItNotInView = False
+		}
+	}
+}

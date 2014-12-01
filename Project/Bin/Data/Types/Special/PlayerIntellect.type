@@ -1,0 +1,6 @@
+type PlayerIntellect
+{
+	class = PlayerIntellect
+	creatableInMapEditor = False
+	networkType = Synchronized
+}

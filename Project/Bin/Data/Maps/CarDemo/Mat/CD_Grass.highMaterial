@@ -1,0 +1,8 @@
+highLevelMaterial CD_Grass
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Grass.dds"
+	}
+}

@@ -1,0 +1,6 @@
+highLevelMaterial BooleanSwitchOn
+{
+	template = ShaderBaseMaterial
+	diffuseScale = 0 0 0
+	emissionScale = 1.960784 0 0
+}

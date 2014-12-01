@@ -1,0 +1,22 @@
+type Dynamite
+{
+	class = Item
+	defaultRespawnTime = 10
+	soundTake = Types/Items/DefaultItemTake.ogg
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Items\Dynamite\Dynamite.mesh
+			castDynamicShadows = True
+			scale = 0.01 0.01 0.01
+		}
+		particle
+		{
+			particleName = ItemParticle
+			updateWhenItNotInView = False
+		}
+	}
+}

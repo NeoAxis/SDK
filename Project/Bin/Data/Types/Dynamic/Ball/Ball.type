@@ -1,0 +1,16 @@
+type Ball
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\Ball\Ball.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			body = main
+		}
+	}
+}

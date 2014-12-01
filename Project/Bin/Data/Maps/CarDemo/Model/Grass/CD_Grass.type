@@ -1,0 +1,175 @@
+type CD_Grass
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Grass01.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass02.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass03.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass04.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass05.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass06.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass07.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass08.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass09.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass10.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass11.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass12.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass13.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass14.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass15.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass16.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass17.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass18.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass20.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass21.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Grass22.mesh"
+			collision = True
+			collisionMaterialName = Grass
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+	}
+}

@@ -1,0 +1,18 @@
+type SmallBox
+{
+	class = Dynamic
+	physicsModel = Types\Dynamic\SmallBox\SmallBox.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castDynamicShadows = True
+			forceMaterial = Red
+			body = main
+			scale = 0.2 0.2 0.2
+		}
+	}
+}

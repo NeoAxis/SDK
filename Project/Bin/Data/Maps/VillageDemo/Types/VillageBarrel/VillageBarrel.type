@@ -1,0 +1,15 @@
+type VillageBarrel
+{
+	class = Dynamic
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageBarrel\\VillageBarrel.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageBarrel\\meshU3D_044.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

@@ -1,0 +1,27 @@
+type RTSFumingSplinterBullet
+{
+	class = Bullet
+	velocity = 18
+	damage = 5
+	gravity = 9.81
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		particle
+		{
+			particleName = RTSSmallSmokeParticle
+		}
+		billboard
+		{
+			materialName = RTSDefaultFlare
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = RTSGeneralBulletHitParticle
+		}
+	}
+}

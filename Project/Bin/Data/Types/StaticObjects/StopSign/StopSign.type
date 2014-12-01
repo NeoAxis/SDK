@@ -1,0 +1,14 @@
+type StopSign
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\StaticObjects\\StopSign\\StopSign.mesh"
+			castShadows = True
+			toCollision = True
+		}
+	}
+}

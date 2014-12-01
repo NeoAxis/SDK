@@ -1,0 +1,11 @@
+highLevelMaterial CD_Tree_Bilbord
+{
+	template = ShaderBaseMaterial
+	lighting = False
+	alphaRejectFunction = Greater
+	halfLambert = True
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Tree_Bilbord.dds"
+	}
+}

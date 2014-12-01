@@ -1,0 +1,13 @@
+highLevelMaterial RTSConcreteBlock
+{
+	template = ShaderBaseMaterial
+	specularColor = 0.5176471 0.5176471 0.5176471
+	diffuse1Map
+	{
+		texture = ".\\ConcreteBlock.dds"
+	}
+	specularMap
+	{
+		texture = ".\\ConcreteBlock_SPEC.dds"
+	}
+}

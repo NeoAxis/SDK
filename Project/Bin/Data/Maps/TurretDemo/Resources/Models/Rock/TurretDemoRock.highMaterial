@@ -1,0 +1,14 @@
+highLevelMaterial TurretDemoRock
+{
+	template = ShaderBaseMaterial
+	specularScale = 0.9764706 0.9764706 0.9764706
+	specularShininess = 60.496
+	diffuse1Map
+	{
+		texture = Maps\TurretDemo\Resources\Textures\TurretDemoRock.dds
+	}
+	specularMap
+	{
+		texture = Maps\TurretDemo\Resources\Textures\TurretDemoRock_Specular.dds
+	}
+}

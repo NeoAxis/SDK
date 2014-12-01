@@ -1,0 +1,30 @@
+highLevelMaterial DemoTeleporter
+{
+	template = ShaderBaseMaterial
+	useNormals = False
+	reflectionColor = 1 1 1
+	reflectionPower = 2
+	reflectionSpecificCubemap = "Models\\DemoCorridors\\SkyBox\\CorridorSkyBox.jpg"
+	emissionColor = 1 1 1
+	specularColor = 1 1 1
+	diffuse1Map
+	{
+		texture = ".\\TeleporterDiffuseMap.dds"
+	}
+	reflectionMap
+	{
+		texture = ".\\TeleporterSpecularMap.dds"
+	}
+	emissionMap
+	{
+		texture = ".\\TeleporterGlowMap.dds"
+	}
+	specularMap
+	{
+		texture = ".\\TeleporterSpecularMap.dds"
+	}
+	normalMap
+	{
+		texture = ".\\TeleporterNormalsMap.dds"
+	}
+}

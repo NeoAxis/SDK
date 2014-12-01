@@ -1,0 +1,237 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
+  <data name="Save" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceSources\Save.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="DefaultDockingXml" xml:space="preserve">
+    <value>&lt;?xml version="1.0" encoding="utf-16"?&gt;
+&lt;!--DockPanel configuration file. Author: Weifen Luo, all rights reserved.--&gt;
+&lt;!--!!! AUTOMATICALLY GENERATED FILE. DO NOT MODIFY !!!--&gt;
+&lt;DockPanel FormatVersion="1.0" DockLeftPortion="0.25" DockRightPortion="0.20125" DockTopPortion="0.25" DockBottomPortion="0.141273460144532" ActiveDocumentPane="-1" ActivePane="-1"&gt;
+  &lt;Contents Count="4"&gt;
+    &lt;Content ID="0" PersistString="WinFormsMultiViewAppExample.EntityTypesForm" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" /&gt;
+    &lt;Content ID="1" PersistString="WinFormsMultiViewAppExample.Example3DViewForm" AutoHidePortion="0.25" IsHidden="False" IsFloat="True" /&gt;
+    &lt;Content ID="2" PersistString="WinFormsMultiViewAppExample.PropertiesForm" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" /&gt;
+    &lt;Content ID="3" PersistString="WinFormsMultiViewAppExample.OutputForm" AutoHidePortion="0.25" IsHidden="False" IsFloat="False" /&gt;
+  &lt;/Contents&gt;
+  &lt;Panes Count="8"&gt;
+    &lt;Pane ID="0" DockState="DockBottom" ActiveContent="3"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="3" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="1" DockState="Float" ActiveContent="-1"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="0" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="2" DockState="DockRight" ActiveContent="0"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="0" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="3" DockState="Float" ActiveContent="-1"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="2" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="4" DockState="DockRight" ActiveContent="2"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="2" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="5" DockState="Float" ActiveContent="-1"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="3" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="6" DockState="DockTop" ActiveContent="-1"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="1" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+    &lt;Pane ID="7" DockState="Float" ActiveContent="1"&gt;
+      &lt;Contents Count="1"&gt;
+        &lt;Content ID="0" RefID="1" /&gt;
+      &lt;/Contents&gt;
+    &lt;/Pane&gt;
+  &lt;/Panes&gt;
+  &lt;DockWindows&gt;
+    &lt;DockWindow ID="0" DockState="Document" ZOrderIndex="0"&gt;
+      &lt;NestedPanes Count="0" /&gt;
+    &lt;/DockWindow&gt;
+    &lt;DockWindow ID="1" DockState="DockLeft" ZOrderIndex="2"&gt;
+      &lt;NestedPanes Count="0" /&gt;
+    &lt;/DockWindow&gt;
+    &lt;DockWindow ID="2" DockState="DockRight" ZOrderIndex="3"&gt;
+      &lt;NestedPanes Count="2"&gt;
+        &lt;Pane ID="0" RefID="2" PrevPane="-1" Alignment="Bottom" Proportion="0.5" /&gt;
+        &lt;Pane ID="1" RefID="4" PrevPane="2" Alignment="Bottom" Proportion="0.547162071794448" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/DockWindow&gt;
+    &lt;DockWindow ID="3" DockState="DockTop" ZOrderIndex="1"&gt;
+      &lt;NestedPanes Count="1"&gt;
+        &lt;Pane ID="0" RefID="6" PrevPane="-1" Alignment="Left" Proportion="0.5" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/DockWindow&gt;
+    &lt;DockWindow ID="4" DockState="DockBottom" ZOrderIndex="4"&gt;
+      &lt;NestedPanes Count="1"&gt;
+        &lt;Pane ID="0" RefID="0" PrevPane="-1" Alignment="Right" Proportion="0.5" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/DockWindow&gt;
+  &lt;/DockWindows&gt;
+  &lt;FloatWindows Count="4"&gt;
+    &lt;FloatWindow ID="0" Bounds="761, 125, 300, 300" ZOrderIndex="0"&gt;
+      &lt;NestedPanes Count="1"&gt;
+        &lt;Pane ID="0" RefID="1" PrevPane="-1" Alignment="Right" Proportion="0.5" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/FloatWindow&gt;
+    &lt;FloatWindow ID="1" Bounds="969, 600, 300, 300" ZOrderIndex="1"&gt;
+      &lt;NestedPanes Count="1"&gt;
+        &lt;Pane ID="0" RefID="5" PrevPane="-1" Alignment="Right" Proportion="0.5" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/FloatWindow&gt;
+    &lt;FloatWindow ID="2" Bounds="843, 327, 300, 300" ZOrderIndex="2"&gt;
+      &lt;NestedPanes Count="1"&gt;
+        &lt;Pane ID="0" RefID="3" PrevPane="-1" Alignment="Right" Proportion="0.5" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/FloatWindow&gt;
+    &lt;FloatWindow ID="3" Bounds="50, 115, 356, 300" ZOrderIndex="3"&gt;
+      &lt;NestedPanes Count="1"&gt;
+        &lt;Pane ID="0" RefID="7" PrevPane="-1" Alignment="Right" Proportion="0.5" /&gt;
+      &lt;/NestedPanes&gt;
+    &lt;/FloatWindow&gt;
+  &lt;/FloatWindows&gt;
+&lt;/DockPanel&gt;</value>
+  </data>
+  <data name="ApplicationSplash" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\ApplicationSplash.png;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Open" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceSources\Open.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="Options" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\Resources\Options.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+  <data name="New" type="System.Resources.ResXFileRef, System.Windows.Forms">
+    <value>..\ResourceSources\New.bmp;System.Drawing.Bitmap, System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
+  </data>
+</root>

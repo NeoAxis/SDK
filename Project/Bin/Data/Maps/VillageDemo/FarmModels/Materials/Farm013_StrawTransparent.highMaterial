@@ -1,0 +1,13 @@
+highLevelMaterial Farm013_StrawTransparent
+{
+	template = ShaderBaseMaterial
+	halfLambert = True
+	diffuse1Map
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\Straw.dds"
+	}
+	normalMap
+	{
+		texture = "Maps\\VillageDemo\\FarmModels\\Textures\\StrawBale_Normal.dds"
+	}
+}

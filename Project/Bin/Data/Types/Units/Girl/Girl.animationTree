@@ -1,0 +1,773 @@
+blocks
+{
+	block Parameter
+	{
+		uin = 1001
+		parameterName = "weapon"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 201
+		parameterName = "fly"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 5
+		parameterName = "run"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 401
+		parameterName = "move"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 20
+		parameterName = "moveAngle"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 21
+		parameterName = "moveSpeed"
+		value = 1
+	}
+
+	block Parameter
+	{
+		uin = 22
+		parameterName = "weaponHorizontalAngle"
+		value = 0
+	}
+
+	block Parameter
+	{
+		uin = 23
+		parameterName = "weaponVerticalAngle"
+		value = 0
+	}
+
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+
+	block Output
+	{
+		uin = 1
+		in = 1000
+	}
+
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	//Select weapon off, weapon on.
+
+	block Transition
+	{
+		uin = 1000
+	
+		selectedIndexSource = 1001
+		animation0 = 101 // weapon off
+		animation1 = 2000 // weapon on
+	}
+
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	//Weapon off
+
+	/////////////////////////////////////////////
+	//Jump trigger
+
+	block Trigger
+	{
+		uin = 101
+		triggerName = "jump"
+		off = 200
+		on = 100
+	}
+
+	block Animation
+	{
+		uin = 100
+		animationName = "jump"
+		speed = 1.0
+	}
+
+	/////////////////////////////////////////////
+	//Select fly or go down (run, walk, idle)
+
+	block Transition
+	{
+		uin = 200
+	
+		selectedIndexSource = 201
+		animation0 = 2 // idle animation, walk, run
+		animation1 = 202 // play fly animation
+	}
+
+	block Animation
+	{
+		uin = 202
+		animationName = "fly"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//Select run or go down (walk, idle)
+
+	block Transition
+	{
+		uin = 2
+	
+		selectedIndexSource = 5
+		animation0 = 400 // go to walk or idle animation
+		animation1 = 10 // go to run
+	}
+
+	/////////////////////////////////////////////
+	//Run
+
+	block Direction8Sides
+	{
+		uin = 10
+
+		angleSource = 20
+		speedMultiplierSource = 21
+
+		forward = 12
+		backward = 15
+		left = 13
+		right = 14
+		forwardLeft = 16
+		forwardRight = 17
+		backwardLeft = 18
+		backwardRight = 19
+	}
+
+	block Animation
+	{
+		uin = 12
+		animationName = "runForward"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 13
+		animationName = "runLeft"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 14
+		animationName = "runRight"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 15
+		animationName = "runForward"
+		speed = -0.23
+	}
+
+	block Animation
+	{
+		uin = 16
+		animationName = "runForwardLeft"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 17
+		animationName = "runForwardRight"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 18
+		animationName = "runForwardRight"
+		speed = -0.23
+	}
+
+	block Animation
+	{
+		uin = 19
+		animationName = "runForwardLeft"
+		speed = -0.23
+	}
+
+	/////////////////////////////////////////////
+	//Select walk or idle
+
+	block Transition
+	{
+		uin = 400
+	
+		selectedIndexSource = 401 //parameter "move"
+		animation0 = 3 // go to idle animation
+		animation1 = 310 // go to walk
+	}
+
+	/////////////////////////////////////////////
+	//Walk
+
+	block Direction8Sides
+	{
+		uin = 310
+
+		angleSource = 20
+		speedMultiplierSource = 21
+
+		forward = 312
+		backward = 315
+		left = 313
+		right = 314
+		forwardLeft = 316
+		forwardRight = 317
+		backwardLeft = 318
+		backwardRight = 319
+	}
+
+	block Animation
+	{
+		uin = 312
+		animationName = "walkForward"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 313
+		animationName = "walkLeft"
+		speed = 1.5
+	}
+
+	block Animation
+	{
+		uin = 314
+		animationName = "walkRight"
+		speed = 1.5
+	}
+
+	block Animation
+	{
+		uin = 315
+		animationName = "walkBackward"
+		speed = 1.5
+	}
+
+	block Animation
+	{
+		uin = 316
+		animationName = "walkForwardLeft"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 317
+		animationName = "walkForwardRight"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 318
+		animationName = "walkForwardRight"
+		speed = -0.8
+	}
+
+	block Animation
+	{
+		uin = 319
+		animationName = "walkForwardLeft"
+		speed = -0.8
+	}
+
+	/////////////////////////////////////////////
+	//Idle
+
+	block Animation
+	{
+		uin = 3
+		animationName = "idle"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	//Weapon on
+
+	//mix upper body and lower body.
+	block Sum
+	{
+		uin = 2000
+		
+		animation0 = 2300 // upper body
+		animation1 = 3101 // lower body
+	}
+
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	//Weapon On - Upper Body
+
+	//Select run or go down (walk, idle)
+	block Transition
+	{
+		uin = 2300
+	
+		selectedIndexSource = 5 //parameter "run"
+		animation0 = 2301 // go to walk or idle animation
+		animation1 = 2202 // go to run
+	}
+
+	//Select walk or idle
+	block Transition
+	{
+		uin = 2301
+	
+		selectedIndexSource = 401 //parameter "move"
+		animation0 = 2002 // go to idle animation
+		animation1 = 2102 // go to walk
+	}
+
+	/////////////////////////////////////////////
+	//Weapon On - Upper Body - Idle
+
+	block LookAt
+	{
+		uin = 2002
+
+		horizontalAngle = 0
+		verticalAngleSource = 23
+
+		centerUp = 2004
+		centerCenter = 2005
+		centerDown = 2006
+	}
+
+	block Animation
+	{
+		uin = 2004
+		animationName = "upperBody_idle_weapon_center_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2005
+		animationName = "upperBody_idle_weapon_center_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2006
+		animationName = "upperBody_idle_weapon_center_down"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//Weapon On - Upper Body - Walk
+
+	block LookAt
+	{
+		uin = 2102
+
+		horizontalAngleSource = 22
+		verticalAngleSource = 23
+
+		horizontalAngleSpeed = 300 //degress per second
+
+		leftUp = 2104
+		leftCenter = 2105
+		leftDown = 2106
+		centerUp = 2107
+		centerCenter = 2108
+		centerDown = 2109
+		rightUp = 2110
+		rightCenter = 2111
+		rightDown = 2112
+	}
+
+	block Animation
+	{
+		uin = 2104
+		animationName = "upperBody_walk_weapon_left_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2105
+		animationName = "upperBody_walk_weapon_left_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2106
+		animationName = "upperBody_walk_weapon_left_down"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2107
+		animationName = "upperBody_walk_weapon_center_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2108
+		animationName = "upperBody_walk_weapon_center_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2109
+		animationName = "upperBody_walk_weapon_center_down"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2110
+		animationName = "upperBody_walk_weapon_right_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2111
+		animationName = "upperBody_walk_weapon_right_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2112
+		animationName = "upperBody_walk_weapon_right_down"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//Weapon On - Upper Body - Run
+
+	block LookAt
+	{
+		uin = 2202
+
+		horizontalAngleSource = 22
+		verticalAngleSource = 23
+
+		horizontalAngleSpeed = 300 //degress per second
+
+		leftUp = 2204
+		leftCenter = 2205
+		leftDown = 2206
+		centerUp = 2207
+		centerCenter = 2208
+		centerDown = 2209
+		rightUp = 2210
+		rightCenter = 2211
+		rightDown = 2212
+	}
+
+	block Animation
+	{
+		uin = 2204
+		animationName = "upperBody_run_weapon_left_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2205
+		animationName = "upperBody_run_weapon_left_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2206
+		animationName = "upperBody_run_weapon_left_down"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2207
+		animationName = "upperBody_run_weapon_center_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2208
+		animationName = "upperBody_run_weapon_center_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2209
+		animationName = "upperBody_run_weapon_center_down"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2210
+		animationName = "upperBody_run_weapon_right_up"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2211
+		animationName = "upperBody_run_weapon_right_center"
+		speed = 1
+	}
+	block Animation
+	{
+		uin = 2212
+		animationName = "upperBody_run_weapon_right_down"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	/////////////////////////////////////////////
+	//Weapon On - Lower Body
+
+	/////////////////////////////////////////////
+	//Jump trigger
+
+	block Trigger
+	{
+		uin = 3101
+		triggerName = "jump"
+		off = 3200
+		on = 3100
+	}
+
+	block Animation
+	{
+		uin = 3100
+		animationName = "lowerBody_jump"
+		speed = 1.0
+	}
+
+	/////////////////////////////////////////////
+	//Select fly or go down (run, walk, idle)
+
+	block Transition
+	{
+		uin = 3200
+	
+		selectedIndexSource = 201
+		animation0 = 3002 // idle animation, walk, run
+		animation1 = 3202 // play fly animation
+	}
+
+	block Animation
+	{
+		uin = 3202
+		animationName = "lowerBody_fly"
+		speed = 1
+	}
+
+	/////////////////////////////////////////////
+	//Select run or go down (walk, idle)
+
+	block Transition
+	{
+		uin = 3002
+	
+		selectedIndexSource = 5
+		animation0 = 3400 // go to walk or idle animation
+		animation1 = 3010 // go to run
+	}
+
+	/////////////////////////////////////////////
+	//Run
+
+	block Direction8Sides
+	{
+		uin = 3010
+
+		angleSource = 20
+		speedMultiplierSource = 21
+
+		forward = 3012
+		backward = 3015
+		left = 3013
+		right = 3014
+		forwardLeft = 3016
+		forwardRight = 3017
+		backwardLeft = 3018
+		backwardRight = 3019
+	}
+
+	block Animation
+	{
+		uin = 3012
+		animationName = "lowerBody_runForward"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 3013
+		animationName = "lowerBody_runLeft"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 3014
+		animationName = "lowerBody_runRight"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 3015
+		animationName = "lowerBody_runForward"
+		speed = -0.23
+	}
+
+	block Animation
+	{
+		uin = 3016
+		animationName = "lowerBody_runForwardLeft"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 3017
+		animationName = "lowerBody_runForwardRight"
+		speed = 0.23
+	}
+
+	block Animation
+	{
+		uin = 3018
+		animationName = "lowerBody_runForwardRight"
+		speed = -0.23
+	}
+
+	block Animation
+	{
+		uin = 3019
+		animationName = "lowerBody_runForwardLeft"
+		speed = -0.23
+	}
+
+	/////////////////////////////////////////////
+	//Select walk or idle
+
+	block Transition
+	{
+		uin = 3400
+	
+		selectedIndexSource = 401 //parameter "move"
+		animation0 = 3003 // go to idle animation
+		animation1 = 3310 // go to walk
+	}
+
+	/////////////////////////////////////////////
+	//Walk
+
+	block Direction8Sides
+	{
+		uin = 3310
+
+		angleSource = 20
+		speedMultiplierSource = 21
+
+		forward = 3312
+		backward = 3315
+		left = 3313
+		right = 3314
+		forwardLeft = 3316
+		forwardRight = 3317
+		backwardLeft = 3318
+		backwardRight = 3319
+	}
+
+	block Animation
+	{
+		uin = 3312
+		animationName = "lowerBody_walkForward"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 3313
+		animationName = "lowerBody_walkLeft"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 3314
+		animationName = "lowerBody_walkRight"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 3315
+		animationName = "lowerBody_walkBackward"
+		speed = 1.5
+	}
+
+	block Animation
+	{
+		uin = 3316
+		animationName = "lowerBody_walkForwardLeft"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 3317
+		animationName = "lowerBody_walkForwardRight"
+		speed = 0.8
+	}
+
+	block Animation
+	{
+		uin = 3318
+		animationName = "lowerBody_walkForwardRight"
+		speed = -0.8
+	}
+
+	block Animation
+	{
+		uin = 3319
+		animationName = "lowerBody_walkForwardLeft"
+		speed = -0.8
+	}
+
+	/////////////////////////////////////////////
+	//Idle
+
+	block Animation
+	{
+		uin = 3003
+		animationName = "lowerBody_idle"
+		speed = 1
+	}
+
+
+
+}

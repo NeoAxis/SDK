@@ -1,0 +1,25 @@
+type RobotDead
+{
+	class = Corpse
+	substance = Metal
+	lifeTime = 10
+	physicsModel = Types\Units\Robot\RobotDead\RobotDead.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Units\Robot\Robot.mesh
+			castDynamicShadows = True
+			body = main
+			position = 0 0 -0.2
+			animationTree = "Types\\Units\\Robot\\RobotDead\\RobotDead.animationTree"
+		}
+		particle
+		{
+			particleName = SmallSmokeParticle2
+			position = 0.7 0 0.3
+		}
+	}
+}

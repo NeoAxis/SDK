@@ -1,0 +1,17 @@
+type ExampleMagicBall
+{
+	class = ExampleMagicObject
+	blinkMaterialName = ExampleMagicBallBlinkMaterial
+	physicsModel = Types\Dynamic\ExampleMagicBall\ExampleMagicBall.physics
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = Types\Dynamic\Ball\Ball.mesh
+			castDynamicShadows = True
+			body = main
+		}
+	}
+}

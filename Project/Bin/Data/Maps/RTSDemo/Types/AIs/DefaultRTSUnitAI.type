@@ -1,0 +1,5 @@
+type DefaultRTSUnitAI
+{
+	class = RTSUnitAI
+	creatableInMapEditor = False
+}

@@ -1,0 +1,15 @@
+highLevelMaterial RobotBulletHit2
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.4
+	depthOffset = -0.3
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Types\\Units\\Robot\\RobotBullet\\RobotBulletHit.tga"
+	}
+}

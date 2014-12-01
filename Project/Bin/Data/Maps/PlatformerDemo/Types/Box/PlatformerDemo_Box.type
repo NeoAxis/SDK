@@ -1,0 +1,19 @@
+type PlatformerDemo_Box
+{
+	class = Dynamic
+	targetPriority = 1
+	soundCollision = ".\\Collision.ogg"
+	soundCollisionMinVelocity = 2
+	physicsModel = ".\\Box.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Box.mesh"
+			castDynamicShadows = True
+			body = main
+		}
+	}
+}

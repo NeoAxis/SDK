@@ -1,0 +1,27 @@
+highLevelMaterial Tree06A_Branch
+{
+	template = VegetationMaterial
+	alphaRejectFunction = Greater
+	halfLambert = True
+	specularColor = 1 1 1
+	specularPower = 0.5
+	specularShininess = 8
+	translucencyColor = 1 1 1
+	translucencyClearness = 1
+	bendVariation = 0.005
+	detailBending = True
+	branchAmplitude = 0.1
+	leafAmplitude = 0.1
+	diffuse1Map
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Branch6A-Diffuse.dds"
+	}
+	specularMap
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Branch6A-Specularity.dds"
+	}
+	translucencyMap
+	{
+		texture = "Types\\Vegetation\\Trees\\Textures\\Branch6A-Translucency.dds"
+	}
+}

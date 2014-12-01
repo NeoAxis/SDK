@@ -1,0 +1,18 @@
+type RTSGeyser
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\RTSGeyser.mesh"
+			castDynamicShadows = True
+		}
+		particle
+		{
+			particleName = RTSGeyserParticle
+			updateWhenItNotInView = False
+		}
+	}
+}

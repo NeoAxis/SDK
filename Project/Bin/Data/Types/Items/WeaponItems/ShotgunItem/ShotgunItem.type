@@ -1,0 +1,25 @@
+type ShotgunItem
+{
+	class = WeaponItem
+	weaponType = Shotgun
+	bulletType = ShotgunBullet
+	bulletCount = 1000
+	bulletType2 = ShotgunGravityBullet
+	bulletCount2 = 1000
+	defaultRespawnTime = 10
+	soundTake = "Types/Items/DefaultItemTake.ogg"
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Weapons\\Shotgun\\Shotgun.mesh"
+			castDynamicShadows = True
+		}
+		particle
+		{
+			particleName = ItemParticle
+			position = 0 0 -0.1236138
+		}
+	}
+}

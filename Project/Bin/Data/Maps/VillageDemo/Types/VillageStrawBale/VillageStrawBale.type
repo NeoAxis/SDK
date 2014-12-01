@@ -1,0 +1,15 @@
+type VillageStrawBale
+{
+	class = Dynamic
+	physicsModel = "Maps\\VillageDemo\\Types\\VillageStrawBale\\VillageStrawBale.physics"
+	allowEditorCreate = True
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Maps\\VillageDemo\\Types\\VillageStrawBale\\meshU3D_008.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

@@ -1,0 +1,7 @@
+highLevelMaterial TerminalBackground
+{
+	template = ShaderBaseMaterial
+	blending = AlphaBlend
+	halfLambert = True
+	diffuseColor = 0 0.1372549 0.4470589 0.2078432
+}

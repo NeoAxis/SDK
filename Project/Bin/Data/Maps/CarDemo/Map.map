@@ -1,0 +1,2890 @@
+type = GameMap
+uin = 2
+classPrompt = GameMap
+gameMusic = "Sounds\\Music\\Game.ogg"
+windDirection = 0
+windSpeed = 1
+resetYCoordinateForDynamicBodies = False
+destroyObjectsBelowHeight = -500
+ambientLight = 0.2784314 0.2784314 0.2784314
+editorCameraPosition = 171.064 -49.74894 12.27633
+editorCameraDirection = 1.542604 -0.7839409
+shadowColor = 0.8 0.8 0.8
+shadowFarDistance = 100
+shadowPSSMSplitFactors = 0.1 0.4
+logicSystemManager = 3
+shadowTechnique = ShadowmapMedium
+sceneGraphSettings
+{
+	amountOfObjectsOutsideOctreeBoundsToRebuld = 30
+	octreeBoundsRebuildExpand = 50 50 50
+	minNodeSize = 10 10 10
+	objectCountThresholdToCreateChildNodes = 10
+	maxNodeCount = 300000
+}
+dataForEditor
+{
+	loadSaveSelection7 = 36 149 150 121 118 122 110 114 115
+}
+rootEditorLayer
+{
+	name = Root Layer
+	layer
+	{
+		name = type
+		allowSelect = False
+	}
+	layer
+	{
+		name = tribune
+	}
+	layer
+	{
+		name = boks
+	}
+	layer
+	{
+		name = model
+	}
+	layer
+	{
+		name = Tree
+		layer
+		{
+			name = Layer 1
+		}
+	}
+	layer
+	{
+		name = Bilbord
+	}
+	layer
+	{
+		name = Barier
+	}
+	layer
+	{
+		name = Cone
+	}
+	layer
+	{
+		name = Ograda
+	}
+}
+entity
+{
+	type = LogicSystemManager
+	uin = 3
+	mapClassManager = 4
+	entity
+	{
+		type = LogicClassManager
+		uin = 4
+	}
+}
+entity
+{
+	type = Sun
+	uin = 5
+	classPrompt = Sun
+	billboardTexture = "Base\\Types\\Sun\\SunDefault.png"
+	billboardColor = 1 1 1
+	billboardPower = 1
+	billboardSize = 1
+	billboardRenderQueueGroup = Main
+	billboardOverridePosition = 0 0 0
+	enabled = True
+	lightType = Directional
+	diffuseColor = 1 1 1
+	diffusePower = 1
+	specularColor = 1 1 1
+	specularPower = 1
+	attenuationNear = 0
+	attenuationFar = 10
+	attenuationPower = 2
+	ffpAttenuationConstant = 1
+	ffpAttenuationLinear = 0
+	ffpAttenuationQuadric = 0
+	spotlightInnerAngle = 30
+	spotlightOuterAngle = 40
+	spotlightFalloff = 1
+	castShadows = True
+	allowStaticLighting = True
+	allowDynamicLighting = True
+	customShaderParameter = 0 0 0 0
+	position = 126.9694 -204.9077 2.628948
+	rotation = -0.5487301 -0.3291736 0.5563517 -0.5301068
+	name = Sun_0
+}
+entity
+{
+	type = SkyBox
+	uin = 6
+	classPrompt = SkyBox
+	enabled = True
+	color = 1 1 1
+	power = 1
+}
+entity
+{
+	type = SpawnPoint
+	uin = 7
+	classPrompt = SpawnPoint
+	defaultPoint = False
+	position = 167.6559 -34.05377 0.1241593
+	rotation = 0 0 0.3088233 0.9511194
+	name = SpawnPoint_0
+}
+entity
+{
+	type = CD_Grass
+	uin = 8
+	classPrompt = MapObject
+	subscriptionsToDeletionEvent = 198
+	position = 0 0 0
+	name = CD_Grass_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = CD_Border
+	uin = 9
+	classPrompt = MapObject
+	position = 0 0 0
+	name = CD_Border_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = CD_Gravel
+	uin = 10
+	classPrompt = MapObject
+	position = 0 0 0
+	name = CD_Gravel_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = CD_Pit
+	uin = 11
+	classPrompt = MapObject
+	position = 0 0 0
+	name = CD_Pit_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = CD_Roadside
+	uin = 12
+	classPrompt = MapObject
+	position = 0 0 0
+	name = CD_Roadside_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = CD_Track
+	uin = 13
+	classPrompt = MapObject
+	position = 0 0 0
+	name = CD_Track_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = StaticMesh
+	uin = 14
+	classPrompt = StaticMesh
+	position = 275.7635 -236.4591 -0.1866609
+	name = StaticMesh_tribuna_0
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune.mesh"
+	collision = False
+}
+entity
+{
+	type = StaticMesh
+	uin = 15
+	classPrompt = StaticMesh
+	position = 502.2213 -195.9372 -0.08017503
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_tribuna01_0
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune1.mesh"
+	collision = False
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 16
+	classPrompt = StaticMesh
+	position = 175.8 -236.4528 -0.1866609
+	name = StaticMesh_0
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune.mesh"
+	collision = False
+}
+entity
+{
+	type = StaticMesh
+	uin = 17
+	classPrompt = StaticMesh
+	position = 75.8 -236.4591 -0.1866609
+	name = StaticMesh_1
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune.mesh"
+	collision = False
+}
+entity
+{
+	type = StaticMesh
+	uin = 18
+	classPrompt = StaticMesh
+	position = -24.2 -236.4591 -0.1866609
+	name = StaticMesh_2
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune.mesh"
+	collision = False
+}
+entity
+{
+	type = StaticMesh
+	uin = 19
+	classPrompt = StaticMesh
+	position = -492.0084 -173.4941 24.83588
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_3
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune1.mesh"
+	collision = False
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 20
+	classPrompt = StaticMesh
+	position = 500.2786 197.4049 -1.657399
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_4
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune1.mesh"
+	collision = False
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 21
+	classPrompt = StaticMesh
+	position = 500.3 97.4 -1.657399
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_5
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune1.mesh"
+	collision = False
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 22
+	classPrompt = StaticMesh
+	position = -496.555 -23.27075 21.20362
+	rotation = 0 0 -0.7071068 0.7071068
+	name = StaticMesh_6
+	editorLayer = "Root Layer\\tribune"
+	meshName = "Maps\\CarDemo\\Model\\Tribune\\Tribune1.mesh"
+	collision = False
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 23
+	classPrompt = StaticMesh
+	position = 272.1 -165.3997 0
+	name = StaticMesh_boks_0
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 24
+	classPrompt = StaticMesh
+	position = 246.6 -165.3997 0.09337839
+	name = StaticMesh_center_0
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Center.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 25
+	classPrompt = StaticMesh
+	position = 224.4 -165.3997 0
+	name = StaticMesh_boks02_0
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks02.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 26
+	classPrompt = StaticMesh
+	position = 206.7 -165.4546 0
+	name = StaticMesh_7
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 27
+	classPrompt = StaticMesh
+	position = 185.7 -165.4546 0
+	name = StaticMesh_8
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 28
+	classPrompt = StaticMesh
+	position = 164.7 -165.4 0
+	name = StaticMesh_9
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 29
+	classPrompt = StaticMesh
+	position = 143.7 -165.4546 0
+	name = StaticMesh_10
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 30
+	classPrompt = StaticMesh
+	position = 122.7 -165.4546 0
+	name = StaticMesh_11
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 31
+	classPrompt = StaticMesh
+	position = 101.7 -165.4546 0
+	name = StaticMesh_12
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 32
+	classPrompt = StaticMesh
+	position = 80.7 -165.4546 0
+	name = StaticMesh_13
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 33
+	classPrompt = StaticMesh
+	position = 59.7 -165.4546 0
+	name = StaticMesh_14
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 34
+	classPrompt = StaticMesh
+	position = 38.7 -165.4546 0
+	name = StaticMesh_15
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 35
+	classPrompt = StaticMesh
+	position = 17.7 -165.4546 0
+	name = StaticMesh_16
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = BMWi8
+	uin = 36
+	classPrompt = Car
+	tireType = Wets
+	autoGear = True
+	autoGearAutoReverse = True
+	intellectShouldDeleteAfterDetach = False
+	healthFactorAtBeginning = 1
+	position = 182.2797 -25.7761 1.073701
+	rotation = 1.93284E-05 -0.002066637 0.9999979 2.739723E-07
+	name = BMWi8_0
+}
+entity
+{
+	type = CD_Ograda
+	uin = 37
+	classPrompt = MapObject
+	position = 0 0 -0.1
+	name = CD_Ograda_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = StaticMesh
+	uin = 38
+	classPrompt = StaticMesh
+	position = 224.2636 -171.2279 17.16343
+	name = StaticMesh_flag_2
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Flag.mesh"
+	collision = False
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 39
+	classPrompt = StaticMesh
+	position = 241.3144 -209.0218 -0.09952211
+	name = StaticMesh_naves_0
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Naves.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 40
+	classPrompt = StaticMesh
+	position = 69.37624 -208.9937 -0.0760566
+	name = StaticMesh_naves_svet_0
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Naves_svet.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 41
+	classPrompt = StaticMesh
+	position = -40.69484 -196.9951 0.4736459
+	name = StaticMesh_pit svet_0
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Pit svet.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 42
+	classPrompt = StaticMesh
+	position = 224.1895 -172.0112 4.104391
+	name = StaticMesh_podium_0
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Podium.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 43
+	classPrompt = StaticMesh
+	position = -46.17526 -198.3025 0.4120031
+	rotation = 0 0 -0.3826834 0.9238796
+	name = StaticMesh_tablo_0
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Board.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 44
+	classPrompt = StaticMesh
+	position = 227.2835 -171.2279 15.51542
+	name = StaticMesh_17
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Flag.mesh"
+	collision = False
+	castDynamicShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 45
+	classPrompt = StaticMesh
+	position = 221.2189 -171.2279 15.48142
+	name = StaticMesh_18
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Other\\Flag.mesh"
+	collision = False
+	castDynamicShadows = True
+}
+entity
+{
+	type = CubemapZone
+	uin = 46
+	classPrompt = CubemapZone
+	enabled = True
+	updateEveryFrame = False
+	textureSize = Size1024x1024
+	useHDRTexture = False
+	allowHDRCompositor = False
+	globalZone = True
+	nearFarClipDistance = 1 1000
+	drawDynamicObjects = False
+	drawEffects = False
+	shadowsEnabled = False
+	position = 246.6004 -165.4224 10.07475
+	rotation = 0 0 1 7.54979E-08
+	scale = 31 21 21
+	name = CubemapZone_0
+}
+entity
+{
+	type = StaticMesh
+	uin = 47
+	classPrompt = StaticMesh
+	position = 505.4271 -100.6683 4.6326
+	rotation = -0.4545195 0.4545195 0.5416753 -0.5416752
+	scale = 90 25 1
+	name = StaticMesh_Plane_0
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 48
+	classPrompt = StaticMesh
+	position = 454.0621 -255.3519 4.6326
+	rotation = -4.852912E-08 0.6427876 0.7660445 5.783475E-08
+	scale = 90 25 1
+	name = StaticMesh_39
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 49
+	classPrompt = StaticMesh
+	position = 505.4271 -10.93294 4.6326
+	rotation = -0.4545195 0.4545195 0.5416753 -0.5416752
+	scale = 90 25 1
+	name = StaticMesh_84
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 50
+	classPrompt = StaticMesh
+	position = 471.7595 253.2142 4.6326
+	rotation = -0.6427876 6.018048E-09 1.165801E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_85
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 51
+	classPrompt = StaticMesh
+	position = 381.7507 253.2142 4.6326
+	rotation = -0.6427876 6.018048E-09 1.165801E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_88
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 52
+	classPrompt = StaticMesh
+	position = 292.2182 253.2142 4.6326
+	rotation = -0.6427876 6.018048E-09 1.165801E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_89
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 53
+	classPrompt = StaticMesh
+	position = 202.3779 249.3415 4.6326
+	rotation = -0.6421759 -0.028038 -0.03341428 -0.7653155
+	scale = 90 25 1
+	name = StaticMesh_90
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 54
+	classPrompt = StaticMesh
+	position = 112.8173 241.6353 4.6326
+	rotation = -0.6421759 -0.028038 -0.03341428 -0.7653155
+	scale = 90 25 1
+	name = StaticMesh_91
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 55
+	classPrompt = StaticMesh
+	position = 23.28719 233.7151 4.6326
+	rotation = -0.6421759 -0.028038 -0.03341428 -0.7653155
+	scale = 90 25 1
+	name = StaticMesh_92
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 56
+	classPrompt = StaticMesh
+	position = 364.1776 -255.3519 4.6326
+	rotation = -4.852912E-08 0.6427876 0.7660445 5.783475E-08
+	scale = 90 25 1
+	name = StaticMesh_143
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 57
+	classPrompt = StaticMesh
+	position = 413.4172 -247.5883 -1.721617
+	rotation = 0 0 -0.08715574 0.9961947
+	name = StaticMesh_tree28_0
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 58
+	classPrompt = StaticMesh
+	position = 494.1486 -57.62657 -1.344917
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_19
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 59
+	classPrompt = StaticMesh
+	position = 404.9588 246.8867 -2.425655
+	rotation = 0 0 1 8.42937E-08
+	name = StaticMesh_20
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 60
+	classPrompt = StaticMesh
+	position = 233.0587 240.0587 -2.425655
+	rotation = 0 0 1 8.42937E-08
+	name = StaticMesh_21
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 61
+	classPrompt = StaticMesh
+	position = 69.7178 231.2494 -2.425655
+	rotation = 0 0 1 8.42937E-08
+	name = StaticMesh_22
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 62
+	classPrompt = StaticMesh
+	position = -92.42084 221.0365 -2.425655
+	rotation = 0 0 0.9990482 -0.0436193
+	name = StaticMesh_23
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 63
+	classPrompt = StaticMesh
+	position = -261.235 209.5835 -2.440911
+	rotation = 0 1.327699E-16 1 8.560013E-08
+	name = StaticMesh_24
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 64
+	classPrompt = StaticMesh
+	position = -377.9771 209.5835 5.179136
+	rotation = 0.04361939 3.733825E-09 0.9990482 8.551866E-08
+	name = StaticMesh_25
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 65
+	classPrompt = StaticMesh
+	position = -497.9367 184.8592 13.89985
+	rotation = 0 0 0.3420201 0.9396926
+	name = StaticMesh_26
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 66
+	classPrompt = StaticMesh
+	position = -496.3763 113.1311 19.74149
+	rotation = 0 0 0.7071068 0.7071068
+	name = StaticMesh_27
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 67
+	classPrompt = StaticMesh
+	position = -506.1859 -101.0586 21.52777
+	rotation = 0 0 0.7071069 0.7071069
+	name = StaticMesh_28
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 68
+	classPrompt = StaticMesh
+	position = -417.7376 -244.6846 17.07742
+	rotation = 0.04361939 1.83842E-09 0.9990484 4.210674E-08
+	name = StaticMesh_29
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 69
+	classPrompt = StaticMesh
+	position = -252.9736 -240.6927 7.099025
+	rotation = 0.02311609 9.742706E-10 0.9997329 4.213559E-08
+	name = StaticMesh_30
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 70
+	classPrompt = StaticMesh
+	position = -163.4975 -235.4145 3.049892
+	rotation = 0.02311609 9.742706E-10 0.9997329 4.213559E-08
+	name = StaticMesh_31
+	editorLayer = "Root Layer\\Tree"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 71
+	classPrompt = StaticMesh
+	position = 510.5574 45.66092 4.6326
+	rotation = -0.4545195 0.4545195 0.5416753 -0.5416752
+	scale = 90 25 1
+	name = StaticMesh_32
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 72
+	classPrompt = StaticMesh
+	position = -64.63173 230.4269 4.6326
+	rotation = -0.6427876 5.646579E-09 1.161107E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_33
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 73
+	classPrompt = StaticMesh
+	position = -154.3564 230.4269 4.6326
+	rotation = -0.6427876 5.646579E-09 1.161107E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_34
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 74
+	classPrompt = StaticMesh
+	position = -244.0618 230.4269 4.6326
+	rotation = -0.6427876 5.646579E-09 1.161107E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_35
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 75
+	classPrompt = StaticMesh
+	position = -333.4513 230.4269 4.6326
+	rotation = -0.6427876 5.646579E-09 1.161107E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_36
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 76
+	classPrompt = StaticMesh
+	position = -423.3378 230.4269 12.01164
+	rotation = -0.6427876 5.646579E-09 1.161107E-07 -0.7660446
+	scale = 90 25 1
+	name = StaticMesh_37
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 77
+	classPrompt = StaticMesh
+	position = -496.2554 213.0459 19.37499
+	rotation = -0.5938584 -0.2459842 -0.2931525 -0.707733
+	scale = 90 25 1
+	name = StaticMesh_38
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 78
+	classPrompt = StaticMesh
+	position = -496.2554 213.0459 19.37499
+	rotation = -0.4545195 -0.4545195 -0.5416752 -0.5416754
+	scale = 90 25 1
+	name = StaticMesh_40
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 79
+	classPrompt = StaticMesh
+	position = -508.291 150.0157 23.83951
+	rotation = -0.4545195 -0.4545195 -0.5416752 -0.5416754
+	scale = 90 25 1
+	name = StaticMesh_41
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 80
+	classPrompt = StaticMesh
+	position = -508.291 60.10532 23.83951
+	rotation = -0.4545195 -0.4545195 -0.5416752 -0.5416754
+	scale = 90 25 1
+	name = StaticMesh_42
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 81
+	classPrompt = StaticMesh
+	position = -508.291 -96.30093 25.86523
+	rotation = -0.4545195 -0.4545195 -0.5416752 -0.5416754
+	scale = 90 25 1
+	name = StaticMesh_43
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 82
+	classPrompt = StaticMesh
+	position = -508.291 -257.7353 27.611
+	rotation = -0.4545195 -0.4545195 -0.5416752 -0.5416754
+	scale = 90 25 1
+	name = StaticMesh_44
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 83
+	classPrompt = StaticMesh
+	position = -466.3353 -257.7353 23.30881
+	rotation = -4.81649E-08 -0.6427877 -0.7660446 -2.008738E-07
+	scale = 90 25 1
+	name = StaticMesh_45
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 84
+	classPrompt = StaticMesh
+	position = -376.7486 -257.7353 15.82169
+	rotation = -4.81649E-08 -0.6427877 -0.7660446 -2.008738E-07
+	scale = 90 25 1
+	name = StaticMesh_46
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 85
+	classPrompt = StaticMesh
+	position = -287.2264 -257.7353 11.40701
+	rotation = -4.81649E-08 -0.6427877 -0.7660446 -2.008738E-07
+	scale = 90 25 1
+	name = StaticMesh_47
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 86
+	classPrompt = StaticMesh
+	position = -197.1746 -257.7353 8.600427
+	rotation = -4.81649E-08 -0.6427877 -0.7660446 -2.008738E-07
+	scale = 90 25 1
+	name = StaticMesh_48
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 87
+	classPrompt = StaticMesh
+	position = -107.5695 -257.7353 4.459921
+	rotation = -4.81649E-08 -0.6427877 -0.7660446 -2.008738E-07
+	scale = 90 25 1
+	name = StaticMesh_49
+	editorLayer = "Root Layer\\Bilbord"
+	meshName = "Base\\Simple Models\\Plane.mesh"
+	forceMaterial = CD_Tree_Bilbord
+}
+entity
+{
+	type = StaticMesh
+	uin = 88
+	classPrompt = StaticMesh
+	position = 495.7275 -251.5892 -3.036897
+	name = StaticMesh_tree2_0
+	editorLayer = "Root Layer\\Tree\\Layer 1"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree1.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 89
+	classPrompt = StaticMesh
+	position = 496.3633 41.28726 -2.380246
+	name = StaticMesh_tree2_1
+	editorLayer = "Root Layer\\Tree\\Layer 1"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree2.mesh"
+}
+entity
+{
+	type = StaticMesh
+	uin = 90
+	classPrompt = StaticMesh
+	position = 496.0805 31.98739 -2.741349
+	name = StaticMesh_tree01_0
+	editorLayer = "Root Layer\\Tree\\Layer 1"
+	meshName = "Maps\\CarDemo\\Model\\Tree\\Tree2.mesh"
+}
+entity
+{
+	type = CD_Test
+	uin = 91
+	classPrompt = MapObject
+	position = 0 0 0
+	name = CD_Test_0
+	editorLayer = "Root Layer\\type"
+}
+entity
+{
+	type = StaticMesh
+	uin = 92
+	classPrompt = StaticMesh
+	position = 0 0 0
+	name = StaticMesh_zab_0
+	editorLayer = "Root Layer\\model"
+	meshName = "Maps\\CarDemo\\Model\\Ograda\\Ograda_Test.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = MapCompositorManager
+	uin = 93
+	classPrompt = MapCompositorManager
+	items
+	{
+		item
+		{
+			name = SSAO
+			Intensity = 1
+			Downsampling = 2
+			SampleLength = 2
+			OffsetScale = 0.1
+			DefaultAccessibility = 0.6
+			MaxDistance = 40
+			BlurSpread = 1
+			ShowAO = False
+			Enabled = True
+		}
+		item
+		{
+			name = DepthOfField
+			FocalDistance = 30
+			AutoFocus = False
+			FocalSize = 120
+			BlurSpread = 0.2
+			BlurTextureResolution = 6
+			BackgroundTransitionLength = 400
+			BlurForeground = True
+			ForegroundTransitionLength = 80
+			AutoFocusRange = 1 80
+			AutoFocusTransitionSpeed = 100
+			Enabled = True
+		}
+	}
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 94
+	classPrompt = MapObject
+	position = 105.4421 -41.98612 0.531823
+	name = Cone_2
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = StaticMesh
+	uin = 95
+	classPrompt = StaticMesh
+	position = 117.8317 18.88534 -0.1
+	rotation = 0 0 1 7.54979E-08
+	scale = 1 2 1
+	name = StaticMesh_Barrier_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 96
+	classPrompt = StaticMesh
+	position = 117.8 6.671453 -0.1
+	scale = 1 2 1
+	name = StaticMesh_Barrier_1
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 97
+	classPrompt = StaticMesh
+	position = 103.3448 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_Barrier_police_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 98
+	classPrompt = StaticMesh
+	position = 122.9723 103.9307 0.02191127
+	scale = 1 1.5 2
+	name = StaticMesh_Barrier2_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier2.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 99
+	classPrompt = StaticMesh
+	position = 115.7463 83.89167 0.01676952
+	scale = 1 1.5 2
+	name = StaticMesh_Barrier3_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier3.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 100
+	classPrompt = StaticMesh
+	position = 114.9678 60.9763 0.04288144
+	scale = 1 1.5 2
+	name = StaticMesh_Barrier4_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier4.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 101
+	classPrompt = StaticMesh
+	position = 154.4356 -71.52902 -0.07612948
+	scale = 2 2 1
+	name = StaticMesh_Barrier5_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 102
+	classPrompt = StaticMesh
+	position = 173.1965 -101.768 -0.127371
+	scale = 2 2 1
+	name = StaticMesh_Barrier6_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier6.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 103
+	classPrompt = StaticMesh
+	position = 114.2803 39.34557 0.02714868
+	scale = 2 2 2
+	name = StaticMesh_Border_zap_0
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Border_zap.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 104
+	classPrompt = StaticMesh
+	position = 152.5 103.9 0.02191127
+	scale = 1 1.5 2
+	name = StaticMesh_50
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier2.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 105
+	classPrompt = StaticMesh
+	position = 182 103.9307 0.02191127
+	scale = 1 1.5 2
+	name = StaticMesh_51
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier2.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 106
+	classPrompt = StaticMesh
+	position = 211.5 103.9307 0.02191127
+	scale = 1 1.5 2
+	name = StaticMesh_52
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier2.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 107
+	classPrompt = StaticMesh
+	position = 241 103.9307 0.02191127
+	scale = 1 1.5 2
+	name = StaticMesh_53
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier2.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 108
+	classPrompt = StaticMesh
+	position = 145.0405 83.89167 0.01676952
+	scale = 1 1.5 2
+	name = StaticMesh_54
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier3.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 109
+	classPrompt = StaticMesh
+	position = 174.3405 83.89167 0.01676952
+	scale = 1 1.5 2
+	name = StaticMesh_55
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier3.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 110
+	classPrompt = StaticMesh
+	position = 203.6405 83.89167 0.01676952
+	scale = 1 1.5 2
+	name = StaticMesh_56
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier3.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 111
+	classPrompt = StaticMesh
+	position = 232.9406 83.89167 0.01676952
+	scale = 1 1.5 2
+	name = StaticMesh_57
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier3.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 112
+	classPrompt = StaticMesh
+	position = 144.2701 60.9763 0.0411781
+	scale = 1 1.5 2
+	name = StaticMesh_58
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier4.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 113
+	classPrompt = StaticMesh
+	position = 173.5701 60.9763 0.0411781
+	scale = 1 1.5 2
+	name = StaticMesh_59
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier4.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 114
+	classPrompt = StaticMesh
+	position = 202.8701 60.9763 0.0411781
+	scale = 1 1.5 2
+	name = StaticMesh_60
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier4.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 115
+	classPrompt = StaticMesh
+	position = 232.1701 60.9763 0.0411781
+	scale = 1 1.5 2
+	name = StaticMesh_61
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier4.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 116
+	classPrompt = StaticMesh
+	position = 138.3 39.34557 0.05
+	rotation = 0 -0.001745328 0 0.9999985
+	scale = 2 2 2
+	name = StaticMesh_62
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Border_zap.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 117
+	classPrompt = StaticMesh
+	position = 162.2953 39.34557 0.07
+	scale = 2 2 2
+	name = StaticMesh_63
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Border_zap.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 118
+	classPrompt = StaticMesh
+	position = 186.2719 39.34557 0.05
+	scale = 2 2 2
+	name = StaticMesh_64
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Border_zap.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 119
+	classPrompt = StaticMesh
+	position = 147.8 6.671453 -0.1
+	scale = 1 2 1
+	name = StaticMesh_65
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 120
+	classPrompt = StaticMesh
+	position = 147.8 18.88534 -0.1
+	rotation = 0 0 1 7.54979E-08
+	scale = 1 2 1
+	name = StaticMesh_66
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 121
+	classPrompt = StaticMesh
+	position = 177.8 6.671453 -0.1
+	scale = 1 2 1
+	name = StaticMesh_67
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 122
+	classPrompt = StaticMesh
+	position = 177.8 18.88534 -0.1
+	rotation = 0 0 1 7.54979E-08
+	scale = 1 2 1
+	name = StaticMesh_68
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 123
+	classPrompt = StaticMesh
+	position = 105.4214 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_69
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 124
+	classPrompt = StaticMesh
+	position = 107.5022 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_70
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 125
+	classPrompt = StaticMesh
+	position = 109.5816 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_71
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 126
+	classPrompt = StaticMesh
+	position = 111.6688 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_72
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 127
+	classPrompt = StaticMesh
+	position = 113.7782 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_73
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 128
+	classPrompt = StaticMesh
+	position = 115.791 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_74
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 129
+	classPrompt = StaticMesh
+	position = 117.8697 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_75
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 130
+	classPrompt = StaticMesh
+	position = 119.9273 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_76
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 131
+	classPrompt = StaticMesh
+	position = 138.6848 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_77
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 132
+	classPrompt = StaticMesh
+	position = 136.6272 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_78
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 133
+	classPrompt = StaticMesh
+	position = 134.5485 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_79
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 134
+	classPrompt = StaticMesh
+	position = 132.5358 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_80
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 135
+	classPrompt = StaticMesh
+	position = 130.4263 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_81
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 136
+	classPrompt = StaticMesh
+	position = 128.3392 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_82
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 137
+	classPrompt = StaticMesh
+	position = 126.2597 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_83
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 138
+	classPrompt = StaticMesh
+	position = 124.179 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_86
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 139
+	classPrompt = StaticMesh
+	position = 122.1023 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_87
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 140
+	classPrompt = StaticMesh
+	position = 157.5018 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_93
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 141
+	classPrompt = StaticMesh
+	position = 155.4442 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_94
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 142
+	classPrompt = StaticMesh
+	position = 153.3655 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_95
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 143
+	classPrompt = StaticMesh
+	position = 151.3528 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_96
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 144
+	classPrompt = StaticMesh
+	position = 149.2433 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_97
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 145
+	classPrompt = StaticMesh
+	position = 147.1562 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_98
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 146
+	classPrompt = StaticMesh
+	position = 145.0767 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_99
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 147
+	classPrompt = StaticMesh
+	position = 142.996 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_100
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 148
+	classPrompt = StaticMesh
+	position = 140.9193 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_101
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 149
+	classPrompt = StaticMesh
+	position = 176.4079 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_102
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 150
+	classPrompt = StaticMesh
+	position = 174.3503 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_103
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 151
+	classPrompt = StaticMesh
+	position = 172.2717 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_104
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 152
+	classPrompt = StaticMesh
+	position = 170.2589 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_105
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 153
+	classPrompt = StaticMesh
+	position = 168.1495 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_106
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 154
+	classPrompt = StaticMesh
+	position = 166.0623 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_107
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 155
+	classPrompt = StaticMesh
+	position = 163.9828 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_108
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 156
+	classPrompt = StaticMesh
+	position = 161.9021 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_109
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 157
+	classPrompt = StaticMesh
+	position = 159.8255 -8.514591 -0.004285554
+	scale = 1 2 1
+	name = StaticMesh_110
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier_police.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 158
+	classPrompt = MapObject
+	position = 135.4332 -41.98612 0.5121152
+	name = Cone_4
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 159
+	classPrompt = MapObject
+	position = 165.4774 -41.98612 0.5121152
+	name = Cone_6
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 160
+	classPrompt = MapObject
+	position = 75.44773 -41.98612 0.549982
+	name = Cone_9
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 161
+	classPrompt = MapObject
+	position = 45.49315 -41.98612 0.5549706
+	name = Cone_11
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 162
+	classPrompt = MapObject
+	position = 15.44693 -41.98612 0.5617687
+	name = Cone_13
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 163
+	classPrompt = MapObject
+	position = 195.4982 -41.98612 0.5121152
+	name = Cone_14
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 164
+	classPrompt = MapObject
+	position = 225.553 -41.98612 0.5121152
+	name = Cone_16
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 165
+	classPrompt = MapObject
+	position = 255.586 -41.98612 0.5121152
+	name = Cone_18
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = StaticMesh
+	uin = 166
+	classPrompt = StaticMesh
+	position = 168.951 -71.52902 -0.07612948
+	rotation = 0 0 1 7.54979E-08
+	scale = 2 2 1
+	name = StaticMesh_111
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 167
+	classPrompt = StaticMesh
+	position = 173.9126 -60.67084 -0.07612948
+	rotation = 0 0 1 7.54979E-08
+	scale = 2 2 1
+	name = StaticMesh_112
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 168
+	classPrompt = StaticMesh
+	position = 153.9095 -60.67084 -0.07612948
+	scale = 2 2 1
+	name = StaticMesh_113
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 169
+	classPrompt = StaticMesh
+	position = -3.3 -165.4546 0
+	name = StaticMesh_114
+	editorLayer = "Root Layer\\boks"
+	meshName = "Maps\\CarDemo\\Model\\Boks\\Boks.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 170
+	classPrompt = StaticMesh
+	position = -26.60385 -162.7372 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_zabor_0
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 171
+	classPrompt = StaticMesh
+	position = -25.52151 -157.8601 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_115
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 172
+	classPrompt = StaticMesh
+	position = -24.42828 -153.0217 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_116
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 173
+	classPrompt = StaticMesh
+	position = -23.32321 -148.143 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_117
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 174
+	classPrompt = StaticMesh
+	position = -22.23573 -143.2447 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_118
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 175
+	classPrompt = StaticMesh
+	position = -21.14594 -138.3947 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_119
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 176
+	classPrompt = StaticMesh
+	position = -20.06313 -133.5143 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_120
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 177
+	classPrompt = StaticMesh
+	position = -18.95916 -128.6308 0.009300051
+	rotation = 0 0 0.6239861 0.7814354
+	name = StaticMesh_121
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 178
+	classPrompt = StaticMesh
+	position = -18.28134 -124.0415 0.009300051
+	rotation = 0 0 0.6793639 0.7338016
+	name = StaticMesh_122
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 179
+	classPrompt = StaticMesh
+	position = 305.5581 -171.3684 0.009300051
+	rotation = 0 0 -0.04391765 0.9990352
+	name = StaticMesh_123
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 180
+	classPrompt = StaticMesh
+	position = 300.5663 -170.929 0.009300051
+	rotation = 0 0 -0.04391765 0.9990352
+	name = StaticMesh_124
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 181
+	classPrompt = StaticMesh
+	position = 297.3966 -168.2266 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_125
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 182
+	classPrompt = StaticMesh
+	position = 295.8624 -163.4691 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_126
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 183
+	classPrompt = StaticMesh
+	position = 294.3326 -158.7158 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_127
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 184
+	classPrompt = StaticMesh
+	position = 292.7985 -153.9582 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_128
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 185
+	classPrompt = StaticMesh
+	position = 291.2633 -149.2196 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_129
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 186
+	classPrompt = StaticMesh
+	position = 289.7291 -144.462 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_130
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 187
+	classPrompt = StaticMesh
+	position = 288.1944 -139.7087 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_131
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 188
+	classPrompt = StaticMesh
+	position = 286.6602 -134.9512 0.009300051
+	rotation = 0 0 -0.5884826 0.8085101
+	name = StaticMesh_132
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 189
+	classPrompt = StaticMesh
+	position = 284.9669 -130.2709 0.009300051
+	rotation = 0 0 -0.5611657 0.8277037
+	name = StaticMesh_133
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 190
+	classPrompt = StaticMesh
+	position = 282.8852 -125.2264 0.009300051
+	rotation = 0 0 -0.5530584 0.8331427
+	scale = 1.2 1 1
+	name = StaticMesh_134
+	editorLayer = "Root Layer\\Ograda"
+	meshName = "Maps\\CarDemo\\Model\\zabor.mesh"
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 191
+	classPrompt = StaticMesh
+	position = 71.59443 -60.67084 -0.07612948
+	rotation = 0 0 1 7.54979E-08
+	scale = 2 2 1
+	name = StaticMesh_135
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 192
+	classPrompt = StaticMesh
+	position = 51.59133 -60.67084 -0.07612948
+	scale = 2 2 1
+	name = StaticMesh_136
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 193
+	classPrompt = StaticMesh
+	position = 52.11742 -71.52902 -0.07612948
+	scale = 2 2 1
+	name = StaticMesh_137
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = StaticMesh
+	uin = 194
+	classPrompt = StaticMesh
+	position = 66.63284 -71.52902 -0.07612948
+	rotation = 0 0 1 7.54979E-08
+	scale = 2 2 1
+	name = StaticMesh_138
+	editorLayer = "Root Layer\\Barier"
+	meshName = "Maps\\CarDemo\\Model\\Barrier\\Barrier5.mesh"
+	collisionVehicleDrivableSurface = True
+	castDynamicShadows = True
+	receiveStaticShadows = True
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 195
+	classPrompt = MapObject
+	position = 350.8563 212.7264 -0.07592863
+	name = CarDemo_Cone_0
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 196
+	classPrompt = MapObject
+	position = 350.2144 216.1258 -0.07592863
+	name = CarDemo_Cone_1
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = CarDemo_Cone
+	uin = 197
+	classPrompt = MapObject
+	position = 349.4888 220.0081 -0.07592863
+	name = CarDemo_Cone_2
+	editorLayer = "Root Layer\\Cone"
+}
+entity
+{
+	type = DecorativeObjectManager
+	uin = 198
+	classPrompt = DecorativeObjectManager
+	subscriptionsToDeletionEvent = 8
+	enabled = True
+	visible = True
+	geometries = 8
+	itemDataVersion = 2
+	typeItems
+	{
+		item
+		{
+			type = CD_Grass_Dec
+			itemCount = 193703
+		}
+	}
+}
+entity
+{
+	type = Box
+	uin = 199
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.185872 -57.89537 0.5031086
+	name = Box_0
+}
+entity
+{
+	type = Box
+	uin = 200
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.215093 -56.59179 0.5027863
+	name = Box_1
+}
+entity
+{
+	type = Box
+	uin = 201
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.203649 -55.28121 0.5021389
+	name = Box_2
+}
+entity
+{
+	type = Box
+	uin = 202
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.19418 -53.98479 0.5026824
+	name = Box_3
+}
+entity
+{
+	type = Box
+	uin = 203
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.227048 -52.71712 0.5059117
+	name = Box_4
+}
+entity
+{
+	type = Box
+	uin = 204
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.185872 -57.25652 1.585611
+	name = Box_5
+}
+entity
+{
+	type = Box
+	uin = 205
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.215093 -55.95294 1.585289
+	name = Box_6
+}
+entity
+{
+	type = Box
+	uin = 206
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.203649 -54.64236 1.584642
+	name = Box_7
+}
+entity
+{
+	type = Box
+	uin = 207
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.19418 -53.34595 1.585185
+	name = Box_8
+}
+entity
+{
+	type = Box
+	uin = 208
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.185872 -56.64004 2.687128
+	name = Box_10
+}
+entity
+{
+	type = Box
+	uin = 209
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.215093 -55.33645 2.686805
+	name = Box_11
+}
+entity
+{
+	type = Box
+	uin = 210
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.203649 -54.02587 2.686158
+	name = Box_12
+}
+entity
+{
+	type = Box
+	uin = 211
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.185872 -56.02016 3.780988
+	name = Box_15
+}
+entity
+{
+	type = Box
+	uin = 212
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.215093 -54.71657 3.780666
+	name = Box_16
+}
+entity
+{
+	type = Box
+	uin = 213
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 8.185872 -55.41513 4.878118
+	name = Box_20
+}
+entity
+{
+	type = Box
+	uin = 214
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7557 8.887207 0.5031086
+	name = Box_9
+}
+entity
+{
+	type = Box
+	uin = 215
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7849 10.19079 0.5027863
+	name = Box_13
+}
+entity
+{
+	type = Box
+	uin = 216
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7735 11.50137 0.5021389
+	name = Box_14
+}
+entity
+{
+	type = Box
+	uin = 217
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.764 12.79779 0.5026824
+	name = Box_17
+}
+entity
+{
+	type = Box
+	uin = 218
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7969 14.06546 0.5059117
+	name = Box_18
+}
+entity
+{
+	type = Box
+	uin = 219
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7557 9.526058 1.585611
+	name = Box_19
+}
+entity
+{
+	type = Box
+	uin = 220
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7849 10.82964 1.585289
+	name = Box_21
+}
+entity
+{
+	type = Box
+	uin = 221
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7735 12.14022 1.584642
+	name = Box_22
+}
+entity
+{
+	type = Box
+	uin = 222
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.764 13.43663 1.585185
+	name = Box_23
+}
+entity
+{
+	type = Box
+	uin = 223
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7557 10.14254 2.687128
+	name = Box_24
+}
+entity
+{
+	type = Box
+	uin = 224
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7849 11.44613 2.686805
+	name = Box_25
+}
+entity
+{
+	type = Box
+	uin = 225
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7735 12.75671 2.686158
+	name = Box_26
+}
+entity
+{
+	type = Box
+	uin = 226
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7557 10.76242 3.780988
+	name = Box_27
+}
+entity
+{
+	type = Box
+	uin = 227
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7849 12.06601 3.780666
+	name = Box_28
+}
+entity
+{
+	type = Box
+	uin = 228
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7557 11.36745 4.878118
+	name = Box_29
+}
+entity
+{
+	type = Box
+	uin = 229
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7557 -2.572467 0.5031086
+	name = Box_30
+}
+entity
+{
+	type = Box
+	uin = 230
+	classPrompt = Dynamic
+	healthFactorAtBeginning = 1
+	position = 262.7849 2.433429 0.5027863
+	name = Box_31
+}
+entity
+{
+	type = Teleporter
+	uin = 231
+	classPrompt = Teleporter
+	active = True
+	changeMapName = "Maps\\MainDemo\\Map.map"
+	changeMapSpawnObjectName = Teleporter_Maps
+	healthFactorAtBeginning = 1
+	position = 164.9976 -35.9291 0.3023178
+	rotation = 0 0 0.2796542 0.9601008
+	name = Teleporter_0
+}

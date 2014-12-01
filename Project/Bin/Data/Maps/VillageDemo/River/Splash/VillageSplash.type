@@ -1,0 +1,19 @@
+type VillageSplash
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		particle
+		{
+			particleName = VillageWaterParticle
+			updateWhenItNotInView = False
+			scale = 5.314575 5.314575 5.314575
+		}
+		mesh
+		{
+			meshName = "Base\\Types\\InvisiblePoint.mesh"
+			onlyForEditor = True
+		}
+	}
+}

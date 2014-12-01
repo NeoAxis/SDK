@@ -1,0 +1,203 @@
+type CD_Border
+{
+	class = MapObject
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\Border01.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border02.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border03.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border04.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border05.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border06.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border07.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border08.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border09.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border10.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border11.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border12.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border13.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border14.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border15.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border16.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border17.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border18.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border19.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border20.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border21.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border22.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border23.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border24.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border25.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border26.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border27.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\Border28.mesh"
+			collision = True
+			collisionVehicleDrivableSurface = True
+			receiveStaticShadows = True
+		}
+	}
+}

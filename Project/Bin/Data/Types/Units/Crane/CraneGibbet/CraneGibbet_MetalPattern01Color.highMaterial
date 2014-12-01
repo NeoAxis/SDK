@@ -1,0 +1,18 @@
+highLevelMaterial CraneGibbet_MetalPattern01Color
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\Units\Crane\Textures\dif_MetalPatern_01.dds
+		texCoord = TexCoord3
+	}
+	diffuse2Map
+	{
+		texture = Types\Units\Crane\Textures\col_wall01.dds
+		texCoord = TexCoord1
+	}
+	diffuse3Map
+	{
+		texture = Types\Units\Crane\Textures\Ocl_Arrow.dds
+	}
+}

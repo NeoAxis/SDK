@@ -1,0 +1,19 @@
+type DefaultExplosionDecalCreator
+{
+	class = DecalCreator
+	size = 3
+	spreadType = Omni
+	omniMaxDistance = 1.1
+	lifeTime = 5
+	depthRenderOffset = 0.06
+	fadeTime = 5
+	creatableInMapEditor = False
+	networkType = ClientOnly
+	materials
+	{
+		item
+		{
+			materialName = DefaultExplosionDecal
+		}
+	}
+}

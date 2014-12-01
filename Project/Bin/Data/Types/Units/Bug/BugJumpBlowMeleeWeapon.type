@@ -1,0 +1,22 @@
+type BugJumpBlowMeleeWeapon
+{
+	class = JumpBlowMeleeWeapon
+	jumpVelocity = 16 0 4
+	soundBlowKick = "Types\\Units\\Bug\\JumpBlowKick.ogg"
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		damage = 5
+		betweenFireTime = 3
+		soundFire = "Types\\Units\\Bug\\JumpBlow.ogg"
+		useDistanceRange = 8 10
+		fireTimes = 0.01
+		fireAnimationTrigger = fire
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+}

@@ -1,0 +1,11 @@
+type SubmachineGunGrenadeHitExplosion
+{
+	class = Explosion
+	radius = 10
+	damage = 60
+	impulse = 70000
+	ignoreReasonObject = True
+	influenceType = FireInfluence
+	influenceMaxTime = 5
+	networkType = Synchronized
+}

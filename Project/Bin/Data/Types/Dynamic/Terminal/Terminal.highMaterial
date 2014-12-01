@@ -1,0 +1,8 @@
+highLevelMaterial Terminal
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = Types\Dynamic\Terminal\Terminal.dds
+	}
+}

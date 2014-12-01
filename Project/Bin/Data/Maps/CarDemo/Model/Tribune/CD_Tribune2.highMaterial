@@ -1,0 +1,13 @@
+highLevelMaterial CD_Tribune2
+{
+	template = ShaderBaseMaterial
+	diffuse1Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Concrete.dds"
+	}
+	diffuse2Map
+	{
+		texture = "Maps\\CarDemo\\Textures\\Chair.dds"
+		blending = AlphaBlend
+	}
+}

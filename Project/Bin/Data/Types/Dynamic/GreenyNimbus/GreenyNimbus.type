@@ -1,0 +1,20 @@
+type GreenyNimbus
+{
+	class = MapObject
+	allowEditorCreate = True
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Base\\Simple Models\\Box.mesh"
+			castShadows = True
+			collision = True
+			scale = 0.1 0.1 0.1
+			onlyForEditor = True
+		}
+		particle
+		{
+			particleName = GreenyNimbusParticle
+		}
+	}
+}

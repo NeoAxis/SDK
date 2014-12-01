@@ -1,0 +1,5 @@
+type CutSceneManager
+{
+	class = CutSceneManager
+	allowEditorCreate = True
+}

@@ -1,0 +1,31 @@
+type ZombieBullet
+{
+	class = Bullet
+	velocity = 8
+	damage = 5
+	impulse = 7000
+	gravity = 3.5
+	lifeTime = 30
+	creatableInMapEditor = False
+	networkType = Synchronized
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = "Types\\Units\\Zombie\\ZombieBullet\\ZombieBullet.mesh"
+			castDynamicShadows = True
+			scale = 0.01 0.01 0.01
+		}
+	}
+	hitObjects
+	{
+		particle
+		{
+			particleName = ZombieBulletHitParticle
+		}
+		mapObject
+		{
+			type = ZombieBulletDecalCreator
+		}
+	}
+}

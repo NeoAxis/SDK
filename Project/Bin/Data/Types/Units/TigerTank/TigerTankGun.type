@@ -1,0 +1,59 @@
+type TigerTankGun
+{
+	class = Gun
+	soundMinDistance = 20
+	soundMaxDistance = 200
+	creatableInMapEditor = False
+	networkType = Synchronized
+	normalMode
+	{
+		bulletType = TigerTankBullet
+		bulletExpense = 0
+		dispersionAngle = 0.5
+		betweenFireTime = 2
+		soundFire = ".\\Sounds\\Fire.ogg"
+		startOffsetPosition = 4.1 0 0
+		useDistanceRange = 0 80
+		fireTimes = 
+		fireAnimationTrigger = fire
+		fireObjects
+		{
+			light
+			{
+				diffuseColor = 1 1 0.4
+				specularColor = 1 1 1
+				attenuationFar = 10
+				attenuationPower = 1
+				ffpAttenuationQuadric = 0.2
+				castShadows = False
+				position = 4.1 0 0
+				lifeTime = 0.04
+			}
+			billboard
+			{
+				materialName = ItemParticle
+				size = 3 3
+				position = 4.1 0 0
+				lifeTime = 0.04
+			}
+		}
+	}
+	alternativeMode
+	{
+		fireTimes = 
+		fireAnimationTrigger = fire
+	}
+	attachedObjects
+	{
+		mesh
+		{
+			meshName = ".\\GunBase.mesh"
+			castDynamicShadows = True
+		}
+		mesh
+		{
+			meshName = ".\\GunBarrel.mesh"
+			castDynamicShadows = True
+		}
+	}
+}

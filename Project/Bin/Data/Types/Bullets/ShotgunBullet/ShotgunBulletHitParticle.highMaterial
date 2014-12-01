@@ -1,0 +1,14 @@
+highLevelMaterial ShotgunBulletHitParticle
+{
+	template = ShaderBaseMaterial
+	blending = AlphaAdd
+	lighting = False
+	depthWrite = False
+	softParticles = True
+	softParticlesFadingLength = 0.3
+	diffuseVertexColor = True
+	diffuse1Map
+	{
+		texture = "Types\\Bullets\\ShotgunBullet\\ShotgunBulletHit.tga"
+	}
+}
