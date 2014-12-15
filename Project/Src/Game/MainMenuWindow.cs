@@ -78,6 +78,8 @@ namespace Game
 				( (Button)window.Controls[ "GUISamples1" ] ).Click += GUISamples1_Click;
 			if( window.Controls[ "GUISamples2" ] != null )
 				( (Button)window.Controls[ "GUISamples2" ] ).Click += GUISamples2_Click;
+			if( window.Controls[ "GUISamples3" ] != null )
+				( (Button)window.Controls[ "GUISamples3" ] ).Click += GUISamples3_Click;
 			if( window.Controls[ "About" ] != null )
 				( (Button)window.Controls[ "About" ] ).Click += About_Click;
 			if( window.Controls[ "Exit" ] != null )
@@ -168,6 +170,11 @@ namespace Game
 		void GUISamples2_Click( Button sender )
 		{
 			GameEngineApp.Instance.ControlManager.Controls.Add( new GUISamples2Window() );
+		}
+
+		void GUISamples3_Click( Button sender )
+		{
+			GameEngineApp.Instance.ControlManager.Controls.Add( new GUISamples3Window() );
 		}
 
 		void MultiView_Click( Button sender )

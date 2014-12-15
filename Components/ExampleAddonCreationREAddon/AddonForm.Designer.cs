@@ -36,6 +36,7 @@
 			this.checkBoxOverrideCameraSettings = new System.Windows.Forms.CheckBox();
 			this.checkBoxAddPageToOptions = new System.Windows.Forms.CheckBox();
 			this.buttonCancel = new System.Windows.Forms.Button();
+			this.checkBoxAddDockingWindow = new System.Windows.Forms.CheckBox();
 			this.SuspendLayout();
 			// 
 			// buttonOK
@@ -53,47 +54,47 @@
 			// checkBoxAddItemToMainMenu
 			// 
 			this.checkBoxAddItemToMainMenu.AutoSize = true;
-			this.checkBoxAddItemToMainMenu.Location = new System.Drawing.Point( 12, 13 );
+			this.checkBoxAddItemToMainMenu.Location = new System.Drawing.Point( 12, 40 );
 			this.checkBoxAddItemToMainMenu.Name = "checkBoxAddItemToMainMenu";
 			this.checkBoxAddItemToMainMenu.Size = new System.Drawing.Size( 174, 21 );
-			this.checkBoxAddItemToMainMenu.TabIndex = 0;
+			this.checkBoxAddItemToMainMenu.TabIndex = 1;
 			this.checkBoxAddItemToMainMenu.Text = "Add item to main menu";
 			this.checkBoxAddItemToMainMenu.UseVisualStyleBackColor = true;
 			// 
 			// checkBoxAddButtonToToolbar
 			// 
 			this.checkBoxAddButtonToToolbar.AutoSize = true;
-			this.checkBoxAddButtonToToolbar.Location = new System.Drawing.Point( 12, 40 );
+			this.checkBoxAddButtonToToolbar.Location = new System.Drawing.Point( 12, 67 );
 			this.checkBoxAddButtonToToolbar.Name = "checkBoxAddButtonToToolbar";
 			this.checkBoxAddButtonToToolbar.Size = new System.Drawing.Size( 167, 21 );
-			this.checkBoxAddButtonToToolbar.TabIndex = 1;
+			this.checkBoxAddButtonToToolbar.TabIndex = 2;
 			this.checkBoxAddButtonToToolbar.Text = "Add button to tool bar";
 			this.checkBoxAddButtonToToolbar.UseVisualStyleBackColor = true;
 			// 
 			// checkBoxDrawTextOnScreen
 			// 
 			this.checkBoxDrawTextOnScreen.AutoSize = true;
-			this.checkBoxDrawTextOnScreen.Location = new System.Drawing.Point( 12, 67 );
+			this.checkBoxDrawTextOnScreen.Location = new System.Drawing.Point( 12, 94 );
 			this.checkBoxDrawTextOnScreen.Name = "checkBoxDrawTextOnScreen";
 			this.checkBoxDrawTextOnScreen.Size = new System.Drawing.Size( 179, 21 );
-			this.checkBoxDrawTextOnScreen.TabIndex = 2;
+			this.checkBoxDrawTextOnScreen.TabIndex = 3;
 			this.checkBoxDrawTextOnScreen.Text = "Draw text on the screen";
 			this.checkBoxDrawTextOnScreen.UseVisualStyleBackColor = true;
 			// 
 			// checkBoxAddItemToContextMenuOfResourcesTree
 			// 
 			this.checkBoxAddItemToContextMenuOfResourcesTree.AutoSize = true;
-			this.checkBoxAddItemToContextMenuOfResourcesTree.Location = new System.Drawing.Point( 12, 94 );
+			this.checkBoxAddItemToContextMenuOfResourcesTree.Location = new System.Drawing.Point( 12, 121 );
 			this.checkBoxAddItemToContextMenuOfResourcesTree.Name = "checkBoxAddItemToContextMenuOfResourcesTree";
 			this.checkBoxAddItemToContextMenuOfResourcesTree.Size = new System.Drawing.Size( 301, 21 );
-			this.checkBoxAddItemToContextMenuOfResourcesTree.TabIndex = 3;
+			this.checkBoxAddItemToContextMenuOfResourcesTree.TabIndex = 4;
 			this.checkBoxAddItemToContextMenuOfResourcesTree.Text = "Add item to context menu of resources tree";
 			this.checkBoxAddItemToContextMenuOfResourcesTree.UseVisualStyleBackColor = true;
 			// 
 			// checkBoxOverrideCameraSettings
 			// 
 			this.checkBoxOverrideCameraSettings.AutoSize = true;
-			this.checkBoxOverrideCameraSettings.Location = new System.Drawing.Point( 12, 121 );
+			this.checkBoxOverrideCameraSettings.Location = new System.Drawing.Point( 12, 148 );
 			this.checkBoxOverrideCameraSettings.Name = "checkBoxOverrideCameraSettings";
 			this.checkBoxOverrideCameraSettings.Size = new System.Drawing.Size( 189, 21 );
 			this.checkBoxOverrideCameraSettings.TabIndex = 5;
@@ -103,7 +104,7 @@
 			// checkBoxAddPageToOptions
 			// 
 			this.checkBoxAddPageToOptions.AutoSize = true;
-			this.checkBoxAddPageToOptions.Location = new System.Drawing.Point( 12, 148 );
+			this.checkBoxAddPageToOptions.Location = new System.Drawing.Point( 12, 175 );
 			this.checkBoxAddPageToOptions.Name = "checkBoxAddPageToOptions";
 			this.checkBoxAddPageToOptions.Size = new System.Drawing.Size( 160, 21 );
 			this.checkBoxAddPageToOptions.TabIndex = 6;
@@ -122,19 +123,30 @@
 			this.buttonCancel.Text = "Cancel";
 			this.buttonCancel.UseVisualStyleBackColor = true;
 			// 
+			// checkBoxAddDockingWindow
+			// 
+			this.checkBoxAddDockingWindow.AutoSize = true;
+			this.checkBoxAddDockingWindow.Location = new System.Drawing.Point( 12, 13 );
+			this.checkBoxAddDockingWindow.Name = "checkBoxAddDockingWindow";
+			this.checkBoxAddDockingWindow.Size = new System.Drawing.Size( 157, 21 );
+			this.checkBoxAddDockingWindow.TabIndex = 0;
+			this.checkBoxAddDockingWindow.Text = "Add docking window";
+			this.checkBoxAddDockingWindow.UseVisualStyleBackColor = true;
+			// 
 			// AddonForm
 			// 
 			this.AcceptButton = this.buttonOK;
 			this.AutoScaleDimensions = new System.Drawing.SizeF( 8F, 16F );
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size( 557, 183 );
+			this.ClientSize = new System.Drawing.Size( 557, 209 );
 			this.Controls.Add( this.buttonCancel );
 			this.Controls.Add( this.checkBoxAddPageToOptions );
 			this.Controls.Add( this.checkBoxOverrideCameraSettings );
 			this.Controls.Add( this.checkBoxAddItemToContextMenuOfResourcesTree );
 			this.Controls.Add( this.checkBoxDrawTextOnScreen );
 			this.Controls.Add( this.checkBoxAddButtonToToolbar );
+			this.Controls.Add( this.checkBoxAddDockingWindow );
 			this.Controls.Add( this.checkBoxAddItemToMainMenu );
 			this.Controls.Add( this.buttonOK );
 			this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -145,8 +157,8 @@
 			this.ShowIcon = false;
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Example of Add-on Creation";
-			this.Load += new System.EventHandler( this.AddonForm_Load );
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler( this.AddonForm_FormClosed );
+			this.Load += new System.EventHandler( this.AddonForm_Load );
 			this.ResumeLayout( false );
 			this.PerformLayout();
 
@@ -162,6 +174,7 @@
 		private System.Windows.Forms.CheckBox checkBoxOverrideCameraSettings;
 		private System.Windows.Forms.CheckBox checkBoxAddPageToOptions;
 		private System.Windows.Forms.Button buttonCancel;
+		private System.Windows.Forms.CheckBox checkBoxAddDockingWindow;
 
 	}
 }

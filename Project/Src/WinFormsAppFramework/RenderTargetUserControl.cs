@@ -760,21 +760,25 @@ namespace WinFormsAppFramework
 			return camera.GetCameraToViewportRay( GetFloatMousePosition() );
 		}
 
+		[Browsable( false )]
 		public ScreenControlManager ControlManager
 		{
 			get { return controlManager; }
 		}
 
+		[Browsable( false )]
 		public RenderWindow RenderWindow
 		{
 			get { return renderWindow; }
 		}
 
+		[Browsable( false )]
 		public Viewport Viewport
 		{
 			get { return viewport; }
 		}
 
+		[Browsable( false )]
 		public Camera Camera
 		{
 			get { return camera; }

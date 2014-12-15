@@ -119,9 +119,21 @@
       <Private>False</Private>
       <HintPath>..\..\Project\Bin\Utils.Editor.dll</HintPath>
     </Reference>
+    <Reference Include="WeifenLuo.WinFormsUI.Docking, Version=2.9.0.0, Culture=neutral, PublicKeyToken=5cded1a1a0a7b481, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Project\Bin\WeifenLuo.WinFormsUI.Docking.dll</HintPath>
+      <Private>False</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AddonDockingForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="AddonDockingForm.designer.cs">
+      <DependentUpon>AddonDockingForm.cs</DependentUpon>
+    </Compile>
     <Compile Include="AddonOptionsLeaf.cs" />
+    <Compile Include="GUIExampleControl.cs" />
     <Compile Include="ResourceEditorAddonImpl.cs" />
     <Compile Include="AddonForm.cs">
       <SubType>Form</SubType>
@@ -137,6 +149,9 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="AddonDockingForm.resx">
+      <DependentUpon>AddonDockingForm.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="AddonForm.resx">
       <DependentUpon>AddonForm.cs</DependentUpon>
       <SubType>Designer</SubType>

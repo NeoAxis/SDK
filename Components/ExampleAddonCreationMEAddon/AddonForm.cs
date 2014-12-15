@@ -23,8 +23,12 @@ namespace ExampleAddonCreationMEAddon
 {
 	public partial class AddonForm : Form
 	{
-		public AddonForm()
+		MapEditorAddonImpl addon;
+
+		public AddonForm( MapEditorAddonImpl addon )
 		{
+			this.addon = addon;
+
 			InitializeComponent();
 
 			Font = MapEditorInterface.Instance.GetFont( MapEditorInterface.FontNames.Form, Font );
@@ -32,6 +36,8 @@ namespace ExampleAddonCreationMEAddon
 
 		private void AddonForm_Load( object sender, EventArgs e )
 		{
+			checkBoxAddDockingWindow.Checked = addon.dockingForm != null && addon.dockingForm.Visible;
+
 			checkBoxAddItemToMainMenu.Checked = MapEditorAddonImpl.addItemToMainMenu;
 			checkBoxAddButtonToToolbar.Checked = MapEditorAddonImpl.addButtonToToolbar;
 			checkBoxAddItemToContextMenuOfWorkingArea.Checked = MapEditorAddonImpl.addItemToContextMenuOfWorkingArea;
@@ -53,6 +59,11 @@ namespace ExampleAddonCreationMEAddon
 				MapEditorAddonImpl.overrideCameraSettings = checkBoxOverrideCameraSettings.Checked;
 				MapEditorAddonImpl.addPageToOptions = checkBoxAddPageToOptions.Checked;
 			}
+		}
+
+		public bool AddDockingWindow
+		{
+			get { return checkBoxAddDockingWindow.Checked; }
 		}
 	}
 }

@@ -24,8 +24,12 @@ namespace ExampleAddonCreationREAddon
 {
 	public partial class AddonForm : Form
 	{
-		public AddonForm()
+		ResourceEditorAddonImpl addon;
+
+		public AddonForm( ResourceEditorAddonImpl addon )
 		{
+			this.addon = addon;
+
 			InitializeComponent();
 
 			Font = ResourceEditorInterface.Instance.GetFont( ResourceEditorInterface.FontNames.Form, Font );
@@ -33,6 +37,8 @@ namespace ExampleAddonCreationREAddon
 
 		private void AddonForm_Load( object sender, EventArgs e )
 		{
+			checkBoxAddDockingWindow.Checked = addon.dockingForm != null && addon.dockingForm.Visible;
+
 			checkBoxAddItemToMainMenu.Checked = ResourceEditorAddonImpl.addItemToMainMenu;
 			checkBoxAddButtonToToolbar.Checked = ResourceEditorAddonImpl.addButtonToToolbar;
 			checkBoxAddItemToContextMenuOfResourcesTree.Checked = ResourceEditorAddonImpl.addItemToContextMenuOfResourcesTree;
@@ -52,6 +58,11 @@ namespace ExampleAddonCreationREAddon
 				ResourceEditorAddonImpl.overrideCameraSettings = checkBoxOverrideCameraSettings.Checked;
 				ResourceEditorAddonImpl.addPageToOptions = checkBoxAddPageToOptions.Checked;
 			}
+		}
+
+		public bool AddDockingWindow
+		{
+			get { return checkBoxAddDockingWindow.Checked; }
 		}
 	}
 }

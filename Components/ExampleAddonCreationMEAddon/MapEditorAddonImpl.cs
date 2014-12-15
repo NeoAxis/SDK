@@ -10,6 +10,7 @@ using Engine.MapSystem;
 using Engine.Utils;
 using Engine.MathEx;
 using EditorBase;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace ExampleAddonCreationMEAddon
 {
@@ -34,10 +35,21 @@ namespace ExampleAddonCreationMEAddon
 		[Config( "ExampleAddonCreationMEAddon", "cameraWavingSpeed" )]
 		internal static float cameraWavingSpeed = 1;
 
-		ToolStripMenuItem mainMenuItem;
-		ToolStripButton toolbarButton;
+		internal ToolStripMenuItem mainMenuItem;
+		internal ToolStripButton toolbarButton;
+		internal AddonDockingForm dockingForm;
 
 		//
+
+		public override DockContent OnCreateDockingWindowAtLoading( string windowTypeName )
+		{
+			if( dockingForm == null && windowTypeName == typeof( AddonDockingForm ).ToString() )
+			{
+				dockingForm = new AddonDockingForm();
+				return dockingForm;
+			}
+			return base.OnCreateDockingWindowAtLoading( windowTypeName );
+		}
 
 		public override bool OnInit( out string mainMenuItemText, out Image mainMenuItemIcon )
 		{
@@ -59,9 +71,14 @@ namespace ExampleAddonCreationMEAddon
 		{
 			base.OnMainMenuItemClick();
 
-			AddonForm form = new AddonForm();
+			AddonForm form = new AddonForm( this );
 			if( form.ShowDialog( ApplicationData.MainForm ) == DialogResult.OK )
 			{
+				if( form.AddDockingWindow )
+					AddDockingWindow();
+				else
+					RemoveDockingWindow();
+
 				if( addItemToMainMenu )
 					AddItemToMainMenu();
 				else
@@ -196,6 +213,24 @@ namespace ExampleAddonCreationMEAddon
 			{
 				ApplicationData.Toolbar.Items.Remove( toolbarButton );
 				toolbarButton = null;
+			}
+		}
+
+		void AddDockingWindow()
+		{
+			RemoveDockingWindow();
+
+			dockingForm = new AddonDockingForm();
+			dockingForm.Show( ApplicationData.DockPanel, DockState.Float );
+		}
+
+		void RemoveDockingWindow()
+		{
+			if( dockingForm != null )
+			{
+				dockingForm.Close();
+				dockingForm.Dispose();
+				dockingForm = null;
 			}
 		}
 	}

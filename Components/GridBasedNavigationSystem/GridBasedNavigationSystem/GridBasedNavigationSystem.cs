@@ -1227,7 +1227,7 @@ namespace Engine
 				path.Add( internalPoint * GridCellSize + mapMotionPosition );
 			}
 
-			if( !smooth )
+			if( !smooth || pathLength == 1 )
 				path.Add( end );
 
 			return true;

@@ -140,12 +140,17 @@
       <HintPath>..\..\Bin\Utils.dll</HintPath>
       <Private>False</Private>
     </Reference>
+    <Reference Include="Xilium.CefGlue, Version=3.1916.1857.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\..\Bin\Xilium.CefGlue.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AboutWindow.cs" />
     <Compile Include="ActionGameWindow.cs" />
     <Compile Include="BallGameWindow.cs" />
     <Compile Include="CatapultDemoGameWindow.cs" />
+    <Compile Include="GUISamples3Window.cs" />
     <Compile Include="MultiViewConfigurationWindow.cs" />
     <Compile Include="PathfindingDemoGameWindow.cs" />
     <Compile Include="GUISamples2Window.cs" />
@@ -204,6 +209,10 @@
     <ProjectReference Include="..\..\..\Components\RecastNavigationSystem\RecastNavigationSystem\RecastNavigationSystem.csproj">
       <Project>{4BC8BEC2-7892-48F8-B5F8-C3A9E1768BCC}</Project>
       <Name>RecastNavigationSystem</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\..\..\Components\WebBrowserControl\WebBrowserControl\WebBrowserControl.csproj">
+      <Project>{465878F0-0B3A-42A9-BDA3-C259FA850628}</Project>
+      <Name>WebBrowserControl</Name>
     </ProjectReference>
     <ProjectReference Include="..\ProjectCommon\ProjectCommon.csproj">
       <Project>{E4C09433-ECC3-404C-A303-E9A93F241B91}</Project>
