@@ -326,7 +326,7 @@ namespace ProjectEntities
 			//noiseMap
 			{
 				TextureUnitState state = pass.CreateTextureUnitState();
-				state.SetTextureName( "Types\\Special\\WaterPlane\\WaterNoise.dds", Texture.Type.Type2D );
+				state.SetTextureName( "Base\\Types\\Water Plane\\WaterNoise.dds", Texture.Type.Type2D );
 			}
 
 			//reflectionMap
@@ -510,7 +510,7 @@ namespace ProjectEntities
 		bool visible = true;
 
 		[FieldSerialize( "fixedPipelineMap" )]
-		string fixedPipelineMap = "Types\\Special\\WaterPlane\\WaterFixedPipeline.jpg";
+		string fixedPipelineMap = "Base\\Types\\Water Plane\\WaterFixedPipeline.jpg";
 
 		[FieldSerialize( "fixedPipelineMapTiling" )]
 		float fixedPipelineMapTiling = 10;
@@ -736,7 +736,7 @@ namespace ProjectEntities
 
 		[Category( "WaterPlane (Fixed Pipeline)" )]
 		[Editor( typeof( EditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
-		[DefaultValue( "Types\\Special\\WaterPlane\\WaterFixedPipeline.jpg" )]
+		[DefaultValue( "Base\\Types\\Water Plane\\WaterFixedPipeline.jpg" )]
 		public string FixedPipelineMap
 		{
 			get { return fixedPipelineMap; }

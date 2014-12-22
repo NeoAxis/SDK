@@ -161,7 +161,7 @@
     <Compile Include="TankGame Specific\TankGameUnitAI.cs" />
     <Compile Include="ExampleMagicObject.cs" />
     <Compile Include="CutSceneManager.cs" />
-    <Compile Include="DynamicCollision.cs" />
+    <Compile Include="CollisionVolume.cs" />
     <Compile Include="ObserveCameraArea.cs" />
     <Compile Include="RTS Specific\RTSFactionManager.cs" />
     <Compile Include="RTS Specific\RTSBuildingAI.cs" />

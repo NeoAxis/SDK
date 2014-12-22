@@ -14,9 +14,9 @@ using Engine.Utils;
 namespace ProjectEntities
 {
 	/// <summary>
-	/// Defines the <see cref="DynamicCollision"/> entity type.
+	/// Defines the <see cref="CollisionVolume"/> entity type.
 	/// </summary>
-	public class DynamicCollisionType : MapObjectType
+	public class CollisionVolumeType : MapObjectType
 	{
 	}
 
@@ -24,14 +24,14 @@ namespace ProjectEntities
 	/// Represents creation of dynamic obstacles. 
 	/// By means of this class it is possible to set limiting area of movings for map objects.
 	/// </summary>
-	public class DynamicCollision : MapObject
+	public class CollisionVolume : MapObject
 	{
 		[FieldSerialize]
 		bool active = true;
 
 		//
 
-		DynamicCollisionType _type = null; public new DynamicCollisionType Type { get { return _type; } }
+		CollisionVolumeType _type = null; public new CollisionVolumeType Type { get { return _type; } }
 
 		/// <summary>Overridden from <see cref="Engine.EntitySystem.Entity.OnPostCreate(Boolean)"/>.</summary>
 		protected override void OnPostCreate( bool loaded )
@@ -120,7 +120,7 @@ namespace ProjectEntities
 		public override void Editor_RenderSelectionBorder( Camera camera, bool simpleGeometry, DynamicMeshManager manager, 
 			DynamicMeshManager.MaterialData material )
 		{
-			DynamicMeshManager.Block block = manager.GetBlockFromCacheOrCreate( "DynamicCollision.Editor_RenderSelectionBorder: Box" );
+			DynamicMeshManager.Block block = manager.GetBlockFromCacheOrCreate( "CollisionVolume.Editor_RenderSelectionBorder: Box" );
 			block.AddBox( false, new Box( Vec3.Zero, Vec3.One, Mat3.Identity ), null );
 
 			Box box = GetBox();

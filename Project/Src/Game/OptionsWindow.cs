@@ -364,7 +364,6 @@ namespace Game
 					comboBox.Items.Add( new ShadowTechniqueItem( ShadowTechniques.ShadowmapLowPSSM, "PSSMx3 Low" ) );
 					comboBox.Items.Add( new ShadowTechniqueItem( ShadowTechniques.ShadowmapMediumPSSM, "PSSMx3 Medium" ) );
 					comboBox.Items.Add( new ShadowTechniqueItem( ShadowTechniques.ShadowmapHighPSSM, "PSSMx3 High" ) );
-					comboBox.Items.Add( new ShadowTechniqueItem( ShadowTechniques.Stencil, "Stencil" ) );
 
 					for( int n = 0; n < comboBox.Items.Count; n++ )
 					{

@@ -263,7 +263,8 @@ namespace ProjectCommon
 						//point light
 						{
 							//Float32 texture format (both for NVIDIA and ATI)
-							shadowLightBiasPointLight = new Vec2( .2f * qualityFactor, .5f * qualityFactor );
+							shadowLightBiasPointLight = new Vec2( .05f * qualityFactor, 0 );
+							//shadowLightBiasPointLight = new Vec2( .2f * qualityFactor, .5f * qualityFactor );
 						}
 
 						//spot light
@@ -588,142 +589,28 @@ namespace ProjectCommon
 
 		ConvexPolyhedron GetConvexPolyhedronFromFrustum( ref Frustum frustum )
 		{
-			Vec3[] points = null;
-			frustum.ToPoints( ref points );
+			Vec3[] frustumPoints = null;
+			frustum.ToPoints( ref frustumPoints );
 
-			ConvexPolyhedron.Face[] faces = new ConvexPolyhedron.Face[ 12 ];
+			Vec3[] points = new Vec3[ 5 ];
+			points[ 0 ] = frustum.Origin;
+			points[ 1 ] = frustumPoints[ 4 ];
+			points[ 2 ] = frustumPoints[ 5 ];
+			points[ 3 ] = frustumPoints[ 6 ];
+			points[ 4 ] = frustumPoints[ 7 ];
 
-			faces[ 0 ] = new ConvexPolyhedron.Face( 5, 4, 7 );
-			faces[ 1 ] = new ConvexPolyhedron.Face( 7, 6, 5 );
-			faces[ 2 ] = new ConvexPolyhedron.Face( 0, 1, 2 );
-			faces[ 3 ] = new ConvexPolyhedron.Face( 2, 3, 0 );
-
-			faces[ 4 ] = new ConvexPolyhedron.Face( 4, 0, 3 );
-			faces[ 5 ] = new ConvexPolyhedron.Face( 3, 7, 4 );
-			faces[ 6 ] = new ConvexPolyhedron.Face( 1, 5, 6 );
-			faces[ 7 ] = new ConvexPolyhedron.Face( 6, 2, 1 );
-
-			faces[ 8 ] = new ConvexPolyhedron.Face( 6, 7, 3 );
-			faces[ 9 ] = new ConvexPolyhedron.Face( 3, 2, 6 );
-			faces[ 10 ] = new ConvexPolyhedron.Face( 4, 5, 1 );
-			faces[ 11 ] = new ConvexPolyhedron.Face( 1, 0, 4 );
+			ConvexPolyhedron.Face[] faces = new ConvexPolyhedron.Face[ 6 ];
+			faces[ 0 ] = new ConvexPolyhedron.Face( 0, 1, 2 );
+			faces[ 1 ] = new ConvexPolyhedron.Face( 0, 2, 3 );
+			faces[ 2 ] = new ConvexPolyhedron.Face( 0, 3, 4 );
+			faces[ 3 ] = new ConvexPolyhedron.Face( 0, 4, 1 );
+			faces[ 4 ] = new ConvexPolyhedron.Face( 1, 3, 2 );
+			faces[ 5 ] = new ConvexPolyhedron.Face( 3, 1, 4 );
 
 			return new ConvexPolyhedron( points, faces, .0001f );
 		}
 
-		static ConvexPolyhedron MakeConvexPolyhedronForPointLight( RenderLight light )
-		{
-			float radius = light.AttenuationFar;
-			radius /= MathFunctions.Cos( MathFunctions.PI * 2.0f / 32.0f );
-
-			Vec3[] vertices;
-			int[] indices;
-			GeometryGenerator.GenerateSphere( radius, 8, 8, false, out vertices, out indices );
-
-			for( int n = 0; n < vertices.Length; n++ )
-				vertices[ n ] = light.Position + vertices[ n ];
-
-			return new ConvexPolyhedron( vertices, indices, .0001f );
-		}
-
-		static ConvexPolyhedron MakeConvexPolyhedronForSpotLight( RenderLight light )
-		{
-			float outerAngle = light.SpotlightOuterAngle;
-			if( outerAngle < new Degree( 1 ).InRadians() )
-				outerAngle = new Degree( 1 ).InRadians();
-			if( outerAngle > new Degree( 179 ).InRadians() )
-				outerAngle = new Degree( 179 ).InRadians();
-
-			List<Vec3> vertices = new List<Vec3>( 10 );
-			List<ConvexPolyhedron.Face> faces = new List<ConvexPolyhedron.Face>( 16 );
-
-			Mat3 worldRotation = Quat.FromDirectionZAxisUp( light.Direction ).ToMat3();
-
-			float sideAngle;
-			{
-				float radius = MathFunctions.Sin( outerAngle / 2 ) * light.AttenuationFar;
-
-				float l = MathFunctions.Sqrt( light.AttenuationFar * light.AttenuationFar - radius * radius );
-				radius /= MathFunctions.Cos( MathFunctions.PI * 2 / 16 );
-
-				sideAngle = MathFunctions.ATan( radius / l );
-			}
-
-			Vec3 farPoint;
-			{
-				Mat3 pointRotation = worldRotation * Mat3.FromRotateByY( outerAngle / 4 );
-				Vec3 direction = pointRotation * Vec3.XAxis;
-				Vec3 point = light.Position + direction * light.AttenuationFar;
-
-				Plane plane = Plane.FromPointAndNormal( point, direction );
-				Ray ray = new Ray( light.Position, light.Direction * light.AttenuationFar );
-
-				float scale;
-				plane.RayIntersection( ray, out scale );
-				farPoint = ray.GetPointOnRay( scale * 1.05f );
-			}
-
-			vertices.Add( light.Position );
-			vertices.Add( farPoint );
-
-			for( int nAxisAngle = 0; nAxisAngle < 8; nAxisAngle++ )
-			{
-				float axisAngle = ( MathFunctions.PI * 2 ) * ( (float)nAxisAngle / 8 );
-
-				Mat3 worldAxisRotation = worldRotation * Mat3.FromRotateByX( axisAngle );
-
-				Plane sidePlane;
-				{
-					Mat3 sideAngleRotation = Mat3.FromRotateByY( sideAngle + MathFunctions.PI / 2 );
-					Mat3 pointRotation = worldAxisRotation * sideAngleRotation;
-					sidePlane = Plane.FromPointAndNormal( light.Position, pointRotation * Vec3.XAxis );
-				}
-
-				{
-					Mat3 pointRotation = worldAxisRotation * Mat3.FromRotateByY( outerAngle / 4 );
-					Vec3 direction = pointRotation * Vec3.XAxis;
-					Vec3 point = light.Position + direction * ( light.AttenuationFar * 1.05f );
-
-					Ray ray = new Ray( farPoint, point - farPoint );
-
-					float scale;
-					sidePlane.RayIntersection( ray, out scale );
-					Vec3 p = ray.GetPointOnRay( scale );
-
-					vertices.Add( p );
-				}
-			}
-
-			for( int n = 0; n < 8; n++ )
-			{
-				faces.Add( new ConvexPolyhedron.Face( 0, n + 2, ( n + 1 ) % 8 + 2 ) );
-				faces.Add( new ConvexPolyhedron.Face( 1, ( n + 1 ) % 8 + 2, n + 2 ) );
-			}
-
-			//foreach( ConvexPolyhedron.Face face in faces )
-			//{
-			//   camera.DebugGeometry.Color = new ColorValue( 0, 0, 1 );
-			//   Vec3 p0 = vertices[ face.Vertex0 ];
-			//   Vec3 p1 = vertices[ face.Vertex1 ];
-			//   Vec3 p2 = vertices[ face.Vertex2 ];
-			//   camera.DebugGeometry.AddLine( p0, p1 );
-			//   camera.DebugGeometry.AddLine( p1, p2 );
-			//   camera.DebugGeometry.AddLine( p2, p0 );
-
-			//   Vec3[] v = new Vec3[ 3 ] { p0, p1, p2 };
-			//   int[] i = new int[] { 0, 1, 2 };
-			//   camera.DebugGeometry.Color = new ColorValue( 0, 0, 1, .5f );
-			//   camera.DebugGeometry.AddVertexIndexBuffer( v, i, Mat4.Identity, false, true );
-			//}
-			//camera.DebugGeometry.Color = new ColorValue( 1, 0, 0 );
-			//foreach( Vec3 vertex in vertices )
-			//   camera.DebugGeometry.AddSphere( new Sphere( vertex, .1f ) );
-
-			return new ConvexPolyhedron( vertices.ToArray(), faces.ToArray(), .0001f );
-		}
-
-		public override void OnSceneManagementGetLightsForCamera( Camera camera,
-			List<RenderingLowLevelMethods.LightItem> outLights )
+		public override void OnSceneManagementGetLightsForCamera( Camera camera, List<RenderingLowLevelMethods.LightItem> outLights )
 		{
 			Frustum frustum = FrustumUtils.GetFrustumByCamera( camera );
 			if( EngineDebugSettings.FrustumTest && camera.AllowFrustumTestMode )
@@ -734,18 +621,70 @@ namespace ProjectCommon
 
 			ConvexPolyhedron frustumPolyhedron = GetConvexPolyhedronFromFrustum( ref frustum );
 
-			ICollection<RenderLight> list;
+			ICollection<RenderLight> lightsToCheck;
 			if( SceneManager.Instance.OverrideVisibleObjects != null )
-				list = SceneManager.Instance.OverrideVisibleObjects.Lights;
+			{
+				lightsToCheck = SceneManager.Instance.OverrideVisibleObjects.Lights;
+			}
 			else
-				list = SceneManager.Instance.RenderLights;
+			{
+				List<RenderLight> list = new List<RenderLight>( 64 );
+				lightsToCheck = list;
 
-			foreach( RenderLight light in list )
+				bool usePortalSystem =
+					EngineApp.Instance.ApplicationType != EngineApp.ApplicationTypes.ResourceEditor &&
+					Map.Instance != null && Map.Instance.Zones.Count != 0 &&
+					camera.AllowZonesAndPortalsSceneManagement &&
+					EngineDebugSettings.AllowPortalSystem &&
+					camera.ProjectionType == ProjectionTypes.Perspective;
+
+				if( usePortalSystem )
+				{
+					//use portal system
+					Map.Instance.WalkUsePortalSystem( camera, false, null, null, list );
+				}
+				else
+				{
+					//use frustum culling
+
+					//add directional lights
+					foreach( RenderLight light in SceneManager.Instance.RenderLights )
+					{
+						if( light.Type == RenderLightType.Directional )
+							list.Add( light );
+					}
+
+					uint groupMask = 0;
+					groupMask |= 1 << (int)SceneManager.SceneGraphGroups.Light;
+
+					int[] sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( frustum, groupMask );
+
+					foreach( int sceneGraphIndex in sceneGraphIndexes )
+					{
+						SceneManager.SceneGraphObjectData data = SceneManager.Instance.SceneGraphObjects[ sceneGraphIndex ];
+
+						//Light
+						RenderLight light = data.Light;
+						if( light != null && light.Visible )
+						{
+							//clip volumes
+							if( !IsTotalClipVolumesContainsBounds( light.GetWorldBounds() ) )
+								list.Add( light );
+						}
+					}
+				}
+
+				//add objects never culled by the frustum
+				if( SceneManager.Instance.OverrideVisibleObjects == null && Map.Instance != null )
+					Map.Instance.Walk_AddObjectsWithDisabled_AllowSceneManagementCulling_Property( false, null, null, list );
+			}
+
+			foreach( RenderLight light in lightsToCheck )
 			{
 				if( !light.Visible )
 					continue;
 
-				bool allowCastShadows = true;
+				bool allowCastShadows = light.CastShadows;
 
 				if( light.Type == RenderLightType.Point || light.Type == RenderLightType.Spot )
 				{
@@ -760,17 +699,31 @@ namespace ProjectCommon
 
 					//generate convex polyhedron for light volume 
 					//and check intersection with camera frustum.
-					ConvexPolyhedron lightPolyhedron = null;
-					if( light.Type == RenderLightType.Point )
-						lightPolyhedron = MakeConvexPolyhedronForPointLight( light );
-					else if( light.Type == RenderLightType.Spot )
-						lightPolyhedron = MakeConvexPolyhedronForSpotLight( light );
+					ConvexPolyhedron lightPolyhedron = light.GetInclusiveVolumeForCulling();
+
+					//draw light bounds
+					//RendererWorld.Instance.DefaultCamera.DebugGeometry.Color = new ColorValue( 1, 0, 1, .5f );
+					//RendererWorld.Instance.DefaultCamera.DebugGeometry.AddBounds( light.GetWorldBounds() );
+
+					//visualize light volumes
+					//{
+					//   int[] i = new int[ lightPolyhedron.Faces.Length * 3 ];
+					//   for( int n = 0; n < lightPolyhedron.Faces.Length; n++ )
+					//   {
+					//      i[ n * 3 + 0 ] = lightPolyhedron.Faces[ n ].Vertex0;
+					//      i[ n * 3 + 1 ] = lightPolyhedron.Faces[ n ].Vertex1;
+					//      i[ n * 3 + 2 ] = lightPolyhedron.Faces[ n ].Vertex2;
+					//   }
+					//   RendererWorld.Instance.DefaultCamera.DebugGeometry.Color = new ColorValue( 1, 1, 0, .3f );
+					//   RendererWorld.Instance.DefaultCamera.DebugGeometry.AddVertexIndexBuffer(
+					//      lightPolyhedron.Vertices, i, Mat4.Identity, false, true );
+					//}
 
 					if( !ConvexPolyhedron.IsIntersects( frustumPolyhedron, lightPolyhedron ) )
 						continue;
 
 					//allowCastShadows
-					if( light.CastShadows )
+					if( allowCastShadows )
 					{
 						Sphere frustumShadowSphere = new Sphere( camera.DerivedPosition,
 							SceneManager.Instance.ShadowFarDistance );
@@ -847,7 +800,14 @@ namespace ProjectCommon
 					Array.Copy( array2, 0, clipPlanes, array1.Length, array2.Length );
 				}
 				Bounds clipBounds = lightSphere.ToBounds();
-				sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, clipBounds, 0xFFFFFFFF );
+
+				uint groupMask = 0;
+				if( outSceneNodes != null )
+					groupMask |= 1 << (int)SceneManager.SceneGraphGroups.SceneNode;
+				if( outStaticMeshObjects != null )
+					groupMask |= 1 << (int)SceneManager.SceneGraphGroups.StaticMeshObject;
+
+				sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, clipBounds, groupMask );
 			}
 
 			foreach( int sceneGraphIndex in sceneGraphIndexes )
@@ -985,7 +945,14 @@ namespace ProjectCommon
 						Array.Copy( array2, 0, clipPlanes, array1.Length, array2.Length );
 					}
 					Bounds clipBounds = lightSphere.ToBounds();
-					sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, clipBounds, 0xFFFFFFFF );
+
+					uint groupMask = 0;
+					if( outSceneNodes != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.SceneNode;
+					if( outStaticMeshObjects != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.StaticMeshObject;
+
+					sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, clipBounds, groupMask );
 				}
 
 				foreach( int sceneGraphIndex in sceneGraphIndexes )
@@ -1050,7 +1017,14 @@ namespace ProjectCommon
 						Array.Copy( array1, 0, clipPlanes, 6, array1.Length );
 					}
 					Bounds clipBounds = lightSphere.ToBounds();
-					sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, clipBounds, 0xFFFFFFFF );
+
+					uint groupMask = 0;
+					if( outSceneNodes != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.SceneNode;
+					if( outStaticMeshObjects != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.StaticMeshObject;
+
+					sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, clipBounds, groupMask );
 				}
 
 				foreach( int sceneGraphIndex in sceneGraphIndexes )
@@ -1204,7 +1178,14 @@ namespace ProjectCommon
 			else
 			{
 				Plane[] clipPlanes = GetClipPlanesForDirectionalLightShadowGeneration( mainCamera, light, pssmTextureIndex );
-				sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, 0xFFFFFFFF );
+
+				uint groupMask = 0;
+				if( outSceneNodes != null )
+					groupMask |= 1 << (int)SceneManager.SceneGraphGroups.SceneNode;
+				if( outStaticMeshObjects != null )
+					groupMask |= 1 << (int)SceneManager.SceneGraphGroups.StaticMeshObject;
+
+				sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( clipPlanes, groupMask );
 			}
 
 			foreach( int sceneGraphIndex in sceneGraphIndexes )
@@ -1232,8 +1213,21 @@ namespace ProjectCommon
 		}
 
 		//you can use this method for debugging purposes.
-		static void WalkAll( List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects )
+		static void WalkAll( List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects, List<RenderLight> outLights )
 		{
+			//add directional lights
+			if( outLights != null )
+			{
+				foreach( RenderLight light in SceneManager.Instance.RenderLights )
+				{
+					if( light.Type == RenderLightType.Directional )
+					{
+						if( !outLights.Contains( light ) )
+							outLights.Add( light );
+					}
+				}
+			}
+
 			int[] sceneGraphIndexes;
 			if( SceneManager.Instance.OverrideVisibleObjects != null )
 			{
@@ -1248,6 +1242,8 @@ namespace ProjectCommon
 						list.Add( data.SceneNode.SceneGraphIndex );
 					else if( data.StaticMeshObject != null )
 						list.Add( data.StaticMeshObject.SceneGraphIndex );
+					else if( data.Light != null )
+						list.Add( data.Light.SceneGraphIndex );
 				}
 				sceneGraphIndexes = list.ToArray();
 			}
@@ -1257,20 +1253,40 @@ namespace ProjectCommon
 				SceneManager.SceneGraphObjectData data = SceneManager.Instance.SceneGraphObjects[ sceneGraphIndex ];
 
 				//SceneNode
-				SceneNode sceneNode = data.SceneNode;
-				if( sceneNode != null && sceneNode.Visible )
-					outSceneNodes.Add( sceneNode );
+				if( outSceneNodes != null )
+				{
+					SceneNode sceneNode = data.SceneNode;
+					if( sceneNode != null && sceneNode.Visible )
+						outSceneNodes.Add( sceneNode );
+				}
 
 				//StaticMeshObject
-				StaticMeshObject staticMeshObject = data.StaticMeshObject;
-				if( staticMeshObject != null && staticMeshObject.Visible )
-					outStaticMeshObjects.Add( staticMeshObject );
+				if( outStaticMeshObjects != null )
+				{
+					StaticMeshObject staticMeshObject = data.StaticMeshObject;
+					if( staticMeshObject != null && staticMeshObject.Visible )
+						outStaticMeshObjects.Add( staticMeshObject );
+				}
+
+				//RenderLight
+				if( outLights != null )
+				{
+					RenderLight light = data.Light;
+					if( light != null && light.Visible )
+						outLights.Add( light );
+				}
+			}
+
+			//add objects never culled by the frustum
+			if( SceneManager.Instance.OverrideVisibleObjects == null && Map.Instance != null )
+			{
+				Map.Instance.Walk_AddObjectsWithDisabled_AllowSceneManagementCulling_Property( false,
+					outSceneNodes, outStaticMeshObjects, outLights );
 			}
 		}
 
-		public override void OnSceneManagementGetShadowCastersForLight( Camera mainCamera,
-			RenderLight light, int directionalLightPSSMTextureIndex, Vec3 pointLightFaceDirection,
-			List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects )
+		void GetShadowCastersForLight( Camera mainCamera, RenderLight light, int directionalLightPSSMTextureIndex,
+			Vec3 pointLightFaceDirection, List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects )
 		{
 			switch( light.Type )
 			{
@@ -1290,48 +1306,188 @@ namespace ProjectCommon
 			}
 		}
 
-		public override bool OnSceneManagementIsAllowPortalSystem( Camera camera )
+		void GetObjectsForUsualCamera( Camera camera, List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects,
+			List<RenderLight> outLights )
 		{
-			return true;
-		}
-
-		public override void OnSceneManagementGetObjectsForCamera( Camera camera,
-			List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects )
-		{
-			Frustum frustum = FrustumUtils.GetFrustumByCamera( camera );
-			if( EngineDebugSettings.FrustumTest && camera.AllowFrustumTestMode )
-			{
-				frustum.HalfWidth *= .5f;
-				frustum.HalfHeight *= .5f;
-			}
-
-			int[] sceneGraphIndexes;
 			if( SceneManager.Instance.OverrideVisibleObjects != null )
-				sceneGraphIndexes = GetOverrideVisibleObjectsSceneGraphIndexes();
-			else
-				sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( frustum, 0xFFFFFFFF );
-
-			foreach( int sceneGraphIndex in sceneGraphIndexes )
 			{
-				SceneManager.SceneGraphObjectData data = SceneManager.Instance.SceneGraphObjects[ sceneGraphIndex ];
+				//override visible objects
 
 				//SceneNode
-				SceneNode sceneNode = data.SceneNode;
-				if( sceneNode != null && sceneNode.Visible )
+				if( outSceneNodes != null )
 				{
-					//clip volumes
-					if( !IsTotalClipVolumesContainsBounds( sceneNode.GetWorldBounds() ) )
-						outSceneNodes.Add( sceneNode );
+					foreach( SceneNode sceneNode in SceneManager.Instance.OverrideVisibleObjects.SceneNodes )
+					{
+						if( sceneNode.Visible && !IsTotalClipVolumesContainsBounds( sceneNode.GetWorldBounds() ) )
+							outSceneNodes.Add( sceneNode );
+					}
 				}
 
 				//StaticMeshObject
-				StaticMeshObject staticMeshObject = data.StaticMeshObject;
-				if( staticMeshObject != null && staticMeshObject.Visible )
+				if( outStaticMeshObjects != null )
 				{
-					//clip volumes
-					if( !IsTotalClipVolumesContainsBounds( staticMeshObject.Bounds ) )
-						outStaticMeshObjects.Add( staticMeshObject );
+					foreach( StaticMeshObject staticMeshObject in SceneManager.Instance.OverrideVisibleObjects.StaticMeshObjects )
+					{
+						if( staticMeshObject.Visible && !IsTotalClipVolumesContainsBounds( staticMeshObject.Bounds ) )
+							outStaticMeshObjects.Add( staticMeshObject );
+					}
 				}
+
+				//Light
+				if( outLights != null )
+				{
+					foreach( RenderLight light in SceneManager.Instance.OverrideVisibleObjects.Lights )
+					{
+						if( light.Visible && !IsTotalClipVolumesContainsBounds( light.GetWorldBounds() ) )
+							outLights.Add( light );
+					}
+				}
+			}
+			else
+			{
+				bool usePortalSystem =
+					EngineApp.Instance.ApplicationType != EngineApp.ApplicationTypes.ResourceEditor &&
+					Map.Instance != null && Map.Instance.Zones.Count != 0 &&
+					camera.AllowZonesAndPortalsSceneManagement &&
+					EngineDebugSettings.AllowPortalSystem &&
+					camera.ProjectionType == ProjectionTypes.Perspective;
+
+				if( usePortalSystem )
+				{
+					//use portal system
+					Map.Instance.WalkUsePortalSystem( camera, false, outSceneNodes, outStaticMeshObjects, outLights );
+				}
+				else
+				{
+					//use frustum culling
+
+					Frustum frustum = FrustumUtils.GetFrustumByCamera( camera );
+					if( EngineDebugSettings.FrustumTest && camera.AllowFrustumTestMode )
+					{
+						frustum.HalfWidth *= .5f;
+						frustum.HalfHeight *= .5f;
+					}
+					ConvexPolyhedron frustumPolyhedron = GetConvexPolyhedronFromFrustum( ref frustum );
+
+					//add directional lights
+					foreach( RenderLight light in SceneManager.Instance.RenderLights )
+					{
+						if( light.Type == RenderLightType.Directional )
+							outLights.Add( light );
+					}
+
+					uint groupMask = 0;
+					if( outSceneNodes != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.SceneNode;
+					if( outStaticMeshObjects != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.StaticMeshObject;
+					if( outLights != null )
+						groupMask |= 1 << (int)SceneManager.SceneGraphGroups.Light;
+
+					int[] sceneGraphIndexes = SceneManager.Instance.SceneGraph.GetObjects( frustum, groupMask );
+
+					foreach( int sceneGraphIndex in sceneGraphIndexes )
+					{
+						SceneManager.SceneGraphObjectData data = SceneManager.Instance.SceneGraphObjects[ sceneGraphIndex ];
+
+						//SceneNode
+						SceneNode sceneNode = data.SceneNode;
+						if( sceneNode != null && sceneNode.Visible )
+						{
+							//clip volumes
+							if( !IsTotalClipVolumesContainsBounds( sceneNode.GetWorldBounds() ) )
+								outSceneNodes.Add( sceneNode );
+						}
+
+						//StaticMeshObject
+						StaticMeshObject staticMeshObject = data.StaticMeshObject;
+						if( staticMeshObject != null && staticMeshObject.Visible )
+						{
+							//clip volumes
+							if( !IsTotalClipVolumesContainsBounds( staticMeshObject.Bounds ) )
+								outStaticMeshObjects.Add( staticMeshObject );
+						}
+
+						//Light
+						RenderLight light = data.Light;
+						if( light != null && light.Visible )
+						{
+							//clip volumes
+							if( !IsTotalClipVolumesContainsBounds( light.GetWorldBounds() ) )
+							{
+								bool intersects = false;
+
+								if( light.Type == RenderLightType.Point || light.Type == RenderLightType.Spot )
+								{
+									if( light.AttenuationFar >= .01f )
+									{
+										//generate convex polyhedron for light volume 
+										//and check intersection with camera frustum.
+										ConvexPolyhedron lightPolyhedron = light.GetInclusiveVolumeForCulling();
+
+										//visualize light volumes
+										//{
+										//   int[] i = new int[ lightPolyhedron.Faces.Length * 3 ];
+										//   for( int n = 0; n < lightPolyhedron.Faces.Length; n++ )
+										//   {
+										//      i[ n * 3 + 0 ] = lightPolyhedron.Faces[ n ].Vertex0;
+										//      i[ n * 3 + 1 ] = lightPolyhedron.Faces[ n ].Vertex1;
+										//      i[ n * 3 + 2 ] = lightPolyhedron.Faces[ n ].Vertex2;
+										//   }
+										//   RendererWorld.Instance.DefaultCamera.DebugGeometry.Color = new ColorValue( 1, 1, 0, .3f );
+										//   RendererWorld.Instance.DefaultCamera.DebugGeometry.AddVertexIndexBuffer(
+										//      lightPolyhedron.Vertices, i, Mat4.Identity, false, true );
+										//}
+
+										if( ConvexPolyhedron.IsIntersects( frustumPolyhedron, lightPolyhedron ) )
+											intersects = true;
+									}
+								}
+								else
+									intersects = true;
+
+								if( intersects )
+									outLights.Add( light );
+							}
+						}
+					}
+				}
+			}
+		}
+
+		public override void OnSceneManagementGetObjectsForCamera( Camera camera,
+			List<SceneNode> outSceneNodes, List<StaticMeshObject> outStaticMeshObjects, List<RenderLight> outLights )
+		{
+			RenderLight shadowGenerationLight = null;
+			if( camera.IsForShadowMapGeneration() )
+				shadowGenerationLight = camera.GetShadowMapGenerationLight();
+
+			if( shadowGenerationLight != null )
+			{
+				//shadow generation
+
+				int directionalLightPSSMTextureIndex = 0;
+				Vec3 pointLightFaceDirection = Vec3.Zero;
+				if( shadowGenerationLight.Type == RenderLightType.Directional && SceneManager.Instance.IsShadowTechniquePSSM() )
+					directionalLightPSSMTextureIndex = camera.GetDirectionalLightPSSMTextureIndex();
+				if( shadowGenerationLight.Type == RenderLightType.Point && SceneManager.Instance.IsShadowTechniqueShadowmapBased() )
+					pointLightFaceDirection = camera.Direction;
+
+				GetShadowCastersForLight( SceneManager.Instance.CurrentUpdatingCamera, shadowGenerationLight,
+					directionalLightPSSMTextureIndex, pointLightFaceDirection, outSceneNodes, outStaticMeshObjects );
+			}
+			else
+			{
+				//usual camera
+
+				GetObjectsForUsualCamera( camera, outSceneNodes, outStaticMeshObjects, outLights );
+			}
+
+			//add objects never culled by the frustum
+			if( SceneManager.Instance.OverrideVisibleObjects == null && Map.Instance != null )
+			{
+				Map.Instance.Walk_AddObjectsWithDisabled_AllowSceneManagementCulling_Property( shadowGenerationLight != null,
+					outSceneNodes, outStaticMeshObjects, outLights );
 			}
 		}
 

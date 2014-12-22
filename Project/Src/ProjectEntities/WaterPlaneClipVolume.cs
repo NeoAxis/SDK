@@ -28,6 +28,8 @@ namespace ProjectEntities
 	public class WaterPlaneClipVolume : MapObject
 	{
 		static List<WaterPlaneClipVolume> instances = new List<WaterPlaneClipVolume>();
+		[FieldSerialize( "alwaysShowBorder" )]
+		bool alwaysShowBorder;
 
 		///////////////////////////////////////////
 
@@ -37,6 +39,13 @@ namespace ProjectEntities
 		public static List<WaterPlaneClipVolume> Instances
 		{
 			get { return instances; }
+		}
+
+		[DefaultValue( false )]
+		public bool AlwaysShowBorder
+		{
+			get { return alwaysShowBorder; }
+			set { alwaysShowBorder = value; }
 		}
 
 		protected override void OnPostCreate( bool loaded )
@@ -63,14 +72,18 @@ namespace ProjectEntities
 		{
 			base.OnRender( camera );
 
-			if( EntitySystemWorld.Instance.IsEditor() && EditorLayer.Visible ||
-				EngineDebugSettings.DrawGameSpecificDebugGeometry )
+			bool show = alwaysShowBorder;
+			if( EntitySystemWorld.Instance.IsEditor() && !EditorLayer.Visible )
+				show = false;
+			if( MapEditorInterface.Instance != null && MapEditorInterface.Instance.IsEntitySelected( this ) )
+				show = true;
+			if( EngineDebugSettings.DrawGameSpecificDebugGeometry )
+				show = true;
+
+			if( show && camera.Purpose == Camera.Purposes.MainCamera )
 			{
-				if( camera.Purpose == Camera.Purposes.MainCamera )
-				{
-					camera.DebugGeometry.Color = new ColorValue( 1, 0, 0 );
-					camera.DebugGeometry.AddBox( GetBox() );
-				}
+				camera.DebugGeometry.Color = new ColorValue( 1, 0, 0 );
+				camera.DebugGeometry.AddBox( GetBox() );
 			}
 		}
 
@@ -94,7 +107,7 @@ namespace ProjectEntities
 			return false;
 		}
 
-		public override void Editor_RenderSelectionBorder( Camera camera, bool simpleGeometry, DynamicMeshManager manager, 
+		public override void Editor_RenderSelectionBorder( Camera camera, bool simpleGeometry, DynamicMeshManager manager,
 			DynamicMeshManager.MaterialData material )
 		{
 			DynamicMeshManager.Block block = manager.GetBlockFromCacheOrCreate(

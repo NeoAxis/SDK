@@ -980,6 +980,26 @@
         <member name="M:ProjectEntities.Bullet.OnTick">
             <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnTick"/>.</summary>
         </member>
+        <member name="T:ProjectEntities.CollisionVolumeType">
+            <summary>
+            Defines the <see cref="T:ProjectEntities.CollisionVolume"/> entity type.
+            </summary>
+        </member>
+        <member name="T:ProjectEntities.CollisionVolume">
+            <summary>
+            Represents creation of dynamic obstacles. 
+            By means of this class it is possible to set limiting area of movings for map objects.
+            </summary>
+        </member>
+        <member name="M:ProjectEntities.CollisionVolume.OnPostCreate(System.Boolean)">
+            <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnPostCreate(System.Boolean)"/>.</summary>
+        </member>
+        <member name="M:ProjectEntities.CollisionVolume.OnSetTransform(Engine.MathEx.Vec3@,Engine.MathEx.Quat@,Engine.MathEx.Vec3@)">
+            <summary>Overridden from <see cref="M:Engine.MapSystem.MapObject.OnSetTransform(Engine.MathEx.Vec3@,Engine.MathEx.Quat@,Engine.MathEx.Vec3@)"/>.</summary>
+        </member>
+        <member name="M:ProjectEntities.CollisionVolume.OnRender(Engine.Renderer.Camera)">
+            <summary>Overridden from <see cref="M:Engine.MapSystem.MapObject.OnRender(Engine.Renderer.Camera)"/>.</summary>
+        </member>
         <member name="M:ProjectEntities.WaterPlane.OnPostCreate(System.Boolean)">
             <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnPostCreate(System.Boolean)"/>.</summary>
         </member>
@@ -1174,26 +1194,6 @@
         </member>
         <member name="M:ProjectEntities.Corpse.OnTick">
             <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnTick"/>.</summary>
-        </member>
-        <member name="T:ProjectEntities.DynamicCollisionType">
-            <summary>
-            Defines the <see cref="T:ProjectEntities.DynamicCollision"/> entity type.
-            </summary>
-        </member>
-        <member name="T:ProjectEntities.DynamicCollision">
-            <summary>
-            Represents creation of dynamic obstacles. 
-            By means of this class it is possible to set limiting area of movings for map objects.
-            </summary>
-        </member>
-        <member name="M:ProjectEntities.DynamicCollision.OnPostCreate(System.Boolean)">
-            <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnPostCreate(System.Boolean)"/>.</summary>
-        </member>
-        <member name="M:ProjectEntities.DynamicCollision.OnSetTransform(Engine.MathEx.Vec3@,Engine.MathEx.Quat@,Engine.MathEx.Vec3@)">
-            <summary>Overridden from <see cref="M:Engine.MapSystem.MapObject.OnSetTransform(Engine.MathEx.Vec3@,Engine.MathEx.Quat@,Engine.MathEx.Vec3@)"/>.</summary>
-        </member>
-        <member name="M:ProjectEntities.DynamicCollision.OnRender(Engine.Renderer.Camera)">
-            <summary>Overridden from <see cref="M:Engine.MapSystem.MapObject.OnRender(Engine.Renderer.Camera)"/>.</summary>
         </member>
         <member name="T:ProjectEntities.CraneType">
             <summary>

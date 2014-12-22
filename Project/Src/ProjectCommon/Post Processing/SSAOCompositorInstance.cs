@@ -15,11 +15,11 @@ namespace ProjectCommon
 	public class SSAOCompositorParameters : CompositorParameters
 	{
 		float intensity = 1.5f;
-		float downsampling = 2;
+		float downsampling = 1;
 		//int iterations = 24;
 		float sampleLength = 2;
-		float offsetScale = .1f;
-		float defaultAccessibility = .6f;
+		float offsetScale = .05f;
+		float defaultAccessibility = .7f;
 		float maxDistance = 50;
 		float blurSpread = 1;
 		//bool fixEdges = true;
@@ -41,7 +41,7 @@ namespace ProjectCommon
 			}
 		}
 
-		[DefaultValue( 2.0f )]
+		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 1, 3 )]
 		public float Downsampling
@@ -91,7 +91,7 @@ namespace ProjectCommon
 			}
 		}
 
-		[DefaultValue( .1f )]
+		[DefaultValue( .05f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		public float OffsetScale
@@ -107,7 +107,7 @@ namespace ProjectCommon
 			}
 		}
 
-		[DefaultValue( .6f )]
+		[DefaultValue( .7f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		public float DefaultAccessibility
@@ -173,11 +173,11 @@ namespace ProjectCommon
 	public class SSAOCompositorInstance : CompositorInstance
 	{
 		float intensity = 1.5f;
-		float downsampling = 2;
+		float downsampling = 1;
 		//float iterations = 24;
 		float sampleLength = 2;
-		float offsetScale = .1f;
-		float defaultAccessibility = .6f;
+		float offsetScale = .05f;
+		float defaultAccessibility = .7f;
 		float maxDistance = 50;
 		float blurSpread = 1;
 		//bool fixEdges = true;

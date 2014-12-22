@@ -965,7 +965,7 @@ namespace Game
 		/// Draw a target at center of screen
 		/// </summary>
 		/// <param name="renderer"></param>
-		void DrawTarget( GuiRenderer renderer )
+		protected virtual void DrawTarget( GuiRenderer renderer )
 		{
 			Unit playerUnit = GetPlayerUnit();
 

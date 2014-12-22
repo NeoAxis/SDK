@@ -148,6 +148,15 @@ namespace Game
 			base.OnMouseMove();
 		}
 
+		protected override void DrawTarget( GuiRenderer renderer )
+		{
+			//disable target drawing in demo mode
+			if( demoMode && !FreeCameraEnabled )
+				return;
+
+			base.DrawTarget( renderer );
+		}
+
 		protected override void OnGetCameraTransform( out Vec3 position, out Vec3 forward, out Vec3 up,
 			ref Degree cameraFov )
 		{

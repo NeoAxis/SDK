@@ -2232,8 +2232,7 @@ namespace ProjectCommon
 				//pass 4: spot light
 
 				bool mergeAmbientAndDirectionalLightPasses = RenderSystem.Instance.HasShaderModel3() &&
-					blending == MaterialBlendingTypes.Opaque &&
-					!SceneManager.Instance.IsShadowTechniqueStencilBased();
+					blending == MaterialBlendingTypes.Opaque;
 
 				bool needAmbientPass = ambientLighting || emissionColor != new ColorValue( 0, 0, 0 ) ||
 					emissionScaleDynamic || blending == MaterialBlendingTypes.Opaque;
@@ -2353,14 +2352,6 @@ namespace ProjectCommon
 									pass.SpecialRendering = true;
 									pass.SpecialRenderingIteratePerLight = true;
 									pass.SpecialRenderingLightType = lightType;
-								}
-
-								if( SceneManager.Instance.IsShadowTechniqueStencilBased() )
-								{
-									if( ambientPass )
-										pass.StencilShadowsIlluminationStage = IlluminationStage.Ambient;
-									if( lightPass )
-										pass.StencilShadowsIlluminationStage = IlluminationStage.PerLight;
 								}
 							}
 						}
@@ -3310,88 +3301,7 @@ namespace ProjectCommon
 
 			Technique tecnhique = BaseMaterial.CreateTechnique();
 
-
-			if( SceneManager.Instance.IsShadowTechniqueStencilBased() )
 			{
-				//stencil shadows are enabled
-
-				//ambient pass
-				if( blending == MaterialBlendingTypes.Opaque )
-				{
-					Pass pass = tecnhique.CreatePass();
-					pass.NormalizeNormals = true;
-
-					pass.Ambient = diffuseScale;
-					pass.Diffuse = new ColorValue( 0, 0, 0 );
-					pass.Specular = new ColorValue( 0, 0, 0 );
-
-					pass.AlphaRejectFunction = alphaRejectFunction;
-					pass.AlphaRejectValue = alphaRejectValue;
-					pass.Lighting = lighting;
-					if( doubleSided )
-						pass.CullingMode = CullingMode.None;
-
-					pass.DepthWrite = depthWrite;
-					pass.DepthCheck = depthTest;
-
-					if( !allowFog || blending == MaterialBlendingTypes.AlphaAdd )
-						pass.SetFogOverride( FogMode.None, new ColorValue( 0, 0, 0 ), 0, 0, 0 );
-
-					FixedPipelineAddDiffuseMapsToPass( pass );
-
-					pass.StencilShadowsIlluminationStage = IlluminationStage.Ambient;
-				}
-
-				{
-					Pass pass = tecnhique.CreatePass();
-					pass.NormalizeNormals = true;
-
-					pass.Ambient = new ColorValue( 0, 0, 0 );
-					pass.Diffuse = diffuseScale;
-					if( string.IsNullOrEmpty( SpecularMap.Texture ) )
-						pass.Specular = SpecularColor * SpecularPower;
-					pass.Shininess = SpecularShininess;
-
-					pass.AlphaRejectFunction = alphaRejectFunction;
-					pass.AlphaRejectValue = alphaRejectValue;
-					pass.Lighting = lighting;
-					if( doubleSided )
-						pass.CullingMode = CullingMode.None;
-
-					pass.DepthWrite = false;
-					pass.DepthCheck = depthTest;
-
-					if( !allowFog || blending == MaterialBlendingTypes.AlphaAdd )
-						pass.SetFogOverride( FogMode.None, new ColorValue( 0, 0, 0 ), 0, 0, 0 );
-
-					pass.SourceBlendFactor = SceneBlendFactor.SourceAlpha;
-					pass.DestBlendFactor = SceneBlendFactor.One;
-
-					if( blending != MaterialBlendingTypes.Opaque )
-					{
-						switch( blending )
-						{
-						case MaterialBlendingTypes.AlphaAdd:
-							pass.SourceBlendFactor = SceneBlendFactor.SourceAlpha;
-							pass.DestBlendFactor = SceneBlendFactor.One;
-							break;
-						case MaterialBlendingTypes.AlphaBlend:
-							pass.SourceBlendFactor = SceneBlendFactor.SourceAlpha;
-							pass.DestBlendFactor = SceneBlendFactor.OneMinusSourceAlpha;
-							break;
-						}
-					}
-
-					FixedPipelineAddDiffuseMapsToPass( pass );
-
-					pass.StencilShadowsIlluminationStage = IlluminationStage.PerLight;
-				}
-
-			}
-			else
-			{
-				//stencil shadows are disabled
-
 				Pass pass = tecnhique.CreatePass();
 				pass.NormalizeNormals = true;
 
@@ -3470,9 +3380,6 @@ namespace ProjectCommon
 					EmissionMap.textureUnitStatesForFixedPipeline.Add( state );
 					UpdateMapTransformForFixedPipeline( EmissionMap );
 				}
-
-				if( SceneManager.Instance.IsShadowTechniqueStencilBased() )
-					pass.StencilShadowsIlluminationStage = IlluminationStage.Decal;
 			}
 
 
