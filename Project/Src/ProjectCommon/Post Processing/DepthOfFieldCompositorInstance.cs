@@ -16,12 +16,12 @@ namespace ProjectCommon
 	[CompositorName( "DepthOfField" )]
 	public class DepthOfFieldCompositorParameters : CompositorParameters
 	{
-		float focalDistance = 30;
+		float focalDistance = 50;
 		bool autoFocus = true;
 		float focalSize = 20;
-		float blurSpread = .3f;
-		float blurTextureResolution = 5;
-		float backgroundTransitionLength = 40;
+		float blurSpread = .2f;
+		float blurTextureResolution = 6;
+		float backgroundTransitionLength = 100;
 		bool blurForeground = true;
 		float foregroundTransitionLength = 40;
 		Range autoFocusRange = new Range( 1, 70 );
@@ -29,7 +29,7 @@ namespace ProjectCommon
 
 		//
 
-		[DefaultValue( 30.0f )]
+		[DefaultValue( 50.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 1, 300 )]
 		public float FocalDistance
@@ -64,7 +64,7 @@ namespace ProjectCommon
 			}
 		}
 
-		[DefaultValue( .3f )]
+		[DefaultValue( .2f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		public float BlurSpread
@@ -78,7 +78,7 @@ namespace ProjectCommon
 			}
 		}
 
-		[DefaultValue( 5.0f )]
+		[DefaultValue( 6.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 1, 7 )]
 		public float BlurTextureResolution
@@ -94,9 +94,9 @@ namespace ProjectCommon
 			}
 		}
 
-		[DefaultValue( 40.0f )]
+		[DefaultValue( 100.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
-		[EditorLimitsRange( 0, 100 )]
+		[EditorLimitsRange( 0, 200 )]
 		public float BackgroundTransitionLength
 		{
 			get { return backgroundTransitionLength; }
@@ -156,12 +156,12 @@ namespace ProjectCommon
 	[CompositorName( "DepthOfField" )]
 	public class DepthOfFieldCompositorInstance : CompositorInstance
 	{
-		float focalDistance = 30;
+		float focalDistance = 50;
 		bool autoFocus = true;
 		float focalSize = 20;
-		float blurSpread = .3f;
-		float blurTextureResolution = 5;
-		float backgroundTransitionLength = 40;
+		float blurSpread = .2f;
+		float blurTextureResolution = 6;
+		float backgroundTransitionLength = 100;
 		bool blurForeground = true;
 		float foregroundTransitionLength = 40;
 		Range autoFocusRange = new Range( 1, 70 );
@@ -236,7 +236,7 @@ namespace ProjectCommon
 			}
 		}
 
-		[EditorLimitsRange( 0, 100 )]
+		[EditorLimitsRange( 0, 200 )]
 		public float BackgroundTransitionLength
 		{
 			get { return backgroundTransitionLength; }

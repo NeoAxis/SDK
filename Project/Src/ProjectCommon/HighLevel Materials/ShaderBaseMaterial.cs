@@ -61,6 +61,7 @@ namespace ProjectCommon
 		bool reflectionScaleDynamic;
 		MapItem reflectionMap;
 		string reflectionSpecificCubemap = "";
+		bool reflectionBoxParallaxCorrectedCubemaps;
 
 		//Emission
 		ColorValue emissionColor = new ColorValue( 0, 0, 0 );
@@ -150,6 +151,12 @@ namespace ProjectCommon
 			texViewProjImageMatrix2,
 			texViewProjImageMatrix3,
 
+			reflectionParallax_cubemapPosition,
+			reflectionParallax_rotationScale0,
+			reflectionParallax_rotationScale1,
+			reflectionParallax_rotationScale2,
+			reflectionParallax_position,
+
 			LastIndex,
 		}
 
@@ -198,7 +205,11 @@ namespace ProjectCommon
 				{
 					PropertyInfo property = typeof( ShaderBaseMaterial ).GetProperty(
 						context.PropertyDescriptor.Name );
-					MapItem map = (MapItem)property.GetValue( context.Instance, null );
+
+					object owner = context.Instance;
+					if( owner is _IWrappedCustomTypeDescriptor )
+						owner = ( (_IWrappedCustomTypeDescriptor)owner ).GetWrapperOwner();
+					MapItem map = (MapItem)property.GetValue( owner, null );
 					map.Texture = (string)value;
 					return map;
 				}
@@ -247,8 +258,6 @@ namespace ProjectCommon
 
 		///////////////////////////////////////////
 
-		[TypeConverter( typeof( MapItemTypeConverter ) )]
-		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
 		public class MapItem
 		{
 			internal ShaderBaseMaterial owner;
@@ -272,6 +281,7 @@ namespace ProjectCommon
 			[SupportRelativePath]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "Texture", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "The name of the texture file.", "ShaderBaseMaterial.MapItem" )]
 			public string Texture
 			{
 				get { return texture; }
@@ -288,6 +298,7 @@ namespace ProjectCommon
 			[DefaultValue( TexCoordIndexes.TexCoord0 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "TexCoord", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "Texture coordinates Channel that will be used when overlaying the texture.", "ShaderBaseMaterial.MapItem" )]
 			public TexCoordIndexes TexCoord
 			{
 				get { return texCoord; }
@@ -297,6 +308,7 @@ namespace ProjectCommon
 			[DefaultValue( false )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "Clamp", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "Enable/disable limit for texture coordinates, if the value of texture coordinates is less than 0 or greater than 1.", "ShaderBaseMaterial.MapItem" )]
 			public bool Clamp
 			{
 				get { return clamp; }
@@ -450,6 +462,7 @@ namespace ProjectCommon
 			[EditorLimitsRange( -1, 1 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "Scroll", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "Offset texture on axes X and Y.", "ShaderBaseMaterial.TransformItem" )]
 			public Vec2 Scroll
 			{
 				get { return scroll; }
@@ -473,6 +486,7 @@ namespace ProjectCommon
 			[EditorLimitsRange( .1f, 30 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "Scale", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "Scaling textures X and Y.", "ShaderBaseMaterial.TransformItem" )]
 			public Vec2 Scale
 			{
 				get { return scale; }
@@ -496,6 +510,7 @@ namespace ProjectCommon
 			[EditorLimitsRange( -1, 1 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "Rotate", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "The angle of the texture rotation.", "ShaderBaseMaterial.TransformItem" )]
 			public float Rotate
 			{
 				get { return rotate; }
@@ -515,6 +530,7 @@ namespace ProjectCommon
 			}
 
 			[DefaultValue( false )]
+			[LocalizedDescription( "Enable/disable the ability to change the transformation parameters during simulation.", "ShaderBaseMaterial.TransformItem" )]
 			public bool DynamicParameters
 			{
 				get { return dynamicParameters; }
@@ -630,6 +646,7 @@ namespace ProjectCommon
 			[EditorLimitsRange( -3, 3 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "ScrollSpeed", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "The scrolling speed of the texture.", "ShaderBaseMaterial.AnimationItem" )]
 			public Vec2 ScrollSpeed
 			{
 				get { return scrollSpeed; }
@@ -653,6 +670,7 @@ namespace ProjectCommon
 			[EditorLimitsRange( 0, 1 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "ScrollRound", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "Step scroll texture. It can be used to create the animation, when the texture is full of images and it needd to be scrolled. This technique is like a slide show. You can for example implement an explosion animation with the help of this feature.", "ShaderBaseMaterial.AnimationItem" )]
 			public Vec2 ScrollRound
 			{
 				get { return scrollRound; }
@@ -664,6 +682,7 @@ namespace ProjectCommon
 			[EditorLimitsRange( -3, 3 )]
 			[RefreshProperties( RefreshProperties.Repaint )]
 			[LocalizedDisplayName( "RotateSpeed", "ShaderBaseMaterial" )]
+			[LocalizedDescription( "The rotation speed of the texture. Positive value texture rotates counterclockwise, negative - clockwise.", "ShaderBaseMaterial.AnimationItem" )]
 			public float RotateSpeed
 			{
 				get { return rotateSpeed; }
@@ -757,6 +776,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "Blending", "ShaderBaseMaterial" )]
 		[DefaultValue( MaterialBlendingTypes.Opaque )]
+		[LocalizedDescription( "Method of mixing at rendering. Opaque - opaque material, AlphaAdd - additive blending, AlphaBlend - the transparency value is taken from the alpha channel of the diffuse texture.", "ShaderBaseMaterial" )]
 		public MaterialBlendingTypes Blending
 		{
 			get { return blending; }
@@ -766,6 +786,8 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "Lighting", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
+		[RefreshProperties( System.ComponentModel.RefreshProperties.All )]
+		[LocalizedDescription( "Enable/disable the fact that the material is affected by lighting.", "ShaderBaseMaterial" )]
 		public bool Lighting
 		{
 			get { return lighting; }
@@ -775,6 +797,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "AmbientLighting", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
+		[LocalizedDescription( "Enable/disable the applying of ambient lighting.", "ShaderBaseMaterial" )]
 		public bool AmbientLighting
 		{
 			get { return ambientLighting; }
@@ -784,6 +807,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "DoubleSided", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable double sided material. If True is selected, then the material is applied on both sides of the triangles.", "ShaderBaseMaterial" )]
 		public bool DoubleSided
 		{
 			get { return doubleSided; }
@@ -793,6 +817,8 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "UseNormals", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
+		[RefreshProperties( System.ComponentModel.RefreshProperties.All )]
+		[LocalizedDescription( "Consider or not consider triangle normals when calculating lighting. Recommended to disable this flag for grass, so the triangles wii be uniformly illuminated.", "ShaderBaseMaterial" )]
 		public bool UseNormals
 		{
 			get { return useNormals; }
@@ -802,6 +828,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "ReceiveShadows", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
+		[LocalizedDescription( "Enable/disable drawing shadows on models with this material.", "ShaderBaseMaterial" )]
 		public bool ReceiveShadows
 		{
 			get { return receiveShadows; }
@@ -811,6 +838,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "ReceiveSimpleShadows", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable drawing shadows on simplified models with this material.", "ShaderBaseMaterial" )]
 		public bool ReceiveSimpleShadows
 		{
 			get { return receiveSimpleShadows; }
@@ -820,6 +848,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "AlphaRejectFunction", "ShaderBaseMaterial" )]
 		[DefaultValue( CompareFunction.AlwaysPass )]
+		[LocalizedDescription( "Turn on/off drawing of pixels depending on the value of the alpha channel in the texture. AlwaysPass by default, i.e. always allow rendering. Used in conjunction with AlphaRejectValue. This feature allows you to add transparency to the material without reducing performance. Another way to create a transparent material is to use Blending to set up mixing.", "ShaderBaseMaterial" )]
 		public CompareFunction AlphaRejectFunction
 		{
 			get { return alphaRejectFunction; }
@@ -829,6 +858,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "AlphaRejectValue", "ShaderBaseMaterial" )]
 		[DefaultValue( (byte)127 )]
+		[LocalizedDescription( "The alpha value for discarding pixels. Used in conjunction with AlphaRejectFunction.", "ShaderBaseMaterial" )]
 		public byte AlphaRejectValue
 		{
 			get { return alphaRejectValue; }
@@ -838,6 +868,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "AlphaToCoverage", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable Alpha To Coverage to render transparent objects. Option allows you to improve the visual quality when configured along withAlphaRejectFunction. This feature only works when the Hardware Anti-Aliasing is turned on, which can be configured in the Configurator.", "ShaderBaseMaterial" )]
 		public bool AlphaToCoverage
 		{
 			get { return alphaToCoverage; }
@@ -847,6 +878,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "FadingByDistanceRange", "ShaderBaseMaterial" )]
 		[DefaultValue( typeof( Range ), "0 0" )]
+		[LocalizedDescription( "Allows you to hide the object with this material when you move the camera at a certain distance. The parameter is defined as an interval. The initial value is determined by the distance when the object must be hidden. Final - at what distance the object becomes completely transparent.", "ShaderBaseMaterial" )]
 		public Range FadingByDistanceRange
 		{
 			get { return fadingByDistanceRange; }
@@ -862,6 +894,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "AllowFog", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
+		[LocalizedDescription( "If set on False, the material will not be affected by fog if it is used in the scene.", "ShaderBaseMaterial" )]
 		public bool AllowFog
 		{
 			get { return allowFog; }
@@ -871,7 +904,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "DepthWrite", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
-		[Description( "Depth write flag will be automatically disabled if \"Blending\" not equal to \"Opaque\"." )]
+		[LocalizedDescription( "Enable/disable the writing to depth buffer when drawing geometry.", "ShaderBaseMaterial" )]
 		public bool DepthWrite
 		{
 			get { return depthWrite; }
@@ -881,6 +914,7 @@ namespace ProjectCommon
 		[Category( "_ShaderBase" )]
 		[LocalizedDisplayName( "DepthTest", "ShaderBaseMaterial" )]
 		[DefaultValue( true )]
+		[LocalizedDescription( "Enable/disable depth testing.", "ShaderBaseMaterial" )]
 		public bool DepthTest
 		{
 			get { return depthTest; }
@@ -889,6 +923,8 @@ namespace ProjectCommon
 
 		[Category( "_ShaderBase" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Turn on/off drawing technique of soft particles.", "ShaderBaseMaterial" )]
+		[RefreshProperties( System.ComponentModel.RefreshProperties.All )]
 		public bool SoftParticles
 		{
 			get { return softParticles; }
@@ -899,6 +935,7 @@ namespace ProjectCommon
 		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( .1f, 10 )]
+		[LocalizedDescription( "Attenuation length of soft particles. Used in conjunction with SoftParticles.", "ShaderBaseMaterial" )]
 		public float SoftParticlesFadingLength
 		{
 			get { return softParticlesFadingLength; }
@@ -913,6 +950,7 @@ namespace ProjectCommon
 
 		[Category( "_ShaderBase" )]
 		[DefaultValue( 0.0f )]
+		[LocalizedDescription( "The added value with entries in the depth buffer. Used to avoid Z-fighting.", "ShaderBaseMaterial" )]
 		public float DepthOffset
 		{
 			get { return depthOffset; }
@@ -927,6 +965,7 @@ namespace ProjectCommon
 
 		[Category( "_ShaderBase" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the Half Lambert lighting technique.", "ShaderBaseMaterial" )]
 		public bool HalfLambert
 		{
 			get { return halfLambert; }
@@ -939,6 +978,7 @@ namespace ProjectCommon
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "DiffuseColor", "ShaderBaseMaterial" )]
 		[DefaultValue( typeof( ColorValue ), "255 255 255" )]
+		[LocalizedDescription( "Diffuse color. If no texture file is selected the parameter specifies the color of the material.", "ShaderBaseMaterial" )]
 		public ColorValue DiffuseColor
 		{
 			get { return diffuseColor; }
@@ -956,6 +996,7 @@ namespace ProjectCommon
 		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 10 )]
+		[LocalizedDescription( "Modifier of diffuse color.", "ShaderBaseMaterial" )]
 		public float DiffusePower
 		{
 			get { return diffusePower; }
@@ -971,6 +1012,7 @@ namespace ProjectCommon
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "DiffuseScaleDynamic", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the ability to dynamically change the DiffuseColor parameter during simulation.", "ShaderBaseMaterial" )]
 		public bool DiffuseScaleDynamic
 		{
 			get { return diffuseScaleDynamic; }
@@ -980,6 +1022,7 @@ namespace ProjectCommon
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "DiffuseVertexColor", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the use of vertex color. A vertex color channel must be present on the 3D model in order to use it.", "ShaderBaseMaterial" )]
 		public bool DiffuseVertexColor
 		{
 			get { return diffuseVertexColor; }
@@ -988,6 +1031,9 @@ namespace ProjectCommon
 
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "Diffuse1Map", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Diffuse texture. You can configure the blending mode of the textures with advanced settings of mixing.", "ShaderBaseMaterial" )]
 		public MapItem Diffuse1Map
 		{
 			get { return diffuse1Map; }
@@ -996,6 +1042,9 @@ namespace ProjectCommon
 
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "Diffuse2Map", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Diffuse texture. You can configure the blending mode of the textures with advanced settings of mixing.", "ShaderBaseMaterial" )]
 		public DiffuseMapItem Diffuse2Map
 		{
 			get { return diffuse2Map; }
@@ -1004,6 +1053,9 @@ namespace ProjectCommon
 
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "Diffuse3Map", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Diffuse texture. You can configure the blending mode of the textures with advanced settings of mixing.", "ShaderBaseMaterial" )]
 		public DiffuseMapItem Diffuse3Map
 		{
 			get { return diffuse3Map; }
@@ -1012,6 +1064,9 @@ namespace ProjectCommon
 
 		[Category( "Diffuse" )]
 		[LocalizedDisplayName( "Diffuse4Map", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Diffuse texture. You can configure the blending mode of the textures with advanced settings of mixing.", "ShaderBaseMaterial" )]
 		public DiffuseMapItem Diffuse4Map
 		{
 			get { return diffuse4Map; }
@@ -1025,6 +1080,7 @@ namespace ProjectCommon
 		[LocalizedDisplayName( "ReflectionColor", "ShaderBaseMaterial" )]
 		[DefaultValue( typeof( ColorValue ), "0 0 0" )]
 		[ColorValueNoAlphaChannel]
+		[LocalizedDescription( "Color of reflection.", "ShaderBaseMaterial" )]
 		public ColorValue ReflectionColor
 		{
 			get { return reflectionColor; }
@@ -1042,6 +1098,7 @@ namespace ProjectCommon
 		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 10 )]
+		[LocalizedDescription( "Modifier for ReflectionColor.", "ShaderBaseMaterial" )]
 		public float ReflectionPower
 		{
 			get { return reflectionPower; }
@@ -1057,6 +1114,7 @@ namespace ProjectCommon
 		[Category( "Reflection Cubemap" )]
 		[LocalizedDisplayName( "ReflectionScaleDynamic", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the ability to dynamically change the ReflectionColor parameter during the simulation.", "ShaderBaseMaterial" )]
 		public bool ReflectionScaleDynamic
 		{
 			get { return reflectionScaleDynamic; }
@@ -1065,6 +1123,9 @@ namespace ProjectCommon
 
 		[Category( "Reflection Cubemap" )]
 		[LocalizedDisplayName( "ReflectionMap", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Mask/stencil for applying reflection maps.", "ShaderBaseMaterial" )]
 		public MapItem ReflectionMap
 		{
 			get { return reflectionMap; }
@@ -1076,10 +1137,21 @@ namespace ProjectCommon
 		[Editor( typeof( EditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
 		[SupportRelativePath]
 		[EditorTextureType( Texture.Type.CubeMap )]
+		[LocalizedDescription( "Special cubemap for reflection. If this parameter is not specified, then the global reflection map will be used.", "ShaderBaseMaterial" )]
 		public string ReflectionSpecificCubemap
 		{
 			get { return reflectionSpecificCubemap; }
 			set { reflectionSpecificCubemap = value; }
+		}
+
+		[Category( "Reflection Cubemap" )]
+		[LocalizedDisplayName( "ReflectionBoxParallaxCorrectedCubemaps", "ShaderBaseMaterial" )]
+		[DefaultValue( false )]
+		[LocalizedDescription( "Direct3D only. Enable/disable the ability to enable Parallax Corrected Cubemaps (or Box Projection Correction Environment Mapping) feature for reflections.", "ShaderBaseMaterial" )]
+		public bool ReflectionBoxParallaxCorrectedCubemaps
+		{
+			get { return reflectionBoxParallaxCorrectedCubemaps; }
+			set { reflectionBoxParallaxCorrectedCubemaps = value; }
 		}
 
 		///////////////////////////////////////////
@@ -1089,6 +1161,7 @@ namespace ProjectCommon
 		[LocalizedDisplayName( "EmissionColor", "ShaderBaseMaterial" )]
 		[DefaultValue( typeof( ColorValue ), "0 0 0" )]
 		[ColorValueNoAlphaChannel]
+		[LocalizedDescription( "Color of the emission.", "ShaderBaseMaterial" )]
 		public ColorValue EmissionColor
 		{
 			get { return emissionColor; }
@@ -1106,6 +1179,7 @@ namespace ProjectCommon
 		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 10 )]
+		[LocalizedDescription( "Modifier of EmissionColor.", "ShaderBaseMaterial" )]
 		public float EmissionPower
 		{
 			get { return emissionPower; }
@@ -1121,6 +1195,7 @@ namespace ProjectCommon
 		[Category( "Emission" )]
 		[LocalizedDisplayName( "EmissionScaleDynamic", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the ability to dynamically change the EmissionColor parameter during the simulation.", "ShaderBaseMaterial" )]
 		public bool EmissionScaleDynamic
 		{
 			get { return emissionScaleDynamic; }
@@ -1129,6 +1204,9 @@ namespace ProjectCommon
 
 		[Category( "Emission" )]
 		[LocalizedDisplayName( "EmissionMap", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Luminosity map.", "ShaderBaseMaterial" )]
 		public MapItem EmissionMap
 		{
 			get { return emissionMap; }
@@ -1142,6 +1220,7 @@ namespace ProjectCommon
 		[LocalizedDisplayName( "SpecularColor", "ShaderBaseMaterial" )]
 		[DefaultValue( typeof( ColorValue ), "0 0 0" )]
 		[ColorValueNoAlphaChannel]
+		[LocalizedDescription( "Specular color.", "ShaderBaseMaterial" )]
 		public ColorValue SpecularColor
 		{
 			get { return specularColor; }
@@ -1159,6 +1238,7 @@ namespace ProjectCommon
 		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 10 )]
+		[LocalizedDescription( "Modifier for SpecularColor.", "ShaderBaseMaterial" )]
 		public float SpecularPower
 		{
 			get { return specularPower; }
@@ -1174,6 +1254,7 @@ namespace ProjectCommon
 		[Category( "Specular" )]
 		[LocalizedDisplayName( "SpecularScaleDynamic", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the ability to dynamically change the SpecularColor parameter during the simulation.", "ShaderBaseMaterial" )]
 		public bool SpecularScaleDynamic
 		{
 			get { return specularScaleDynamic; }
@@ -1182,6 +1263,9 @@ namespace ProjectCommon
 
 		[Category( "Specular" )]
 		[LocalizedDisplayName( "SpecularMap", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Mask/stencil map for specular.", "ShaderBaseMaterial" )]
 		public MapItem SpecularMap
 		{
 			get { return specularMap; }
@@ -1193,6 +1277,7 @@ namespace ProjectCommon
 		[DefaultValue( 20.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 1, 100 )]
+		[LocalizedDescription( "Gloss power (scattering angle).", "ShaderBaseMaterial" )]
 		public float SpecularShininess
 		{
 			get { return specularShininess; }
@@ -1211,6 +1296,7 @@ namespace ProjectCommon
 		[Category( "Translucency" )]
 		[DefaultValue( typeof( ColorValue ), "0 0 0" )]
 		[ColorValueNoAlphaChannel]
+		[LocalizedDescription( "Color, which is multiplied by the color of the TranslucencyMap.", "ShaderBaseMaterial" )]
 		public ColorValue TranslucencyColor
 		{
 			get { return translucencyColor; }
@@ -1227,6 +1313,7 @@ namespace ProjectCommon
 		[DefaultValue( 1.0f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 10 )]
+		[LocalizedDescription( "Modifier of TranslucencyColor.", "ShaderBaseMaterial" )]
 		public float TranslucencyPower
 		{
 			get { return translucencyPower; }
@@ -1241,6 +1328,7 @@ namespace ProjectCommon
 
 		[Category( "Translucency" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable the ability to dynamically change the translucency during the simulation.", "ShaderBaseMaterial" )]
 		public bool TranslucencyDynamic
 		{
 			get { return translucencyDynamic; }
@@ -1248,6 +1336,9 @@ namespace ProjectCommon
 		}
 
 		[Category( "Translucency" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Mask to apply translucency.", "ShaderBaseMaterial" )]
 		public MapItem TranslucencyMap
 		{
 			get { return translucencyMap; }
@@ -1258,6 +1349,7 @@ namespace ProjectCommon
 		[DefaultValue( 4f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 1, 256 )]
+		[LocalizedDescription( "Purity of the translucency.", "ShaderBaseMaterial" )]
 		public float TranslucencyClearness
 		{
 			get { return translucencyClearness; }
@@ -1275,6 +1367,9 @@ namespace ProjectCommon
 
 		[Category( "Height" )]
 		[LocalizedDisplayName( "NormalMap", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Normal map.", "ShaderBaseMaterial" )]
 		public MapItem NormalMap
 		{
 			get { return normalMap; }
@@ -1283,6 +1378,9 @@ namespace ProjectCommon
 
 		[Category( "Height" )]
 		[LocalizedDisplayName( "HeightMap", "ShaderBaseMaterial" )]
+		[TypeConverter( typeof( MapItemTypeConverter ) )]
+		[Editor( typeof( MapItemEditorTextureUITypeEditor ), typeof( UITypeEditor ) )]
+		[LocalizedDescription( "Height map.", "ShaderBaseMaterial" )]
 		public MapItem HeightMap
 		{
 			get { return heightMap; }
@@ -1292,6 +1390,7 @@ namespace ProjectCommon
 		[Category( "Height" )]
 		[LocalizedDisplayName( "HeightFromNormalMapAlpha", "ShaderBaseMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable ogetting the height value from the alpha channel of the normal map.", "ShaderBaseMaterial" )]
 		public bool HeightFromNormalMapAlpha
 		{
 			get { return heightFromNormalMapAlpha; }
@@ -1301,6 +1400,7 @@ namespace ProjectCommon
 		[Category( "Height" )]
 		[LocalizedDisplayName( "DisplacementTechnique", "ShaderBaseMaterial" )]
 		[DefaultValue( DisplacementTechniques.ParallaxOcclusionMapping )]
+		[LocalizedDescription( "Displacement technique used. You can select between the ParallaxOcclussionMapping and ParallaxMapping parameters.", "ShaderBaseMaterial" )]
 		public DisplacementTechniques DisplacementTechnique
 		{
 			get { return displacementTechnique; }
@@ -1312,6 +1412,7 @@ namespace ProjectCommon
 		[DefaultValue( .04f )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( .01f, .1f )]
+		[LocalizedDescription( "Modifier height. Defines the maximal value of possible height.", "ShaderBaseMaterial" )]
 		public float HeightScale
 		{
 			get { return heightScale; }
@@ -1387,6 +1488,7 @@ namespace ProjectCommon
 			reflectionScaleDynamic = source.reflectionScaleDynamic;
 			reflectionMap.OnClone( source.reflectionMap );
 			reflectionSpecificCubemap = source.ConvertToFullPath( source.ReflectionSpecificCubemap );
+			reflectionBoxParallaxCorrectedCubemaps = source.reflectionBoxParallaxCorrectedCubemaps;
 
 			//Emission
 			emissionColor = source.emissionColor;
@@ -1564,6 +1666,9 @@ namespace ProjectCommon
 				//old version compatibility
 				if( block.IsAttributeExist( "reflectionMap" ) )
 					reflectionMap.Texture = block.GetAttribute( "reflectionMap" );
+
+				if( block.IsAttributeExist( "reflectionBoxParallaxCorrectedCubemaps" ) )
+					reflectionBoxParallaxCorrectedCubemaps = bool.Parse( block.GetAttribute( "reflectionBoxParallaxCorrectedCubemaps" ) );
 			}
 
 			//Emission
@@ -1798,6 +1903,9 @@ namespace ProjectCommon
 
 				if( !string.IsNullOrEmpty( reflectionSpecificCubemap ) )
 					block.SetAttribute( "reflectionSpecificCubemap", reflectionSpecificCubemap );
+
+				if( reflectionBoxParallaxCorrectedCubemaps )
+					block.SetAttribute( "reflectionBoxParallaxCorrectedCubemaps", reflectionBoxParallaxCorrectedCubemaps.ToString() );
 			}
 
 			//Emission
@@ -1947,6 +2055,9 @@ namespace ProjectCommon
 		{
 			bool shadowMap = SceneManager.Instance.IsShadowTechniqueShadowmapBased() && ReceiveShadows &&
 				lightCount != 0;
+
+			parameters.SetNamedAutoConstant( "worldMatrix", GpuProgramParameters.AutoConstantType.WorldMatrix );
+			parameters.SetNamedAutoConstant( "cameraPosition", GpuProgramParameters.AutoConstantType.CameraPosition );
 
 			parameters.SetNamedAutoConstant( "farClipDistance",
 				GpuProgramParameters.AutoConstantType.FarClipDistance );
@@ -2498,15 +2609,9 @@ namespace ProjectCommon
 							if( RenderSystem.Instance.HasShaderModel3() &&
 								RenderSystem.Instance.Capabilities.HardwareInstancing )
 							{
-								bool reflectionDynamicCubemap = false;
-								if( ( ReflectionColor != new ColorValue( 0, 0, 0 ) && ReflectionPower != 0 ) ||
-									reflectionScaleDynamic )
-								{
-									if( string.IsNullOrEmpty( ReflectionSpecificCubemap ) )
-										reflectionDynamicCubemap = true;
-								}
-
-								if( blending == MaterialBlendingTypes.Opaque && !reflectionDynamicCubemap )
+								bool reflection =
+									( ReflectionColor != new ColorValue( 0, 0, 0 ) && ReflectionPower != 0 ) || reflectionScaleDynamic;
+								if( blending == MaterialBlendingTypes.Opaque && !reflection )
 								{
 									pass.SupportHardwareInstancing = true;
 
@@ -2654,6 +2759,13 @@ namespace ProjectCommon
 									reflectionScaleDynamic )
 								{
 									generalArguments.Append( " -DREFLECTION" );
+									if( RenderSystem.Instance.IsDirect3D() )//!!!!!for OpenGL need more contant buffers.
+									{
+										if( reflectionBoxParallaxCorrectedCubemaps )
+										{
+											generalArguments.Append( " -DREFLECTION_BOX_PARALLAX_CORRECTED_CUBEMAPS" );
+										}
+									}
 
 									generalArguments.AppendFormat( " -DREFLECTION_TEXCOORD=TEXCOORD{0}",
 										generalTexCoordCount );
@@ -3940,17 +4052,63 @@ namespace ProjectCommon
 			}
 		}
 
+		void UpdateReflectionBoxParallaxCorrectedCubemapsGpuParameters( Vec4 cubemapPosition, Vec3 rotationScale0,
+			Vec3 rotationScale1, Vec3 rotationScale2, Vec3 position )
+		{
+			if( reflectionBoxParallaxCorrectedCubemaps )
+			{
+				if( ( ReflectionColor != new ColorValue( 0, 0, 0 ) && ReflectionPower != 0 ) || reflectionScaleDynamic )
+				{
+					SetCustomGpuParameter( GpuParameters.reflectionParallax_cubemapPosition, cubemapPosition, true, true, false );
+					SetCustomGpuParameter( GpuParameters.reflectionParallax_rotationScale0, new Vec4( rotationScale0, 0 ), true, true, false );
+					SetCustomGpuParameter( GpuParameters.reflectionParallax_rotationScale1, new Vec4( rotationScale1, 0 ), true, true, false );
+					SetCustomGpuParameter( GpuParameters.reflectionParallax_rotationScale2, new Vec4( rotationScale2, 0 ), true, true, false );
+					SetCustomGpuParameter( GpuParameters.reflectionParallax_position, new Vec4( position, 0 ), true, true, false );
+				}
+			}
+		}
+
 		void UpdateReflectionCubemap( TextureUnitState textureUnitState, Vec3 objectWorldPosition )
 		{
 			string textureName = "";
+
+			Vec4 reflectionParallax_cubemapPosition = Vec4.Zero;
+			Vec3 reflectionParallax_rotationScale0 = Vec3.Zero;
+			Vec3 reflectionParallax_rotationScale1 = Vec3.Zero;
+			Vec3 reflectionParallax_rotationScale2 = Vec3.Zero;
+			Vec3 reflectionParallax_position = Vec3.Zero;
 
 			//get cubemap from CubemapZone's
 			if( Map.Instance != null )
 			{
 				CubemapZone zone = CubemapZone.GetZoneForPoint( objectWorldPosition, true );
 				if( zone != null )
+				{
 					textureName = zone.GetTextureName();
+					reflectionParallax_cubemapPosition = new Vec4( zone.Position, 0 );
+				}
+
+				CubemapZone_BoxParallaxCorrectedZone zone2 = CubemapZone_BoxParallaxCorrectedZone.GetZoneForPoint( objectWorldPosition, 1 );
+				if( zone2 != null )
+				{
+					Mat3 mat = zone2.GetCachedRotationScaleInverseMatrix();
+					//Mat3 mat = zone2.Rotation.ToMat3() * Mat3.FromScale( zone2.Scale * .5f );
+					//mat = mat.GetInverse();					
+
+					mat.Transpose();
+					reflectionParallax_rotationScale0 = mat[ 0 ];
+					reflectionParallax_rotationScale1 = mat[ 1 ];
+					reflectionParallax_rotationScale2 = mat[ 2 ];
+					reflectionParallax_position = zone2.Position;
+
+					//enable parallax correction
+					reflectionParallax_cubemapPosition.W = 1;
+				}
 			}
+
+			UpdateReflectionBoxParallaxCorrectedCubemapsGpuParameters( reflectionParallax_cubemapPosition,
+				reflectionParallax_rotationScale0, reflectionParallax_rotationScale1, reflectionParallax_rotationScale2,
+				reflectionParallax_position );
 
 			//get cubemap from SkyBox
 			if( string.IsNullOrEmpty( textureName ) )
@@ -4058,6 +4216,55 @@ namespace ProjectCommon
 			if( blending == MaterialBlendingTypes.Opaque && !reflectionDynamicCubemap )
 				return true;
 			return false;
+		}
+
+		public override bool Editor_ForcePropertyToReadOnly( PropertyInfo property )
+		{
+			if( property.Name == "UseNormals" )
+			{
+				if( !lighting )
+					return true;
+			}
+
+			if( property.Name == "HalfLambert" )
+			{
+				if( !lighting || !useNormals )
+					return true;
+			}
+
+			if( property.Name == "SoftParticlesFadingLength" )
+			{
+				if( !softParticles )
+					return true;
+			}
+
+			if( property.Name == "ReceiveSimpleShadows" )
+			{
+				if( !receiveShadows )
+					return true;
+			}
+
+			if( property.Name == "SpecularColor" || property.Name == "SpecularMap" || property.Name == "SpecularPower" ||
+				property.Name == "SpecularScaleDynamic" || property.Name == "SpecularShininess" )
+			{
+				if( !lighting || !useNormals )
+					return true;
+			}
+
+			if( property.Name == "ReceiveSimpleShadows" )
+			{
+				if( !receiveShadows )
+					return true;
+			}
+
+			//!not works, strange
+			//if( property.Name == "AlphaRejectValue" )
+			//{
+			//   if( alphaRejectFunction == CompareFunction.AlwaysFail || alphaRejectFunction == CompareFunction.AlwaysPass )
+			//      return true;
+			//}
+
+			return base.Editor_ForcePropertyToReadOnly( property );
 		}
 	}
 }

@@ -145,7 +145,7 @@
     <Compile Include="Aircraft.cs" />
     <Compile Include="BooleanSwitch.cs" />
     <Compile Include="Action Specific\Tank.cs" />
-    <Compile Include="ExampleEntityExtendedProperties.cs" />
+    <Compile Include="EntityComponent_Example.cs" />
     <Compile Include="RenderableCurve.cs" />
     <Compile Include="WaterPlaneClipVolume.cs" />
     <Compile Include="DynamicSinusoidSurface.cs" />
@@ -157,7 +157,7 @@
     <Compile Include="JigsawPuzzleGame Specific\JigsawPuzzlePiece.cs" />
     <Compile Include="JigsawPuzzleGame Specific\JigsawPuzzleManager.cs" />
     <Compile Include="TankGame Specific\Minefield.cs" />
-    <Compile Include="TankGame Specific\TankGameExtendedProperties.cs" />
+    <Compile Include="TankGame Specific\EntityComponent_ForTankDemo.cs" />
     <Compile Include="TankGame Specific\TankGameUnitAI.cs" />
     <Compile Include="ExampleMagicObject.cs" />
     <Compile Include="CutSceneManager.cs" />

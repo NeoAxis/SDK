@@ -79,8 +79,8 @@ namespace ProjectCommon
 		/// </remarks>
 		[LocalizedCategory( "Vegetation", "VegetationMaterial" )]
 		[LocalizedDisplayName( "ReceiveObjectsPositionsFromVertices", "VegetationMaterial" )]
-		[Description( "Reveice objects positions from the vertices. Usually it is necessary for batched geometry (for waving). Positions will be taken from Type: TextureCoordinates, Index: 4." )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable receiving the object positions from the vertices. You need to enable this option if the 3D model with this material is used in DecorativeObjectManager.type.", "VegetationMaterial" )]
 		public bool ReceiveObjectsPositionsFromVertices
 		{
 			get { return receiveObjectsPositionsFromVertices; }
@@ -91,6 +91,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 2 )]
 		[DefaultValue( 1f )]
+		[LocalizedDescription( "Coefficient of wind effect.", "VegetationMaterial" )]
 		public float WindEffectFactor
 		{
 			get { return windEffectFactor; }
@@ -107,6 +108,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		[DefaultValue( 0.02f )]
+		[LocalizedDescription( "Scale of the bending.", "VegetationMaterial" )]
 		public float BendScale
 		{
 			get { return bendScale; }
@@ -123,6 +125,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		[DefaultValue( 0.005f )]
+		[LocalizedDescription( "Variation of the bending.", "VegetationMaterial" )]
 		public float BendVariation
 		{
 			get { return bendVariation; }
@@ -139,6 +142,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 2 )]
 		[DefaultValue( 1f )]
+		[LocalizedDescription( "Frequency of bending animation.", "VegetationMaterial" )]
 		public float BendFrequency
 		{
 			get { return bendFrequency; }
@@ -153,6 +157,7 @@ namespace ProjectCommon
 
 		[LocalizedCategory( "Vegetation", "VegetationMaterial" )]
 		[DefaultValue( false )]
+		[LocalizedDescription( "Enable/disable bending.", "VegetationMaterial" )]
 		public bool DetailBending
 		{
 			get { return detailBending; }
@@ -163,6 +168,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		[DefaultValue( 0.01f )]
+		[LocalizedDescription( "Amplitude of the branch.", "VegetationMaterial" )]
 		public float BranchAmplitude
 		{
 			get { return branchAmplitude; }
@@ -179,6 +185,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 1 )]
 		[DefaultValue( 0.01f )]
+		[LocalizedDescription( "Amplitude of the leaf.", "VegetationMaterial" )]
 		public float LeafAmplitude
 		{
 			get { return leafAmplitude; }
@@ -195,6 +202,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 2 )]
 		[DefaultValue( 1f )]
+		[LocalizedDescription( "Frequency of the branch.", "VegetationMaterial" )]
 		public float BranchFrequency
 		{
 			get { return branchFrequency; }
@@ -211,6 +219,7 @@ namespace ProjectCommon
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, 2 )]
 		[DefaultValue( 1f )]
+		[LocalizedDescription( "Frequency of the leaf.", "VegetationMaterial" )]
 		public float LeafFrequency
 		{
 			get { return leafFrequency; }

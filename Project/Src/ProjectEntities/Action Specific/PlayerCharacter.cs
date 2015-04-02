@@ -606,6 +606,9 @@ namespace ProjectEntities
 			}
 
 			//change visibility of attached objects
+			if( !Map.Instance.CubemapGenerationMode ||
+				( Map.Instance.CubemapGenerationMode_CubemapZone != null && 
+				Map.Instance.CubemapGenerationMode_CubemapZone.DrawDynamicObjects ) )
 			{
 				foreach( MapObjectAttachedObject attachedObject in AttachedObjects )
 				{

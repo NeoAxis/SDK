@@ -246,6 +246,11 @@
             Material for correct rendering of weapons in a FPS mode.
             </summary>
         </member>
+        <member name="T:ProjectCommon.MeshRayIntersectionOctreeManager">
+            <summary>
+            The class for finding ray intersection with the mesh.
+            </summary>
+        </member>
         <member name="T:ProjectCommon.SimpleExampleMaterial">
             <summary>
             Simple example of high level material.

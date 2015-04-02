@@ -650,7 +650,7 @@ namespace ProjectCommon
 					//add directional lights
 					foreach( RenderLight light in SceneManager.Instance.RenderLights )
 					{
-						if( light.Type == RenderLightType.Directional )
+						if( light.Type == RenderLightType.Directional && light.Visible )
 							list.Add( light );
 					}
 
@@ -1220,7 +1220,7 @@ namespace ProjectCommon
 			{
 				foreach( RenderLight light in SceneManager.Instance.RenderLights )
 				{
-					if( light.Type == RenderLightType.Directional )
+					if( light.Type == RenderLightType.Directional && light.Visible )
 					{
 						if( !outLights.Contains( light ) )
 							outLights.Add( light );
@@ -1372,7 +1372,7 @@ namespace ProjectCommon
 					//add directional lights
 					foreach( RenderLight light in SceneManager.Instance.RenderLights )
 					{
-						if( light.Type == RenderLightType.Directional )
+						if( light.Type == RenderLightType.Directional && light.Visible )
 							outLights.Add( light );
 					}
 

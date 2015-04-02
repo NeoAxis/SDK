@@ -129,8 +129,7 @@ namespace ProjectEntities
 			if( loaded && !editor && EntitySystemWorld.Instance.SerializationMode ==
 				SerializationModes.Map )
 			{
-				ItemCreator obj = (ItemCreator)Entities.Instance.Create(
-					EntityTypes.Instance.GetByName( "ItemCreator" ), Parent );
+				ItemCreator obj = (ItemCreator)Entities.Instance.Create( "ItemCreator", Parent );
 				obj.Position = Position;
 				obj.ItemType = Type;
 				obj.CreateRemainingTime = respawnTime;
@@ -191,7 +190,7 @@ namespace ProjectEntities
 			bool ret = OnTake( unit );
 			if( ret )
 			{
-				string soundTakeFullPath = 
+				string soundTakeFullPath =
 					RelativePathUtils.ConvertToFullPath( Path.GetDirectoryName( Type.FilePath ), Type.SoundTake );
 				unit.SoundPlay3D( soundTakeFullPath, .5f, true );
 

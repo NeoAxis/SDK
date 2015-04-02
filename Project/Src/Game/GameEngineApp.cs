@@ -183,7 +183,7 @@ namespace Game
 			set { shadowSpotLightTextureSize = value; }
 		}
 
-		static int shadowSpotLightMaxTextureCount = 2;
+		static int shadowSpotLightMaxTextureCount = 3;
 		[Config( "Video", "shadowSpotLightMaxTextureCount" )]
 		public static int ShadowSpotLightMaxTextureCount
 		{
@@ -199,7 +199,7 @@ namespace Game
 			set { shadowPointLightTextureSize = value; }
 		}
 
-		static int shadowPointLightMaxTextureCount = 2;
+		static int shadowPointLightMaxTextureCount = 3;
 		[Config( "Video", "shadowPointLightMaxTextureCount" )]
 		public static int ShadowPointLightMaxTextureCount
 		{

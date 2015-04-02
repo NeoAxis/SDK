@@ -5,9 +5,11 @@ using System.Windows.Forms;
 using System.Reflection;
 using System.ComponentModel;
 using System.ComponentModel.Design;
+using System.Drawing;
 using Engine;
 using Engine.EntitySystem;
 using Engine.Utils;
+using Engine.MathEx;
 
 namespace ProjectEntities.Editor
 {
@@ -16,6 +18,11 @@ namespace ProjectEntities.Editor
 		//Values of item's properties.
 		//We need save values of properties because need restore values when user cancel changes.
 		Dictionary<object, List<Pair<PropertyInfo, object>>> propertyCopies;
+
+		[Config( "ProjectEntitiesGeneralListCollectionEditor", "lastWindowPosition" )]
+		public static Vec2I lastWindowPosition;
+		[Config( "ProjectEntitiesGeneralListCollectionEditor", "lastWindowSize" )]
+		public static Vec2I lastWindowSize;
 
 		//
 
@@ -100,12 +107,52 @@ namespace ProjectEntities.Editor
 
 			CollectionEditor.CollectionForm form = base.CreateCollectionForm();
 			form.FormClosed += FormClosed;
+
+			//enable fields with Config attribute
+			EngineApp.Instance.Config.RegisterClassParameters( typeof( ProjectEntitiesGeneralListCollectionEditor ) );
+
+			//restore saved window state
+			if( lastWindowSize != Vec2I.Zero &&
+				IsVisibleOnAnyScreen( new Rectangle( lastWindowPosition.X, lastWindowPosition.Y, lastWindowSize.X, lastWindowSize.Y ) ) )
+			{
+				form.Location = new Point( lastWindowPosition.X, lastWindowPosition.Y );
+				form.Size = new Size( lastWindowSize.X, lastWindowSize.Y );
+				form.StartPosition = FormStartPosition.Manual;
+			}
+			else
+				form.Size = new System.Drawing.Size( 1100, 800 );
+
+			//show descriptions
+			try
+			{
+				FieldInfo field = form.GetType().GetField( "propertyBrowser",
+					BindingFlags.Instance | BindingFlags.NonPublic | BindingFlags.Public );
+				PropertyGrid grid = field.GetValue( form ) as PropertyGrid;
+				grid.HelpVisible = true;
+			}
+			catch { }
+
 			return form;
+		}
+
+		static bool IsVisibleOnAnyScreen( Rectangle rect )
+		{
+			Rectangle rect2 = rect;
+			if( rect.Size.Width > 60 && rect.Size.Height > 60 )
+				rect2 = new Rectangle( rect2.Left + 30, rect2.Top + 30, rect2.Size.Width - 60, rect2.Size.Height - 60 );
+			foreach( Screen screen in Screen.AllScreens )
+				if( screen.WorkingArea.IntersectsWith( rect2 ) )
+					return true;
+			return false;
 		}
 
 		void FormClosed( object sender, FormClosedEventArgs e )
 		{
 			CollectionEditor.CollectionForm form = (CollectionEditor.CollectionForm)sender;
+
+			//save window settings
+			lastWindowPosition = new Vec2I( form.Location.X, form.Location.Y );
+			lastWindowSize = new Vec2I( form.Size.Width, form.Size.Height );
 
 			if( form.DialogResult == DialogResult.Cancel )
 			{

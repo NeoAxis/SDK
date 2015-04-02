@@ -127,6 +127,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="MeshRayIntersectionOctreeManager.cs" />
     <Compile Include="DynamicMeshManagerImpl.cs" />
     <Compile Include="ExampleCustomInputDevice.cs" />
     <Compile Include="MultiViewRenderingManager.cs" />

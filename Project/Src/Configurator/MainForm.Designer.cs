@@ -735,7 +735,7 @@ namespace Configurator
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size( 167, 17 );
 			this.label2.TabIndex = 3;
-			this.label2.Text = "2014 NeoAxis Group Ltd.";
+			this.label2.Text = "2015 NeoAxis Group Ltd.";
 			// 
 			// MainForm
 			// 

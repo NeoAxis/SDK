@@ -8,14 +8,22 @@ using Engine.MapSystem;
 
 namespace ProjectEntities
 {
-	public class TankGameExtendedProperties : EntityExtendedProperties
+	public class EntityComponent_ForTankDemo : Entity.Component
 	{
-		[FieldSerialize]
+		//check if we can create resources for this component. IsReadyToCreate?
+		//if( Enabled && Owner.IsPostCreated && ( !OnlyForEditor || EntitySystemWorld.Instance.IsEditor() ) && AddedToListOfComponents )
+
+		[Entity.FieldSerialize]
 		MapCurve way;
-		[FieldSerialize]
+		[Entity.FieldSerialize]
 		Region activateRegion;
 
 		//
+
+		public EntityComponent_ForTankDemo( Entity entity, object userData )
+			: base( entity, userData )
+		{
+		}
 
 		protected override void OnDeleteSubscribedToDeletionEvent( Entity entity )
 		{
@@ -52,6 +60,5 @@ namespace ProjectEntities
 					Owner.SubscribeToDeletionEvent( activateRegion );
 			}
 		}
-
 	}
 }

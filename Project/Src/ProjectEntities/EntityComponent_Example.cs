@@ -8,14 +8,23 @@ using Engine.MapSystem;
 
 namespace ProjectEntities
 {
-	public class ExampleEntityExtendedProperties : EntityExtendedProperties
+	[Entity.Component.SupportedClass( typeof( Entity ) )]
+	public class EntityComponent_Example : Entity.Component
 	{
-		[FieldSerialize]
+		//check if we can create resources for this component. IsReadyToCreate?
+		//if( Enabled && Owner.IsPostCreated && ( !OnlyForEditor || EntitySystemWorld.Instance.IsEditor() ) && AddedToListOfComponents )
+
+		[Entity.FieldSerialize]
 		MapObject exampleReferenceToObject;
-		[FieldSerialize]
+		[Entity.FieldSerialize]
 		int exampleIntegerValue = 10;
 
 		//
+
+		public EntityComponent_Example( Entity owner, object userData )
+			: base( owner, userData )
+		{
+		}
 
 		protected override void OnDeleteSubscribedToDeletionEvent( Entity entity )
 		{
@@ -26,6 +35,7 @@ namespace ProjectEntities
 				exampleReferenceToObject = null;
 		}
 
+		[Category( "Example" )]
 		public MapObject ExampleReferenceToObject
 		{
 			get { return exampleReferenceToObject; }
@@ -44,6 +54,7 @@ namespace ProjectEntities
 		}
 
 		[DefaultValue( 10 )]
+		[Category( "Example" )]
 		public int ExampleIntegerValue
 		{
 			get { return exampleIntegerValue; }

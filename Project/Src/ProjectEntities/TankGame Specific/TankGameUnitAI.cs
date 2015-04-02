@@ -64,7 +64,7 @@ namespace ProjectEntities
 		public enum GeneralTaskTypes
 		{
 			None,
-			WayMove, //by MapCurve (taken from TankGameExtendedProperties.Way)
+			WayMove, //by MapCurve (taken from EntityComponent_ForTankDemo.Way)
 			Battle,
 		}
 
@@ -125,10 +125,10 @@ namespace ProjectEntities
 			SubscribeToTickEvent();
 
 			//get activationRegion
-			TankGameExtendedProperties extendedProperties =
-				ControlledObject.ExtendedProperties as TankGameExtendedProperties;
-			if( extendedProperties != null )
-				activationRegion = extendedProperties.ActivationRegion;
+			EntityComponent_ForTankDemo component = (EntityComponent_ForTankDemo)
+				ControlledObject.Component_GetFirstWithType( typeof( EntityComponent_ForTankDemo ) );
+			if( component != null )
+				activationRegion = component.ActivationRegion;
 
 			//listen activationRegion
 			if( activationRegion != null )
@@ -290,10 +290,10 @@ namespace ProjectEntities
 		{
 			MapCurve way = null;
 			{
-				TankGameExtendedProperties extendedProperties =
-					ControlledObject.ExtendedProperties as TankGameExtendedProperties;
-				if( extendedProperties != null )
-					way = extendedProperties.Way;
+				EntityComponent_ForTankDemo component = (EntityComponent_ForTankDemo)
+					ControlledObject.Component_GetFirstWithType( typeof( EntityComponent_ForTankDemo ) );
+				if( component != null )
+					way = component.Way;
 			}
 
 			if( way != null )
