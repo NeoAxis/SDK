@@ -1072,32 +1072,32 @@ namespace Game
 			if( IsCutSceneEnabled() )
 				return;
 
-			//debug draw an influences.
-			{
-				float posy = .8f;
+			////debug draw an influences.
+			//{
+			//   float posy = .8f;
 
-				foreach( Entity entity in GetPlayerUnit().Children )
-				{
-					Influence influence = entity as Influence;
-					if( influence == null )
-						continue;
+			//   foreach( Entity entity in GetPlayerUnit().Children )
+			//   {
+			//      Influence influence = entity as Influence;
+			//      if( influence == null )
+			//         continue;
 
-					AddTextWithShadow( renderer, influence.Type.Name, new Vec2( .7f, posy ), HorizontalAlign.Left,
-						VerticalAlign.Center, new ColorValue( 1, 1, 1 ) );
+			//      AddTextWithShadow( renderer, influence.Type.Name, new Vec2( .7f, posy ), HorizontalAlign.Left,
+			//         VerticalAlign.Center, new ColorValue( 1, 1, 1 ) );
 
-					int count = (int)( (float)influence.RemainingTime * 2.5f );
-					if( count > 50 )
-						count = 50;
-					string str = "";
-					for( int n = 0; n < count; n++ )
-						str += "I";
+			//      int count = (int)( (float)influence.RemainingTime * 2.5f );
+			//      if( count > 50 )
+			//         count = 50;
+			//      string str = "";
+			//      for( int n = 0; n < count; n++ )
+			//         str += "I";
 
-					AddTextWithShadow( renderer, str, new Vec2( .85f, posy ), HorizontalAlign.Left, VerticalAlign.Center,
-						new ColorValue( 1, 1, 1 ) );
+			//      AddTextWithShadow( renderer, str, new Vec2( .85f, posy ), HorizontalAlign.Left, VerticalAlign.Center,
+			//         new ColorValue( 1, 1, 1 ) );
 
-					posy -= .025f;
-				}
-			}
+			//      posy -= .025f;
+			//   }
+			//}
 		}
 
 		void DrawPlayersStatistics( GuiRenderer renderer )

@@ -63,6 +63,13 @@ namespace ProjectEntities
 			set { bulletCount2 = value; }
 		}
 
+		protected override void OnPreloadResources()
+		{
+			base.OnPreloadResources();
+
+			if( bulletType != null )
+				bulletType.PreloadResources();
+		}
 	}
 
 	/// <summary>

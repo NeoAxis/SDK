@@ -105,7 +105,8 @@ void RunMono()
 
 	//load mono dylib
 
-	NSString* monoDllPath = [monoRuntimeLocalPath stringByAppendingPathComponent:@"lib/libmono-2.0.1.dylib"];
+	NSString* monoDllPath = [monoRuntimeLocalPath stringByAppendingPathComponent:@"lib/libmonosgen-2.0.1.dylib"];
+	//NSString* monoDllPath = [monoRuntimeLocalPath stringByAppendingPathComponent:@"lib/libmono-2.0.1.dylib"];
 
 	char monoDllPathAnsi[4096];
 	strcpy(monoDllPathAnsi, (char*)[monoDllPath cStringUsingEncoding:NSUTF8StringEncoding]);
@@ -218,9 +219,10 @@ void RunMono()
 	//	MessageBox(resultStr, @"Error");
 	//}
 
-	exit(result);
-	//crash on 10.5
-	//[NSApp terminate: nil];
+	[NSApp terminate: nil];
+	////exit(result);
+	//////crash on 10.5
+	//////[NSApp terminate: nil];
 }
 
 @implementation GameAppDelegate

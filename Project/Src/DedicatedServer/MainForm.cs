@@ -23,7 +23,7 @@ namespace DedicatedServer
 	public partial class MainForm : Form
 	{
 		[Config( "DedicatedServer", "lastMapName" )]
-		static string lastMapName = "Maps\\JigsawPuzzleGame\\Map\\Map.map";//Jigsaw puzzle by default
+		static string lastMapName = "Maps\\Village Demo\\Map\\Map.map";
 
 		[Config( "DedicatedServer", "loadMapAtStartup" )]
 		static bool loadMapAtStartup;

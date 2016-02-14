@@ -18,7 +18,7 @@ namespace Game
 		const string exampleOfProceduralMapCreationText = "[The example of a procedural map creation]";
 
 		[Config( "MultiplayerLobbyWindow", "lastMapName" )]
-		static string lastMapName = "Maps\\JigsawPuzzleGame\\Map\\Map.map";//Jigsaw puzzle by default
+		static string lastMapName = "Maps\\Village Demo\\Map\\Map.map";//Jigsaw puzzle by default
 
 		Control window;
 		ComboBox comboBoxMaps;
@@ -103,9 +103,8 @@ namespace Game
 						bool noMultiplayerSupport = VirtualFile.Exists(
 							string.Format( "{0}\\NoNetworkSupport.txt", Path.GetDirectoryName( mapName ) ) );
 
-						bool recommended =
-							mapName.Contains( "JigsawPuzzleGame" ) ||
-							mapName.Contains( "TankDemo" );
+						bool recommended = false;
+							//mapName.Contains( "TankDemo" );
 
 						comboBoxMaps.Items.Add( new MapItem( mapName, recommended, noMultiplayerSupport ) );
 						if( mapName == lastMapName )

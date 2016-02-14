@@ -20,6 +20,7 @@ class PhysXBody
 public:
 	PhysXScene* mScene;
 	bool mIsStatic;
+	bool enableCCD;
 	PxRigidActor* mActor;
 	std::vector<PhysXShape*> mShapes;
 	PhysXVehicle* ownerVehicle;

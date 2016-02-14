@@ -9,6 +9,7 @@ PhysXBody::PhysXBody(PhysXScene* pScene, bool isStatic, const PxVec3& globalPosi
 {
 	mScene = pScene;
 	mIsStatic = isStatic;
+	enableCCD = false;
 
 	PxTransform globalPose(globalPosition, globalRotation);
 	if(isStatic)
@@ -207,10 +208,14 @@ EXPORT PhysXShape* PhysXBody_GetShape(PhysXBody* _this, int index)
 	return _this->mShapes[index];
 }
 
-EXPORT void PhysXBody_WakeUp(PhysXBody* _this, float wakeCounterValue)
+EXPORT void PhysXBody_WakeUp(PhysXBody* _this)
 {
-	((PxRigidDynamic*)_this->mActor)->wakeUp(wakeCounterValue);
+	((PxRigidDynamic*)_this->mActor)->wakeUp();
 }
+//EXPORT void PhysXBody_WakeUp(PhysXBody* _this, float wakeCounterValue)
+//{
+//	((PxRigidDynamic*)_this->mActor)->wakeUp(wakeCounterValue);
+//}
 
 EXPORT void PhysXBody_AddLocalForce(PhysXBody* _this, const PxVec3& force)
 {
@@ -292,8 +297,10 @@ EXPORT void PhysXBody_SetMaxAngularVelocity(PhysXBody* _this, float value)
 
 EXPORT void PhysXBody_EnableCCD(PhysXBody* _this, bool enable)
 {
-	for(int n = 0; n < (int)_this->mShapes.size(); n++)
-		_this->mShapes[n]->mShape->setFlag(PxShapeFlag::eUSE_SWEPT_BOUNDS, enable);
+	_this->enableCCD = enable;
+	((PxRigidBody*)_this->mActor)->setRigidBodyFlag(PxRigidBodyFlag::eENABLE_CCD, enable);
+	//for(int n = 0; n < (int)_this->mShapes.size(); n++)
+	//	_this->mShapes[n]->mShape->setFlag(PxShapeFlag::eUSE_SWEPT_BOUNDS, enable);
 }
 
 EXPORT void PhysXBody_SetSolverIterationCounts(PhysXBody* _this, int positionIterations, int velocityIterations)

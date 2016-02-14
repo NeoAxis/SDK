@@ -355,7 +355,7 @@ namespace ProjectEntities
 			needUpdate = true;
 		}
 
-		unsafe void UpdateGeometry()
+		public unsafe void UpdateGeometry()
 		{
 			DestroyGeometry();
 

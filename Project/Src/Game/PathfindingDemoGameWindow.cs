@@ -34,7 +34,7 @@ namespace Game
 			base.OnAttach();
 
 			//To load the HUD screen
-			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\PathfindingDemo\\Gui\\HUD.gui" );
+			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\Pathfinding Demo\\Gui\\HUD.gui" );
 			//Attach the HUD screen to the this window
 			Controls.Add( hudControl );
 		}
@@ -56,13 +56,6 @@ namespace Game
 				FreeCameraEnabled = !FreeCameraEnabled;
 				GameEngineApp.Instance.AddScreenMessage(
 					string.Format( "Camera type: {0}", FreeCameraEnabled ? "Free" : "Default" ) );
-				return true;
-			}
-
-			//select another demo map
-			if( e.Key == EKeys.F3 )
-			{
-				GameWorld.Instance.NeedChangeMap( "Maps\\MainDemo\\Map.map", "Teleporter_Maps", null );
 				return true;
 			}
 

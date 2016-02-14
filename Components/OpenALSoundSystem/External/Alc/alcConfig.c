@@ -13,13 +13,13 @@
  *
  * You should have received a copy of the GNU Library General Public
  *  License along with this library; if not, write to the
- *  Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- *  Boston, MA  02111-1307, USA.
+ *  Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * Or go to http://www.gnu.org/copyleft/lgpl.html
  */
 
 #ifdef _WIN32
-#ifdef __MINGW64__
+#ifdef __MINGW32__
 #define _WIN32_IE 0x501
 #else
 #define _WIN32_IE 0x400
@@ -32,223 +32,413 @@
 #include <stdio.h>
 #include <ctype.h>
 #include <string.h>
-
-#include "alMain.h"
-
 #ifdef _WIN32_IE
+#include <windows.h>
 #include <shlobj.h>
 #endif
+
+#include "alMain.h"
+#include "compat.h"
+#include "bool.h"
+
 
 typedef struct ConfigEntry {
     char *key;
     char *value;
 } ConfigEntry;
 
-typedef struct ConfigBlock {
-    char *name;
-    ConfigEntry *entries;
-    size_t entryCount;
-} ConfigBlock;
-
-static ConfigBlock *cfgBlocks;
-static size_t cfgCount;
-
-static char buffer[1024];
-
-static void LoadConfigFromFile(FILE *f)
-{
-    ConfigBlock *curBlock = cfgBlocks;
-    ConfigEntry *ent;
-
-    while(fgets(buffer, sizeof(buffer), f))
-    {
-        size_t i = 0;
-
-        while(isspace(buffer[i]))
-            i++;
-        if(!buffer[i] || buffer[i] == '#')
-            continue;
-
-        memmove(buffer, buffer+i, strlen(buffer+i)+1);
-
-        if(buffer[0] == '[')
-        {
-            ConfigBlock *nextBlock;
-
-            i = 1;
-            while(buffer[i] && buffer[i] != ']')
-                i++;
-
-            if(!buffer[i])
-            {
-                 AL_PRINT("config parse error: bad line \"%s\"\n", buffer);
-                 continue;
-            }
-            buffer[i] = 0;
-
-            do {
-                i++;
-                if(buffer[i] && !isspace(buffer[i]))
-                {
-                    if(buffer[i] != '#')
-                        AL_PRINT("config warning: extra data after block: \"%s\"\n", buffer+i);
-                    break;
-                }
-            } while(buffer[i]);
-
-            nextBlock = NULL;
-            for(i = 0;i < cfgCount;i++)
-            {
-                if(strcasecmp(cfgBlocks[i].name, buffer+1) == 0)
-                {
-                    nextBlock = cfgBlocks+i;
-//                    AL_PRINT("found block '%s'\n", nextBlock->name);
-                    break;
-                }
-            }
-
-            if(!nextBlock)
-            {
-                nextBlock = realloc(cfgBlocks, (cfgCount+1)*sizeof(ConfigBlock));
-                if(!nextBlock)
-                {
-                     AL_PRINT("config parse error: error reallocating config blocks\n");
-                     continue;
-                }
-                cfgBlocks = nextBlock;
-                nextBlock = cfgBlocks+cfgCount;
-                cfgCount++;
-
-                nextBlock->name = strdup(buffer+1);
-                nextBlock->entries = NULL;
-                nextBlock->entryCount = 0;
-
-//                AL_PRINT("found new block '%s'\n", nextBlock->name);
-            }
-            curBlock = nextBlock;
-            continue;
-        }
-
-        /* Look for the option name */
-        i = 0;
-        while(buffer[i] && buffer[i] != '#' && buffer[i] != '=' &&
-              !isspace(buffer[i]))
-            i++;
-
-        if(!buffer[i] || buffer[i] == '#' || i == 0)
-        {
-            AL_PRINT("config parse error: malformed option line: \"%s\"\n", buffer);
-            continue;
-        }
-
-        /* Seperate the option */
-        if(buffer[i] != '=')
-        {
-            buffer[i++] = 0;
-
-            while(isspace(buffer[i]))
-                i++;
-            if(buffer[i] != '=')
-            {
-                AL_PRINT("config parse error: option without a value: \"%s\"\n", buffer);
-                continue;
-            }
-        }
-        /* Find the start of the value */
-        buffer[i++] = 0;
-        while(isspace(buffer[i]))
-            i++;
-
-        /* Check if we already have this option set */
-        ent = curBlock->entries;
-        while((size_t)(ent-curBlock->entries) < curBlock->entryCount)
-        {
-            if(strcasecmp(ent->key, buffer) == 0)
-                break;
-            ent++;
-        }
-
-        if((size_t)(ent-curBlock->entries) >= curBlock->entryCount)
-        {
-            /* Allocate a new option entry */
-            ent = realloc(curBlock->entries, (curBlock->entryCount+1)*sizeof(ConfigEntry));
-            if(!ent)
-            {
-                 AL_PRINT("config parse error: error reallocating config entries\n");
-                 continue;
-            }
-            curBlock->entries = ent;
-            ent = curBlock->entries + curBlock->entryCount;
-            curBlock->entryCount++;
-
-            ent->key = strdup(buffer);
-            ent->value = NULL;
-        }
-
-        /* Look for the end of the line (Null term, new-line, or #-symbol) and
-           eat up the trailing whitespace */
-        memmove(buffer, buffer+i, strlen(buffer+i)+1);
-
-        i = 0;
-        while(buffer[i] && buffer[i] != '#' && buffer[i] != '\n')
-            i++;
-        do {
-            i--;
-        } while(isspace(buffer[i]));
-        buffer[++i] = 0;
-
-        free(ent->value);
-        ent->value = strdup(buffer);
-
-//        AL_PRINT("found '%s' = '%s'\n", ent->key, ent->value);
-    }
-}
-
-//betauser
+//!!!!!betauser
 void ReadALConfig(void)
 {
 }
+
+//typedef struct ConfigBlock {
+//    ConfigEntry *entries;
+//    unsigned int entryCount;
+//} ConfigBlock;
+//static ConfigBlock cfgBlock;
+
+
+//static char *lstrip(char *line)
+//{
+//    while(isspace(line[0]))
+//        line++;
+//    return line;
+//}
+//
+//static char *rstrip(char *line)
+//{
+//    size_t len = strlen(line);
+//    while(len > 0 && isspace(line[len-1]))
+//        len--;
+//    line[len] = 0;
+//    return line;
+//}
+//
+//static int readline(FILE *f, char **output, size_t *maxlen)
+//{
+//    size_t len = 0;
+//    int c;
+//
+//    while((c=fgetc(f)) != EOF && (c == '\r' || c == '\n'))
+//        ;
+//    if(c == EOF)
+//        return 0;
+//
+//    do {
+//        if(len+1 >= *maxlen)
+//        {
+//            void *temp = NULL;
+//            size_t newmax;
+//
+//            newmax = (*maxlen ? (*maxlen)<<1 : 32);
+//            if(newmax > *maxlen)
+//                temp = realloc(*output, newmax);
+//            if(!temp)
+//            {
+//                ERR("Failed to realloc "SZFMT" bytes from "SZFMT"!\n", newmax, *maxlen);
+//                return 0;
+//            }
+//
+//            *output = temp;
+//            *maxlen = newmax;
+//        }
+//        (*output)[len++] = c;
+//        (*output)[len] = '\0';
+//    } while((c=fgetc(f)) != EOF && c != '\r' && c != '\n');
+//
+//    return 1;
+//}
+//
+//
+//static char *expdup(const char *str)
+//{
+//    char *output = NULL;
+//    size_t maxlen = 0;
+//    size_t len = 0;
+//
+//    while(*str != '\0')
+//    {
+//        const char *addstr;
+//        size_t addstrlen;
+//        size_t i;
+//
+//        if(str[0] != '$')
+//        {
+//            const char *next = strchr(str, '$');
+//            addstr = str;
+//            addstrlen = next ? (size_t)(next-str) : strlen(str);
+//
+//            str += addstrlen;
+//        }
+//        else
+//        {
+//            str++;
+//            if(*str == '$')
+//            {
+//                const char *next = strchr(str+1, '$');
+//                addstr = str;
+//                addstrlen = next ? (size_t)(next-str) : strlen(str);
+//
+//                str += addstrlen;
+//            }
+//            else
+//            {
+//                bool hasbraces;
+//                char envname[1024];
+//                size_t k = 0;
+//
+//                hasbraces = (*str == '{');
+//                if(hasbraces) str++;
+//
+//                while((isalnum(*str) || *str == '_') && k < sizeof(envname)-1)
+//                    envname[k++] = *(str++);
+//                envname[k++] = '\0';
+//
+//                if(hasbraces && *str != '}')
+//                    continue;
+//
+//                if(hasbraces) str++;
+//                if((addstr=getenv(envname)) == NULL)
+//                    continue;
+//                addstrlen = strlen(addstr);
+//            }
+//        }
+//        if(addstrlen == 0)
+//            continue;
+//
+//        if(addstrlen >= maxlen-len)
+//        {
+//            void *temp = NULL;
+//            size_t newmax;
+//
+//            newmax = len+addstrlen+1;
+//            if(newmax > maxlen)
+//                temp = realloc(output, newmax);
+//            if(!temp)
+//            {
+//                ERR("Failed to realloc "SZFMT" bytes from "SZFMT"!\n", newmax, maxlen);
+//                return output;
+//            }
+//
+//            output = temp;
+//            maxlen = newmax;
+//        }
+//
+//        for(i = 0;i < addstrlen;i++)
+//            output[len++] = addstr[i];
+//        output[len] = '\0';
+//    }
+//
+//    return output ? output : calloc(1, 1);
+//}
+//
+//
+//static void LoadConfigFromFile(FILE *f)
+//{
+//    char curSection[128] = "";
+//    char *buffer = NULL;
+//    size_t maxlen = 0;
+//    ConfigEntry *ent;
+//
+//    while(readline(f, &buffer, &maxlen))
+//    {
+//        char *line, *comment;
+//        char key[256] = "";
+//        char value[256] = "";
+//
+//        line = rstrip(lstrip(buffer));
+//        if(!line[0]) continue;
+//
+//        if(line[0] == '[')
+//        {
+//            char *section = line+1;
+//            char *endsection;
+//
+//            endsection = strchr(section, ']');
+//            if(!endsection || section == endsection)
+//            {
+//                ERR("config parse error: bad line \"%s\"\n", line);
+//                continue;
+//            }
+//            if(endsection[1] != 0)
+//            {
+//                char *end = endsection+1;
+//                while(isspace(*end))
+//                    ++end;
+//                if(*end != 0 && *end != '#')
+//                {
+//                    ERR("config parse error: bad line \"%s\"\n", line);
+//                    continue;
+//                }
+//            }
+//            *endsection = 0;
+//
+//            if(strcasecmp(section, "general") == 0)
+//                curSection[0] = 0;
+//            else
+//            {
+//                strncpy(curSection, section, sizeof(curSection)-1);
+//                curSection[sizeof(curSection)-1] = 0;
+//            }
+//
+//            continue;
+//        }
+//
+//        comment = strchr(line, '#');
+//        if(comment) *(comment++) = 0;
+//        if(!line[0]) continue;
+//
+//        if(sscanf(line, "%255[^=] = \"%255[^\"]\"", key, value) == 2 ||
+//           sscanf(line, "%255[^=] = '%255[^\']'", key, value) == 2 ||
+//           sscanf(line, "%255[^=] = %255[^\n]", key, value) == 2)
+//        {
+//            /* sscanf doesn't handle '' or "" as empty values, so clip it
+//             * manually. */
+//            if(strcmp(value, "\"\"") == 0 || strcmp(value, "''") == 0)
+//                value[0] = 0;
+//        }
+//        else if(sscanf(line, "%255[^=] %255[=]", key, value) == 2)
+//        {
+//            /* Special case for 'key =' */
+//            value[0] = 0;
+//        }
+//        else
+//        {
+//            ERR("config parse error: malformed option line: \"%s\"\n\n", line);
+//            continue;
+//        }
+//        rstrip(key);
+//
+//        if(curSection[0] != 0)
+//        {
+//            size_t len = strlen(curSection);
+//            memmove(&key[len+1], key, sizeof(key)-1-len);
+//            key[len] = '/';
+//            memcpy(key, curSection, len);
+//        }
+//
+//        /* Check if we already have this option set */
+//        ent = cfgBlock.entries;
+//        while((unsigned int)(ent-cfgBlock.entries) < cfgBlock.entryCount)
+//        {
+//            if(strcasecmp(ent->key, key) == 0)
+//                break;
+//            ent++;
+//        }
+//
+//        if((unsigned int)(ent-cfgBlock.entries) >= cfgBlock.entryCount)
+//        {
+//            /* Allocate a new option entry */
+//            ent = realloc(cfgBlock.entries, (cfgBlock.entryCount+1)*sizeof(ConfigEntry));
+//            if(!ent)
+//            {
+//                 ERR("config parse error: error reallocating config entries\n");
+//                 continue;
+//            }
+//            cfgBlock.entries = ent;
+//            ent = cfgBlock.entries + cfgBlock.entryCount;
+//            cfgBlock.entryCount++;
+//
+//            ent->key = strdup(key);
+//            ent->value = NULL;
+//        }
+//
+//        free(ent->value);
+//        ent->value = expdup(value);
+//
+//        TRACE("found '%s' = '%s'\n", ent->key, ent->value);
+//    }
+//
+//    free(buffer);
+//}
+
+//#ifdef _WIN32
 //void ReadALConfig(void)
 //{
+//    WCHAR buffer[PATH_MAX];
+//    const WCHAR *str;
 //    FILE *f;
 //
-//    cfgBlocks = calloc(1, sizeof(ConfigBlock));
-//    cfgBlocks->name = strdup("general");
-//    cfgCount = 1;
-//
-//#ifdef _WIN32
-//    if(SHGetSpecialFolderPathA(NULL, buffer, CSIDL_APPDATA, FALSE) != FALSE)
+//    if(SHGetSpecialFolderPathW(NULL, buffer, CSIDL_APPDATA, FALSE) != FALSE)
 //    {
-//        size_t p = strlen(buffer);
-//        snprintf(buffer+p, sizeof(buffer)-p, "\\alsoft.ini");
-//        f = fopen(buffer, "rt");
+//        al_string filepath = AL_STRING_INIT_STATIC();
+//        al_string_copy_wcstr(&filepath, buffer);
+//        al_string_append_cstr(&filepath, "\\alsoft.ini");
+//
+//        TRACE("Loading config %s...\n", al_string_get_cstr(filepath));
+//        f = al_fopen(al_string_get_cstr(filepath), "rt");
 //        if(f)
 //        {
 //            LoadConfigFromFile(f);
 //            fclose(f);
 //        }
+//        al_string_deinit(&filepath);
 //    }
+//
+//    if((str=_wgetenv(L"ALSOFT_CONF")) != NULL && *str)
+//    {
+//        al_string filepath = AL_STRING_INIT_STATIC();
+//        al_string_copy_wcstr(&filepath, str);
+//
+//        TRACE("Loading config %s...\n", al_string_get_cstr(filepath));
+//        f = al_fopen(al_string_get_cstr(filepath), "rt");
+//        if(f)
+//        {
+//            LoadConfigFromFile(f);
+//            fclose(f);
+//        }
+//        al_string_deinit(&filepath);
+//    }
+//}
 //#else
-//    f = fopen("/etc/openal/alsoft.conf", "r");
+//void ReadALConfig(void)
+//{
+//    char buffer[PATH_MAX];
+//    const char *str;
+//    FILE *f;
+//
+//    str = "/etc/openal/alsoft.conf";
+//
+//    TRACE("Loading config %s...\n", str);
+//    f = al_fopen(str, "r");
 //    if(f)
 //    {
 //        LoadConfigFromFile(f);
 //        fclose(f);
 //    }
-//    if(getenv("HOME") && *(getenv("HOME")))
+//
+//    if(!(str=getenv("XDG_CONFIG_DIRS")) || str[0] == 0)
+//        str = "/etc/xdg";
+//    strncpy(buffer, str, sizeof(buffer)-1);
+//    buffer[sizeof(buffer)-1] = 0;
+//    /* Go through the list in reverse, since "the order of base directories
+//     * denotes their importance; the first directory listed is the most
+//     * important". Ergo, we need to load the settings from the later dirs
+//     * first so that the settings in the earlier dirs override them.
+//     */
+//    while(1)
 //    {
-//        snprintf(buffer, sizeof(buffer), "%s/.alsoftrc", getenv("HOME"));
-//        f = fopen(buffer, "r");
+//        char *next = strrchr(buffer, ':');
+//        if(next) *(next++) = 0;
+//        else next = buffer;
+//
+//        if(next[0] != '/')
+//            WARN("Ignoring XDG config dir: %s\n", next);
+//        else
+//        {
+//            size_t len = strlen(next);
+//            strncpy(next+len, "/alsoft.conf", buffer+sizeof(buffer)-next-len);
+//            buffer[sizeof(buffer)-1] = 0;
+//
+//            TRACE("Loading config %s...\n", next);
+//            f = al_fopen(next, "r");
+//            if(f)
+//            {
+//                LoadConfigFromFile(f);
+//                fclose(f);
+//            }
+//        }
+//        if(next == buffer)
+//            break;
+//    }
+//
+//    if((str=getenv("HOME")) != NULL && *str)
+//    {
+//        snprintf(buffer, sizeof(buffer), "%s/.alsoftrc", str);
+//
+//        TRACE("Loading config %s...\n", buffer);
+//        f = al_fopen(buffer, "r");
 //        if(f)
 //        {
 //            LoadConfigFromFile(f);
 //            fclose(f);
 //        }
 //    }
-//#endif
-//    if(getenv("ALSOFT_CONF"))
+//
+//    if((str=getenv("XDG_CONFIG_HOME")) != NULL && str[0] != 0)
+//        snprintf(buffer, sizeof(buffer), "%s/%s", str, "alsoft.conf");
+//    else
 //    {
-//        f = fopen(getenv("ALSOFT_CONF"), "r");
+//        buffer[0] = 0;
+//        if((str=getenv("HOME")) != NULL && str[0] != 0)
+//            snprintf(buffer, sizeof(buffer), "%s/.config/%s", str, "alsoft.conf");
+//    }
+//    if(buffer[0] != 0)
+//    {
+//        TRACE("Loading config %s...\n", buffer);
+//        f = al_fopen(buffer, "r");
+//        if(f)
+//        {
+//            LoadConfigFromFile(f);
+//            fclose(f);
+//        }
+//    }
+//
+//    if((str=getenv("ALSOFT_CONF")) != NULL && *str)
+//    {
+//        TRACE("Loading config %s...\n", str);
+//        f = al_fopen(str, "r");
 //        if(f)
 //        {
 //            LoadConfigFromFile(f);
@@ -256,85 +446,134 @@ void ReadALConfig(void)
 //        }
 //    }
 //}
+//#endif
 
+//!!!!betauser
 void FreeALConfig(void)
 {
-    size_t i;
+}
+//void FreeALConfig(void)
+//{
+//    unsigned int i;
+//
+//    for(i = 0;i < cfgBlock.entryCount;i++)
+//    {
+//        free(cfgBlock.entries[i].key);
+//        free(cfgBlock.entries[i].value);
+//    }
+//    free(cfgBlock.entries);
+//}
 
-    for(i = 0;i < cfgCount;i++)
-    {
-        size_t j;
-        for(j = 0;j < cfgBlocks[i].entryCount;j++)
-        {
-           free(cfgBlocks[i].entries[j].key);
-           free(cfgBlocks[i].entries[j].value);
-        }
-        free(cfgBlocks[i].entries);
-        free(cfgBlocks[i].name);
-    }
-    free(cfgBlocks);
-    cfgBlocks = NULL;
-    cfgCount = 0;
+//!!!!betauser
+const char *GetConfigValue(const char *devName, const char *blockName, const char *keyName, const char *def)
+{
+	return def;
 }
 
-const char *GetConfigValue(const char *blockName, const char *keyName, const char *def)
+//const char *GetConfigValue(const char *devName, const char *blockName, const char *keyName, const char *def)
+//{
+//    unsigned int i;
+//    char key[256];
+//
+//    if(!keyName)
+//        return def;
+//
+//    if(blockName && strcasecmp(blockName, "general") != 0)
+//    {
+//        if(devName)
+//            snprintf(key, sizeof(key), "%s/%s/%s", blockName, devName, keyName);
+//        else
+//            snprintf(key, sizeof(key), "%s/%s", blockName, keyName);
+//    }
+//    else
+//    {
+//        if(devName)
+//            snprintf(key, sizeof(key), "%s/%s", devName, keyName);
+//        else
+//        {
+//            strncpy(key, keyName, sizeof(key)-1);
+//            key[sizeof(key)-1] = 0;
+//        }
+//    }
+//
+//    for(i = 0;i < cfgBlock.entryCount;i++)
+//    {
+//        if(strcmp(cfgBlock.entries[i].key, key) == 0)
+//        {
+//            TRACE("Found %s = \"%s\"\n", key, cfgBlock.entries[i].value);
+//            if(cfgBlock.entries[i].value[0])
+//                return cfgBlock.entries[i].value;
+//            return def;
+//        }
+//    }
+//
+//    if(!devName)
+//    {
+//        TRACE("Key %s not found\n", key);
+//        return def;
+//    }
+//    return GetConfigValue(NULL, blockName, keyName, def);
+//}
+
+int ConfigValueExists(const char *devName, const char *blockName, const char *keyName)
 {
-    size_t i, j;
-
-    if(!keyName)
-        return def;
-
-    if(!blockName)
-        blockName = "general";
-
-    for(i = 0;i < cfgCount;i++)
-    {
-        if(strcasecmp(cfgBlocks[i].name, blockName) != 0)
-            continue;
-
-        for(j = 0;j < cfgBlocks[i].entryCount;j++)
-        {
-            if(strcasecmp(cfgBlocks[i].entries[j].key, keyName) == 0)
-            {
-                if(cfgBlocks[i].entries[j].value[0])
-                    return cfgBlocks[i].entries[j].value;
-                return def;
-            }
-        }
-    }
-
-    return def;
-}
-
-int ConfigValueExists(const char *blockName, const char *keyName)
-{
-    const char *val = GetConfigValue(blockName, keyName, "");
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
     return !!val[0];
 }
 
-int GetConfigValueInt(const char *blockName, const char *keyName, int def)
+int ConfigValueStr(const char *devName, const char *blockName, const char *keyName, const char **ret)
 {
-    const char *val = GetConfigValue(blockName, keyName, "");
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
+    if(!val[0]) return 0;
 
-    if(!val[0]) return def;
-    return strtol(val, NULL, 0);
+    *ret = val;
+    return 1;
 }
 
-float GetConfigValueFloat(const char *blockName, const char *keyName, float def)
+int ConfigValueInt(const char *devName, const char *blockName, const char *keyName, int *ret)
 {
-    const char *val = GetConfigValue(blockName, keyName, "");
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
+    if(!val[0]) return 0;
 
-    if(!val[0]) return def;
+    *ret = strtol(val, NULL, 0);
+    return 1;
+}
+
+int ConfigValueUInt(const char *devName, const char *blockName, const char *keyName, unsigned int *ret)
+{
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
+    if(!val[0]) return 0;
+
+    *ret = strtoul(val, NULL, 0);
+    return 1;
+}
+
+int ConfigValueFloat(const char *devName, const char *blockName, const char *keyName, float *ret)
+{
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
+    if(!val[0]) return 0;
+
 #ifdef HAVE_STRTOF
-    return strtof(val, NULL);
+    *ret = strtof(val, NULL);
 #else
-    return (float)strtod(val, NULL);
+    *ret = (float)strtod(val, NULL);
 #endif
+    return 1;
 }
 
-int GetConfigValueBool(const char *blockName, const char *keyName, int def)
+int ConfigValueBool(const char *devName, const char *blockName, const char *keyName, int *ret)
 {
-    const char *val = GetConfigValue(blockName, keyName, "");
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
+    if(!val[0]) return 0;
+
+    *ret = (strcasecmp(val, "true") == 0 || strcasecmp(val, "yes") == 0 ||
+            strcasecmp(val, "on") == 0 || atoi(val) != 0);
+    return 1;
+}
+
+int GetConfigValueBool(const char *devName, const char *blockName, const char *keyName, int def)
+{
+    const char *val = GetConfigValue(devName, blockName, keyName, "");
 
     if(!val[0]) return !!def;
     return (strcasecmp(val, "true") == 0 || strcasecmp(val, "yes") == 0 ||

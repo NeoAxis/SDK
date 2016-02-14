@@ -7,7 +7,6 @@
 #include "PhysXScene.h"
 #include "StringUtils.h"
 
-//!!!!!!crash on MyAllocator on Sys projects
 PxDefaultAllocator gDefaultAllocatorCallback;
 
 PhysXWorld::PhysXWorld()
@@ -114,10 +113,9 @@ EXPORT bool PhysXWorld_Init(ReportErrorDelegate* reportErrorDelegate, wchar16** 
 
 	world->mErrorCallback.reportErrorDelegate = reportErrorDelegate;
 
-	//!!!!!!crash on MyAllocator on Sys projects
-	PxAllocatorCallback* allocator = &gDefaultAllocatorCallback;
-	world->mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, *allocator, world->mErrorCallback);
-	//world->mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, world->mAllocator, world->mErrorCallback);
+	world->mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, world->mAllocator, world->mErrorCallback);
+	//PxAllocatorCallback* allocator = &gDefaultAllocatorCallback;
+	//world->mFoundation = PxCreateFoundation(PX_PHYSICS_VERSION, *allocator, world->mErrorCallback);
 	if(!world->mFoundation)
 	{
 		*outErrorString = CreateOutString("PxCreateFoundation failed.");
@@ -131,8 +129,9 @@ EXPORT bool PhysXWorld_Init(ReportErrorDelegate* reportErrorDelegate, wchar16** 
 		return false;
 	}
 
-	world->mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *world->mFoundation, PxTolerancesScale(), 
-		false, world->mProfileZoneManager);
+	PxTolerancesScale scale;
+
+	world->mPhysics = PxCreatePhysics(PX_PHYSICS_VERSION, *world->mFoundation, scale, false, world->mProfileZoneManager);
 	if(!world->mPhysics)
 	{
 		*outErrorString = CreateOutString("PxCreatePhysics failed.");
@@ -145,7 +144,7 @@ EXPORT bool PhysXWorld_Init(ReportErrorDelegate* reportErrorDelegate, wchar16** 
 		return false;
 	}
 
-	PxCookingParams cookingParams;
+	PxCookingParams cookingParams( scale );
 	cookingParams.skinWidth = cookingParamsSkinWidth;//0.025f;
 
 	world->mCooking = PxCreateCooking(PX_PHYSICS_VERSION, *world->mFoundation, cookingParams);

@@ -60,12 +60,14 @@ namespace Game
 				window.Controls[ "NoShaderModel3" ].Visible = !RenderSystem.Instance.HasShaderModel3();
 
 			//button handlers
-			if( window.Controls[ "Run" ] != null )
-				( (Button)window.Controls[ "Run" ] ).Click += Run_Click;
+			//if( window.Controls[ "Run" ] != null )
+			//   ( (Button)window.Controls[ "Run" ] ).Click += Run_Click;
 			if( window.Controls[ "Multiplayer" ] != null )
 				( (Button)window.Controls[ "Multiplayer" ] ).Click += Multiplayer_Click;
 			if( window.Controls[ "Maps" ] != null )
 				( (Button)window.Controls[ "Maps" ] ).Click += Maps_Click;
+			if( window.Controls[ "Maps2" ] != null )
+				( (Button)window.Controls[ "Maps2" ] ).Click += Maps_Click;
 			if( window.Controls[ "LoadSave" ] != null )
 				( (Button)window.Controls[ "LoadSave" ] ).Click += LoadSave_Click;
 			if( window.Controls[ "Options" ] != null )
@@ -102,8 +104,7 @@ namespace Game
 			}
 
 			//play background music
-			GameMusic.MusicPlay( "Sounds\\Music\\Game.ogg", true );
-			//GameMusic.MusicPlay( "Sounds\\Music\\MainMenu.ogg", true );
+			GameMusic.MusicPlay( "Sounds\\Music\\MainMenu.ogg", true );
 
 			//update sound listener
 			SoundWorld.Instance.SetListener( new Vec3( 1000, 1000, 1000 ),
@@ -126,15 +127,10 @@ namespace Game
 				DestroyMap();
 		}
 
-		void Run_Click( Button sender )
-		{
-			GameEngineApp.Instance.SetNeedMapLoad( "Maps\\MainDemo\\Map.map" );
-		}
-
-		void RunVillageDemo_Click( Button sender )
-		{
-			GameEngineApp.Instance.SetNeedMapLoad( "Maps\\VillageDemo\\Map\\Map.map" );
-		}
+		//void Run_Click( Button sender )
+		//{
+		//   GameEngineApp.Instance.SetNeedMapLoad( "Maps\\Village Demo\\Map\\Map.map" );
+		//}
 
 		void Multiplayer_Click( Button sender )
 		{
@@ -253,7 +249,7 @@ namespace Game
 			{
 				Vec3 from = Vec3.Zero;
 				Vec3 to = new Vec3( 1, 0, 0 );
-				float fov = 80;
+				float fov = 75;
 
 				MapCamera mapCamera = Entities.Instance.GetByName( "MapCamera_MainMenu" ) as MapCamera;
 				if( mapCamera != null )
@@ -309,7 +305,7 @@ namespace Game
 		{
 			DestroyMap();
 
-			string mapName = "Maps\\MainMenu\\Map.map";
+			string mapName = "Maps\\Village Demo\\Map\\Map.map";
 
 			if( VirtualFile.Exists( mapName ) )
 			{

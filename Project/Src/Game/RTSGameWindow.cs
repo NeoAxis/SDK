@@ -78,17 +78,12 @@ namespace Game
 			EngineApp.Instance.KeysAndMouseButtonUpAll();
 
 			//hudControl
-			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\RTSDemo\\Gui\\HUD.gui" );
+			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\RTS Demo\\Gui\\HUD.gui" );
 			Controls.Add( hudControl );
 
 			( (Button)hudControl.Controls[ "Menu" ] ).Click += delegate( Button sender )
 			{
 				Controls.Add( new MenuWindow() );
-			};
-
-			( (Button)hudControl.Controls[ "Exit" ] ).Click += delegate( Button sender )
-			{
-				GameWorld.Instance.NeedChangeMap( "Maps\\MainDemo\\Map.map", "Teleporter_Maps", null );
 			};
 
 			( (Button)hudControl.Controls[ "Help" ] ).Click += delegate( Button sender )
@@ -215,13 +210,6 @@ namespace Game
 
 				GameEngineApp.Instance.AddScreenMessage( "Camera type: " + cameraType.ToString() );
 
-				return true;
-			}
-
-			//select another demo map
-			if( e.Key == EKeys.F3 )
-			{
-				GameWorld.Instance.NeedChangeMap( "Maps\\MainDemo\\Map.map", "Teleporter_Maps", null );
 				return true;
 			}
 
@@ -434,7 +422,7 @@ namespace Game
 									tasks[ index ].Task.EntityType ), toQueue );
 
 								GameEngineApp.Instance.ControlManager.PlaySound(
-									"Maps\\RTSDemo\\Sounds\\BuildBuilding.ogg" );
+									"Maps\\RTS Demo\\Sounds\\BuildBuilding.ogg" );
 							}
 							else
 							{

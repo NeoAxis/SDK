@@ -409,6 +409,30 @@ namespace Game
 			SceneManager.Instance.Enable3DSceneRendering = true;
 		}
 
+		protected override void OnBeforeWindowCreate()
+		{
+			base.OnBeforeWindowCreate();
+
+			//parse command line parameters
+			foreach( Pair<string, string> pair in CommandLineUtils.ParseCommandLineParameters() )
+			{
+				string value = pair.Second;
+
+				switch( pair.First.ToLower() )
+				{
+				case "fullscreen":
+					if( value == "1" || value.ToLower() == "true" || value.ToLower() == "yes" )
+						FullScreen = true;
+					else if( value == "0" || value.ToLower() == "false" || value.ToLower() == "no" )
+						FullScreen = false;
+					break;
+				case "videomode":
+					VideoMode = Vec2I.Parse( value );
+					break;
+				}
+			}
+		}
+
 		protected override void OnBeforeRendererWorldInit()
 		{
 			base.OnBeforeRendererWorldInit();
@@ -517,8 +541,7 @@ namespace Game
 			//if no autorun map play music and go to EngineLogoWindow.
 			if( Map.Instance == null && !mapLoadingFailed )
 			{
-				GameMusic.MusicPlay( "Sounds\\Music\\Game.ogg", true );
-				//GameMusic.MusicPlay( "Sounds\\Music\\MainMenu.ogg", true );
+				GameMusic.MusicPlay( "Sounds\\Music\\MainMenu.ogg", true );
 				controlManager.Controls.Add( new EngineLogoWindow() );
 			}
 
@@ -545,23 +568,36 @@ namespace Game
 
 			if( PlatformInfo.Platform != PlatformInfo.Platforms.Android )
 			{
-				string[] commandLineArgs = Environment.GetCommandLineArgs();
-				if( commandLineArgs.Length > 1 )
+				//parse command line parameters
+				foreach( Pair<string, string> pair in CommandLineUtils.ParseCommandLineParameters() )
 				{
-					string name = commandLineArgs[ 1 ];
-					if( name[ 0 ] == '\"' && name[ name.Length - 1 ] == '\"' )
-						name = name.Substring( 1, name.Length - 2 );
-					name = name.Replace( '/', '\\' );
+					string value = pair.Second;
 
-					string dataDirectory = VirtualFileSystem.ResourceDirectoryPath;
-					dataDirectory = dataDirectory.Replace( '/', '\\' );
-
-					if( name.Length > dataDirectory.Length )
-						if( string.Compare( name.Substring( 0, dataDirectory.Length ), dataDirectory, true ) == 0 )
-							name = name.Substring( dataDirectory.Length + 1 );
-
-					mapName = name;
+					switch( pair.First.ToLower() )
+				{
+					case "loadmap":
+						mapName = value;
+						break;
+					}
 				}
+
+				//string[] commandLineArgs = Environment.GetCommandLineArgs();
+				//if( commandLineArgs.Length > 1 )
+				//{
+				//   string name = commandLineArgs[ 1 ];
+				//   if( name[ 0 ] == '\"' && name[ name.Length - 1 ] == '\"' )
+				//      name = name.Substring( 1, name.Length - 2 );
+				//   name = name.Replace( '/', '\\' );
+
+				//   string dataDirectory = VirtualFileSystem.ResourceDirectoryPath;
+				//   dataDirectory = dataDirectory.Replace( '/', '\\' );
+
+				//   if( name.Length > dataDirectory.Length )
+				//      if( string.Compare( name.Substring( 0, dataDirectory.Length ), dataDirectory, true ) == 0 )
+				//         name = name.Substring( dataDirectory.Length + 1 );
+
+				//   mapName = name;
+				//}
 			}
 
 			return mapName;
@@ -1226,7 +1262,6 @@ namespace Game
 			switch( gameType )
 			{
 			case GameMap.GameTypes.Action:
-			case GameMap.GameTypes.TPSArcade:
 				return new ActionGameWindow();
 
 			case GameMap.GameTypes.RTS:
@@ -1235,17 +1270,11 @@ namespace Game
 			case GameMap.GameTypes.TurretDemo:
 				return new TurretDemoGameWindow();
 
-			case GameMap.GameTypes.JigsawPuzzleGame:
-				return new JigsawPuzzleGameWindow();
-
 			case GameMap.GameTypes.BallGame:
 				return new BallGameWindow();
 
 			case GameMap.GameTypes.VillageDemo:
 				return new VillageDemoGameWindow();
-
-			case GameMap.GameTypes.CatapultGame:
-				return new CatapultGameWindow();
 
 			case GameMap.GameTypes.PlatformerDemo:
 				return new PlatformerDemoGameWindow();

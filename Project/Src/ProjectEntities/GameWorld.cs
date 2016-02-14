@@ -84,7 +84,6 @@ namespace ProjectEntities
 			if( EntitySystemWorld.Instance.IsSingle() )
 			{
 				if( GameMap.Instance.GameType == GameMap.GameTypes.Action ||
-					GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade ||
 					GameMap.Instance.GameType == GameMap.GameTypes.TurretDemo ||
 					GameMap.Instance.GameType == GameMap.GameTypes.VillageDemo ||
 					GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo )
@@ -107,7 +106,6 @@ namespace ProjectEntities
 			if( EntitySystemWorld.Instance.IsServer() )
 			{
 				if( GameMap.Instance.GameType == GameMap.GameTypes.Action ||
-					GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade ||
 					GameMap.Instance.GameType == GameMap.GameTypes.TurretDemo ||
 					GameMap.Instance.GameType == GameMap.GameTypes.VillageDemo ||
 					GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo )
@@ -206,7 +204,6 @@ namespace ProjectEntities
 			if( EntitySystemWorld.Instance.IsSingle() )
 			{
 				if( GameMap.Instance.GameType == GameMap.GameTypes.Action ||
-					GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade ||
 					GameMap.Instance.GameType == GameMap.GameTypes.TurretDemo ||
 					GameMap.Instance.GameType == GameMap.GameTypes.VillageDemo ||
 					GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo )
@@ -252,10 +249,7 @@ namespace ProjectEntities
 						{
 							spawnPoint = Entities.Instance.GetByName( needChangeMapSpawnPointName ) as MapObject;
 							if( spawnPoint == null )
-							{
-								if( GameMap.Instance.GameType != GameMap.GameTypes.TPSArcade )
 									Log.Warning( "GameWorld: Object with name \"{0}\" is not exists.", needChangeMapSpawnPointName );
-							}
 						}
 
 						Unit unit;
@@ -296,7 +290,7 @@ namespace ProjectEntities
 				if( GameMap.Instance.PlayerUnitType != null )
 					unitTypeName = GameMap.Instance.PlayerUnitType.Name;
 				else
-					unitTypeName = "Girl";//"Rabbit";
+					unitTypeName = "Girl";
 			}
 			else
 				unitTypeName = player.Name;

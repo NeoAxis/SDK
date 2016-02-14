@@ -23,7 +23,7 @@
             The type of creating map.
             </summary>
             <remarks>
-            By default, you can choose several options such as: Action, RTS, TPSArcade, TurrentDemo, VillageDemo and others. Each type differs by common logic and features of the interaction with the player. Developers can add their own types of maps.
+            By default, you can choose several options such as: Action, RTS, TurrentDemo, VillageDemo and others. Each type differs by common logic and features of the interaction with the player. Developers can add their own types of maps.
             </remarks>
         </member>
         <member name="P:ProjectEntities.GameMap.GameMusic">
@@ -306,22 +306,6 @@
         </member>
         <member name="M:ProjectEntities.ExampleMagicObject.OnPostCreate(System.Boolean)">
             <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnPostCreate(System.Boolean)"/>.</summary>
-        </member>
-        <member name="T:ProjectEntities.JigsawPuzzleManagerType">
-            <summary>
-            Defines the <see cref="T:ProjectEntities.JigsawPuzzleManager"/> entity type.
-            </summary>
-        </member>
-        <member name="T:ProjectEntities.JigsawPuzzleManager">
-            <summary>
-            The pieces manager for puzzle game example.
-            </summary>
-        </member>
-        <member name="M:ProjectEntities.JigsawPuzzleManager.OnPostCreate(System.Boolean)">
-            <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnPostCreate(System.Boolean)"/>.</summary>
-        </member>
-        <member name="M:ProjectEntities.JigsawPuzzleManager.OnDestroy">
-            <summary>Overridden from <see cref="M:Engine.EntitySystem.Entity.OnDestroy"/>.</summary>
         </member>
         <member name="T:ProjectEntities.PlayerIntellectType">
             <summary>
@@ -790,16 +774,6 @@
         <member name="P:ProjectEntities.Fan.Throttle">
             <summary>
             Gets or sets the current power.
-            </summary>
-        </member>
-        <member name="T:ProjectEntities.JigsawPuzzlePieceType">
-            <summary>
-            Defines the <see cref="T:ProjectEntities.JigsawPuzzlePiece"/> entity type.
-            </summary>
-        </member>
-        <member name="T:ProjectEntities.JigsawPuzzlePiece">
-            <summary>
-            The piece for puzzle game example.
             </summary>
         </member>
         <member name="T:ProjectEntities.HealthItemType">

@@ -56,12 +56,9 @@ namespace ProjectEntities
 			None,
 			Action,
 			RTS,
-			TPSArcade,
 			TurretDemo,
-			JigsawPuzzleGame,
 			BallGame,
 			VillageDemo,
-			CatapultGame,
 			PlatformerDemo,
 			PathfindingDemo,
 
@@ -122,9 +119,9 @@ namespace ProjectEntities
 		/// The type of creating map.
 		/// </summary>
 		/// <remarks>
-		/// By default, you can choose several options such as: Action, RTS, TPSArcade, TurrentDemo, VillageDemo and others. Each type differs by common logic and features of the interaction with the player. Developers can add their own types of maps.
+		/// By default, you can choose several options such as: Action, RTS, TurrentDemo, VillageDemo and others. Each type differs by common logic and features of the interaction with the player. Developers can add their own types of maps.
 		/// </remarks>
-		[LocalizedDescription( "The type of creating map. By default, you can choose several options such as: Action, RTS, TPSArcade, TurrentDemo, VillageDemo and others. Each type differs by common logic and features of the interaction with the player. Developers can add their own types of maps.", "GameMap" )]
+		[LocalizedDescription( "The type of creating map. By default, you can choose several options such as: Action, RTS, TurrentDemo, VillageDemo and others. Each type differs by common logic and features of the interaction with the player. Developers can add their own types of maps.", "GameMap" )]
 		[DefaultValue( GameMap.GameTypes.Action )]
 		public GameTypes GameType
 		{

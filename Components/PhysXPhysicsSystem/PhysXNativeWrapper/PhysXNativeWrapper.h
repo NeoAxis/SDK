@@ -128,24 +128,22 @@ public:
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
-//class MyAllocator : public PxAllocatorCallback
-//{
-//public:
-//
-//	void* allocate(size_t size, const char* typeName, const char* filename, int line)
-//	{
-//		//!!!!!!crash on Sys projects
-//		return _aligned_malloc(size, 16);
-//		//return Memory_AllocAligned( MemoryAllocationType_Physics, size, 16, filename, line );
-//	}
-//
-//	void deallocate(void* ptr)
-//	{
-//		//!!!!!!crash on Sys projects
-//		_aligned_free(ptr);
-//		//Memory_FreeAligned( ptr );
-//	}
-//};
+class MyAllocator : public PxAllocatorCallback
+{
+public:
+
+	void* allocate(size_t size, const char* typeName, const char* filename, int line)
+	{
+		//return _aligned_malloc(size, 16);
+		return Memory_AllocAligned( MemoryAllocationType_Physics, size, 16, filename, line );
+	}
+
+	void deallocate(void* ptr)
+	{
+		//_aligned_free(ptr);
+		Memory_FreeAligned( ptr );
+	}
+};
 
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 

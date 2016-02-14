@@ -49,8 +49,9 @@ PxFilterFlags MyFilterShader(
 	pairFlags |= PxPairFlag::eNOTIFY_TOUCH_FOUND;
 	pairFlags |= PxPairFlag::eNOTIFY_TOUCH_PERSISTS;
 	pairFlags |= PxPairFlag::eNOTIFY_CONTACT_POINTS;
-	//ccd
-	pairFlags |= PxPairFlag::eSWEPT_INTEGRATION_LINEAR;
+	if( shape0->mBody->enableCCD || shape1->mBody->enableCCD )
+		pairFlags |= PxPairFlag::eDETECT_CCD_CONTACT;
+	//pairFlags |= PxPairFlag::eSWEPT_INTEGRATION_LINEAR;
 
     return PxFilterFlag::eDEFAULT;
 }
@@ -68,8 +69,8 @@ PhysXScene::PhysXScene(PxPhysics* pPhysics, int numThreads, PxU32* affinityMasks
 	//collision filtering
 	sceneDesc.filterShader = MyFilterShader;
 
-	sceneDesc.flags = PxSceneFlag::eENABLE_SWEPT_INTEGRATION;
-	//sceneDesc.flags |= PxSceneFlag::eENABLE_SWEPT_INTEGRATION;
+	sceneDesc.flags = PxSceneFlag::eENABLE_CCD;
+	//sceneDesc.flags |= PxSceneFlag::eDISABLE_CCD_RESWEEP;
 	//sceneDesc.flags &= ~PxSceneFlag::eADAPTIVE_FORCE;
 
 	//eENABLE_ONE_DIRECTIONAL_FRICTION
@@ -90,46 +91,63 @@ PhysXScene::~PhysXScene()
 
 void PhysXScene::onContact(const PxContactPairHeader& pairHeader, const PxContactPair* pairs, PxU32 nbPairs)
 {
-	const int staticBufferCapacity = 2048;
-	byte staticBuffer[staticBufferCapacity];
-
 	for(PxU32 i=0; i < nbPairs; i++)
 	{
 		const PxContactPair& pair = pairs[i];
-		if(pair.events & (PxPairFlag::eNOTIFY_TOUCH_FOUND | PxPairFlag::eNOTIFY_TOUCH_PERSISTS))
+		if(pair.events & (PxPairFlag::eNOTIFY_TOUCH_FOUND | PxPairFlag::eNOTIFY_TOUCH_PERSISTS) && pair.contactCount != 0)
 		{
-			byte* allocatedBuffer = NULL;		
-			byte* buffer;
+			const PxU8* stream = pair.contactStream;
 
-			if(pair.requiredBufferSize > staticBufferCapacity)
+			PxContactStreamIterator iter((PxU8*)stream, pair.contactStreamSize);
+
+			stream += ((pair.contactStreamSize + 15) & ~15);
+
+			const PxReal* impulses = reinterpret_cast<const PxReal*>(stream);
+
+			PxU32 flippedContacts = (pair.flags & PxContactPairFlag::eINTERNAL_CONTACTS_ARE_FLIPPED);
+			PxU32 hasImpulses = (pair.flags & PxContactPairFlag::eINTERNAL_HAS_IMPULSES);
+
+			PhysXShape* shape1 = (PhysXShape*)pair.shapes[0]->userData;
+			PhysXShape* shape2 = (PhysXShape*)pair.shapes[1]->userData;
+
+			while(iter.hasNextPatch())
 			{
-				allocatedBuffer = new byte[pair.requiredBufferSize];
-				buffer = allocatedBuffer;
+				iter.nextPatch();
+				while(iter.hasNextContact())
+				{
+					iter.nextContact();
+
+					//add contact
+
+					PhysXScene::ContactReport contact;
+					contact.shapeIndex1 = shape1->mIdentifier;
+					contact.shapeIndex2 = shape2->mIdentifier;
+					contact.contactPoint = iter.getContactPoint();
+					contact.separation = iter.getSeparation();
+					contact.normal = iter.getContactNormal();
+
+					//if (!flippedContacts)
+					//{
+					//	dst.internalFaceIndex0 = iter.getFaceIndex0();
+					//	dst.internalFaceIndex1 = iter.getFaceIndex1();
+					//}
+					//else
+					//{
+					//	dst.internalFaceIndex0 = iter.getFaceIndex1();
+					//	dst.internalFaceIndex1 = iter.getFaceIndex0();
+					//}
+
+					//if (hasImpulses)
+					//{
+					//	PxReal impulse = impulses[nbContacts];
+					//	dst.impulse = dst.normal * impulse;
+					//}
+					//else
+					//	dst.impulse = PxVec3(0.0f);
+
+					contactList.push_back(contact);
+				}
 			}
-			else
-				buffer = staticBuffer;
-
-			PxContactPairPoint* contactPointBuffer = (PxContactPairPoint*)buffer;
-			pair.extractContacts(contactPointBuffer, pair.requiredBufferSize);
-
-			for(PxU16 nContact = 0; nContact < pair.contactCount; nContact++)
-			{
-				const PxContactPairPoint& contactPoint = contactPointBuffer[nContact];
-
-				PhysXShape* shape1 = (PhysXShape*)pair.shapes[0]->userData;
-				PhysXShape* shape2 = (PhysXShape*)pair.shapes[1]->userData;
-
-				PhysXScene::ContactReport contact;
-				contact.shapeIndex1 = shape1->mIdentifier;
-				contact.shapeIndex2 = shape2->mIdentifier;
-				contact.contactPoint = contactPoint.position;
-				contact.normal = contactPoint.normal;
-				contact.separation = contactPoint.separation;
-				contactList.push_back(contact);
-			}
-
-			if(allocatedBuffer)
-				delete[] allocatedBuffer;
 		}
 	}
 }
@@ -141,19 +159,6 @@ EXPORT void PhysXScene_SetGravity( PhysXScene* _this, const PxVec3& vec )
 
 void PhysXScene::Simulate( float elapsedTime )
 {
-	//clear and shrink contactList
-	if(contactList.size() * 4 < contactList.capacity())
-	{
-		contactListShrinkCounter++;
-		if(contactListShrinkCounter == 100)
-		{
-			contactList.clear();
-			std::vector<ContactReport>().swap(contactList);
-			contactListShrinkCounter = 0;
-		}
-	}
-	else
-		contactListShrinkCounter = 0;
 	contactList.resize(0);
 
 	mScene->simulate(elapsedTime);
@@ -194,10 +199,11 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 
 	PxSceneQueryFilterData filterData;
 	filterData.data.word0 = contactGroupMask;
-	PxSceneQueryFlags outputFlags = PxSceneQueryFlag::eDISTANCE | PxSceneQueryFlag::eIMPACT | PxSceneQueryFlag::eNORMAL;
 
 	if(piercing)
 	{
+		PxHitFlags hitFlags = PxHitFlag::eDISTANCE | PxHitFlag::ePOSITION | PxHitFlag::eNORMAL | PxHitFlag::eMESH_MULTIPLE;
+
 		if(_this->rayCastHitBuffer.size() == 0)
 			_this->rayCastHitBuffer.resize(256);
 
@@ -206,7 +212,7 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 		{
 			// The return value is the number of hits in the buffer, or -1 if the buffer overflowed.
 			bool blockingHit;
-			hitCount = _this->mScene->raycastMultiple(origin, unitDir, distance, outputFlags, 
+			hitCount = _this->mScene->raycastMultiple(origin, unitDir, distance, hitFlags, 
 				&_this->rayCastHitBuffer[0], _this->rayCastHitBuffer.size(), blockingHit, filterData);
 			if(hitCount != -1)
 				break;
@@ -217,34 +223,63 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 		{
 			const PxRaycastHit& hit = _this->rayCastHitBuffer[n];
 
-			bool isTriangleMesh = hit.shape->getGeometryType() == PxGeometryType::eTRIANGLEMESH;
-			bool isHeightfield = hit.shape->getGeometryType() == PxGeometryType::eHEIGHTFIELD;
+			//bool isTriangleMesh = hit.shape->getGeometryType() == PxGeometryType::eTRIANGLEMESH;
+			//bool isHeightfield = hit.shape->getGeometryType() == PxGeometryType::eHEIGHTFIELD;
 
-			//TriangleMesh, Heightfield shapes
-			if(isTriangleMesh || isHeightfield)
-			{
-				if(_this->rayCastHitBuffer2.size() == 0)
-					_this->rayCastHitBuffer2.resize(256);
+			////TriangleMesh, Heightfield shapes
+			//if(isTriangleMesh || isHeightfield)
+			//{
+			//	if(_this->rayCastHitBuffer2.size() == 0)
+			//		_this->rayCastHitBuffer2.resize(256);
 
-				int hitCount2;
-				do
-				{
-					hitCount2 = hit.shape->raycast(origin, unitDir, distance, outputFlags, 
-						_this->rayCastHitBuffer2.size(), &_this->rayCastHitBuffer2[0], false);
-					if(hitCount2 != -1 && hitCount2 < (int)_this->rayCastHitBuffer2.size())
-						break;
-					_this->rayCastHitBuffer2.resize(_this->rayCastHitBuffer2.size() * 2);
-				}while(true);
+			//	int hitCount2;
+			//	do
+			//	{
+			//		PxShapeExt::raycast( *hit.shape, XXhit.shape->getActor(), origin, unitDir, distance, hitFlags, 
+			//			_this->rayCastHitBuffer2.size(), &_this->rayCastHitBuffer2[0], false);
 
-				for( int n = 0; n < hitCount2; n++ )
-				{
-					const PxRaycastHit& hit2 = _this->rayCastHitBuffer2[n];
+			//		if(hitCount2 != -1 && hitCount2 < (int)_this->rayCastHitBuffer2.size())
+			//			break;
+			//		_this->rayCastHitBuffer2.resize(_this->rayCastHitBuffer2.size() * 2);
+			//	}while(true);
+
+			//	for( int n = 0; n < hitCount2; n++ )
+			//	{
+			//		const PxRaycastHit& hit2 = _this->rayCastHitBuffer2[n];
+
+			//		NativeRayCastResult result;
+			//		result.shape = (PhysXShape*)hit.shape->userData;
+			//		result.worldImpact = hit2.impact;
+			//		result.worldNormal = hit2.normal;
+			//		result.distance = hit2.distance;
+
+			//		if(isTriangleMesh)
+			//		{
+			//			PxShape* pxShape = result.shape->mShape;
+			//			const PxTriangleMeshGeometry& geometry = pxShape->getGeometry().triangleMesh();
+			//			const PxU32* remap = geometry.triangleMesh->getTrianglesRemap();
+			//			if(remap != NULL)
+			//				result.faceID = remap[hit2.faceIndex];
+			//			else
+			//				result.faceID = hit2.faceIndex;
+			//		}
+			//		else
+			//			result.faceID = hit2.faceIndex;
+
+			//		_this->lastRayCastResults.push_back(result);
+			//	}
+			//}
+			//else
+			//{
 
 					NativeRayCastResult result;
 					result.shape = (PhysXShape*)hit.shape->userData;
-					result.worldImpact = hit2.impact;
-					result.worldNormal = hit2.normal;
-					result.distance = hit2.distance;
+			result.worldImpact = hit.position;
+			result.worldNormal = hit.normal;
+			result.distance = hit.distance;
+
+			bool isTriangleMesh = hit.shape->getGeometryType() == PxGeometryType::eTRIANGLEMESH;
+			//bool isHeightfield = hit.shape->getGeometryType() == PxGeometryType::eHEIGHTFIELD;
 
 					if(isTriangleMesh)
 					{
@@ -252,26 +287,17 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 						const PxTriangleMeshGeometry& geometry = pxShape->getGeometry().triangleMesh();
 						const PxU32* remap = geometry.triangleMesh->getTrianglesRemap();
 						if(remap != NULL)
-							result.faceID = remap[hit2.faceIndex];
+					result.faceID = remap[hit.faceIndex];
 						else
-							result.faceID = hit2.faceIndex;
+					result.faceID = hit.faceIndex;
 					}
 					else
-						result.faceID = hit2.faceIndex;
+				result.faceID = hit.faceIndex;
+			//result.faceID = 0;
 
 					_this->lastRayCastResults.push_back(result);
-				}
-			}
-			else
-			{
-				NativeRayCastResult result;
-				result.shape = (PhysXShape*)hit.shape->userData;
-				result.worldImpact = hit.impact;
-				result.worldNormal = hit.normal;
-				result.distance = hit.distance;
-				result.faceID = 0;
-				_this->lastRayCastResults.push_back(result);
-			}
+
+			//}
 		}
 
 		//sort by distance
@@ -281,14 +307,16 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 	}
 	else
 	{
+		PxHitFlags hitFlags = PxHitFlag::eDISTANCE | PxHitFlag::ePOSITION | PxHitFlag::eNORMAL;
+
 		PxRaycastHit hit;
-		bool found = _this->mScene->raycastSingle(origin, unitDir, distance, outputFlags, hit, filterData);
+		bool found = _this->mScene->raycastSingle(origin, unitDir, distance, hitFlags, hit, filterData);
 
 		if(found && hit.shape)
 		{
 			NativeRayCastResult result;
 			result.shape = (PhysXShape*)hit.shape->userData;
-			result.worldImpact = hit.impact;
+			result.worldImpact = hit.position;
 			result.worldNormal = hit.normal;
 			result.distance = hit.distance;
 
@@ -345,7 +373,7 @@ int VolumeCast(PhysXScene* _this, const PxGeometry& geometry, const PxTransform&
 
 	for( int n = 0; n < hitCount; n++ )
 	{
-		PxShape* pxShape = _this->volumeCastShapeBuffer[n];
+		PxShape* pxShape = _this->volumeCastShapeBuffer[n].shape;
 		PhysXShape* shape = (PhysXShape*)pxShape->userData;
 		_this->lastVolumeCastShapeIdentifiers.push_back(shape->mIdentifier);
 	}
@@ -411,6 +439,17 @@ EXPORT void PhysXScene_SetShapePairFlags(PhysXScene* _this, PhysXShape* shape1, 
 
 EXPORT void PhysXScene_GetContactReportList(PhysXScene* _this, PhysXScene::ContactReport*& pContactList, int& contactCount)
 {
+	_this->contactListShrinkCounter++;
+	if(_this->contactListShrinkCounter == 100)
+	{
+		_this->contactListShrinkCounter = 0;
+
+//TO DO
+#ifndef PLATFORM_MACOS
+		_this->contactList.shrink_to_fit();
+#endif
+	}
+
 	const std::vector<PhysXScene::ContactReport>& contactList = _this->contactList;
 	contactCount = contactList.size();
 	if(contactCount > 0)

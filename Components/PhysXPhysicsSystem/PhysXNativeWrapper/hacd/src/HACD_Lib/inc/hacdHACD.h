@@ -225,8 +225,13 @@ namespace HACD
 													~HACD(void);
 
 	private:
+
+		//!!!!betauser. OS X 10.8
+		public:
         //! Constructor.
 													HACD(HeapManager * heapManager = 0);
+		//!!!!betauser. OS X 10.8
+		private:
 
 		//! Gives the edge index.
 		//! @param a first vertex id
@@ -309,8 +314,9 @@ namespace HACD
         bool                                        m_addFacesPoints;           //>! specifies whether to add faces points or not
         bool                                        m_addExtraDistPoints;       //>! specifies whether to add extra points for concave shapes or not
 
-        friend HACD * const                         CreateHACD(HeapManager * heapManager = 0);
-        friend void                                 DestroyHACD(HACD * const hacd);
+		//!!!!betauser. OS X 10.8
+        //friend HACD * const                         CreateHACD(HeapManager * heapManager = 0);
+        //friend void                                 DestroyHACD(HACD * const hacd);
 	};
     inline HACD * const CreateHACD(HeapManager * heapManager) 
     { 

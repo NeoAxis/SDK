@@ -154,8 +154,6 @@
     <Compile Include="Decal.cs" />
     <Compile Include="DecalCreator.cs" />
     <Compile Include="Influences.cs" />
-    <Compile Include="JigsawPuzzleGame Specific\JigsawPuzzlePiece.cs" />
-    <Compile Include="JigsawPuzzleGame Specific\JigsawPuzzleManager.cs" />
     <Compile Include="TankGame Specific\Minefield.cs" />
     <Compile Include="TankGame Specific\EntityComponent_ForTankDemo.cs" />
     <Compile Include="TankGame Specific\TankGameUnitAI.cs" />

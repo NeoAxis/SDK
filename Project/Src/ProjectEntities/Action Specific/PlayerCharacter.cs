@@ -412,10 +412,7 @@ namespace ProjectEntities
 			TickContusionTime();
 
 			if( activeWeapon == null || activeWeapon.Ready )
-			{
-				UpdateTPSArcadeLookDirection();
 				UpdatePlatformerDemoLookDirection();
-			}
 		}
 
 		protected override void Client_OnTick()
@@ -427,21 +424,7 @@ namespace ProjectEntities
 
 		void activeWeapon_PreFire( Weapon entity, bool alternative )
 		{
-			UpdateTPSArcadeLookDirection();
 			UpdatePlatformerDemoLookDirection();
-		}
-
-		void UpdateTPSArcadeLookDirection()
-		{
-			if( GameMap.Instance != null && GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade &&
-				LastTickForceVector != Vec2.Zero )
-			{
-				if( Intellect != null && PlayerIntellect.Instance == Intellect )
-				{
-					float angle = MathFunctions.ATan( LastTickForceVector.Y, LastTickForceVector.X );
-					PlayerIntellect.Instance.LookDirection = new SphereDir( angle, 0 );
-				}
-			}
 		}
 
 		void UpdatePlatformerDemoLookDirection()
@@ -532,8 +515,7 @@ namespace ProjectEntities
 			}
 
 			//update weapon
-			if( activeWeapon != null && GameMap.Instance.GameType != GameMap.GameTypes.TPSArcade &&
-				GameMap.Instance.GameType != GameMap.GameTypes.PlatformerDemo )
+			if( activeWeapon != null && GameMap.Instance.GameType != GameMap.GameTypes.PlatformerDemo )
 			{
 				//update weapon attached objects visibility depending camera type
 				activeWeapon.UpdateTPSFPSCameraAttachedObjectsVisibility( fpsCamera );
@@ -607,7 +589,7 @@ namespace ProjectEntities
 
 			//change visibility of attached objects
 			if( !Map.Instance.CubemapGenerationMode ||
-				( Map.Instance.CubemapGenerationMode_CubemapZone != null && 
+				( Map.Instance.CubemapGenerationMode_CubemapZone != null &&
 				Map.Instance.CubemapGenerationMode_CubemapZone.DrawDynamicObjects ) )
 			{
 				foreach( MapObjectAttachedObject attachedObject in AttachedObjects )

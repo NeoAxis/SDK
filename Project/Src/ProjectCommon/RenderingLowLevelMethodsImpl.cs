@@ -153,8 +153,9 @@ namespace ProjectCommon
 							needShadowTechnique == ShadowTechniques.ShadowmapMediumPSSM ||
 							needShadowTechnique == ShadowTechniques.ShadowmapHighPSSM )
 						{
-							Log.Warning( "At this time Parallel-Split Shadow Map is not supported for OpenGL." );
-							needShadowTechnique = ShadowTechniques.ShadowmapLow;
+							Log.Info( "At this time Parallel-Split Shadow Map is not supported for OpenGL." );
+							//Log.Warning( "At this time Parallel-Split Shadow Map is not supported for OpenGL." );
+							needShadowTechnique = ShadowTechniques.ShadowmapHigh;
 						}
 					}
 				}

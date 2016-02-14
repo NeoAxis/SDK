@@ -26,6 +26,14 @@ namespace ProjectEntities
 			get { return weaponType; }
 			set { weaponType = value; }
 		}
+
+		protected override void OnPreloadResources()
+		{
+			base.OnPreloadResources();
+
+			if( weaponType != null )
+				weaponType.PreloadResources();
+		}
 	}
 
 	/// <summary>

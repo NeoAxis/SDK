@@ -162,8 +162,8 @@ namespace Xilium.CefGlue
         }
 
         /// <summary>
-        /// Get the resource type for this request. Accurate resource type information
-        /// may only be available in the browser process.
+        /// Get the resource type for this request. Only available in the browser
+        /// process.
         /// </summary>
         public CefResourceType ResourceType
         {
@@ -183,6 +183,19 @@ namespace Xilium.CefGlue
             get
             {
                 return cef_request_t.get_transition_type(_self);
+            }
+        }
+
+        /// <summary>
+        /// Returns the globally unique identifier for this request or 0 if not
+        /// specified. Can be used by CefRequestHandler implementations in the browser
+        /// process to track a single request across multiple callbacks.
+        /// </summary>
+        public ulong Identifier
+        {
+            get
+            {
+                return cef_request_t.get_identifier(_self);
             }
         }
     }

@@ -116,7 +116,8 @@ EXPORT void PhysXJoint_SetVisualizationEnable(PhysXJoint* _this, bool value)
 void SetLimitProperties(PxJointLimitParameters& limit, float restitution, float spring, float damping)
 {
 	limit.restitution = restitution;
-	limit.spring = spring;
+	//!!!!другие параметры теперь?
+//	limit.spring = spring;
 	limit.damping = damping;
 }
 
@@ -138,7 +139,7 @@ EXPORT void PhysXHingeJoint_SetLimit(PhysXHingeJoint* _this, bool enabled, float
 
 	if(enabled)
 	{
-		PxJointLimitPair limit(low, high, limitContactDistance);
+		PxJointAngularLimitPair limit(low, high, limitContactDistance);
 		SetLimitProperties(limit, restitution, spring, damping);
 		if(limit.lower > limit.upper)
 			limit.upper = limit.lower;
@@ -215,7 +216,8 @@ EXPORT void PhysXSliderJoint_SetLimit(PhysXSliderJoint* _this, bool enabled, flo
 	_this->GetJoint()->setPrismaticJointFlag(PxPrismaticJointFlag::eLIMIT_ENABLED, enabled);
 	if(enabled)
 	{
-		PxJointLimitPair limit(low, high, limitContactDistance);
+		PxTolerancesScale scale;
+		PxJointLinearLimitPair limit(scale, low, high, limitContactDistance);
 		SetLimitProperties(limit, restitution, spring, damping);
 
 		if(limit.lower > limit.upper)
@@ -252,7 +254,8 @@ EXPORT void PhysXD6Joint_SetMotion(PhysXD6Joint* _this, PxD6Axis::Enum axis, PxD
 EXPORT void PhysXD6Joint_SetLinearLimit(PhysXD6Joint* _this, float value, float limitContactDistance,
 	float restitution, float spring, float damping)
 {
-	PxJointLimit limit(value, limitContactDistance);
+	PxTolerancesScale scale;
+	PxJointLinearLimit limit(scale, value, limitContactDistance);
 	SetLimitProperties(limit, restitution, spring, damping);
 	_this->GetJoint()->setLinearLimit(limit);
 }
@@ -260,7 +263,7 @@ EXPORT void PhysXD6Joint_SetLinearLimit(PhysXD6Joint* _this, float value, float 
 EXPORT void PhysXD6Joint_SetTwistLimit(PhysXD6Joint* _this, float low, float high, float limitContactDistance, 
 	float restitution, float spring, float damping)
 {
-	PxJointLimitPair limit(low, high, limitContactDistance);
+	PxJointAngularLimitPair limit(low, high, limitContactDistance);
 	SetLimitProperties(limit, restitution, spring, damping);
 	if(limit.lower > limit.upper)
 		limit.upper = limit.lower;
@@ -298,7 +301,9 @@ EXPORT void PhysXD6Joint_GetDrive( PhysXD6Joint* _this, PxD6Drive::Enum index, f
 	float& forceLimit, bool& acceleration )
 {
 	PxD6JointDrive data = _this->GetJoint()->getDrive(index);
-	spring = data.spring;
+//!!!!!
+spring = 0;
+//	spring = data.spring;
 	damping = data.damping;
 	forceLimit = data.forceLimit;
 	acceleration = data.flags & PxD6JointDriveFlag::eACCELERATION;

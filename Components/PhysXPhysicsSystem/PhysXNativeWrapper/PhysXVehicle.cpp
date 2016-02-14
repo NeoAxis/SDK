@@ -86,7 +86,7 @@ void ComputeWheelWidthsAndRadii(PxConvexMesh** wheelConvexMeshes, PxF32* wheelWi
 	}
 }
 
-void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMesh** wheelConvexMeshes, 
+void CreateVehicle4WSimulationData( PhysXScene* scene, PxConvexMesh* chassisConvexMesh, PxConvexMesh** wheelConvexMeshes, 
 	const PxVec3* wheelCenterOffsets, PxVehicleWheelsSimData& wheelsData, PxVehicleDriveSimData4W& driveData, 
 	PhysXVehicleInitData* generalData, PhysXVehicleInitData** wheelDatas )
 {
@@ -117,7 +117,12 @@ void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMes
 		tireData.mLatStiffX = wheelInitData->GetFloatParameter( "tireLatStiffX" );
 		tireData.mLatStiffY = wheelInitData->GetFloatParameter( "tireLatStiffY" );
 		tireData.mLongitudinalStiffnessPerUnitGravity = wheelInitData->GetFloatParameter( "tireLongitudinalStiffnessPerUnitGravity" );
-		tireData.mCamberStiffness = wheelInitData->GetFloatParameter( "tireCamberStiffness" );
+
+		float camberStiffness = wheelInitData->GetFloatParameter( "tireCamberStiffness" );
+		//!!!!unable to change dynamically the gravity
+		tireData.mCamberStiffnessPerUnitGravity = camberStiffness / scene->mScene->getGravity().magnitude();
+		//tireData.mCamberStiffness = wheelInitData->GetFloatParameter( "tireCamberStiffness" );
+
 		tireData.mFrictionVsSlipGraph[ 0 ][ 1 ] = wheelInitData->GetFloatParameter( "frictionVsSlipGraphZeroLongitudinalSlip" );
 		tireData.mFrictionVsSlipGraph[ 1 ][ 0 ] = wheelInitData->GetFloatParameter( "frictionVsSlipGraphLongitudinalSlipWithMaximumFriction" );
 		tireData.mFrictionVsSlipGraph[ 1 ][ 1 ] = wheelInitData->GetFloatParameter( "frictionVsSlipGraphMaximumFriction" );
@@ -150,7 +155,7 @@ void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMes
 	//Differential
 	{
 		PxVehicleDifferential4WData differential;
-		differential.mType = (int)( generalData->GetFloatParameter( "differentialType" ) + .0001f );
+		differential.mType = (PxVehicleDifferential4WData::Enum)(int)( generalData->GetFloatParameter( "differentialType" ) + .0001f );
 		differential.mFrontRearSplit = generalData->GetFloatParameter( "differentialFrontRearSplit" );
 		differential.mFrontLeftRightSplit = generalData->GetFloatParameter( "differentialFrontLeftRightSplit" );
 		differential.mRearLeftRightSplit = generalData->GetFloatParameter( "differentialRearLeftRightSplit" );
@@ -169,8 +174,8 @@ void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMes
 		engine.mDampingRateZeroThrottleClutchEngaged = generalData->GetFloatParameter("engineDampingRateZeroThrottleClutchEngaged");
 		engine.mDampingRateZeroThrottleClutchDisengaged = generalData->GetFloatParameter("engineDampingRateZeroThrottleClutchDisengaged");
 
-		PxFixedSizeLookupTable<PxVehicleEngineData::eMAX_NUM_ENGINE_TORQUE_CURVE_ENTRIES> torqueCurve;
-		for( int n = 0; n < PxVehicleEngineData::eMAX_NUM_ENGINE_TORQUE_CURVE_ENTRIES; n++ )
+		PxFixedSizeLookupTable<PxVehicleEngineData::eMAX_NB_ENGINE_TORQUE_CURVE_ENTRIES> torqueCurve;
+		for( int n = 0; n < PxVehicleEngineData::eMAX_NB_ENGINE_TORQUE_CURVE_ENTRIES; n++ )
 		{
 			char s[50];
 			sprintf(s, "engineTorqueCurveTorque%d", n);
@@ -189,7 +194,7 @@ void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMes
 	//Gears
 	{
 		PxVehicleGearsData gears;
-		for( int n = 0; n < PxVehicleGearsData::eMAX_NUM_GEAR_RATIOS; n++)
+		for( int n = 0; n < PxVehicleGearsData::eGEARSRATIO_COUNT; n++)
 			gears.mRatios[ n ] = 0;
 
 		int minNumber = 100000;
@@ -210,7 +215,7 @@ void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMes
 			}
 		}
 		gears.mFinalRatio = 1;
-		gears.mNumRatios = maxNumber - minNumber + 1;
+		gears.mNbRatios = maxNumber - minNumber + 1;
 		gears.mSwitchTime = generalData->GetFloatParameter(L"gearsSwitchTime");//0.5f;
 
 		driveData.setGearsData(gears);
@@ -225,14 +230,14 @@ void CreateVehicle4WSimulationData( PxConvexMesh* chassisConvexMesh, PxConvexMes
 	PxVehicleAckermannGeometryData ackermann;
 	ackermann.mAccuracy = generalData->GetFloatParameter(L"ackermannSteerAccuracy");
 	ackermann.mAxleSeparation = fabs(
-		wheelCenterOffsets[PxVehicleDrive4W::eFRONT_LEFT_WHEEL].x -
-		wheelCenterOffsets[PxVehicleDrive4W::eREAR_LEFT_WHEEL].x);
+		wheelCenterOffsets[PxVehicleDrive4WWheelOrder::eFRONT_LEFT].x -
+		wheelCenterOffsets[PxVehicleDrive4WWheelOrder::eREAR_LEFT].x);
 	ackermann.mFrontWidth = fabs(
-		wheelCenterOffsets[PxVehicleDrive4W::eFRONT_RIGHT_WHEEL].y -
-		wheelCenterOffsets[PxVehicleDrive4W::eFRONT_LEFT_WHEEL].y);
+		wheelCenterOffsets[PxVehicleDrive4WWheelOrder::eFRONT_RIGHT].y -
+		wheelCenterOffsets[PxVehicleDrive4WWheelOrder::eFRONT_LEFT].y);
 	ackermann.mRearWidth = fabs(
-		wheelCenterOffsets[PxVehicleDrive4W::eREAR_LEFT_WHEEL].y -
-		wheelCenterOffsets[PxVehicleDrive4W::eREAR_RIGHT_WHEEL].y);
+		wheelCenterOffsets[PxVehicleDrive4WWheelOrder::eREAR_LEFT].y -
+		wheelCenterOffsets[PxVehicleDrive4WWheelOrder::eREAR_RIGHT].y);
 	driveData.setAckermannGeometryData(ackermann);
 }
 
@@ -253,6 +258,10 @@ PhysXVehicle::PhysXVehicle( PhysXScene* scene, PhysXBody* baseBody, PhysXVehicle
 	surfaceTirePairs = NULL;
 	surfaceTirePairsUsedMaterialsVersion = 0;
 	ResetInputData();
+
+	for( int n = 0; n < PX_MAX_NB_WHEELS; n++ )
+		wheelQueryResults[ n ] = PxWheelQueryResult();
+	vehicleInAir = true;
 
 	this->baseBody->ownerVehicle = this;
 
@@ -275,7 +284,7 @@ PhysXVehicle::PhysXVehicle( PhysXScene* scene, PhysXBody* baseBody, PhysXVehicle
 	PxConvexMesh* chassisConvexMesh = baseBody->mShapes[ 4 ]->mShape->getGeometry().convexMesh().convexMesh;
 	//PxConvexMesh* chassisConvexMesh = baseBody->mShapes[0]->mShape->getGeometry().convexMesh().convexMesh;
 
-	CreateVehicle4WSimulationData( chassisConvexMesh, wheelConvexMeshes, wheelCenterOffsets, *wheelsSimData, driveSimData, 
+	CreateVehicle4WSimulationData( scene, chassisConvexMesh, wheelConvexMeshes, wheelCenterOffsets, *wheelsSimData, driveSimData, 
 		generalData, wheelDatas );
 
 	vehicleDrive = PxVehicleDrive4W::allocate( wheelCount );
@@ -350,18 +359,18 @@ void PhysXVehicle::UpdateSurfaceTirePairs()
 
 	int materialCount = world->vehicleDrivableMaterials.size();
 
-	if(tireFrictionMultipliers.size() > PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NUM_SURFACE_TYPES)
+	if(tireFrictionMultipliers.size() > PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NB_SURFACE_TYPES)
 	{
 		char s[300];
 		sprintf(s, "PhysXVehicle: UpdateSurfaceTirePairs: Amount of tire friction multipliers for specified tire type is %d. Maximally supported amount is %d.", (int)tireFrictionMultipliers.size(), 
-			(int)PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NUM_SURFACE_TYPES);
+			(int)PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NB_SURFACE_TYPES);
 		Fatal(s);
 	}
-	if(materialCount > PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NUM_SURFACE_TYPES)
+	if(materialCount > PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NB_SURFACE_TYPES)
 	{
 		char s[300];
 		sprintf(s, "PhysXVehicle: UpdateSurfaceTirePairs: Amount of different vehicle drivable materials is %d. Maximally supported amount is %d.", 
-			materialCount, (int)PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NUM_SURFACE_TYPES);
+			materialCount, (int)PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NB_SURFACE_TYPES);
 		Fatal(s);
 	}
 
@@ -377,13 +386,16 @@ void PhysXVehicle::UpdateSurfaceTirePairs()
 	}
 
 	//sense of mType? ok..
-	PxVehicleDrivableSurfaceType drivableSurfaceTypes[PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NUM_SURFACE_TYPES];
-	for(int n = 0; n < PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NUM_SURFACE_TYPES; n++)
+	PxVehicleDrivableSurfaceType drivableSurfaceTypes[PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NB_SURFACE_TYPES];
+	for(int n = 0; n < PxVehicleDrivableSurfaceToTireFrictionPairs::eMAX_NB_SURFACE_TYPES; n++)
 		drivableSurfaceTypes[n].mType = n;
 
 	//mNumTireTypes must be a multiple of 4. why? ok..
-	surfaceTirePairs = PxVehicleDrivableSurfaceToTireFrictionPairs::create(4, materialCount, (const PxMaterial**)pxMaterials, 
-		drivableSurfaceTypes);
+	surfaceTirePairs = PxVehicleDrivableSurfaceToTireFrictionPairs::allocate( 4, materialCount );
+	surfaceTirePairs->setup( 4, materialCount, (const PxMaterial**)pxMaterials, drivableSurfaceTypes );
+	//surfaceTirePairs = PxVehicleDrivableSurfaceToTireFrictionPairs::create(4, materialCount, (const PxMaterial**)pxMaterials, 
+	//	drivableSurfaceTypes);
+
 	{
 		int n = 0;
 		for(std::set<PhysXMaterial*>::iterator it = world->vehicleDrivableMaterials.begin(); 
@@ -457,7 +469,7 @@ void PhysXVehicle::UpdateController( float delta )
 		rawInputData.setDigitalHandbrake( inputHandbrake != 0 );
 
 		PxVehicleDrive4WSmoothDigitalRawInputsAndSetAnalogInputs( inputKeySmoothingData, inputSteerVsForwardSpeedTable, 
-			rawInputData, delta, *vehicleDrive );
+			rawInputData, delta, vehicleInAir, *vehicleDrive );
 	}
 	else
 	{
@@ -470,7 +482,7 @@ void PhysXVehicle::UpdateController( float delta )
 		rawInputData.setAnalogHandbrake( inputHandbrake );
 
 		PxVehicleDrive4WSmoothAnalogRawInputsAndSetAnalogInputs( inputPadSmoothingData, inputSteerVsForwardSpeedTable, 
-			rawInputData, delta, *vehicleDrive );
+			rawInputData, delta, vehicleInAir, *vehicleDrive );
 	}
 }
 
@@ -493,7 +505,18 @@ void PhysXVehicle::Update( float delta )
 	//Update the vehicle for which we want to record debug data.
 	//PxVehicleUpdateSingleVehicleAndStoreTelemetryData(delta, scene->mScene->getGravity(), *mSurfaceTirePairs, 
 	//	vehicleDrive, *telemetryData);
-	PxVehicleUpdates(delta, scene->mScene->getGravity(), *surfaceTirePairs, 1, vehicles);
+
+	//PxVehicleWheelQueryResult* vehicleWheelQueryResults;
+
+	PxVehicleWheelQueryResult vehicleQueryResults[ 1 ];
+	vehicleQueryResults[ 0 ].wheelQueryResults = wheelQueryResults;
+	vehicleQueryResults[ 0 ].nbWheelQueryResults = wheelCount;
+	//PxVehicleWheelQueryResult vehicleQueryResults[1] = {{wheelQueryResults, gVehicle4W->mWheelsSimData.getNbWheels()}};
+
+	PxVehicleUpdates( delta, scene->mScene->getGravity(), *surfaceTirePairs, 1, vehicles, vehicleQueryResults );
+
+	//Work out if the vehicle is in the air.
+	vehicleInAir = vehicleDrive->getRigidDynamicActor()->isSleeping() ? false : PxVehicleIsInAir( vehicleQueryResults[ 0 ] );
 }
 
 void PhysXVehicle::SetInputData( bool digitalInput, float* smoothingSettings, int steerVsForwardSpeedTablePairCount, 
@@ -505,27 +528,27 @@ void PhysXVehicle::SetInputData( bool digitalInput, float* smoothingSettings, in
 	inputSteer = steer;
 	inputHandbrake = handbrake;
 
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 0 ];
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 1 ];
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 3 ];
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 2 ];
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 2 ];
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 4 ];
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 5 ];
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 7 ];
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 6 ];
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 6 ];
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 0 ];
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 1 ];
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 3 ];
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 2 ];
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 2 ];
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 4 ];
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 5 ];
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 7 ];
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 6 ];
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 6 ];
 
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 0 ];
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 1 ];
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 3 ];
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 2 ];
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 2 ];
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 4 ];
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 5 ];
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 7 ];
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 6 ];
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 6 ];
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 0 ];
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 1 ];
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 3 ];
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 2 ];
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 2 ];
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = smoothingSettings[ 4 ];
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = smoothingSettings[ 5 ];
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = smoothingSettings[ 7 ];
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = smoothingSettings[ 6 ];
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = smoothingSettings[ 6 ];
 
 	inputSteerVsForwardSpeedTable = PxFixedSizeLookupTable<8>( steerVsForwardSpeedTable, steerVsForwardSpeedTablePairCount );
 }
@@ -538,27 +561,27 @@ void PhysXVehicle::ResetInputData()
 	inputSteer = 0;
 	inputHandbrake = 0;
 
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = 3;
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = 3;
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = 10;
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = 2.5f;
-	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = 2.5f;
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = 5;
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = 5;
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = 10;
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = 5;
-	inputKeySmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = 5;
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = 3;
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = 3;
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = 10;
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = 2.5f;
+	inputKeySmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = 2.5f;
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = 5;
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = 5;
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = 10;
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = 5;
+	inputKeySmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = 5;
 
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = 3;
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = 3;
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = 10;
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = 2.5f;
-	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = 2.5f;
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_ACCEL ] = 5;
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_BRAKE ] = 5;
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_HANDBRAKE ] = 10;
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_LEFT ] = 5;
-	inputPadSmoothingData.mFallRates[ PxVehicleDrive4W::eANALOG_INPUT_STEER_RIGHT ] = 5;
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = 3;
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = 3;
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = 10;
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = 2.5f;
+	inputPadSmoothingData.mRiseRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = 2.5f;
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_ACCEL ] = 5;
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_BRAKE ] = 5;
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_HANDBRAKE ] = 10;
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_LEFT ] = 5;
+	inputPadSmoothingData.mFallRates[ PxVehicleDrive4WControl::eANALOG_INPUT_STEER_RIGHT ] = 5;
 
 	PxF32 steerVsForwardSpeedData[ 2 * 8 ] =
 	{
@@ -695,7 +718,7 @@ EXPORT float PhysXVehicle_GetWheelRotationSpeed( PhysXVehicle* vehicle, int whee
 
 EXPORT float PhysXVehicle_GetWheelSteer( PhysXVehicle* vehicle, int wheelIndex )
 {
-	return vehicle->vehicleDrive->mWheelsDynData.getSteer( wheelIndex );
+	return vehicle->wheelQueryResults[ wheelIndex ].steerAngle;
 }
 
 EXPORT float PhysXVehicle_GetWheelRotationAngle( PhysXVehicle* vehicle, int wheelIndex )
@@ -705,25 +728,25 @@ EXPORT float PhysXVehicle_GetWheelRotationAngle( PhysXVehicle* vehicle, int whee
 
 EXPORT float PhysXVehicle_GetWheelSuspensionJounce( PhysXVehicle* vehicle, int wheelIndex )
 {
-	return vehicle->vehicleDrive->mWheelsDynData.getSuspJounce( wheelIndex );
+	return vehicle->wheelQueryResults[ wheelIndex ].suspJounce;
 }
 
 EXPORT float PhysXVehicle_GetWheelTireLongitudinalSlip( PhysXVehicle* vehicle, int wheelIndex )
 {
-	return vehicle->vehicleDrive->mWheelsDynData.getTireLongSlip( wheelIndex );
+	return vehicle->wheelQueryResults[ wheelIndex ].longitudinalSlip;
 }
 
 EXPORT float PhysXVehicle_GetWheelTireLateralSlip( PhysXVehicle* vehicle, int wheelIndex )
 {
-	return vehicle->vehicleDrive->mWheelsDynData.getTireLatSlip( wheelIndex );
+	return vehicle->wheelQueryResults[ wheelIndex ].lateralSlip;
 }
 
 EXPORT float PhysXVehicle_GetWheelTireFriction( PhysXVehicle* vehicle, int wheelIndex )
 {
-	return vehicle->vehicleDrive->mWheelsDynData.getTireFriction( wheelIndex );
+	return vehicle->wheelQueryResults[ wheelIndex ].tireFriction;
 }
 
 EXPORT bool PhysXVehicle_IsWheelInAir( PhysXVehicle* vehicle, int wheelIndex )
 {
-	return vehicle->vehicleDrive->isInAir( wheelIndex );
+	return vehicle->wheelQueryResults[ wheelIndex ].isInAir;
 }

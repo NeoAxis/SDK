@@ -192,10 +192,5 @@
             Defines a game window for Mountain Village Demo.
             </summary>
         </member>
-        <member name="T:Game.JigsawPuzzleGameWindow">
-            <summary>
-            Defines a game window for Jigsaw Puzzle Game Example
-            </summary>
-        </member>
     </members>
 </doc>

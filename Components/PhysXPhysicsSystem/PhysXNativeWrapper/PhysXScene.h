@@ -40,6 +40,7 @@ public:
 		PxVec3 contactPoint;
 		PxVec3 normal;
 		float separation;
+		//TO DO: it is possible to get faces and impulse
 	};
 
 	// Implements PxSimulationEventCallback
@@ -74,6 +75,6 @@ public:
 	std::vector<NativeRayCastResult> lastRayCastResults;
 
 	//shrink some time? but then we can have more than one physx calls.
-	std::vector<PxShape*> volumeCastShapeBuffer;
+	std::vector<PxOverlapHit> volumeCastShapeBuffer;
 	std::vector<int> lastVolumeCastShapeIdentifiers;
 };

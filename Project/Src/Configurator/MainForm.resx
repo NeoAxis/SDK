@@ -112,10 +112,10 @@
     <value>2.0</value>
   </resheader>
   <resheader name="reader">
-    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <resheader name="writer">
-    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <data name="label11.Text" xml:space="preserve">
     <value>The ability to access the depth buffer is required for effects such as Screen Space Ambient Occlusion, Depth Of Field, Light Scattering, Soft Particles.
@@ -131,7 +131,7 @@ Depth buffer access feature and full-screen hardware antialiasing can't be used 
   <data name="label26.Text" xml:space="preserve">
     <value>Shader Cache Compiler is a tool designed to optimize the loading time of the engine. The tool precompiles GPU shader programs. The best time to run this application is when loading your project starts to become too long.</value>
   </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
   <data name="$this.Icon" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         AAABAAUAAAAAAAEAIABgwwAAVgAAADAwAAABACAAqCUAALbDAAAgIAAAAQAgAKgQAABe6QAAGBgAAAEA

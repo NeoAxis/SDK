@@ -3,114 +3,141 @@
 
 #define MAX_SENDS                 4
 
-#include "alFilter.h"
+#include "alMain.h"
 #include "alu.h"
-#include "AL/al.h"
+#include "hrtf.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef enum {
-    POINT_RESAMPLER = 0,
-    LINEAR_RESAMPLER,
-    CUBIC_RESAMPLER,
-
-    RESAMPLER_MAX,
-    RESAMPLER_MIN = -1,
-    RESAMPLER_DEFAULT = LINEAR_RESAMPLER
-} resampler_t;
-extern resampler_t DefaultResampler;
-
-extern const ALsizei ResamplerPadding[RESAMPLER_MAX];
-extern const ALsizei ResamplerPrePadding[RESAMPLER_MAX];
+struct ALbuffer;
+struct ALsource;
 
 
-typedef struct ALbufferlistitem
-{
-    struct ALbuffer         *buffer;
-    struct ALbufferlistitem *next;
-    struct ALbufferlistitem *prev;
+typedef struct ALbufferlistitem {
+    struct ALbuffer *buffer;
+    struct ALbufferlistitem *volatile next;
+    struct ALbufferlistitem *volatile prev;
 } ALbufferlistitem;
 
-typedef struct ALsource
-{
-    ALfloat      flPitch;
-    ALfloat      flGain;
-    ALfloat      flOuterGain;
-    ALfloat      flMinGain;
-    ALfloat      flMaxGain;
-    ALfloat      flInnerAngle;
-    ALfloat      flOuterAngle;
-    ALfloat      flRefDistance;
-    ALfloat      flMaxDistance;
-    ALfloat      flRollOffFactor;
-    ALfloat      vPosition[3];
-    ALfloat      vVelocity[3];
-    ALfloat      vOrientation[3];
-    ALboolean    bHeadRelative;
-    ALboolean    bLooping;
-    ALenum       DistanceModel;
 
-    resampler_t  Resampler;
+typedef struct ALvoice {
+    struct ALsource *volatile Source;
 
-    ALenum       state;
-    ALuint       position;
-    ALuint       position_fraction;
+    /** Method to update mixing parameters. */
+    ALvoid (*Update)(struct ALvoice *self, const struct ALsource *source, const ALCcontext *context);
 
-    struct ALbuffer *Buffer;
+    /** Current target parameters used for mixing. */
+    ALint Step;
 
-    ALbufferlistitem *queue; // Linked list of buffers in queue
-    ALuint BuffersInQueue;   // Number of buffers in queue
-    ALuint BuffersPlayed;    // Number of buffers played on this loop
+    ALboolean IsHrtf;
 
-    ALfilter DirectFilter;
+    ALuint Offset; /* Number of output samples mixed since starting. */
 
+    alignas(16) ALfloat PrevSamples[MAX_INPUT_CHANNELS][MAX_PRE_SAMPLES];
+
+    BsincState SincState;
+
+    DirectParams Direct;
+    SendParams Send[MAX_SENDS];
+} ALvoice;
+
+
+typedef struct ALsource {
+    /** Source properties. */
+    volatile ALfloat   Pitch;
+    volatile ALfloat   Gain;
+    volatile ALfloat   OuterGain;
+    volatile ALfloat   MinGain;
+    volatile ALfloat   MaxGain;
+    volatile ALfloat   InnerAngle;
+    volatile ALfloat   OuterAngle;
+    volatile ALfloat   RefDistance;
+    volatile ALfloat   MaxDistance;
+    volatile ALfloat   RollOffFactor;
+    aluVector Position;
+    aluVector Velocity;
+    aluVector Direction;
+    volatile ALfloat   Orientation[2][3];
+    volatile ALboolean HeadRelative;
+    volatile ALboolean Looping;
+    volatile enum DistanceModel DistanceModel;
+    volatile ALboolean DirectChannels;
+
+    volatile ALboolean DryGainHFAuto;
+    volatile ALboolean WetGainAuto;
+    volatile ALboolean WetGainHFAuto;
+    volatile ALfloat   OuterGainHF;
+
+    volatile ALfloat AirAbsorptionFactor;
+    volatile ALfloat RoomRolloffFactor;
+    volatile ALfloat DopplerFactor;
+
+    volatile ALfloat Radius;
+
+    /**
+     * Last user-specified offset, and the offset type (bytes, samples, or
+     * seconds).
+     */
+    ALdouble Offset;
+    ALenum   OffsetType;
+
+    /** Source type (static, streaming, or undetermined) */
+    volatile ALint SourceType;
+
+    /** Source state (initial, playing, paused, or stopped) */
+    volatile ALenum state;
+    ALenum new_state;
+
+    /**
+     * Source offset in samples, relative to the currently playing buffer, NOT
+     * the whole queue, and the fractional (fixed-point) offset to the next
+     * sample.
+     */
+    ALuint position;
+    ALuint position_fraction;
+
+    /** Source Buffer Queue info. */
+    ATOMIC(ALbufferlistitem*) queue;
+    ATOMIC(ALbufferlistitem*) current_buffer;
+    RWLock queue_lock;
+
+    /** Current buffer sample info. */
+    ALuint NumChannels;
+    ALuint SampleSize;
+
+    /** Direct filter and auxiliary send info. */
+    struct {
+        ALfloat Gain;
+        ALfloat GainHF;
+        ALfloat HFReference;
+        ALfloat GainLF;
+        ALfloat LFReference;
+    } Direct;
     struct {
         struct ALeffectslot *Slot;
-        ALfilter WetFilter;
+        ALfloat Gain;
+        ALfloat GainHF;
+        ALfloat HFReference;
+        ALfloat GainLF;
+        ALfloat LFReference;
     } Send[MAX_SENDS];
 
-    ALboolean DryGainHFAuto;
-    ALboolean WetGainAuto;
-    ALboolean WetGainHFAuto;
-    ALfloat   OuterGainHF;
+    /** Source needs to update its mixing parameters. */
+    ATOMIC(ALenum) NeedsUpdate;
 
-    ALfloat AirAbsorptionFactor;
-    ALfloat RoomRolloffFactor;
-    ALfloat DopplerFactor;
-
-    ALint  lOffset;
-    ALint  lOffsetType;
-
-    // Source Type (Static, Streaming, or Undetermined)
-    ALint  lSourceType;
-
-    // Current target parameters used for mixing
-    ALboolean NeedsUpdate;
-    struct {
-        ALint Step;
-
-        /* A mixing matrix. First subscript is the channel number of the input
-         * data (regardless of channel configuration) and the second is the
-         * channel target (eg. FRONT_LEFT) */
-        ALfloat DryGains[MAXCHANNELS][MAXCHANNELS];
-        FILTER iirFilter;
-        ALfloat history[MAXCHANNELS*2];
-
-        struct {
-            ALfloat WetGain;
-            FILTER iirFilter;
-            ALfloat history[MAXCHANNELS];
-        } Send[MAX_SENDS];
-    } Params;
-
-    ALvoid (*Update)(struct ALsource *self, const ALCcontext *context);
-
-    // Index to itself
-    ALuint source;
+    /** Self ID */
+    ALuint id;
 } ALsource;
-#define ALsource_Update(s,a)  ((s)->Update(s,a))
+
+inline struct ALsource *LookupSource(ALCcontext *context, ALuint id)
+{ return (struct ALsource*)LookupUIntMapKey(&context->SourceMap, id); }
+inline struct ALsource *RemoveSource(ALCcontext *context, ALuint id)
+{ return (struct ALsource*)RemoveUIntMapKey(&context->SourceMap, id); }
+
+ALvoid SetSourceState(ALsource *Source, ALCcontext *Context, ALenum state);
+ALboolean ApplyOffset(ALsource *Source);
 
 ALvoid ReleaseALSources(ALCcontext *Context);
 

@@ -58,7 +58,7 @@ namespace WPFSimpleExample
 			renderTargetUserControl1.Render += renderTargetUserControl1_Render;
 			renderTargetUserControl1.RenderUI += renderTargetUserControl1_RenderUI;
 
-			const string startMapName = "Maps\\MainMenu\\Map.map";
+			const string startMapName = "Maps\\Village Demo\\Map\\Map.map";
 
 			//generate map list
 			{

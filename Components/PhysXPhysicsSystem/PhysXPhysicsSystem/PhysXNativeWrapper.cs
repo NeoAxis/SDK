@@ -32,7 +32,7 @@ namespace PhysXNativeWrapper
 	struct PhysXNativeWorld
 	{
 		public const float MAX_REAL = 3.402823466e+38F;
-		public const float SLEEP_INTERVAL = 20.0f * 0.02f;
+		//public const float SLEEP_INTERVAL = 20.0f * 0.02f;
 
 		[DllImport( Wrapper.library, EntryPoint = "PhysXWorld_Init", CallingConvention = Wrapper.convention )]
 		[return: MarshalAs( UnmanagedType.U1 )]
@@ -208,7 +208,9 @@ namespace PhysXNativeWrapper
 		public unsafe static extern IntPtr/*PhysXShape*/ GetShape( IntPtr/*PhysXBody*/ body, int index );
 
 		[DllImport( Wrapper.library, EntryPoint = "PhysXBody_WakeUp", CallingConvention = Wrapper.convention )]
-		public unsafe static extern void WakeUp( IntPtr/*PhysXBody*/ body, float wakeCounterValue );
+		public unsafe static extern void WakeUp( IntPtr/*PhysXBody*/ body );
+		//[DllImport( Wrapper.library, EntryPoint = "PhysXBody_WakeUp", CallingConvention = Wrapper.convention )]
+		//public unsafe static extern void WakeUp( IntPtr/*PhysXBody*/ body, float wakeCounterValue );
 
 		[DllImport( Wrapper.library, EntryPoint = "PhysXBody_AddLocalForce", CallingConvention = Wrapper.convention )]
 		public unsafe static extern void AddLocalForce( IntPtr/*PhysXBody*/ body, ref Vec3 force );

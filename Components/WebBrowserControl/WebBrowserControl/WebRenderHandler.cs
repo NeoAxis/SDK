@@ -58,18 +58,11 @@ namespace Engine.UISystem
 			//    _logger.Debug("   DirtyRect: X={0} Y={1} W={2} H={3}", rect.X, rect.Y, rect.Width, rect.Height);
 			//}
 
-			if( type == CefPaintElementType.View )
-			{
-				owner.HandleViewPaint( browser, type, dirtyRects, buffer, width, height );
-			}
-			else if( type == CefPaintElementType.Popup )
-			{
-				owner.HandlePopupPaint( width, height, dirtyRects, buffer );
-			}
+			owner.HandlePaint( browser, type, dirtyRects, buffer, width, height );
 		}
 
-		protected override void OnCursorChange( CefBrowser browser, IntPtr cursorHandle )
-		{
+		protected override void OnCursorChange( CefBrowser browser, IntPtr cursorHandle, CefCursorType type, CefCursorInfo customCursorInfo )
+		{			
 			//_uiHelper.PerformInUiThread(() =>
 			//{
 			//    Cursor cursor = CursorInteropHelper.Create(new SafeFileHandle(cursorHandle, false));
@@ -77,7 +70,7 @@ namespace Engine.UISystem
 			//});
 		}
 
-		protected override void OnScrollOffsetChanged( CefBrowser browser )
+		protected override void OnScrollOffsetChanged( CefBrowser browser, double x, double y )
 		{
 		}
 	}

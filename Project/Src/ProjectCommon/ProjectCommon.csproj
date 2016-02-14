@@ -138,6 +138,7 @@
     <Compile Include="GameEngineInitialization.cs" />
     <Compile Include="HighLevel Materials\DefaultShadowCasterMaterial.cs" />
     <Compile Include="Post Processing\ColorCorrectionCompositorInstance.cs" />
+    <Compile Include="Post Processing\ColorCorrectionLUTCompositorInstance.cs" />
     <Compile Include="Post Processing\SharpenCompositorInstance.cs" />
     <Compile Include="Post Processing\GrayscaleCompositorInstance.cs" />
     <Compile Include="Post Processing\DepthOfFieldCompositorInstance.cs" />

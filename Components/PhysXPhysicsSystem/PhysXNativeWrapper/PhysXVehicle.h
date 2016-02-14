@@ -99,6 +99,9 @@ public:
 	PxVehiclePadSmoothingData inputPadSmoothingData;
 	PxFixedSizeLookupTable<8> inputSteerVsForwardSpeedTable;
 
+	PxWheelQueryResult wheelQueryResults[PX_MAX_NB_WHEELS];
+	bool vehicleInAir;
+	
 	//
 
 	PhysXVehicle( PhysXScene* scene, PhysXBody* baseBody, PhysXVehicleInitData* generalData, 

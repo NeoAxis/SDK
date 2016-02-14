@@ -38,7 +38,7 @@ namespace Game
 
 			//load the HUD screen
 			hudControl = ControlDeclarationManager.Instance.CreateControl(
-				"Maps\\BallGame\\Gui\\BallGameHUD.gui" );
+				"Maps\\Ball Game\\Gui\\BallGameHUD.gui" );
 			//attach the HUD screen to the this window
 			Controls.Add( hudControl );
 
@@ -65,13 +65,6 @@ namespace Game
 				GameEngineApp.Instance.AddScreenMessage(
 					string.Format( "Camera type: {0}", FreeCameraEnabled ? "Free" : "Default" ) );
 
-				return true;
-			}
-
-			//select another demo map
-			if( e.Key == EKeys.F3 )
-			{
-				GameWorld.Instance.NeedChangeMap( "Maps\\MainDemo\\Map.map", "Teleporter_Maps", null );
 				return true;
 			}
 

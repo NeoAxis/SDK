@@ -67,6 +67,8 @@ namespace ProjectEntities
 
 		public override bool Editor_CheckSelectionByRay( Ray ray, out float rayScale, ref float priority )
 		{
+			priority = .9f;
+
 			//select by the volume
 			float scale1, scale2;
 			if( GetBox().RayIntersection( ray, out scale1, out scale2 ) )

@@ -6,7 +6,7 @@
 class PhysXWorld
 {
 public:
-	//MyAllocator mAllocator;
+	MyAllocator mAllocator;
 	PxProfileZoneManager* mProfileZoneManager;
 	PxFoundation* mFoundation;
 	MyErrorCallback mErrorCallback;

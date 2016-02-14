@@ -309,14 +309,12 @@ namespace ProjectEntities
 				}
 			}
 
-			//TPS arcade, PlatformerDemo specific (camera observe)
-			bool tpsArcade = GameMap.Instance != null &&
-				GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade;
+			//PlatformerDemo specific (camera observe)
 			bool platformerDemo = GameMap.Instance != null &&
 				GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo;
 
 			//GameControlsMouseMoveEventData
-			if( !tpsArcade && !platformerDemo )
+			if( !platformerDemo )
 			{
 				GameControlsMouseMoveEventData evt = e as GameControlsMouseMoveEventData;
 				if( evt != null )
@@ -337,7 +335,7 @@ namespace ProjectEntities
 			}
 
 			//GameControlsTickEventData
-			if( !tpsArcade && !platformerDemo )
+			if( !platformerDemo )
 			{
 				GameControlsTickEventData evt = e as GameControlsTickEventData;
 				if( evt != null )

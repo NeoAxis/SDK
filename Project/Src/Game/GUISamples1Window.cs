@@ -101,6 +101,9 @@ namespace Game
 
 			BackColor = new ColorValue( 0, 0, 0, .5f );
 			MouseCover = true;
+
+			//play video
+			PlayVideo_Click( null );
 		}
 
 		protected override bool OnKeyDown( KeyEvent e )

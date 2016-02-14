@@ -14,7 +14,9 @@ void* GetPointerByQueryFilterData(const PxFilterData& filterData)
 }
 
 static PxSceneQueryHitType::Enum PhysXVehicleWheelRaycastPreFilter(	PxFilterData filterData0, PxFilterData filterData1,
-	const void* constantBlock, PxU32 constantBlockSize, PxSceneQueryFilterFlags& filterFlags)
+	const void* constantBlock, PxU32 constantBlockSize, PxHitFlags& hitFlags)
+//static PxSceneQueryHitType::Enum PhysXVehicleWheelRaycastPreFilter(	PxFilterData filterData0, PxFilterData filterData1,
+//	const void* constantBlock, PxU32 constantBlockSize, PxSceneQueryFilterFlags& filterFlags)
 {
 	PhysXShape* shape = (PhysXShape*)GetPointerByQueryFilterData(filterData1);
 	return shape->materials[ 0 ]->vehicleDrivableSurface ? PxSceneQueryHitType::eBLOCK : PxSceneQueryHitType::eNONE;
@@ -28,11 +30,10 @@ PhysXVehicleSceneQuery::PhysXVehicleSceneQuery(PxScene* scene, int wheelCount)
 
 	raycastQueryResults = new PxRaycastQueryResult[wheelCount];
 	raycastHits = new PxRaycastHit[wheelCount];
-
-	PxBatchQueryDesc desc;
-	desc.userRaycastResultBuffer = raycastQueryResults;
-	desc.userRaycastHitBuffer = raycastHits;
-	desc.raycastHitBufferSize = wheelCount;
+	PxBatchQueryDesc desc( wheelCount, 0, 0 );
+	desc.queryMemory.userRaycastResultBuffer = raycastQueryResults;
+	desc.queryMemory.userRaycastTouchBuffer = raycastHits;
+	desc.queryMemory.raycastTouchBufferSize = wheelCount;
 	desc.preFilterShader = PhysXVehicleWheelRaycastPreFilter;
 	if(!desc.isValid())
 		Fatal("PhysXVehicleSceneQuery: Constructor: !desc.isValid().");

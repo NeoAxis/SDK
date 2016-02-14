@@ -107,7 +107,7 @@ namespace Configurator
 			this.tabControl1.Name = "tabControl1";
 			this.tabControl1.Padding = new System.Drawing.Point( 8, 5 );
 			this.tabControl1.SelectedIndex = 0;
-			this.tabControl1.Size = new System.Drawing.Size( 778, 750 );
+			this.tabControl1.Size = new System.Drawing.Size( 778, 723 );
 			this.tabControl1.TabIndex = 0;
 			// 
 			// tabPageGeneral
@@ -146,7 +146,7 @@ namespace Configurator
 			this.tabPageGeneral.Location = new System.Drawing.Point( 4, 29 );
 			this.tabPageGeneral.Name = "tabPageGeneral";
 			this.tabPageGeneral.Padding = new System.Windows.Forms.Padding( 3 );
-			this.tabPageGeneral.Size = new System.Drawing.Size( 770, 717 );
+			this.tabPageGeneral.Size = new System.Drawing.Size( 770, 690 );
 			this.tabPageGeneral.TabIndex = 5;
 			this.tabPageGeneral.Text = "General";
 			this.tabPageGeneral.UseVisualStyleBackColor = true;
@@ -175,7 +175,7 @@ namespace Configurator
 			// 
 			this.label21.AutoSize = true;
 			this.label21.Font = new System.Drawing.Font( "Microsoft Sans Serif", 10.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ( (byte)( 204 ) ) );
-			this.label21.Location = new System.Drawing.Point( 29, 386 );
+			this.label21.Location = new System.Drawing.Point( 29, 378 );
 			this.label21.Name = "label21";
 			this.label21.Size = new System.Drawing.Size( 112, 24 );
 			this.label21.TabIndex = 22;
@@ -302,7 +302,7 @@ namespace Configurator
 			// 
 			// label16
 			// 
-			this.label16.Location = new System.Drawing.Point( 133, 422 );
+			this.label16.Location = new System.Drawing.Point( 133, 407 );
 			this.label16.Name = "label16";
 			this.label16.Size = new System.Drawing.Size( 453, 96 );
 			this.label16.TabIndex = 8;
@@ -311,7 +311,7 @@ namespace Configurator
 			// pictureBox2
 			// 
 			this.pictureBox2.Image = global::Configurator.Properties.Resources.game_256x256;
-			this.pictureBox2.Location = new System.Drawing.Point( 32, 422 );
+			this.pictureBox2.Location = new System.Drawing.Point( 32, 407 );
 			this.pictureBox2.Name = "pictureBox2";
 			this.pictureBox2.Size = new System.Drawing.Size( 80, 80 );
 			this.pictureBox2.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -321,7 +321,7 @@ namespace Configurator
 			// buttonRunGame
 			// 
 			this.buttonRunGame.Font = new System.Drawing.Font( "Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 204 ) ) );
-			this.buttonRunGame.Location = new System.Drawing.Point( 604, 422 );
+			this.buttonRunGame.Location = new System.Drawing.Point( 604, 407 );
 			this.buttonRunGame.Name = "buttonRunGame";
 			this.buttonRunGame.Size = new System.Drawing.Size( 117, 32 );
 			this.buttonRunGame.TabIndex = 11;
@@ -331,7 +331,7 @@ namespace Configurator
 			// 
 			// label15
 			// 
-			this.label15.Location = new System.Drawing.Point( 133, 518 );
+			this.label15.Location = new System.Drawing.Point( 133, 503 );
 			this.label15.Name = "label15";
 			this.label15.Size = new System.Drawing.Size( 450, 80 );
 			this.label15.TabIndex = 5;
@@ -340,7 +340,7 @@ namespace Configurator
 			// pictureBox1
 			// 
 			this.pictureBox1.Image = global::Configurator.Properties.Resources.resource_editor_256x256;
-			this.pictureBox1.Location = new System.Drawing.Point( 32, 518 );
+			this.pictureBox1.Location = new System.Drawing.Point( 32, 503 );
 			this.pictureBox1.Name = "pictureBox1";
 			this.pictureBox1.Size = new System.Drawing.Size( 80, 80 );
 			this.pictureBox1.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -350,7 +350,7 @@ namespace Configurator
 			// buttonRunResourceEditor
 			// 
 			this.buttonRunResourceEditor.Font = new System.Drawing.Font( "Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 204 ) ) );
-			this.buttonRunResourceEditor.Location = new System.Drawing.Point( 604, 518 );
+			this.buttonRunResourceEditor.Location = new System.Drawing.Point( 604, 503 );
 			this.buttonRunResourceEditor.Name = "buttonRunResourceEditor";
 			this.buttonRunResourceEditor.Size = new System.Drawing.Size( 117, 32 );
 			this.buttonRunResourceEditor.TabIndex = 12;
@@ -360,7 +360,7 @@ namespace Configurator
 			// 
 			// label14
 			// 
-			this.label14.Location = new System.Drawing.Point( 133, 613 );
+			this.label14.Location = new System.Drawing.Point( 133, 598 );
 			this.label14.Name = "label14";
 			this.label14.Size = new System.Drawing.Size( 450, 80 );
 			this.label14.TabIndex = 2;
@@ -370,7 +370,7 @@ namespace Configurator
 			// pictureBox1MapEditor
 			// 
 			this.pictureBox1MapEditor.Image = global::Configurator.Properties.Resources.map_editor_256x256;
-			this.pictureBox1MapEditor.Location = new System.Drawing.Point( 32, 613 );
+			this.pictureBox1MapEditor.Location = new System.Drawing.Point( 32, 598 );
 			this.pictureBox1MapEditor.Name = "pictureBox1MapEditor";
 			this.pictureBox1MapEditor.Size = new System.Drawing.Size( 80, 80 );
 			this.pictureBox1MapEditor.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
@@ -380,7 +380,7 @@ namespace Configurator
 			// buttonRunMapEditor
 			// 
 			this.buttonRunMapEditor.Font = new System.Drawing.Font( "Microsoft Sans Serif", 7.8F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ( (byte)( 204 ) ) );
-			this.buttonRunMapEditor.Location = new System.Drawing.Point( 604, 613 );
+			this.buttonRunMapEditor.Location = new System.Drawing.Point( 604, 598 );
 			this.buttonRunMapEditor.Name = "buttonRunMapEditor";
 			this.buttonRunMapEditor.Size = new System.Drawing.Size( 117, 32 );
 			this.buttonRunMapEditor.TabIndex = 13;
@@ -683,7 +683,7 @@ namespace Configurator
 			// label3
 			// 
 			this.label3.AutoSize = true;
-			this.label3.Location = new System.Drawing.Point( 31, 343 );
+			this.label3.Location = new System.Drawing.Point( 31, 340 );
 			this.label3.Margin = new System.Windows.Forms.Padding( 4, 0, 4, 0 );
 			this.label3.Name = "label3";
 			this.label3.Size = new System.Drawing.Size( 101, 17 );
@@ -704,7 +704,7 @@ namespace Configurator
 			// 
 			this.buttonOK.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
 			this.buttonOK.DialogResult = System.Windows.Forms.DialogResult.OK;
-			this.buttonOK.Location = new System.Drawing.Point( 551, 776 );
+			this.buttonOK.Location = new System.Drawing.Point( 551, 746 );
 			this.buttonOK.Margin = new System.Windows.Forms.Padding( 4 );
 			this.buttonOK.Name = "buttonOK";
 			this.buttonOK.Size = new System.Drawing.Size( 117, 32 );
@@ -717,7 +717,7 @@ namespace Configurator
 			// 
 			this.buttonCancel.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Right ) ) );
 			this.buttonCancel.DialogResult = System.Windows.Forms.DialogResult.Cancel;
-			this.buttonCancel.Location = new System.Drawing.Point( 677, 776 );
+			this.buttonCancel.Location = new System.Drawing.Point( 677, 746 );
 			this.buttonCancel.Margin = new System.Windows.Forms.Padding( 4 );
 			this.buttonCancel.Name = "buttonCancel";
 			this.buttonCancel.Size = new System.Drawing.Size( 117, 32 );
@@ -730,12 +730,12 @@ namespace Configurator
 			// 
 			this.label2.Anchor = ( (System.Windows.Forms.AnchorStyles)( ( System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left ) ) );
 			this.label2.AutoSize = true;
-			this.label2.Location = new System.Drawing.Point( 13, 791 );
+			this.label2.Location = new System.Drawing.Point( 13, 761 );
 			this.label2.Margin = new System.Windows.Forms.Padding( 4, 0, 4, 0 );
 			this.label2.Name = "label2";
 			this.label2.Size = new System.Drawing.Size( 167, 17 );
 			this.label2.TabIndex = 3;
-			this.label2.Text = "2015 NeoAxis Group Ltd.";
+			this.label2.Text = "2016 NeoAxis Group Ltd.";
 			// 
 			// MainForm
 			// 
@@ -743,7 +743,7 @@ namespace Configurator
 			this.AutoScaleDimensions = new System.Drawing.SizeF( 8F, 16F );
 			this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
 			this.CancelButton = this.buttonCancel;
-			this.ClientSize = new System.Drawing.Size( 810, 823 );
+			this.ClientSize = new System.Drawing.Size( 810, 793 );
 			this.Controls.Add( this.label2 );
 			this.Controls.Add( this.buttonCancel );
 			this.Controls.Add( this.buttonOK );
@@ -755,8 +755,8 @@ namespace Configurator
 			this.Name = "MainForm";
 			this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
 			this.Text = "Configurator";
-			this.Load += new System.EventHandler( this.MainForm_Load );
 			this.FormClosed += new System.Windows.Forms.FormClosedEventHandler( this.MainForm_FormClosed );
+			this.Load += new System.EventHandler( this.MainForm_Load );
 			this.tabControl1.ResumeLayout( false );
 			this.tabPageGeneral.ResumeLayout( false );
 			this.tabPageGeneral.PerformLayout();

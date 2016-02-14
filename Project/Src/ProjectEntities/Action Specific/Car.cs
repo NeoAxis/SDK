@@ -1336,15 +1336,17 @@ namespace ProjectEntities
 						allowToSleepTime = 0;
 					else
 						allowToSleepTime += TickDelta;
-
+					
 					if( allowToSleepTime > 1 )
 					{
 						physicsVehicle.EnableUpdate = false;
+						physicsVehicle.BaseBody.Sleepiness = 1;
 						physicsVehicle.BaseBody.Sleeping = true;
 					}
 					else
 					{
 						physicsVehicle.EnableUpdate = true;
+						physicsVehicle.BaseBody.Sleepiness = 0;
 						physicsVehicle.BaseBody.Sleeping = false;
 					}
 				}

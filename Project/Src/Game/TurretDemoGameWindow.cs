@@ -40,7 +40,7 @@ namespace Game
 		{
 			base.OnAttach();
 
-			//World serialized data
+			//World serialization. Need to add the support of load/save feature in Game.exe.
 			{
 				if( World.Instance.GetCustomSerializationValue( "remainingTimeForCreateEnemy" ) != null )
 				{
@@ -58,16 +58,10 @@ namespace Game
 					remainingCount = (int)World.Instance.GetCustomSerializationValue( "remainingCount" );
 
 				if( World.Instance.GetCustomSerializationValue( "remainingCreateCount" ) != null )
-				{
-					remainingCreateCount = (int)World.Instance.GetCustomSerializationValue(
-						"remainingCreateCount" );
-				}
+					remainingCreateCount = (int)World.Instance.GetCustomSerializationValue( "remainingCreateCount" );
 
 				if( World.Instance.GetCustomSerializationValue( "createInterval" ) != null )
-				{
-					createInterval = (float)World.Instance.GetCustomSerializationValue(
-						"createInterval" );
-				}
+					createInterval = (float)World.Instance.GetCustomSerializationValue( "createInterval" );
 			}
 
 			GameGuiObject billboard = Entities.Instance.GetByName( "HangingBillboard_Game" ) as GameGuiObject;
@@ -100,7 +94,7 @@ namespace Game
 
 			UpdateVictoryObjects( false );
 
-			//for world serialization
+			//World serialization. Need to add the support of load/save feature in Game.exe.
 			foreach( Entity entity in Map.Instance.Children )
 			{
 				if( entity.IsSetForDeletion )
@@ -113,7 +107,7 @@ namespace Game
 				if( unit is PlayerCharacter )
 					continue;
 
-				if( ( unit.Intellect as AI ) != null || unit is Aircraft )
+				if( ( unit.Intellect as AI ) != null )
 				{
 					unit.ViewRadius = 300;
 					unit.Destroying += EnemyUnitDestroying;
@@ -148,8 +142,7 @@ namespace Game
 
 			//World serialized data
 			World.Instance.ClearAllCustomSerializationValues();
-			World.Instance.SetCustomSerializationValue( "remainingTimeForCreateEnemy",
-				remainingTimeForCreateEnemy );
+			World.Instance.SetCustomSerializationValue( "remainingTimeForCreateEnemy", remainingTimeForCreateEnemy );
 			World.Instance.SetCustomSerializationValue( "gameTime", gameTime );
 			World.Instance.SetCustomSerializationValue( "level", level );
 			World.Instance.SetCustomSerializationValue( "remainingCount", remainingCount );
@@ -179,10 +172,7 @@ namespace Game
 					text = "FIGHT";
 
 				if( alpha != 0 )
-				{
-					EngineApp.Instance.ScreenGuiRenderer.AddQuad( new Rect( 0, 0, 1, 1 ),
-						new ColorValue( 0, 0, 0, alpha ) );
-				}
+					EngineApp.Instance.ScreenGuiRenderer.AddQuad( new Rect( 0, 0, 1, 1 ), new ColorValue( 0, 0, 0, alpha ) );
 
 				if( text != "" )
 				{
@@ -235,7 +225,7 @@ namespace Game
 				{
 					if( gameTime == 0 )
 					{
-						if( level <= 5 )
+						if( level <= 4 )
 						{
 							mainText = string.Format( "Level {0}", level );
 							downText = "Fire here to start";
@@ -323,7 +313,7 @@ namespace Game
 
 		void GameStart()
 		{
-			if( level > 5 )
+			if( level > 4 )
 				level = 1;
 
 			remainingCount = 20 + level * 3;
@@ -366,7 +356,7 @@ namespace Game
 				if( unit == null )
 					continue;
 
-				if( ( unit.Intellect as AI ) != null || unit is Aircraft )
+				if( ( unit.Intellect as AI ) != null )
 				{
 					unit.Die();
 					goto ttt;
@@ -377,7 +367,7 @@ namespace Game
 			if( GameMap.Instance != null )
 				GameMusic.MusicPlay( GameMap.Instance.GameMusic, true );
 
-			if( complete && level > 5 )
+			if( complete && level > 4 )
 				UpdateVictoryObjects( true );
 		}
 
@@ -403,27 +393,23 @@ namespace Game
 			switch( level )
 			{
 			case 1:
-				zombie = 1;
-				break;
-
-			case 2:
 				bug = .5f;
 				zombie = .5f;
 				break;
 
-			case 3:
+			case 2:
 				zombie = .4f;
 				bug = .5f;
 				robot = .1f;
 				break;
 
-			case 4:
+			case 3:
 				zombie = .1f;
 				bug = .7f;
 				robot = .2f;
 				break;
 
-			case 5:
+			case 4:
 				bug = .7f;
 				robot = .3f;
 				break;
@@ -464,29 +450,11 @@ namespace Game
 				Vec3 diff = playerUnit.Position - obj.Position;
 				float angle = MathFunctions.ATan( diff.Y, diff.X );
 
-				//Change rotation
-				//temp. fake
-				Aircraft aircraft = entity as Aircraft;
-				if( aircraft != null )
-				{
-					obj.PhysicsModel.Bodies[ 0 ].Rotation =
-						new Angles( 0, 0, -MathFunctions.RadToDeg( angle ) ).ToQuat();
-					//obj.Rotation = new Angles(0,0, -MathFunctions.RadToDeg(angle)).ToQuat();
-
-					aircraft.FlyHeight = 10;
-
-					if( playerDistance < 20 )
-						aircraft.FlyHeight = playerUnit.Position.Z;
-				}
-
 				//Suicide
 				bool allowSuicide = false;
 				float suicideDistance = 3;
 
 				if( playerUnit is Turret )
-					allowSuicide = true;
-
-				if( aircraft != null )
 					allowSuicide = true;
 
 				if( allowSuicide && playerDistance < suicideDistance )

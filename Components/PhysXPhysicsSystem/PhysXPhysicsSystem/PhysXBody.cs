@@ -84,7 +84,8 @@ namespace PhysXPhysicsSystem
 					if( !sleeping && lastLinearVelocity == linearVel && lastLinearVelocity2 == linearVel && linearVel != Vec3.Zero )
 					{
 						PhysXNativeBody.PutToSleep( nativeBody );
-						PhysXNativeBody.WakeUp( nativeBody, PhysXNativeWorld.SLEEP_INTERVAL );
+						PhysXNativeBody.WakeUp( nativeBody );
+						//PhysXNativeBody.WakeUp( nativeBody, PhysXNativeWorld.SLEEP_INTERVAL );
 					}
 					lastLinearVelocity2 = lastLinearVelocity;
 					lastLinearVelocity = linearVel;
@@ -176,7 +177,7 @@ namespace PhysXPhysicsSystem
 				}
 				else
 				{
-					PhysXNativeBody.WakeUp( nativeBody, PhysXNativeWorld.SLEEP_INTERVAL );
+					PhysXNativeBody.WakeUp( nativeBody );//, PhysXNativeWorld.SLEEP_INTERVAL );
 				}
 			}
 		}
@@ -885,7 +886,7 @@ namespace PhysXPhysicsSystem
 				if( Sleeping )
 					PhysXNativeBody.PutToSleep( nativeBody );
 				else
-					PhysXNativeBody.WakeUp( nativeBody, PhysXNativeWorld.SLEEP_INTERVAL );
+					PhysXNativeBody.WakeUp( nativeBody );//, PhysXNativeWorld.SLEEP_INTERVAL );
 			}
 
 			if( CCD && !Static )
@@ -1208,7 +1209,7 @@ namespace PhysXPhysicsSystem
 		{
 			base.OnUpdatePhysXKinematic();
 
-			if( nativeBody != IntPtr.Zero )
+			if( nativeBody != IntPtr.Zero && !Static )
 				PhysXNativeBody.SetKinematicFlag( nativeBody, PhysX_Kinematic );
 		}
 
@@ -1216,7 +1217,7 @@ namespace PhysXPhysicsSystem
 		{
 			base.OnPhysXSetKinematicTarget( pos, rot );
 
-			if( nativeBody != IntPtr.Zero )
+			if( nativeBody != IntPtr.Zero && !Static )
 				PhysXNativeBody.SetKinematicTarget( nativeBody, ref pos, ref rot );
 		}
 	}

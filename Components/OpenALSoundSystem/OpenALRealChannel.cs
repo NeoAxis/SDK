@@ -23,7 +23,7 @@ namespace OpenALSoundSystem
 		//stream
 		unsafe byte* streamBuffer;
 		int streamBufferSize;
-		bool streamActive;
+		bool streamDataAvailable;
 
 		byte[] tempDataStreamReadArray = new byte[ 0 ];
 
@@ -67,12 +67,8 @@ namespace OpenALSoundSystem
 				int sizeInBytes = numSamples * channels * 2;
 
 				bufferSize = sizeInBytes / 2;
-
-				//!!!!!!!new
 				if( bufferSize > 65536 * 4 )
 					bufferSize = 65536 * 4;
-				//if( bufferSize > 65356 )
-				//   bufferSize = 65356;
 
 				streamBufferSize = bufferSize;
 				streamBuffer = (byte*)NativeUtils.Alloc( NativeMemoryAllocationType.SoundAndVideo, streamBufferSize );
@@ -395,7 +391,7 @@ namespace OpenALSoundSystem
 
 				OpenALSoundWorld.CheckError();
 				FileStream( alStreamBuffer );
-				if( streamActive )
+				if( streamDataAvailable )
 				{
 					Al.alSourceQueueBuffers( alSource, 1, ref alStreamBuffer );
 					OpenALSoundWorld.CheckError();
@@ -408,19 +404,22 @@ namespace OpenALSoundSystem
 			int state;
 			Al.alGetSourcei( alSource, Al.AL_SOURCE_STATE, out state );
 			OpenALSoundWorld.CheckError();
+			bool stoppedNoQueued = false;
 			if( state == Al.AL_STOPPED )
 			{
 				int queued;
 				Al.alGetSourcei( alSource, Al.AL_BUFFERS_QUEUED, out queued );
 				if( queued != 0 )
 					Al.alSourcePlay( alSource );
+				else
+					stoppedNoQueued = true;
 			}
 
 			//file stream played
 
 			OpenALFileStreamSound fileStreamSound = (OpenALFileStreamSound)currentSound;
 
-			if( !streamActive )
+			if( !streamDataAvailable && stoppedNoQueued )
 			{
 				if( ( currentSound.Mode & SoundMode.Loop ) != 0 )
 				{
@@ -474,7 +473,7 @@ namespace OpenALSoundSystem
 
 			int size = 0;
 
-			streamActive = true;
+			streamDataAvailable = true;
 
 			while( size < streamBufferSize )
 			{
@@ -503,7 +502,7 @@ namespace OpenALSoundSystem
 
 			if( size == 0 )
 			{
-				streamActive = false;
+				streamDataAvailable = false;
 				return false;
 			}
 

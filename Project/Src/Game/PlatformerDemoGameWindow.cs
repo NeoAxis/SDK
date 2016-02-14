@@ -34,7 +34,7 @@ namespace Game
 			base.OnAttach();
 
 			//To load the HUD screen
-			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\PlatformerDemo\\Gui\\HUD.gui" );
+			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\Platformer Demo\\Gui\\HUD.gui" );
 			//Attach the HUD screen to the this window
 			Controls.Add( hudControl );
 

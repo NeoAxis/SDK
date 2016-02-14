@@ -99,6 +99,8 @@ namespace ProjectEntities
 
 		public override bool Editor_CheckSelectionByRay( Ray ray, out float rayScale, ref float priority )
 		{
+			priority = .9f;
+
 			//skip when inside the volume
 			if( GetBox().IsContainsPoint( ray.Origin ) )
 			{

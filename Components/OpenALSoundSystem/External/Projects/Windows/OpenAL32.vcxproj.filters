@@ -4,123 +4,261 @@
     <Filter Include="Source Files">
       <UniqueIdentifier>{fe54ba6b-a831-4de4-b08b-2d4f776dc2c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Alc">
+      <UniqueIdentifier>{9fafd5f0-986c-49b3-b43b-2e6801fa412b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Alc\effects">
+      <UniqueIdentifier>{624dfe95-4d53-4e76-be07-01680d23b544}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Alc\backends">
+      <UniqueIdentifier>{905e2737-48fc-4ff2-bb13-b21b320c0207}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\include">
+      <UniqueIdentifier>{ca6dcc1b-c096-4d36-9ea1-bf81d3ee3bdd}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\common">
+      <UniqueIdentifier>{c89ec4f0-29e2-4910-a260-c755521dc5c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\OpenAL32">
+      <UniqueIdentifier>{c30e166b-30ba-4630-881c-22ca15dee117}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\..\OpenAL32\alAuxEffectSlot.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Alc\effects\autowah.c">
+      <Filter>Source Files\Alc\effects</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alBuffer.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Alc\effects\chorus.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\compressor.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\dedicated.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\distortion.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\echo.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\equalizer.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\flanger.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\modulator.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\null.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\effects\reverb.c">
+      <Filter>Source Files\Alc\effects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\backends\base.c">
+      <Filter>Source Files\Alc\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\backends\dsound.c">
+      <Filter>Source Files\Alc\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\backends\winmm.c">
+      <Filter>Source Files\Alc\backends</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\ALc.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\alcConfig.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcEcho.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcModulator.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcReverb.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\alcRing.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcThread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alDatabuffer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alEffect.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alError.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alExtension.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alFilter.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alListener.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alSource.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alState.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alThunk.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\ALu.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\bs2b.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Alc\dsound.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Alc\bsinc.c">
+      <Filter>Source Files\Alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\hrtf.c">
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\mixer.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Alc\null.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\Alc\mixer_c.c">
+      <Filter>Source Files\Alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\mixer_sse.c">
+      <Filter>Source Files\Alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\mixer_sse2.c">
+      <Filter>Source Files\Alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\mixer_sse3.c">
+      <Filter>Source Files\Alc</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\mixer_sse41.c">
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\panning.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Alc\winmm.c">
-      <Filter>Source Files</Filter>
+    <ClCompile Include="..\..\common\atomic.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\rwlock.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\threads.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\common\uintmap.c">
+      <Filter>Source Files\common</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alAuxEffectSlot.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alBuffer.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alEffect.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alError.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alExtension.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alFilter.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alListener.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alSource.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alState.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\alThunk.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\OpenAL32\sample_cvt.c">
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\backends\loopback.c">
+      <Filter>Source Files\Alc\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\backends\null.c">
+      <Filter>Source Files\Alc\backends</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\Alc\helpers.c">
+      <Filter>Source Files\Alc</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\..\Alc\backends\base.h">
+      <Filter>Source Files\Alc\backends</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Alc\alstring.h">
+      <Filter>Source Files\Alc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Alc\compat.h">
+      <Filter>Source Files\Alc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Alc\hrtf.h">
+      <Filter>Source Files\Alc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Alc\mixer_defs.h">
+      <Filter>Source Files\Alc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\Alc\vector.h">
+      <Filter>Source Files\Alc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AL\al.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AL\alc.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AL\alext.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AL\efx-creative.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AL\efx-presets.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\AL\efx.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\align.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\atomic.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\bool.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\math_defs.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\rwlock.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\static_assert.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\threads.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\include\uintmap.h">
+      <Filter>Source Files\include</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alAuxEffectSlot.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alBuffer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\OpenAL32\Include\alDatabuffer.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alEffect.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alError.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alFilter.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alListener.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alMain.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alSource.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\OpenAL32\Include\alState.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alThunk.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alu.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\bs2b.h">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\OpenAL32</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\OpenAL32\Include\sample_cvt.h">
+      <Filter>Source Files\OpenAL32</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

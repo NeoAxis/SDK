@@ -246,6 +246,11 @@
             Material for correct rendering of weapons in a FPS mode.
             </summary>
         </member>
+        <member name="T:ProjectCommon.ColorCorrectionLUTCompositorInstance">
+            <summary>
+            Represents work with the ColorCorrectionLUT post effect.
+            </summary>
+        </member>
         <member name="T:ProjectCommon.MeshRayIntersectionOctreeManager">
             <summary>
             The class for finding ray intersection with the mesh.

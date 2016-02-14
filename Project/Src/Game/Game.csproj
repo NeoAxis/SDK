@@ -149,7 +149,6 @@
     <Compile Include="AboutWindow.cs" />
     <Compile Include="ActionGameWindow.cs" />
     <Compile Include="BallGameWindow.cs" />
-    <Compile Include="CatapultDemoGameWindow.cs" />
     <Compile Include="GUISamples3Window.cs" />
     <Compile Include="MultiViewConfigurationWindow.cs" />
     <Compile Include="PathfindingDemoGameWindow.cs" />
@@ -158,7 +157,6 @@
     <Compile Include="VillageDemoGameWindow.cs" />
     <Compile Include="GUISamples1Window.cs" />
     <Compile Include="ExampleOfProceduralMapCreation.cs" />
-    <Compile Include="JigsawPuzzleGameWindow.cs" />
     <Compile Include="TurretDemoGameWindow.cs" />
     <Compile Include="MultiplayerLobbyWindow.cs" />
     <Compile Include="MultiplayerLoginWindow.cs" />

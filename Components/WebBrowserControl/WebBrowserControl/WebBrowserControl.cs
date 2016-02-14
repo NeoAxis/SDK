@@ -4,6 +4,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 using System.ComponentModel;
 using System.Threading;
+using System.Drawing.Design;
 using Engine;
 using Engine.MathEx;
 using Engine.Renderer;
@@ -17,37 +18,44 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 
-
 namespace Engine.UISystem
 {
 	public class WebBrowserControl : Control
 	{
-		string startUrl = "http://www.google.com";
+		string startUrl = "http://www.neoaxis.com";
+		string startFile = "";
 		int inGame3DGuiHeightInPixels = 800;
+		bool inGame3DGuiMipmaps;
+		float zoom = 0;
 
 		CefBrowser browser;
 		CefBrowserHost browserHost;
 
 		Vec2I viewSize;
 
-		public Vec2I ViewSize
-		{
-			get { return viewSize; }
-		}
-
 		Texture texture;
 		Vec2I textureSize;
-		bool forceUpdateTexture;
+		bool needUpdateTexture;
+		bool needInvalidate = true;
+		bool needRecreateTexture;
 
 		string title;
 
+		object renderBufferLock = new object();
+		byte[] renderBuffer;
+		Vec2I renderBufferForSize;
+
 		//Thread mainThread;
 
-		static bool isCefRuntimeInitialized = false;
+		static bool cefRuntimeInitialized;
+		static bool cefRuntimeUnableToLoad;
+		static string cefRuntimeUnableToLoadError;
+		//!!!!new
+		static bool subscribedToEngineAppDestroy;
 
 
 		[Category( "WebBrowser" )]
-		[DefaultValue( "http://www.google.com" )]
+		[DefaultValue( "http://www.neoaxis.com" )]
 		[Serialize]
 		public string StartURL
 		{
@@ -58,7 +66,27 @@ namespace Engine.UISystem
 					return;
 				startUrl = value;
 
-				LoadURL( startUrl );
+				if( string.IsNullOrEmpty( startFile ) )
+					LoadURL( startUrl );
+			}
+		}
+
+		[Category( "WebBrowser" )]
+		[DefaultValue( "" )]
+		[Serialize]
+		public string StartFile
+		{
+			get { return startFile; }
+			set
+			{
+				if( startFile == value )
+					return;
+				startFile = value;
+
+				if( !string.IsNullOrEmpty( startFile ) )
+					LoadFileByVirtualFileName( startFile );
+				else
+					LoadURL( startUrl );
 			}
 		}
 
@@ -74,10 +102,45 @@ namespace Engine.UISystem
 					return;
 				if( value < 1 )
 					value = 1;
-				if( value > 2048 )
-					value = 2048;
 
 				inGame3DGuiHeightInPixels = value;
+			}
+		}
+
+		[Category( "WebBrowser" )]
+		[DefaultValue( false )]
+		[Serialize]
+		public bool InGame3DGuiMipmaps
+		{
+			get { return inGame3DGuiMipmaps; }
+			set
+			{
+				if( inGame3DGuiMipmaps == value )
+					return;
+				inGame3DGuiMipmaps = value;
+				needRecreateTexture = true;
+			}
+		}
+
+		[Category( "WebBrowser" )]
+		[DefaultValue( 0.0f )]
+		[Serialize]
+		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
+		[EditorLimitsRange( -10.0f, 10.0f )]
+		public float Zoom
+		{
+			get { return zoom; }
+			set
+			{
+				if( zoom == value )
+					return;
+				zoom = value;
+
+				if( browserHost != null )
+				{
+					browserHost.SetZoomLevel( zoom );
+					needInvalidate = true;
+				}
 			}
 		}
 
@@ -107,7 +170,7 @@ namespace Engine.UISystem
 
 			DestroyBrowser();
 
-			//!!!!never called
+			//never called
 			//WebCore.Shutdown();
 
 			if( texture != null )
@@ -122,19 +185,39 @@ namespace Engine.UISystem
 		void RenderSystem_RenderSystemEvent( RenderSystemEvents name )
 		{
 			if( name == RenderSystemEvents.DeviceRestored )
-				forceUpdateTexture = true;
+				needUpdateTexture = true;
 		}
 
-		private static void InitializeCefRuntime()
+		static void InitializeCefRuntime()
 		{
+			if( cefRuntimeUnableToLoad )
+				return;
 			if( !IsSupportedByThisPlatform() )
 				return;
 
-			if( isCefRuntimeInitialized )
+			if( cefRuntimeInitialized )
 				throw new InvalidOperationException( "The CefRuntime is already initialized. Call ShutdownCefRuntime() before initializing it again." );
 
-			if( PlatformInfo.Platform == PlatformInfo.Platforms.Windows )
-				NativeLibraryManager.PreLoadLibrary( Path.Combine( "CefGlue", "libcef" ) );
+			//load native libraries
+			{
+				if( PlatformInfo.Platform == PlatformInfo.Platforms.Windows )
+				{
+					try
+					{
+						string error = NativeLibraryManager.PreLoadLibrary( Path.Combine( "CefGlue", "libcef" ), true );
+						if( !string.IsNullOrEmpty( error ) )
+						{
+							cefRuntimeUnableToLoad = true;
+							cefRuntimeUnableToLoadError = error;
+						}
+					}
+					catch
+					{
+						cefRuntimeUnableToLoad = true;
+						cefRuntimeUnableToLoadError = "Crash inside NativeLibraryManager.PreLoadLibrary.";
+					}
+				}
+			}
 
 			//delete log file
 			string realLogFileName = VirtualFileSystem.GetRealPathByVirtual( "user:Logs\\WebBrowserControl_CefGlue.log" );
@@ -145,92 +228,108 @@ namespace Engine.UISystem
 			}
 			catch { }
 
-			try
+			if( !cefRuntimeUnableToLoad )
 			{
-				CefRuntime.Load();
-			}
-			catch( DllNotFoundException ex )
-			{
-				Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Load(): " + ex.Message );
-				return;
-			}
-			catch( CefRuntimeException ex )
-			{
-				Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Load(): " + ex.Message );
-				return;
-			}
-			catch( Exception ex )
-			{
-				Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Load(): " + ex.Message );
-				return;
-			}
+				try
+				{
+					CefRuntime.Load();
+				}
+				catch( DllNotFoundException ex )
+				{
+					Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Load(): " + ex.Message );
+					return;
+				}
+				catch( CefRuntimeException ex )
+				{
+					Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Load(): " + ex.Message );
+					return;
+				}
+				catch( Exception ex )
+				{
+					Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Load(): " + ex.Message );
+					return;
+				}
 
-			var mainArgs = new CefMainArgs( null );
-			var cefApp = new SimpleApp();
+				var mainArgs = new CefMainArgs( null );
+				var cefApp = new SimpleApp();
 
-			var exitCode = CefRuntime.ExecuteProcess( mainArgs, cefApp, IntPtr.Zero );
-			if( exitCode != -1 )
-			{
-				Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.ExecuteProcess: Exit code: {0}", exitCode );
-				return;
+				var exitCode = CefRuntime.ExecuteProcess( mainArgs, cefApp, IntPtr.Zero );
+				if( exitCode != -1 )
+				{
+					Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.ExecuteProcess: Exit code: {0}", exitCode );
+					return;
+				}
+
+				var cefSettings = new CefSettings
+				{
+					SingleProcess = true,
+					WindowlessRenderingEnabled = true,
+					MultiThreadedMessageLoop = true,
+					LogSeverity = CefLogSeverity.Verbose,
+					LogFile = realLogFileName,
+					BrowserSubprocessPath = "",
+					CachePath = "",
+				};
+
+				///// <summary>
+				///// Set to <c>true</c> to disable configuration of browser process features using
+				///// standard CEF and Chromium command-line arguments. Configuration can still
+				///// be specified using CEF data structures or via the
+				///// CefApp::OnBeforeCommandLineProcessing() method.
+				///// </summary>
+				//public bool CommandLineArgsDisabled { get; set; }
+
+				///// <summary>
+				///// The fully qualified path for the resources directory. If this value is
+				///// empty the cef.pak and/or devtools_resources.pak files must be located in
+				///// the module directory on Windows/Linux or the app bundle Resources directory
+				///// on Mac OS X. Also configurable using the "resources-dir-path" command-line
+				///// switch.
+				///// </summary>
+				//public string ResourcesDirPath { get; set; }
+
+				try
+				{
+					CefRuntime.Initialize( mainArgs, cefSettings, cefApp, IntPtr.Zero );
+				}
+				catch( CefRuntimeException ex )
+				{
+					Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Initialize: " + ex.Message );
+					return;
+				}
+
+				cefRuntimeInitialized = true;
+
+				if( !subscribedToEngineAppDestroy )
+				{
+					subscribedToEngineAppDestroy = true;
+					EngineApp.DestroyEvent += EngineApp_DestroyEvent;
+				}
 			}
-
-			var cefSettings = new CefSettings
-			{
-				SingleProcess = true,
-				WindowlessRenderingEnabled = true,
-				MultiThreadedMessageLoop = true,
-				LogSeverity = CefLogSeverity.Verbose,
-				LogFile = realLogFileName,
-				BrowserSubprocessPath = "",
-				CachePath = "",
-			};
-
-			//!!!!
-			///// <summary>
-			///// Set to <c>true</c> to disable configuration of browser process features using
-			///// standard CEF and Chromium command-line arguments. Configuration can still
-			///// be specified using CEF data structures or via the
-			///// CefApp::OnBeforeCommandLineProcessing() method.
-			///// </summary>
-			//public bool CommandLineArgsDisabled { get; set; }
-
-			//!!!!!mac
-			///// <summary>
-			///// The fully qualified path for the resources directory. If this value is
-			///// empty the cef.pak and/or devtools_resources.pak files must be located in
-			///// the module directory on Windows/Linux or the app bundle Resources directory
-			///// on Mac OS X. Also configurable using the "resources-dir-path" command-line
-			///// switch.
-			///// </summary>
-			//public string ResourcesDirPath { get; set; }
-
-			try
-			{
-				CefRuntime.Initialize( mainArgs, cefSettings, cefApp, IntPtr.Zero );
-			}
-			catch( CefRuntimeException ex )
-			{
-				Log.Error( "WebBrowserControl: InitializeCefRuntime: CefRuntime.Initialize: " + ex.Message );
-				return;
-			}
-
-			isCefRuntimeInitialized = true;
 		}
 
-		private static void ShutdownCefRuntime()
+		static void EngineApp_DestroyEvent()
+		{
+			ShutdownCefRuntime();
+		}
+
+		static void ShutdownCefRuntime()
 		{
 			// shutdown CEF
-			CefRuntime.Shutdown();
-			isCefRuntimeInitialized = false;
+			try
+			{
+				CefRuntime.Shutdown();
+			}
+			catch { }
+			cefRuntimeInitialized = false;
 		}
 
 		void CreateBrowser()
 		{
-			if( !isCefRuntimeInitialized )
+			if( !cefRuntimeInitialized && !cefRuntimeUnableToLoad )
 				InitializeCefRuntime();
 
-			if( isCefRuntimeInitialized )
+			if( cefRuntimeInitialized )
 			{
 				this.viewSize = GetNeededSize();
 
@@ -244,11 +343,29 @@ namespace Engine.UISystem
 					// AuthorAndUserStylesDisabled = false,
 				};
 
-				CefBrowserHost.CreateBrowser( windowInfo, client, settings,
-					!string.IsNullOrEmpty( StartURL ) ? StartURL : "about:blank" );
+				//string r = GetURLFromVirtualFileName( "Maps\\Engine Features Demo\\Resources\\GUI\\FileTest.html" );
+				//r = VirtualFileSystem.GetRealPathByVirtual( "Maps\\Engine Features Demo\\Resources\\GUI\\FileTest.html" );
+				//CefBrowserHost.CreateBrowser( windowInfo, client, settings, r );//"about:blank" );
+				//if( !string.IsNullOrEmpty( startUrl ) )
+				//   LoadURL( startUrl );
+				//LoadFileByVirtualFileName( "Maps\\Engine Features Demo\\Resources\\GUI\\FileTest.html" );
 
-				if( !string.IsNullOrEmpty( startUrl ) )
-					LoadURL( startUrl );
+				string url = "about:blank";
+				if( !string.IsNullOrEmpty( startFile ) )
+					url = GetURLFromVirtualFileName( startFile );
+				else if( !string.IsNullOrEmpty( startUrl ) )
+					url = startUrl;
+				CefBrowserHost.CreateBrowser( windowInfo, client, settings, url );
+
+				//CefBrowserHost.CreateBrowser( windowInfo, client, settings, "about:blank" );
+				//if( !string.IsNullOrEmpty( startFile ) )
+				//   LoadFileByVirtualFileName( startFile );
+				//else if( !string.IsNullOrEmpty( startUrl ) )
+				//   LoadURL( startUrl );
+
+				//CefBrowserHost.CreateBrowser( windowInfo, client, settings, !string.IsNullOrEmpty( StartURL ) ? StartURL : "about:blank" );
+				//if( !string.IsNullOrEmpty( startUrl ) )
+				//   LoadURL( startUrl );
 			}
 		}
 
@@ -282,6 +399,9 @@ namespace Engine.UISystem
 		{
 			this.browser = browser;
 			this.browserHost = browser.GetHost();
+
+			needInvalidate = true;
+			browserHost.SetZoomLevel( zoom );
 
 			var handler = Created;
 			if( handler != null )
@@ -377,6 +497,8 @@ namespace Engine.UISystem
 				var e = new LoadEndEventArgs( frame, httpStatusCode );
 				this.LoadEnd( this, e );
 			}
+
+			needInvalidate = true;
 		}
 
 		public event EventHandler<LoadErrorEventArgs> LoadError;
@@ -456,64 +578,67 @@ namespace Engine.UISystem
 			screenY = (int)ptScreen.Y;
 		}
 
-		byte[] renderBuffer = null;
-
-		internal void HandleViewPaint( CefBrowser browser, CefPaintElementType type, CefRectangle[] dirtyRects, IntPtr buffer, int width, int height )
+		internal void HandlePaint( CefBrowser browser, CefPaintElementType type, CefRectangle[] dirtyRects, IntPtr buffer, int width, int height )
 		{
-			if( texture == null )
-				return;
-
-			if( width == 0 || height == 0 )
-				return;
-
-			if( width != viewSize.X || height != viewSize.Y )
-				return;
-
-			try
+			if( type == CefPaintElementType.View )
 			{
-				int stride = width * 4;
-				int sourceBufferSize = stride * height;
+				if( texture != null && width != 0 && height != 0 && width == viewSize.X && height == viewSize.Y )
+				{
+					//TO DO: dirtyRects
 
-				if( ( renderBuffer == null ) || ( sourceBufferSize > renderBuffer.Length ) )
-					renderBuffer = new byte[ sourceBufferSize ];
+					try
+					{
+						int stride = width * 4;
+						int sourceBufferSize = stride * height;
 
-				Marshal.Copy( buffer, renderBuffer, 0, sourceBufferSize );
+						lock( renderBufferLock )
+						{
+							Vec2I newSize = new Vec2I( width, height );
+							if( renderBuffer == null || sourceBufferSize != renderBuffer.Length || renderBufferForSize != newSize )
+							{
+								renderBuffer = new byte[ sourceBufferSize ];
+								renderBufferForSize = newSize;
+							}
+							Marshal.Copy( buffer, renderBuffer, 0, sourceBufferSize );
+						}
 
-				forceUpdateTexture = true;
+						needUpdateTexture = true;
+					}
+					catch( Exception ex )
+					{
+						Log.Error( "WebBrowserControl: Caught exception in HandleViewPaint(): " + ex.Message );
+					}
+				}
 			}
-			catch( Exception ex )
+			if( type == CefPaintElementType.Popup )
 			{
-				Log.Error( "WebBrowserControl: Caught exception in HandleViewPaint(): " + ex.Message );
+				//TO DO?
 			}
-		}
-
-		internal void HandlePopupPaint( int width, int height, CefRectangle[] dirtyRects, IntPtr sourceBuffer )
-		{
-			//
 		}
 
 		void UpdateTexture()
 		{
-			if( renderBuffer == null )
-				return;
-
-			try
+			lock( renderBufferLock )
 			{
-
-				HardwarePixelBuffer pixelBuffer = texture.GetBuffer();
-				pixelBuffer.Lock( HardwareBuffer.LockOptions.Discard );
-				PixelBox pixelBox = pixelBuffer.GetCurrentLock();
-
-				unsafe
+				if( renderBuffer != null && renderBufferForSize == ViewSize && renderBuffer.Length == ViewSize.X * ViewSize.Y * 4 )
 				{
-					fixed( byte* ptr = renderBuffer )
-						pixelBox.WriteDataUnmanaged( (IntPtr)ptr, ViewSize.X, ViewSize.Y );
+					try
+					{
+						HardwarePixelBuffer pixelBuffer = texture.GetBuffer();
+						pixelBuffer.Lock( HardwareBuffer.LockOptions.Discard );
+						PixelBox pixelBox = pixelBuffer.GetCurrentLock();
+						unsafe
+						{
+							fixed( byte* ptr = renderBuffer )
+								pixelBox.WriteDataUnmanaged( (IntPtr)ptr, ViewSize.X, ViewSize.Y );
+						}
+						pixelBuffer.Unlock();
+					}
+					catch( Exception ex )
+					{
+						Log.Error( "WebBrowserControl: Caught exception in UpdateTexture(): " + ex.Message );
+					}
 				}
-				pixelBuffer.Unlock();
-			}
-			catch( Exception ex )
-			{
-				Log.Error( "WebBrowserControl: Caught exception in UpdateTexture(): " + ex.Message );
 			}
 		}
 
@@ -526,8 +651,7 @@ namespace Engine.UISystem
 			{
 				//screen gui
 
-				Vec2I viewportSize = screenControlManager.GuiRenderer.ViewportForScreenGuiRenderer.
-					DimensionsInPixels.Size;
+				Vec2I viewportSize = screenControlManager.GuiRenderer.ViewportForScreenGuiRenderer.DimensionsInPixels.Size;
 
 				Vec2 size = viewportSize.ToVec2() * GetScreenSize();
 				if( screenControlManager.GuiRenderer._OutGeometryTransformEnabled )
@@ -540,18 +664,40 @@ namespace Engine.UISystem
 				//in-game gui
 
 				int height = inGame3DGuiHeightInPixels;
-				if( height > RenderSystem.Instance.Capabilities.MaxTextureSize )
-					height = RenderSystem.Instance.Capabilities.MaxTextureSize;
-
 				Vec2 screenSize = GetScreenSize();
 				float width = (float)height * ( screenSize.X / screenSize.Y ) * GetControlManager().AspectRatio;
 				result = new Vec2I( (int)( width + .9999f ), height );
+
+				//int height = inGame3DGuiHeightInPixels;
+				//if( height > RenderSystem.Instance.Capabilities.MaxTextureSize )
+				//   height = RenderSystem.Instance.Capabilities.MaxTextureSize;
+
+				//Vec2 screenSize = GetScreenSize();
+				//float width = (float)height * ( screenSize.X / screenSize.Y ) * GetControlManager().AspectRatio;
+				//result = new Vec2I( (int)( width + .9999f ), height );
 			}
 
 			if( result.X < 1 )
 				result.X = 1;
 			if( result.Y < 1 )
 				result.Y = 1;
+
+			//fix max texture size
+			if( result.X > RenderSystem.Instance.Capabilities.MaxTextureSize || result.Y > RenderSystem.Instance.Capabilities.MaxTextureSize )
+			{
+				float divideX = (float)result.X / (float)RenderSystem.Instance.Capabilities.MaxTextureSize;
+				float divideY = (float)result.Y / (float)RenderSystem.Instance.Capabilities.MaxTextureSize;
+				float divide = Math.Max( Math.Max( divideX, divideY ), 1 );
+				if( divide != 1 )
+				{
+					result = ( result.ToVec2() / divide ).ToVec2I();
+					if( result.X > RenderSystem.Instance.Capabilities.MaxTextureSize )
+						result.X = RenderSystem.Instance.Capabilities.MaxTextureSize;
+					if( result.Y > RenderSystem.Instance.Capabilities.MaxTextureSize )
+						result.Y = RenderSystem.Instance.Capabilities.MaxTextureSize;
+				}
+			}
+
 			return result;
 		}
 
@@ -590,7 +736,7 @@ namespace Engine.UISystem
 				}
 
 				//create texture
-				if( texture == null || textureSize != size )
+				if( texture == null || textureSize != size || needRecreateTexture )
 				{
 					if( texture != null )
 					{
@@ -601,21 +747,45 @@ namespace Engine.UISystem
 					textureSize = size;
 
 					string textureName = TextureManager.Instance.GetUniqueName( "WebBrowserControl" );
-					texture = TextureManager.Instance.Create( textureName, Texture.Type.Type2D, textureSize,
-						1, 0, PixelFormat.A8R8G8B8, Texture.Usage.DynamicWriteOnlyDiscardable );
-					forceUpdateTexture = true;
+
+					bool mipmaps = false;
+					if( GetControlManager() != null && GetControlManager() is In3dControlManager )
+						mipmaps = inGame3DGuiMipmaps;
+
+					if( mipmaps )
+					{
+						texture = TextureManager.Instance.Create( textureName, Texture.Type.Type2D, textureSize,
+							1, -1, PixelFormat.A8R8G8B8, Texture.Usage.DynamicWriteOnlyDiscardable | Texture.Usage.AutoMipmap );
+					}
+					else
+					{
+						texture = TextureManager.Instance.Create( textureName, Texture.Type.Type2D, textureSize,
+							1, 0, PixelFormat.A8R8G8B8, Texture.Usage.DynamicWriteOnlyDiscardable );
+					}
+
+					needUpdateTexture = true;
+					needRecreateTexture = false;
+				}
+
+				if( needInvalidate )
+				{
+					browserHost.SetZoomLevel( zoom );
+					browserHost.Invalidate( CefPaintElementType.View );
+					//browserHost.Invalidate( new CefRectangle( 0, 0, 100000, 100000 ), CefPaintElementType.View );
+					needInvalidate = false;
 				}
 
 				//update texture
-				if( /*browser.IsDirty ||*/ forceUpdateTexture )
+				if( /*browser.IsDirty ||*/ needUpdateTexture )
 				{
 					if( texture != null )
 						UpdateTexture();
-					forceUpdateTexture = false;
+					needUpdateTexture = false;
 				}
 			}
 
 			//draw texture
+			if( browser != null )
 			{
 				bool backColorZero = BackColor == new ColorValue( 0, 0, 0, 0 );
 
@@ -659,9 +829,15 @@ namespace Engine.UISystem
 				}
 			}
 
-			if( !IsSupportedByThisPlatform() )
+			if( cefRuntimeUnableToLoad )
 			{
-				renderer.AddText( string.Format( "WebBrowserControl: {0} is not supported.", PlatformInfo.Platform ), 
+				renderer.AddTextWordWrap( 
+					string.Format( "WebBrowserControl: Unable to initialize web browser control. Error: {0}", cefRuntimeUnableToLoadError ),
+					GetScreenRectangle(), Renderer.HorizontalAlign.Center, false, Renderer.VerticalAlign.Center, 0, new ColorValue( 1, 0, 0 ) );
+			}
+			else if( !IsSupportedByThisPlatform() )
+			{
+				renderer.AddText( string.Format( "WebBrowserControl: {0} is not supported.", PlatformInfo.Platform ),
 					new Vec2( .5f, .5f ), Renderer.HorizontalAlign.Center, Renderer.VerticalAlign.Center, new ColorValue( 1, 0, 0 ) );
 			}
 		}
@@ -933,8 +1109,16 @@ namespace Engine.UISystem
 			// Remove leading whitespace from the URL
 			string url2 = url.TrimStart();
 
+			if( string.IsNullOrEmpty( url2 ) )
+				url2 = "about:blank";
+
 			if( browser != null )
 				browser.GetMainFrame().LoadUrl( url2 );
+		}
+
+		static string GetURLFromVirtualFileName( string virtualFileName )
+		{
+			return "file:///" + VirtualFileSystem.GetRealPathByVirtual( virtualFileName );
 		}
 
 		public void LoadFileByVirtualFileName( string virtualFileName )
@@ -948,7 +1132,7 @@ namespace Engine.UISystem
 				return;
 			}
 
-			string url = "file:///" + VirtualFileSystem.GetRealPathByVirtual( virtualFileName );
+			string url = GetURLFromVirtualFileName( virtualFileName );
 			LoadURL( url );
 		}
 
@@ -964,6 +1148,9 @@ namespace Engine.UISystem
 		{
 			// Remove leading whitespace from the URL
 			string url2 = url.TrimStart();
+
+			if( string.IsNullOrEmpty( url2 ) )
+				url2 = "about:blank";
 
 			if( browser != null )
 				browser.GetMainFrame().LoadString( content, url2 );
@@ -1071,6 +1258,24 @@ namespace Engine.UISystem
 			if( PlatformInfo.Platform == PlatformInfo.Platforms.MacOSX )
 				return false;
 			return true;
+		}
+
+		[Browsable( false )]
+		public Vec2I ViewSize
+		{
+			get { return viewSize; }
+		}
+
+		[Browsable( false )]
+		public bool CefRuntimeUnableToLoad
+		{
+			get { return cefRuntimeUnableToLoad; }
+		}
+
+		[Browsable( false )]
+		public string CefRuntimeUnableToLoadError
+		{
+			get { return cefRuntimeUnableToLoadError; }
 		}
 	}
 }

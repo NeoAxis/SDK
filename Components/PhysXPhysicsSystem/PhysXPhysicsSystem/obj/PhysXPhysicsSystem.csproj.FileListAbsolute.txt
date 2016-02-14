@@ -1,5 +1,0 @@
-C:\Dev\Game\Bin\PhysXPhysicsSystem.dll
-C:\Dev\Game\Bin\PhysXPhysicsSystem.pdb
-C:\Dev\Engine\Src\Addons\PhysXPhysicsSystem\PhysXPhysicsSystem\obj\Release\ResolveAssemblyReference.cache
-C:\Dev\Engine\Src\Addons\PhysXPhysicsSystem\PhysXPhysicsSystem\obj\Release\PhysXPhysicsSystem.dll
-C:\Dev\Engine\Src\Addons\PhysXPhysicsSystem\PhysXPhysicsSystem\obj\Release\PhysXPhysicsSystem.pdb

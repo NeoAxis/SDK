@@ -55,7 +55,7 @@ namespace Game
 					camera.NearClipDistance = .1f;
 					camera.FarClipDistance = 1000;
 					camera.AspectRatio = 1.3f;
-					camera.Fov = 80;
+					camera.Fov = 75;
 					camera.Position = new Vec3( 3, 1, 2 );
 					camera.FixedUp = Vec3.ZAxis;
 					camera.LookAt( new Vec3( 0, 0, 0 ) );

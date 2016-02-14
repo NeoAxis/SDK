@@ -286,7 +286,7 @@ namespace WinFormsMultiViewAppExample
 			timer1.Start();
 
 			//load map
-			MapLoad( "Maps\\MainMenu\\Map.map" );
+			MapLoad( "Maps\\Village Demo\\Map\\Map.map" );
 
 			if( SplashForm.Instance != null )
 				SplashForm.Instance.AllowClose = true;

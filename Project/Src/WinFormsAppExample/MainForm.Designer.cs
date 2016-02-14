@@ -69,7 +69,7 @@ namespace WinFormsAppExample
 			this.labelEngineVersion.Name = "labelEngineVersion";
 			this.labelEngineVersion.Size = new System.Drawing.Size( 143, 15 );
 			this.labelEngineVersion.TabIndex = 4;
-			this.labelEngineVersion.Text = "2015 NeoAxis Group Ltd.";
+			this.labelEngineVersion.Text = "2016 NeoAxis Group Ltd.";
 			// 
 			// renderTargetUserControl1
 			// 

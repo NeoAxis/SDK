@@ -46,6 +46,7 @@
 #include <string>
 
 #include "PxPhysicsAPI.h"
+#include "PxVehicleUtil.h"
 
 using namespace physx;
 

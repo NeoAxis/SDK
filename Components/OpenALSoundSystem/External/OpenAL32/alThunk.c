@@ -13,8 +13,8 @@
  *
  * You should have received a copy of the GNU Library General Public
  *  License along with this library; if not, write to the
- *  Free Software Foundation, Inc., 59 Temple Place - Suite 330,
- *  Boston, MA  02111-1307, USA.
+ *  Free Software Foundation, Inc.,
+ *  51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  * Or go to http://www.gnu.org/copyleft/lgpl.html
  */
 
@@ -25,87 +25,79 @@
 #include "alMain.h"
 #include "alThunk.h"
 
-typedef struct {
-    ALvoid *ptr;
-    ALboolean InUse;
-} ThunkEntry;
 
-static ThunkEntry *g_ThunkArray;
-static ALuint      g_ThunkArraySize;
+static ATOMIC(ALenum) *ThunkArray;
+static ALuint          ThunkArraySize;
+static RWLock ThunkLock;
 
-static CRITICAL_SECTION g_ThunkLock;
-
-void alThunkInit(void)
+void ThunkInit(void)
 {
-    InitializeCriticalSection(&g_ThunkLock);
-    g_ThunkArraySize = 1;
-    g_ThunkArray = calloc(1, g_ThunkArraySize * sizeof(ThunkEntry));
+    RWLockInit(&ThunkLock);
+    ThunkArraySize = 1;
+    ThunkArray = al_calloc(16, ThunkArraySize * sizeof(*ThunkArray));
 }
 
-void alThunkExit(void)
+void ThunkExit(void)
 {
-    free(g_ThunkArray);
-    g_ThunkArray = NULL;
-    g_ThunkArraySize = 0;
-    DeleteCriticalSection(&g_ThunkLock);
+    al_free(ThunkArray);
+    ThunkArray = NULL;
+    ThunkArraySize = 0;
 }
 
-ALuint alThunkAddEntry(ALvoid *ptr)
+ALenum NewThunkEntry(ALuint *index)
 {
-    ALuint index;
+    void *NewList;
+    ALuint i;
 
-    EnterCriticalSection(&g_ThunkLock);
-
-    for(index = 0;index < g_ThunkArraySize;index++)
+    ReadLock(&ThunkLock);
+    for(i = 0;i < ThunkArraySize;i++)
     {
-        if(g_ThunkArray[index].InUse == AL_FALSE)
-            break;
-    }
-
-    if(index == g_ThunkArraySize)
-    {
-        ThunkEntry *NewList;
-
-        NewList = realloc(g_ThunkArray, g_ThunkArraySize*2 * sizeof(ThunkEntry));
-        if(!NewList)
+        if(ATOMIC_EXCHANGE(ALenum, &ThunkArray[i], AL_TRUE) == AL_FALSE)
         {
-            LeaveCriticalSection(&g_ThunkLock);
-            AL_PRINT("Realloc failed to increase to %u enties!\n", g_ThunkArraySize*2);
-            return 0;
+            ReadUnlock(&ThunkLock);
+            *index = i+1;
+            return AL_NO_ERROR;
         }
-        memset(&NewList[g_ThunkArraySize], 0, g_ThunkArraySize*sizeof(ThunkEntry));
-        g_ThunkArraySize *= 2;
-        g_ThunkArray = NewList;
+    }
+    ReadUnlock(&ThunkLock);
+
+    WriteLock(&ThunkLock);
+    /* Double-check that there's still no free entries, in case another
+     * invocation just came through and increased the size of the array.
+     */
+    for(;i < ThunkArraySize;i++)
+    {
+        if(ATOMIC_EXCHANGE(ALenum, &ThunkArray[i], AL_TRUE) == AL_FALSE)
+        {
+            WriteUnlock(&ThunkLock);
+            *index = i+1;
+            return AL_NO_ERROR;
+        }
     }
 
-    g_ThunkArray[index].ptr = ptr;
-    g_ThunkArray[index].InUse = AL_TRUE;
+    NewList = al_calloc(16, ThunkArraySize*2 * sizeof(*ThunkArray));
+    if(!NewList)
+    {
+        WriteUnlock(&ThunkLock);
+        ERR("Realloc failed to increase to %u entries!\n", ThunkArraySize*2);
+        return AL_OUT_OF_MEMORY;
+    }
+    memcpy(NewList, ThunkArray, ThunkArraySize*sizeof(*ThunkArray));
+    al_free(ThunkArray);
+    ThunkArray = NewList;
+    ThunkArraySize *= 2;
 
-    LeaveCriticalSection(&g_ThunkLock);
+    ATOMIC_STORE(&ThunkArray[i], AL_TRUE);
+    WriteUnlock(&ThunkLock);
 
-    return index+1;
+    *index = i+1;
+    return AL_NO_ERROR;
 }
 
-void alThunkRemoveEntry(ALuint index)
+void FreeThunkEntry(ALuint index)
 {
-    EnterCriticalSection(&g_ThunkLock);
-
-    if(index > 0 && index <= g_ThunkArraySize)
-        g_ThunkArray[index-1].InUse = AL_FALSE;
-
-    LeaveCriticalSection(&g_ThunkLock);
-}
-
-ALvoid *alThunkLookupEntry(ALuint index)
-{
-    ALvoid *ptr = NULL;
-
-    EnterCriticalSection(&g_ThunkLock);
-
-    if(index > 0 && index <= g_ThunkArraySize)
-        ptr = g_ThunkArray[index-1].ptr;
-
-    LeaveCriticalSection(&g_ThunkLock);
-
-    return ptr;
+    ReadLock(&ThunkLock);
+    if(index > 0 && index <= ThunkArraySize)
+        ATOMIC_STORE(&ThunkArray[index-1], AL_FALSE);
+    ReadUnlock(&ThunkLock);
 }

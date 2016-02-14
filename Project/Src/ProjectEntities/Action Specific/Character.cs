@@ -519,16 +519,12 @@ namespace ProjectEntities
 			//update OldRotation
 			if( allowUpdateOldRotation )
 			{
-				//disable updating OldRotation property for TPSArcade demo and for PlatformerDemo
+				//disable updating OldRotation property for PlatformerDemo
 				bool updateOldRotation = true;
 				if( Intellect != null && PlayerIntellect.Instance == Intellect )
 				{
-					if( GameMap.Instance != null && (
-						GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade ||
-						GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo ) )
-					{
+					if( GameMap.Instance != null && GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo )
 						updateOldRotation = false;
-					}
 				}
 				if( updateOldRotation )
 					OldRotation = rot;
@@ -709,33 +705,6 @@ namespace ProjectEntities
 			//use specified force move vector
 			if( forceMoveVectorTimer != 0 )
 				return forceMoveVector;
-
-			//TPS arcade specific
-			//vector is depending on camera orientation
-			if( GameMap.Instance != null && GameMap.Instance.GameType == GameMap.GameTypes.TPSArcade &&
-				PlayerIntellect.Instance == Intellect )
-			{
-				//this is not adapted for networking.
-				//using RendererWorld.Instance.DefaultCamera is bad.
-
-				Vec2 localVector = Vec2.Zero;
-				localVector.X += Intellect.GetControlKeyStrength( GameControlKeys.Forward );
-				localVector.X -= Intellect.GetControlKeyStrength( GameControlKeys.Backward );
-				localVector.Y += Intellect.GetControlKeyStrength( GameControlKeys.Left );
-				localVector.Y -= Intellect.GetControlKeyStrength( GameControlKeys.Right );
-
-				if( localVector != Vec2.Zero )
-				{
-					Vec2 diff = Position.ToVec2() - RendererWorld.Instance.DefaultCamera.Position.ToVec2();
-					Degree angle = new Radian( MathFunctions.ATan( diff.Y, diff.X ) );
-					Degree vecAngle = new Radian( MathFunctions.ATan( -localVector.Y, localVector.X ) );
-					Quat rot = new Angles( 0, 0, vecAngle - angle ).ToQuat();
-					Vec2 vector = ( rot * new Vec3( 1, 0, 0 ) ).ToVec2();
-					return vector;
-				}
-				else
-					return Vec2.Zero;
-			}
 
 			//PlatformerDemo specific
 			if( GameMap.Instance != null && GameMap.Instance.GameType == GameMap.GameTypes.PlatformerDemo &&
@@ -1604,7 +1573,9 @@ namespace ProjectEntities
 					shape.DynamicFriction = 0;
 					shape.Restitution = 0;
 					shape.Hardness = 0;
-					shape.SpecialLiquidDensity = 1500;
+					//!!!!!!
+					shape.SpecialLiquidDensity = 2000;
+					//shape.SpecialLiquidDensity = 1500;
 				}
 
 				//{

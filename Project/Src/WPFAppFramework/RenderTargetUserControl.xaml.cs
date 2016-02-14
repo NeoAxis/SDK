@@ -32,7 +32,7 @@ namespace WPFAppFramework
 		Vec3 cameraPosition;
 		Vec3 cameraFixedUp = Vec3.ZAxis;
 		Vec3 cameraDirection = Vec3.XAxis;
-		Degree cameraFov = 80;
+		Degree cameraFov = 75;
 		ProjectionTypes cameraProjectionType = ProjectionTypes.Perspective;
 		float cameraOrthoWindowHeight = 100;
 

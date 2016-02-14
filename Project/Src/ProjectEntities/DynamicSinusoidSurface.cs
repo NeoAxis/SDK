@@ -26,7 +26,7 @@ namespace ProjectEntities
 	/// </summary>
 	public class DynamicSinusoidSurface : MapObject
 	{
-		const int tesselation = 30;
+		const int tesselation = 60;
 
 		Mesh mesh;
 		MapObjectAttachedMesh attachedMesh;
