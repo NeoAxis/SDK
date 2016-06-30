@@ -18,22 +18,7 @@
     <ClCompile Include="..\..\Alc\alcConfig.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Alc\alcEcho.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcModulator.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcReverb.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Alc\alcRing.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\alcThread.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\OpenAL32\alDatabuffer.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\OpenAL32\alEffect.c">
@@ -66,30 +51,47 @@
     <ClCompile Include="..\..\Alc\bs2b.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Alc\dsound.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\Alc\mixer.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\Alc\null.c">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="..\..\Alc\panning.c">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\Alc\winmm.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClCompile Include="..\..\Alc\backends\base.c" />
+    <ClCompile Include="..\..\Alc\backends\dsound.c" />
+    <ClCompile Include="..\..\Alc\backends\loopback.c" />
+    <ClCompile Include="..\..\Alc\backends\null.c" />
+    <ClCompile Include="..\..\Alc\backends\winmm.c" />
+    <ClCompile Include="..\..\Alc\bsinc.c" />
+    <ClCompile Include="..\..\Alc\effects\autowah.c" />
+    <ClCompile Include="..\..\Alc\effects\chorus.c" />
+    <ClCompile Include="..\..\Alc\effects\compressor.c" />
+    <ClCompile Include="..\..\Alc\effects\dedicated.c" />
+    <ClCompile Include="..\..\Alc\effects\distortion.c" />
+    <ClCompile Include="..\..\Alc\effects\echo.c" />
+    <ClCompile Include="..\..\Alc\effects\equalizer.c" />
+    <ClCompile Include="..\..\Alc\effects\flanger.c" />
+    <ClCompile Include="..\..\Alc\effects\modulator.c" />
+    <ClCompile Include="..\..\Alc\effects\null.c" />
+    <ClCompile Include="..\..\Alc\effects\reverb.c" />
+    <ClCompile Include="..\..\Alc\helpers.c" />
+    <ClCompile Include="..\..\Alc\hrtf.c" />
+    <ClCompile Include="..\..\Alc\mixer_c.c" />
+    <ClCompile Include="..\..\Alc\mixer_sse.c" />
+    <ClCompile Include="..\..\Alc\mixer_sse2.c" />
+    <ClCompile Include="..\..\Alc\mixer_sse3.c" />
+    <ClCompile Include="..\..\Alc\mixer_sse41.c" />
+    <ClCompile Include="..\..\common\atomic.c" />
+    <ClCompile Include="..\..\common\rwlock.c" />
+    <ClCompile Include="..\..\common\threads.c" />
+    <ClCompile Include="..\..\common\uintmap.c" />
+    <ClCompile Include="..\..\OpenAL32\sample_cvt.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\OpenAL32\Include\alAuxEffectSlot.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alBuffer.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\OpenAL32\Include\alDatabuffer.h">
       <Filter>Source Files</Filter>
     </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alEffect.h">
@@ -110,9 +112,6 @@
     <ClInclude Include="..\..\OpenAL32\Include\alSource.h">
       <Filter>Source Files</Filter>
     </ClInclude>
-    <ClInclude Include="..\..\OpenAL32\Include\alState.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
     <ClInclude Include="..\..\OpenAL32\Include\alThunk.h">
       <Filter>Source Files</Filter>
     </ClInclude>
@@ -122,5 +121,26 @@
     <ClInclude Include="..\..\OpenAL32\Include\bs2b.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\Alc\alstring.h" />
+    <ClInclude Include="..\..\Alc\backends\base.h" />
+    <ClInclude Include="..\..\Alc\compat.h" />
+    <ClInclude Include="..\..\Alc\hrtf.h" />
+    <ClInclude Include="..\..\Alc\mixer_defs.h" />
+    <ClInclude Include="..\..\Alc\vector.h" />
+    <ClInclude Include="..\..\include\align.h" />
+    <ClInclude Include="..\..\include\AL\al.h" />
+    <ClInclude Include="..\..\include\AL\alc.h" />
+    <ClInclude Include="..\..\include\AL\alext.h" />
+    <ClInclude Include="..\..\include\AL\efx-creative.h" />
+    <ClInclude Include="..\..\include\AL\efx-presets.h" />
+    <ClInclude Include="..\..\include\AL\efx.h" />
+    <ClInclude Include="..\..\include\atomic.h" />
+    <ClInclude Include="..\..\include\bool.h" />
+    <ClInclude Include="..\..\include\math_defs.h" />
+    <ClInclude Include="..\..\include\rwlock.h" />
+    <ClInclude Include="..\..\include\static_assert.h" />
+    <ClInclude Include="..\..\include\threads.h" />
+    <ClInclude Include="..\..\include\uintmap.h" />
+    <ClInclude Include="..\..\OpenAL32\Include\sample_cvt.h" />
   </ItemGroup>
 </Project>

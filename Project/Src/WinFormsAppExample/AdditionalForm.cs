@@ -13,7 +13,7 @@ using WinFormsAppFramework;
 
 namespace WinFormsAppExample
 {
-	public partial class AdditionalForm : Form
+	public partial class AdditionalForm : EditorBase.Theme.EditorForm
 	{
 		public AdditionalForm()
 		{

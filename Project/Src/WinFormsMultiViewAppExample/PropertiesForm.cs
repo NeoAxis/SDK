@@ -15,7 +15,7 @@ using Engine.Utils;
 
 namespace WinFormsMultiViewAppExample
 {
-	public partial class PropertiesForm : DockContent
+	public partial class PropertiesForm : EditorBase.Theme.EditorDockContent
 	{
 		public PropertiesForm()
 		{

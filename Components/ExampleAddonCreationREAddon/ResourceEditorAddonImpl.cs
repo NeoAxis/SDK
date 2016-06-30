@@ -201,7 +201,7 @@ namespace ExampleAddonCreationREAddon
 
 			dockingForm = new AddonDockingForm();
 			dockingForm.Show( ApplicationData.DockPanel, DockState.Float );
-		}
+        }
 
 		void RemoveDockingWindow()
 		{

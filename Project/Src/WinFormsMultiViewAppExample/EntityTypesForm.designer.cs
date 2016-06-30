@@ -30,7 +30,7 @@ namespace WinFormsMultiViewAppExample
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( EntityTypesForm ) );
-			this.treeView = new System.Windows.Forms.TreeView();
+			this.treeView = new EditorBase.Theme.EditorTreeView();
 			this.imageList1 = new System.Windows.Forms.ImageList( this.components );
 			this.SuspendLayout();
 			// 
@@ -76,7 +76,7 @@ namespace WinFormsMultiViewAppExample
 
 		#endregion
 
-		private System.Windows.Forms.TreeView treeView;
+		private EditorBase.Theme.EditorTreeView treeView;
 		private System.Windows.Forms.ImageList imageList1;
 
 

@@ -741,4 +741,21 @@ typedef ALfloat ALfloatBUFFERSIZE[BUFFERSIZE];
 }
 #endif
 
+//!!!!!betauser
+#ifdef _WIN32
+#ifndef strcasecmp
+#define strcasecmp _stricmp
+#endif
+#ifndef strncasecmp
+#define strncasecmp _strnicmp
+#endif
+#ifndef snprintf
+#define snprintf _snprintf
+#endif
+#ifndef isnan
+#define isnan = _isnan
+#endif
+#endif
+
+
 #endif

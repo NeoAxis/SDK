@@ -117,16 +117,16 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label11.Text" xml:space="preserve">
-    <value>The ability to access the depth buffer is required for effects such as Screen Space Ambient Occlusion, Depth Of Field, Light Scattering, Soft Particles.
-
-Depth buffer access feature and full-screen hardware antialiasing can't be used at the same time. An alternative solution is using full-screen antialiasing based on shaders (FXAA), when depth buffer access is enabled.</value>
-  </data>
   <data name="label16.Text" xml:space="preserve">
     <value>Game application (Game.exe) is a demo of NeoAxis 3D Engine and the skeleton of your project at the same time. The application is a framework for the development of a project that includes menu system, managing of loading maps, demonstration of various project types, example maps and more.</value>
   </data>
   <data name="label15.Text" xml:space="preserve">
     <value>Resource Editor is a tool you will use to manage the resources of your project. The tool is intended to configure 3D models, materials, textures, physics models, game objects, graphic user interfaces and more.</value>
+  </data>
+  <data name="label11.Text" xml:space="preserve">
+    <value>The ability to access the depth buffer is required for effects such as Screen Space Ambient Occlusion, Depth Of Field, Light Scattering, Soft Particles.
+
+Depth buffer access feature and full-screen hardware antialiasing can't be used at the same time. An alternative solution is using full-screen antialiasing based on shaders (FXAA), when depth buffer access is enabled.</value>
   </data>
   <data name="label26.Text" xml:space="preserve">
     <value>Shader Cache Compiler is a tool designed to optimize the loading time of the engine. The tool precompiles GPU shader programs. The best time to run this application is when loading your project starts to become too long.</value>

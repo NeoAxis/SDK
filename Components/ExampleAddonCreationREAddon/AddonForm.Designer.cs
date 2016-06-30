@@ -28,15 +28,15 @@
 		/// </summary>
 		private void InitializeComponent()
 		{
-			this.buttonOK = new System.Windows.Forms.Button();
-			this.checkBoxAddItemToMainMenu = new System.Windows.Forms.CheckBox();
-			this.checkBoxAddButtonToToolbar = new System.Windows.Forms.CheckBox();
-			this.checkBoxDrawTextOnScreen = new System.Windows.Forms.CheckBox();
-			this.checkBoxAddItemToContextMenuOfResourcesTree = new System.Windows.Forms.CheckBox();
-			this.checkBoxOverrideCameraSettings = new System.Windows.Forms.CheckBox();
-			this.checkBoxAddPageToOptions = new System.Windows.Forms.CheckBox();
-			this.buttonCancel = new System.Windows.Forms.Button();
-			this.checkBoxAddDockingWindow = new System.Windows.Forms.CheckBox();
+			this.buttonOK = new EditorBase.Theme.EditorButton();
+			this.checkBoxAddItemToMainMenu = new EditorBase.Theme.EditorCheckBox();
+			this.checkBoxAddButtonToToolbar = new EditorBase.Theme.EditorCheckBox();
+			this.checkBoxDrawTextOnScreen = new EditorBase.Theme.EditorCheckBox();
+			this.checkBoxAddItemToContextMenuOfResourcesTree = new EditorBase.Theme.EditorCheckBox();
+			this.checkBoxOverrideCameraSettings = new EditorBase.Theme.EditorCheckBox();
+			this.checkBoxAddPageToOptions = new EditorBase.Theme.EditorCheckBox();
+			this.buttonCancel = new EditorBase.Theme.EditorButton();
+			this.checkBoxAddDockingWindow = new EditorBase.Theme.EditorCheckBox();
 			this.SuspendLayout();
 			// 
 			// buttonOK
@@ -166,15 +166,15 @@
 
 		#endregion
 
-		private System.Windows.Forms.Button buttonOK;
-		private System.Windows.Forms.CheckBox checkBoxAddItemToMainMenu;
-		private System.Windows.Forms.CheckBox checkBoxAddButtonToToolbar;
-		private System.Windows.Forms.CheckBox checkBoxDrawTextOnScreen;
-		private System.Windows.Forms.CheckBox checkBoxAddItemToContextMenuOfResourcesTree;
-		private System.Windows.Forms.CheckBox checkBoxOverrideCameraSettings;
-		private System.Windows.Forms.CheckBox checkBoxAddPageToOptions;
-		private System.Windows.Forms.Button buttonCancel;
-		private System.Windows.Forms.CheckBox checkBoxAddDockingWindow;
+		private EditorBase.Theme.EditorButton buttonOK;
+		private EditorBase.Theme.EditorCheckBox checkBoxAddItemToMainMenu;
+		private EditorBase.Theme.EditorCheckBox checkBoxAddButtonToToolbar;
+		private EditorBase.Theme.EditorCheckBox checkBoxDrawTextOnScreen;
+		private EditorBase.Theme.EditorCheckBox checkBoxAddItemToContextMenuOfResourcesTree;
+		private EditorBase.Theme.EditorCheckBox checkBoxOverrideCameraSettings;
+		private EditorBase.Theme.EditorCheckBox checkBoxAddPageToOptions;
+		private EditorBase.Theme.EditorButton buttonCancel;
+		private EditorBase.Theme.EditorCheckBox checkBoxAddDockingWindow;
 
 	}
 }

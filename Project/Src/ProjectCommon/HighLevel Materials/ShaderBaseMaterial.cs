@@ -2078,6 +2078,10 @@ namespace ProjectCommon
 			//Light
 			parameters.SetNamedAutoConstant( "ambientLightColor",
 				GpuProgramParameters.AutoConstantType.AmbientLightColor );
+			parameters.SetNamedAutoConstant( "ambientLightColor2",
+				GpuProgramParameters.AutoConstantType.AmbientLightColor2 );
+			parameters.SetNamedAutoConstant( "ambientLightColor3",
+				GpuProgramParameters.AutoConstantType.AmbientLightColor3 );
 
 			if( lightCount != 0 )
 			{
@@ -2185,6 +2189,8 @@ namespace ProjectCommon
 				GpuProgramParameters.AutoConstantType.ShadowSpotLightBias );
 			parameters.SetNamedAutoConstant( "shadowPointLightBias",
 				GpuProgramParameters.AutoConstantType.ShadowPointLightBias );
+			parameters.SetNamedAutoConstant( "cameraPosition",
+				GpuProgramParameters.AutoConstantType.CameraPosition );
 
 			parameters.SetNamedAutoConstant( "alphaRejectValue",
 				GpuProgramParameters.AutoConstantType.AlphaRejectValue );
@@ -2952,14 +2958,6 @@ namespace ProjectCommon
 								if( !string.IsNullOrEmpty( normalMap.Texture ) )
 								{
 									generalArguments.Append( " -DNORMAL_MAP" );
-
-									if( ambientPass )
-									{
-										generalArguments.AppendFormat(
-											" -DAMBIENT_LIGHT_DIRECTION_TEXCOORD=TEXCOORD{0}",
-											generalTexCoordCount );
-										generalTexCoordCount++;
-									}
 
 									generalArguments.AppendFormat( " -DNORMAL_MAP_REGISTER=s{0}",
 										generalSamplerCount );

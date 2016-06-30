@@ -38,7 +38,7 @@ namespace Game
 
 			//load the HUD screen
 			hudControl = ControlDeclarationManager.Instance.CreateControl(
-				"Maps\\Ball Game\\Gui\\BallGameHUD.gui" );
+				"Maps\\Demos\\Ball Game\\Gui\\BallGameHUD.gui" );
 			//attach the HUD screen to the this window
 			Controls.Add( hudControl );
 

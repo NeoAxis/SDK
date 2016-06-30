@@ -142,8 +142,8 @@ namespace ProjectEntities
 		{
 			base.OnTick();
 
-			remainingTime -= TickDelta;
-			if( remainingTime <= 0 )
+			RemainingTime -= TickDelta;
+			if( RemainingTime <= 0 )
 			{
 				//deletion of object can do only on server
 				SetForDeletion( true );

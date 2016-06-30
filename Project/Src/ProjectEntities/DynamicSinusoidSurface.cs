@@ -58,26 +58,23 @@ namespace ProjectEntities
 				CreateMesh();
 				AttachMeshToEntity();
 				needUpdateGeometry = true;
-			}
 
-			SceneManager.Instance.FogAndShadowSettingsChanged += SceneManager_FogAndShadowSettingsChanged;
+				//update geometry
+				if( attachedMesh != null && needUpdateGeometry && !RenderSystem.Instance.IsDeviceLost() )
+				{
+					float time = Entities.Instance.TickTime;
+					UpdateGeometry( time );
+					needUpdateGeometry = false;
+				}
+			}
 		}
 
 		protected override void OnDestroy()
 		{
-			SceneManager.Instance.FogAndShadowSettingsChanged -= SceneManager_FogAndShadowSettingsChanged;
-
 			DetachMeshFromEntity();
 			DestroyMesh();
 
 			base.OnDestroy();
-		}
-
-		void SceneManager_FogAndShadowSettingsChanged( bool fogModeChanged, bool shadowTechniqueChanged )
-		{
-			//fix for stencil shadows
-			if( shadowTechniqueChanged )
-				needRecreateMesh = true;
 		}
 
 		void CreateMesh()
@@ -298,6 +295,18 @@ namespace ProjectEntities
 
 			////calculate mesh tangent vectors
 			//mesh.BuildTangentVectors( VertexElementSemantic.Tangent, 0, 0, true );
+		}
+
+		public override bool Editor_CheckSelectionByRay( Ray ray, out float rayScale, ref float priority )
+		{
+			return MapBounds.RayIntersection( ray, out rayScale );
+		}
+
+		public override void Editor_RenderSelectionBorder( Camera camera, bool simpleGeometry, DynamicMeshManager manager, 
+			DynamicMeshManager.MaterialData material )
+		{
+			//draw simple geometry (box)
+			base.Editor_RenderSelectionBorder( camera, true, manager, material );
 		}
 
 	}

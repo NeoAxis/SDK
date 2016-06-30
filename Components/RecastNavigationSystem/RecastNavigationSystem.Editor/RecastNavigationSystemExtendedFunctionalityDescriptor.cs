@@ -31,7 +31,7 @@ namespace Engine.Editor
 			int posY = 8;
 
 			//Geometries toolbox button
-			button = new Button();
+			button = new EditorBase.Theme.EditorButton();
 			parentControl.Controls.Add( button );
 			button.Location = new System.Drawing.Point( 8, posY );
 			button.Size = new System.Drawing.Size( 140, 32 );
@@ -40,7 +40,7 @@ namespace Engine.Editor
 			button.Click += new EventHandler( geometriesButton_Click );
 
 			//Build toolbox button
-			button = new Button();
+			button = new EditorBase.Theme.EditorButton();
 			parentControl.Controls.Add( button );
 			button.Location = new System.Drawing.Point( 140 + 8 * 2, posY );
 			button.Size = new System.Drawing.Size( 140, 32 );
@@ -51,7 +51,7 @@ namespace Engine.Editor
 			posY += 36;
 
 			//Destroy toolbox button
-			button = new Button();
+			button = new EditorBase.Theme.EditorButton();
 			buttonClear = button;
 			parentControl.Controls.Add( button );
 			button.Location = new System.Drawing.Point( 8, posY );
@@ -61,7 +61,7 @@ namespace Engine.Editor
 			button.Click += new EventHandler( clearButton_Click );
 
 			//Test NavMesh toolbox button
-			button = new Button();
+			button = new EditorBase.Theme.EditorButton();
 			buttonTest = button;
 			parentControl.Controls.Add( button );
 			button.Location = new System.Drawing.Point( 140 + 8 * 2, posY );

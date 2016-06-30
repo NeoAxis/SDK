@@ -20,10 +20,10 @@ using ProjectEntities;
 
 namespace DedicatedServer
 {
-	public partial class MainForm : Form
+	public partial class MainForm : EditorBase.Theme.EditorForm
 	{
 		[Config( "DedicatedServer", "lastMapName" )]
-		static string lastMapName = "Maps\\Village Demo\\Map\\Map.map";
+		static string lastMapName = "Maps\\Demos\\Village Demo\\Map\\Map.map";
 
 		[Config( "DedicatedServer", "loadMapAtStartup" )]
 		static bool loadMapAtStartup;

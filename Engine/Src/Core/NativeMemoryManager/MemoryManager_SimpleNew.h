@@ -11,6 +11,11 @@
 	#define MEMORYMANAGER_NEWDELETE_INLINE inline __attribute__((always_inline))
 #endif
 
+#ifdef _WIN32
+#pragma warning( push )
+#pragma warning( disable : 4595)
+#endif
+
 MEMORYMANAGER_NEWDELETE_INLINE void* NATIVEMEMORYMANAGER_CALLING_CONVENTION operator new(size_t nSize)
 {
 	return Memory_Alloc( _DefinedMemoryAllocationType, (int)nSize, NULL, 0 );
@@ -30,5 +35,9 @@ MEMORYMANAGER_NEWDELETE_INLINE void NATIVEMEMORYMANAGER_CALLING_CONVENTION opera
 {
 	Memory_Free( p );
 }
+
+#ifdef _WIN32
+#pragma warning( pop ) 
+#endif
 
 #endif //NATIVE_MEMORY_MANAGER_ENABLE

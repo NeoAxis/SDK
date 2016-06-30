@@ -29,23 +29,23 @@ namespace WinFormsAppExample
 		private void InitializeComponent()
 		{
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-			this.buttonExit = new System.Windows.Forms.Button();
+			this.buttonExit = new EditorBase.Theme.EditorButton();
 			this.labelEngineVersion = new System.Windows.Forms.Label();
 			this.renderTargetUserControl1 = new WinFormsAppFramework.RenderTargetUserControl();
-			this.buttonAdditionalForm = new System.Windows.Forms.Button();
-			this.buttonCreateBox = new System.Windows.Forms.Button();
-			this.trackBarVolume = new System.Windows.Forms.TrackBar();
+			this.buttonAdditionalForm = new EditorBase.Theme.EditorButton();
+			this.buttonCreateBox = new EditorBase.Theme.EditorButton();
+			this.trackBarVolume = new EditorBase.Theme.EditorTrackBar();
 			this.label1 = new System.Windows.Forms.Label();
-			this.buttonShowUI = new System.Windows.Forms.Button();
-			this.buttonConnect = new System.Windows.Forms.Button();
-			this.comboBoxMaps = new System.Windows.Forms.ComboBox();
+			this.buttonShowUI = new EditorBase.Theme.EditorButton();
+			this.buttonConnect = new EditorBase.Theme.EditorButton();
+			this.comboBoxMaps = new EditorBase.Theme.EditorComboBox();
 			this.label3 = new System.Windows.Forms.Label();
-			this.buttonLoadMap = new System.Windows.Forms.Button();
-			this.buttonDestroy = new System.Windows.Forms.Button();
+			this.buttonLoadMap = new EditorBase.Theme.EditorButton();
+			this.buttonDestroy = new EditorBase.Theme.EditorButton();
 			this.labelNetworkStatus = new System.Windows.Forms.Label();
 			this.label2 = new System.Windows.Forms.Label();
-			this.textBoxServerAddress = new System.Windows.Forms.TextBox();
-			this.textBoxUserName = new System.Windows.Forms.TextBox();
+			this.textBoxServerAddress = new EditorBase.Theme.EditorTextBox();
+			this.textBoxUserName = new EditorBase.Theme.EditorTextBox();
 			( (System.ComponentModel.ISupportInitialize)( this.trackBarVolume ) ).BeginInit();
 			this.SuspendLayout();
 			// 
@@ -259,23 +259,23 @@ namespace WinFormsAppExample
 
 		#endregion
 
-		private System.Windows.Forms.Button buttonExit;
+		private EditorBase.Theme.EditorButton buttonExit;
 		private System.Windows.Forms.Label labelEngineVersion;
 		private WinFormsAppFramework.RenderTargetUserControl renderTargetUserControl1;
-		private System.Windows.Forms.Button buttonAdditionalForm;
-		private System.Windows.Forms.Button buttonCreateBox;
-		private System.Windows.Forms.TrackBar trackBarVolume;
+		private EditorBase.Theme.EditorButton buttonAdditionalForm;
+		private EditorBase.Theme.EditorButton buttonCreateBox;
+		private EditorBase.Theme.EditorTrackBar trackBarVolume;
 		private System.Windows.Forms.Label label1;
-		private System.Windows.Forms.Button buttonShowUI;
-		private System.Windows.Forms.Button buttonConnect;
-		private System.Windows.Forms.ComboBox comboBoxMaps;
+		private EditorBase.Theme.EditorButton buttonShowUI;
+		private EditorBase.Theme.EditorButton buttonConnect;
+		private EditorBase.Theme.EditorComboBox comboBoxMaps;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Button buttonLoadMap;
-		private System.Windows.Forms.Button buttonDestroy;
+		private EditorBase.Theme.EditorButton buttonLoadMap;
+		private EditorBase.Theme.EditorButton buttonDestroy;
 		private System.Windows.Forms.Label labelNetworkStatus;
 		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.TextBox textBoxServerAddress;
-		private System.Windows.Forms.TextBox textBoxUserName;
+		private EditorBase.Theme.EditorTextBox textBoxServerAddress;
+		private EditorBase.Theme.EditorTextBox textBoxUserName;
 
 	}
 }

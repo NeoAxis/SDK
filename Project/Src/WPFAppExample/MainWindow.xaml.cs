@@ -84,7 +84,7 @@ namespace WPFAppExample
 			renderTargetUserControl1.Render += renderTargetUserControl1_Render;
 			renderTargetUserControl1.RenderUI += renderTargetUserControl1_RenderUI;
 
-			const string startMapName = "Maps\\Village Demo\\Map\\Map.map";
+			const string startMapName = "Maps\\Demos\\Village Demo\\Map\\Map.map";
 
 			//generate map list
 			{

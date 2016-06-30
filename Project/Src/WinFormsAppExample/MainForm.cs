@@ -20,7 +20,7 @@ using ProjectCommon;
 
 namespace WinFormsAppExample
 {
-	public partial class MainForm : Form
+	public partial class MainForm : EditorBase.Theme.EditorForm
 	{
 		bool freeCameraEnabled = true;
 		Vec3 freeCameraPosition;
@@ -57,7 +57,7 @@ namespace WinFormsAppExample
 			renderTargetUserControl1.Render += renderTargetUserControl1_Render;
 			renderTargetUserControl1.RenderUI += renderTargetUserControl1_RenderUI;
 
-			const string startMapName = "Maps\\Village Demo\\Map\\Map.map";
+			const string startMapName = "Maps\\Demos\\Village Demo\\Map\\Map.map";
 
 			//generate map list
 			{

@@ -38,7 +38,7 @@ namespace ExampleAddonCreationREAddon
 
 		[Category( "General" )]
 		[DefaultValue( .05f )]
-		[DisplayName( "Ñamera Waving Amplitude" )]
+		[DisplayName( "Camera Waving Amplitude" )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( 0, .3f )]
 		public float ÑameraWavingAmplitude
@@ -49,7 +49,7 @@ namespace ExampleAddonCreationREAddon
 
 		[Category( "General" )]
 		[DefaultValue( 1.0f )]
-		[DisplayName( "Ñamera Waving Speed" )]
+		[DisplayName( "Camera Waving Speed" )]
 		[Editor( typeof( SingleValueEditor ), typeof( UITypeEditor ) )]
 		[EditorLimitsRange( .1f, 10.0f )]
 		public float CameraWavingSpeed

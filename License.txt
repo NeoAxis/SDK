@@ -1,4 +1,4 @@
-NeoAxis 3D Engine 3.4 Free SDK License Agreement
+NeoAxis 3D Engine 3.5 Free SDK License Agreement
 ==================
 
 Copyright (C) 2016 NeoAxis Group Ltd. All rights reserved.

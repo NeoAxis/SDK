@@ -30,22 +30,22 @@ namespace DedicatedServer
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( MainForm ) );
-			this.buttonClose = new System.Windows.Forms.Button();
-			this.buttonCreate = new System.Windows.Forms.Button();
-			this.buttonDestroy = new System.Windows.Forms.Button();
+			this.buttonClose = new EditorBase.Theme.EditorButton();
+			this.buttonCreate = new EditorBase.Theme.EditorButton();
+			this.buttonDestroy = new EditorBase.Theme.EditorButton();
 			this.splitContainer1 = new System.Windows.Forms.SplitContainer();
 			this.listBoxLog = new System.Windows.Forms.ListBox();
 			this.listBoxUsers = new System.Windows.Forms.ListBox();
 			this.timer1 = new System.Windows.Forms.Timer( this.components );
-			this.comboBoxMaps = new System.Windows.Forms.ComboBox();
-			this.buttonDoSomething = new System.Windows.Forms.Button();
-			this.checkBoxLoadMapAtStartup = new System.Windows.Forms.CheckBox();
-			this.buttonMapLoad = new System.Windows.Forms.Button();
-			this.buttonMapUnload = new System.Windows.Forms.Button();
+			this.comboBoxMaps = new EditorBase.Theme.EditorComboBox();
+			this.buttonDoSomething = new EditorBase.Theme.EditorButton();
+			this.checkBoxLoadMapAtStartup = new EditorBase.Theme.EditorCheckBox();
+			this.buttonMapLoad = new EditorBase.Theme.EditorButton();
+			this.buttonMapUnload = new EditorBase.Theme.EditorButton();
 			this.label2 = new System.Windows.Forms.Label();
 			this.label3 = new System.Windows.Forms.Label();
-			this.buttonMapChange = new System.Windows.Forms.Button();
-			this.checkBoxAllowCustomClientCommands = new System.Windows.Forms.CheckBox();
+			this.buttonMapChange = new EditorBase.Theme.EditorButton();
+			this.checkBoxAllowCustomClientCommands = new EditorBase.Theme.EditorCheckBox();
 			this.splitContainer1.Panel1.SuspendLayout();
 			this.splitContainer1.Panel2.SuspendLayout();
 			this.splitContainer1.SuspendLayout();
@@ -262,22 +262,22 @@ namespace DedicatedServer
 
 		#endregion
 
-		private System.Windows.Forms.Button buttonClose;
-		private System.Windows.Forms.Button buttonCreate;
-		private System.Windows.Forms.Button buttonDestroy;
+		private EditorBase.Theme.EditorButton buttonClose;
+		private EditorBase.Theme.EditorButton buttonCreate;
+		private EditorBase.Theme.EditorButton buttonDestroy;
 		private System.Windows.Forms.SplitContainer splitContainer1;
 		private System.Windows.Forms.ListBox listBoxLog;
 		private System.Windows.Forms.ListBox listBoxUsers;
 		private System.Windows.Forms.Timer timer1;
-		private System.Windows.Forms.ComboBox comboBoxMaps;
-		private System.Windows.Forms.Button buttonDoSomething;
-		private System.Windows.Forms.CheckBox checkBoxLoadMapAtStartup;
-		private System.Windows.Forms.Button buttonMapLoad;
-		private System.Windows.Forms.Button buttonMapUnload;
+		private EditorBase.Theme.EditorComboBox comboBoxMaps;
+		private EditorBase.Theme.EditorButton buttonDoSomething;
+		private EditorBase.Theme.EditorCheckBox checkBoxLoadMapAtStartup;
+		private EditorBase.Theme.EditorButton buttonMapLoad;
+		private EditorBase.Theme.EditorButton buttonMapUnload;
 		private System.Windows.Forms.Label label2;
 		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.Button buttonMapChange;
-		private System.Windows.Forms.CheckBox checkBoxAllowCustomClientCommands;
+		private EditorBase.Theme.EditorButton buttonMapChange;
+		private EditorBase.Theme.EditorCheckBox checkBoxAllowCustomClientCommands;
 	}
 }
 

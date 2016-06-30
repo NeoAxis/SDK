@@ -558,7 +558,7 @@ namespace ProjectEntities
 				for( int n = 0; n < vertices.Length; n++ )
 					positions[ n ] = vertices[ n ].position;
 				string meshPhysicsMeshName = PhysicsWorld.Instance.AddCustomMeshGeometry( positions, indices, null,
-					MeshShape.MeshTypes.TriangleMesh, 0, 0 );
+					MeshShape.MeshTypes.TriangleMesh, 0, 0, false );
 
 				collisionBody = PhysicsWorld.Instance.CreateBody();
 				collisionBody.Static = true;

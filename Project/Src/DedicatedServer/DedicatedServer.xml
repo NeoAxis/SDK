@@ -21,6 +21,11 @@
             the contents of this method with the code editor.
             </summary>
         </member>
+        <member name="M:DedicatedServer.Program.Main">
+            <summary>
+            The main entry point for the application.
+            </summary>
+        </member>
         <member name="T:DedicatedServer.Properties.Resources">
             <summary>
               A strongly-typed resource class, for looking up localized strings, etc.
@@ -35,11 +40,6 @@
             <summary>
               Overrides the current thread's CurrentUICulture property for all
               resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="M:DedicatedServer.Program.Main">
-            <summary>
-            The main entry point for the application.
             </summary>
         </member>
     </members>

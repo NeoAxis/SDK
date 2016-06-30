@@ -12,10 +12,11 @@ using Engine;
 using Engine.EntitySystem;
 using Engine.MapSystem;
 using Engine.Utils;
+using WeifenLuo.WinFormsUI.Docking;
 
 namespace WinFormsMultiViewAppExample
 {
-	public partial class EntityTypesForm : WeifenLuo.WinFormsUI.Docking.DockContent
+	public partial class EntityTypesForm : EditorBase.Theme.EditorDockContent
 	{
 		public delegate void TypeChangeDelegate( EntityType entityType );
 		public event TypeChangeDelegate TypeChange;

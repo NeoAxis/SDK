@@ -30,14 +30,14 @@ namespace WinFormsMultiViewAppExample
 		{
 			this.components = new System.ComponentModel.Container();
 			System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager( typeof( OptionsDialog ) );
-			this.treeView = new System.Windows.Forms.TreeView();
+			this.treeView = new EditorBase.Theme.EditorTreeView();
 			this.imageList = new System.Windows.Forms.ImageList( this.components );
 			this.propertyGrid = new System.Windows.Forms.PropertyGrid();
 			this.contextMenuStripPropertyGrid = new System.Windows.Forms.ContextMenuStrip( this.components );
 			this.resetToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.groupBox1 = new System.Windows.Forms.GroupBox();
-			this.buttonCancel = new System.Windows.Forms.Button();
-			this.buttonOK = new System.Windows.Forms.Button();
+			this.buttonCancel = new EditorBase.Theme.EditorButton();
+			this.buttonOK = new EditorBase.Theme.EditorButton();
 			this.contextMenuStripPropertyGrid.SuspendLayout();
 			this.SuspendLayout();
 			// 
@@ -149,11 +149,11 @@ namespace WinFormsMultiViewAppExample
 
 		#endregion
 
-		private System.Windows.Forms.TreeView treeView;
+		private EditorBase.Theme.EditorTreeView treeView;
 		private System.Windows.Forms.PropertyGrid propertyGrid;
 		private System.Windows.Forms.GroupBox groupBox1;
-		private System.Windows.Forms.Button buttonCancel;
-		private System.Windows.Forms.Button buttonOK;
+		private EditorBase.Theme.EditorButton buttonCancel;
+		private EditorBase.Theme.EditorButton buttonOK;
 		private System.Windows.Forms.ImageList imageList;
 		private System.Windows.Forms.ContextMenuStrip contextMenuStripPropertyGrid;
 		private System.Windows.Forms.ToolStripMenuItem resetToolStripMenuItem;

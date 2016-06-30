@@ -302,6 +302,25 @@ namespace Game
 					checkBox.CheckedChange += checkBoxVerticalSync_CheckedChange;
 				}
 
+				{
+					int levels = RendererWorld.InitializationOptions.TextureSkipMipLevels;
+					//get value from Engine.config.
+					if( rendererBlock != null && rendererBlock.IsAttributeExist( "textureSkipMipLevels" ) )
+						levels = int.Parse( rendererBlock.GetAttribute( "textureSkipMipLevels" ) );
+
+					comboBox = (ComboBox)pageVideo.Controls[ "TextureSkipMipLevels" ];
+					for( int n = 0; n <= 7; n++ )
+					{
+						comboBox.Items.Add( n );
+						if( levels == n )
+							comboBox.SelectedIndex = comboBox.Items.Count - 1;
+					}
+					if( comboBox.SelectedIndex < 0 )
+						comboBox.SelectedIndex = 0;
+
+					comboBox.SelectedIndexChange += comboBoxTextureSkipMipLevels_SelectedIndexChange;
+				}
+
 				//VideoRestart
 				{
 					Button button = (Button)pageVideo.Controls[ "VideoRestart" ];
@@ -976,6 +995,27 @@ namespace Game
 			SaveEngineConfig( engineConfigBlock );
 
 			EnableVideoRestartButton();
+		}
+
+		void comboBoxTextureSkipMipLevels_SelectedIndexChange( ComboBox sender )
+		{
+			int levels = sender.SelectedIndex;
+			if( sender.SelectedIndex < 0 )
+				levels = 0;
+
+			//update Engine.config
+			TextBlock engineConfigBlock = LoadEngineConfig();
+			if( engineConfigBlock == null )
+				engineConfigBlock = new TextBlock();
+			TextBlock rendererBlock = engineConfigBlock.FindChild( "Renderer" );
+			if( rendererBlock == null )
+				rendererBlock = engineConfigBlock.AddChild( "Renderer" );
+			rendererBlock.SetAttribute( "textureSkipMipLevels", levels.ToString() );
+			SaveEngineConfig( engineConfigBlock );
+
+			EnableVideoRestartButton();
+
+			RendererWorld.InitializationOptions.TextureSkipMipLevels = levels;
 		}
 
 		void EnableVideoRestartButton()

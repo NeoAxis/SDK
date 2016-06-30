@@ -4,19 +4,14 @@
         <name>Game</name>
     </assembly>
     <members>
-        <member name="T:Game.TurretDemoGameWindow">
+        <member name="T:Game.AboutWindow">
             <summary>
-            Defines a game window for TurretDemo.
+            Defines a about us window.
             </summary>
         </member>
         <member name="T:Game.ActionGameWindow">
             <summary>
             Defines a game window for FPS and TPS games.
-            </summary>
-        </member>
-        <member name="T:Game.GameWindow">
-            <summary>
-            Defines a base window of game.
             </summary>
         </member>
         <member name="M:Game.ActionGameWindow.UpdateCurrentPlayerUseObjects">
@@ -71,24 +66,14 @@
             Defines a game window for ball game demo
             </summary>
         </member>
-        <member name="T:Game.AboutWindow">
+        <member name="T:Game.PathfindingDemoGameWindow">
             <summary>
-            Defines a about us window.
+            Defines a game window for PathfindingDemo.
             </summary>
         </member>
-        <member name="T:Game.Program">
+        <member name="M:Game.PathfindingDemoGameWindow.UpdateHUD">
             <summary>
-            Defines an input point in the application.
-            </summary>
-        </member>
-        <member name="M:Game.Program.Main">
-            <summary>
-            The main entry point for the application.
-            </summary>
-        </member>
-        <member name="T:Game.MapsWindow">
-            <summary>
-            Defines a window of map choice.
+            Updates HUD screen
             </summary>
         </member>
         <member name="T:Game.PlatformerDemoGameWindow">
@@ -101,45 +86,14 @@
             Updates HUD screen
             </summary>
         </member>
-        <member name="T:Game.PathfindingDemoGameWindow">
+        <member name="T:Game.VillageDemoGameWindow">
             <summary>
-            Defines a game window for PathfindingDemo.
+            Defines a game window for Mountain Village Demo.
             </summary>
         </member>
-        <member name="M:Game.PathfindingDemoGameWindow.UpdateHUD">
+        <member name="T:Game.TurretDemoGameWindow">
             <summary>
-            Updates HUD screen
-            </summary>
-        </member>
-        <member name="T:Game.GameEngineApp">
-            <summary>
-            Defines a game application.
-            </summary>
-        </member>
-        <member name="T:Game.Properties.Resources">
-            <summary>
-              A strongly-typed resource class, for looking up localized strings, etc.
-            </summary>
-        </member>
-        <member name="P:Game.Properties.Resources.ResourceManager">
-            <summary>
-              Returns the cached ResourceManager instance used by this class.
-            </summary>
-        </member>
-        <member name="P:Game.Properties.Resources.Culture">
-            <summary>
-              Overrides the current thread's CurrentUICulture property for all
-              resource lookups using this strongly typed resource class.
-            </summary>
-        </member>
-        <member name="P:Game.Properties.Resources.Logo">
-            <summary>
-              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
-            </summary>
-        </member>
-        <member name="T:Game.MenuWindow">
-            <summary>
-            Defines a system game menu.
+            Defines a game window for TurretDemo.
             </summary>
         </member>
         <member name="T:Game.ProductLogoWindow">
@@ -147,9 +101,34 @@
             Defines a your project logo window.
             </summary>
         </member>
-        <member name="T:Game.EngineLogoWindow">
+        <member name="T:Game.GameEngineApp">
             <summary>
-            Defines a NeoAxis Engine Logo window.
+            Defines a game application.
+            </summary>
+        </member>
+        <member name="T:Game.MapsWindow">
+            <summary>
+            Defines a window of map choice.
+            </summary>
+        </member>
+        <member name="T:Game.MenuWindow">
+            <summary>
+            Defines a system game menu.
+            </summary>
+        </member>
+        <member name="T:Game.MessageBoxWindow">
+            <summary>
+            Defines a "MessageBox" window.
+            </summary>
+        </member>
+        <member name="T:Game.OptionsWindow">
+            <summary>
+            Defines a window of options.
+            </summary>
+        </member>
+        <member name="T:Game.GameWindow">
+            <summary>
+            Defines a base window of game.
             </summary>
         </member>
         <member name="T:Game.MainMenuWindow">
@@ -177,19 +156,40 @@
             Destroys the background world.
             </summary>
         </member>
-        <member name="T:Game.OptionsWindow">
+        <member name="T:Game.Program">
             <summary>
-            Defines a window of options.
+            Defines an input point in the application.
             </summary>
         </member>
-        <member name="T:Game.MessageBoxWindow">
+        <member name="M:Game.Program.Main">
             <summary>
-            Defines a "MessageBox" window.
+            The main entry point for the application.
             </summary>
         </member>
-        <member name="T:Game.VillageDemoGameWindow">
+        <member name="T:Game.Properties.Resources">
             <summary>
-            Defines a game window for Mountain Village Demo.
+              A strongly-typed resource class, for looking up localized strings, etc.
+            </summary>
+        </member>
+        <member name="P:Game.Properties.Resources.ResourceManager">
+            <summary>
+              Returns the cached ResourceManager instance used by this class.
+            </summary>
+        </member>
+        <member name="P:Game.Properties.Resources.Culture">
+            <summary>
+              Overrides the current thread's CurrentUICulture property for all
+              resource lookups using this strongly typed resource class.
+            </summary>
+        </member>
+        <member name="P:Game.Properties.Resources.Logo">
+            <summary>
+              Looks up a localized resource of type System.Drawing.Icon similar to (Icon).
+            </summary>
+        </member>
+        <member name="T:Game.EngineLogoWindow">
+            <summary>
+            Defines a NeoAxis Engine Logo window.
             </summary>
         </member>
     </members>

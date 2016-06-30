@@ -16,7 +16,7 @@ using WinFormsAppFramework;
 
 namespace WinFormsMultiViewAppExample
 {
-	public partial class Example3DViewForm : DockContent
+	public partial class Example3DViewForm : EditorBase.Theme.EditorDockContent
 	{
 		public Example3DViewForm()
 		{

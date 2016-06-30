@@ -15,8 +15,8 @@ namespace Game
 	/// </summary>
 	public class EngineLogoWindow : Control
 	{
-		const float lifeTime = 10;
-		Texture engineTexture;
+		const float lifeTime = 3;
+		//Texture engineTexture;
 
 		//
 
@@ -24,7 +24,7 @@ namespace Game
 		{
 			base.OnAttach();
 
-			engineTexture = TextureManager.Instance.Load( "GUI\\Textures\\Engine.png" );
+			//engineTexture = TextureManager.Instance.Load( "GUI\\Textures\\Engine.png" );
 
 			EngineApp.Instance.MouseRelativeMode = true;
 
@@ -88,24 +88,24 @@ namespace Game
 		{
 			base.OnRenderUI( renderer );
 
-			Vec2 size = new Vec2( 512, 215.0f );
-			size *= 1.0f + Time * .015f;
-			size /= new Vec2( 768.0f * renderer.AspectRatio, 768.0f );
+			//Vec2 size = new Vec2( 512, 215.0f );
+			//size *= 1.0f + Time * .015f;
+			//size /= new Vec2( 768.0f * renderer.AspectRatio, 768.0f );
 
-			Rect rectangle = new Rect( -size / 2, size / 2 ) + new Vec2( .5f, .5f );
+			//Rect rectangle = new Rect( -size / 2, size / 2 ) + new Vec2( .5f, .5f );
 
-			float alpha = 0;
+			//float alpha = 0;
 
-			if( Time > 2 && Time <= 3 )
-				alpha = Time - 2;
-			else if( Time > 3 && Time <= lifeTime - 2 - 2 )
-				alpha = 1;
-			else if( Time >= lifeTime - 2 - 2 && Time < lifeTime - 1 )
-				alpha = 1 - ( Time - ( lifeTime - 2 - 2 ) ) / 3;
+			//if( Time > 2 && Time <= 3 )
+			//   alpha = Time - 2;
+			//else if( Time > 3 && Time <= lifeTime - 2 - 2 )
+			//   alpha = 1;
+			//else if( Time >= lifeTime - 2 - 2 && Time < lifeTime - 1 )
+			//   alpha = 1 - ( Time - ( lifeTime - 2 - 2 ) ) / 3;
 
-			if( alpha != 0 )
-				renderer.AddQuad( rectangle, new Rect( 0, 0, 1, 1 ), engineTexture,
-					new ColorValue( 1, 1, 1, alpha ) );
+			//if( alpha != 0 )
+			//   renderer.AddQuad( rectangle, new Rect( 0, 0, 1, 1 ), engineTexture,
+			//      new ColorValue( 1, 1, 1, alpha ) );
 		}
 
 	}

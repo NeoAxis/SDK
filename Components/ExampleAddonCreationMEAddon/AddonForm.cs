@@ -21,7 +21,7 @@ using Engine.MathEx;
 
 namespace ExampleAddonCreationMEAddon
 {
-	public partial class AddonForm : Form
+	public partial class AddonForm : EditorBase.Theme.EditorForm
 	{
 		MapEditorAddonImpl addon;
 

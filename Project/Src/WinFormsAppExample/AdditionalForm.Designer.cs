@@ -29,7 +29,7 @@ namespace WinFormsAppExample
 		private void InitializeComponent()
 		{
 			this.renderTargetUserControl1 = new WinFormsAppFramework.RenderTargetUserControl();
-			this.buttonClose = new System.Windows.Forms.Button();
+			this.buttonClose = new EditorBase.Theme.EditorButton();
 			this.SuspendLayout();
 			// 
 			// renderTargetUserControl1
@@ -79,6 +79,6 @@ namespace WinFormsAppExample
 		#endregion
 
 		private WinFormsAppFramework.RenderTargetUserControl renderTargetUserControl1;
-		private System.Windows.Forms.Button buttonClose;
+		private EditorBase.Theme.EditorButton buttonClose;
 	}
 }

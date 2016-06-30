@@ -9,7 +9,7 @@ using Engine.Utils;
 
 namespace WinFormsMultiViewAppExample
 {
-	public partial class OutputForm : DockContent
+	public partial class OutputForm : EditorBase.Theme.EditorDockContent
 	{
 		public OutputForm()
 		{

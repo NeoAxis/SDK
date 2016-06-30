@@ -18,10 +18,10 @@ extern "C" {
 /////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 #ifdef PLATFORM_WINDOWS
-	//VS2010 supported only. VS2011+ is not supported.
-	#if _MSC_VER <= 1600
+	////VS2010 supported only. VS2011+ is not supported.
+	//#if _MSC_VER <= 1600
 		#define NATIVE_MEMORY_MANAGER_ENABLE
-	#endif
+	//#endif
 #endif
 
 #ifdef PLATFORM_MACOS
@@ -128,6 +128,7 @@ NATIVEMEMORYMANAGER_EXPORT char* Memory_StrDup( const char* strSource );
 #define _getdcwd XXX
 #define _wgetdcwd XXX
 #define _getdcwd_nolock XXX
+#undef _wgetdcwd_nolock
 #define _wgetdcwd_nolock XXX
 #define _dupenv_s XXX
 #define _wdupenv_s XXX

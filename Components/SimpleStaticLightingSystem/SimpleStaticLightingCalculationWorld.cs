@@ -59,7 +59,7 @@ namespace SimpleLightmapSystem
 			foreach( Mesh mesh in meshes )
 			{
 				string customMeshName = PhysicsWorld.Instance.AddCustomMeshGeometry(
-					mesh.Positions, mesh.Indices, null, MeshShape.MeshTypes.TriangleMesh, 0, 0 );
+					mesh.Positions, mesh.Indices, null, MeshShape.MeshTypes.TriangleMesh, 0, 0, false );
 
 				meshPhysicsMeshNames.Add( mesh, customMeshName );
 			}

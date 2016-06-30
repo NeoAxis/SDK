@@ -49,7 +49,16 @@ namespace ProjectCommon
 					InitializeFXAACompositor();
 			}
 
+			TextureManager.Instance.TextureLoadingSkipMipMaps += TextureManager_TextureLoadingSkipMipMaps;
+
 			return true;
+		}
+
+		void TextureManager_TextureLoadingSkipMipMaps( string textureName, Texture.Type textureType, ref int skipMipMaps )
+		{
+			//Here the developer can override a level per texture. Default is RendererWorld.InitializationOptions.TextureQualitySkipMipMaps.
+			//skipMipMaps = 0;
+			//skipMipMaps = 5;
 		}
 
 		bool IsHDRSupported()

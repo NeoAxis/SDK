@@ -19,10 +19,11 @@ using EditorBase;
 
 namespace ExampleAddonCreationREAddon
 {
-	public partial class AddonDockingForm : DockContent, IDockContentUpdateFonts
+	public partial class AddonDockingForm : EditorBase.Theme.EditorDockContent, IDockContentUpdateFonts
 	{
-		MeshObject meshObject;
-		SceneNode sceneNode;
+		bool sceneCreated;
+		List<RenderLight> lights = new List<RenderLight>();
+		List<SceneNode> sceneNodes = new List<SceneNode>();
 
 		Engine.UISystem.Control guiExampleControl;
 
@@ -42,28 +43,52 @@ namespace ExampleAddonCreationREAddon
 		{
 		}
 
+		void SetObjectsVisible( bool visible )
+		{
+			foreach( var light in lights )
+				light.Visible = visible;
+			foreach( var node in sceneNodes )
+				node.Visible = visible;
+		}
+
 		void renderTargetUserControl1_PreUpdate( RenderTargetUserControl sender )
 		{
 			if( checkBoxOverrideSceneObjects.Checked )
 			{
-				//create mesh object
-				if( sceneNode == null )
-					CreateMeshObject();
+				//update camera position
+				renderTargetUserControl1.CameraNearFarClipDistance = new Range( .1f, 10000 );
+				renderTargetUserControl1.CameraProjectionType = ProjectionTypes.Perspective;
+				renderTargetUserControl1.CameraOrthoWindowHeight = 100;
+				renderTargetUserControl1.CameraFixedUp = new Vec3( 0, 0, 1 );
+				renderTargetUserControl1.CameraFov = 80;
+				renderTargetUserControl1.CameraPosition = new Vec3( 2, 20, 17 );
+				renderTargetUserControl1.CameraDirection = ( new Vec3( 0, 0, 0 ) - renderTargetUserControl1.CameraPosition ).GetNormalize();
 
-				//show mesh object on the scene
-				if( sceneNode != null )
-					sceneNode.Visible = true;
+				//create scene
+				if( !sceneCreated )
+					CreateScene();
 
-				//override visibility (hide main scene objects, show from lists)
-				List<SceneNode> sceneNodes = new List<SceneNode>();
-				if( sceneNode != null )
-					sceneNodes.Add( sceneNode );
+				//show scene
+				SetObjectsVisible( true );
+
 				SceneManager.Instance.SetOverrideVisibleObjects( new SceneManager.OverrideVisibleObjectsClass(
-					new StaticMeshObject[ 0 ], sceneNodes.ToArray(), new RenderLight[ 0 ] ) );
+					new StaticMeshObject[ 0 ], sceneNodes.ToArray(), lights.ToArray() ) );
 
 				////draw box by debug geometry
 				//camera.DebugGeometry.Color = new ColorValue( 1, 1, 0 );
 				//camera.DebugGeometry.AddBounds( new Bounds( new Vec3( -1, -1, -1 ), new Vec3( 1, 1, 1 ) ) );
+			}
+			else
+			{
+				//update camera position
+				Camera defaultCamera = RendererWorld.Instance.DefaultCamera;
+				renderTargetUserControl1.CameraNearFarClipDistance = new Range( defaultCamera.NearClipDistance, defaultCamera.FarClipDistance );
+				renderTargetUserControl1.CameraProjectionType = defaultCamera.ProjectionType;
+				renderTargetUserControl1.CameraOrthoWindowHeight = defaultCamera.OrthoWindowHeight;
+				renderTargetUserControl1.CameraFixedUp = defaultCamera.FixedUp;
+				renderTargetUserControl1.CameraFov = defaultCamera.Fov;
+				renderTargetUserControl1.CameraPosition = defaultCamera.Position;
+				renderTargetUserControl1.CameraDirection = defaultCamera.Direction;
 			}
 		}
 
@@ -71,9 +96,9 @@ namespace ExampleAddonCreationREAddon
 		{
 			if( checkBoxOverrideSceneObjects.Checked )
 			{
-				//hide mesh object on the scene
-				if( sceneNode != null )
-					sceneNode.Visible = false;
+				//hide scene
+				SetObjectsVisible( false );
+
 				//reset overriding scene objects
 				SceneManager.Instance.ResetOverrideVisibleObjects();
 			}
@@ -90,39 +115,76 @@ namespace ExampleAddonCreationREAddon
 			//   VerticalAlign.Top, new ColorValue( 1, 0, 0 ) );
 		}
 
-		void CreateMeshObject()
+		void CreateScene()
 		{
-			DestroyMeshObject();
+			DestroyScene();
+			
+			//create light
+			var light = SceneManager.Instance.CreateLight();
+			light.Type = RenderLightType.Directional;
+			light.Direction = new Vec3( 0, 0, -1 );
+			lights.Add( light );
 
-			meshObject = SceneManager.Instance.CreateMeshObject( "Base\\Simple Models\\Cylinder.mesh" );
-			if( meshObject != null )
+			//create meshes
+
+			string[] colorNames = new string[] { "Red", "Blue", "Yellow", "Green" };
+			int colorCounter = 0;
+
+			for( float z = -5; z <= 5; z++ )
 			{
-				meshObject.SetMaterialNameForAllSubObjects( "Red" );
+				for( float y = -5; y <= 5; y++ )
+				{
+					for( float x = -5; x <= 5; x++ )
+					{
+						MeshObject meshObject = SceneManager.Instance.CreateMeshObject( "Base\\Simple Models\\Cylinder.mesh" );
+						if( meshObject != null )
+						{
+							meshObject.SetMaterialNameForAllSubObjects( colorNames[ colorCounter % colorNames.Length ] );
+							colorCounter++;
 
-				sceneNode = new SceneNode();
-				sceneNode.Visible = false;
-				sceneNode.Position = new Vec3( 5, 0, 0 );
-				sceneNode.Rotation = new Angles( 50, 50, 50 ).ToQuat();
-				sceneNode.Attach( meshObject );
+							SceneNode sceneNode = new SceneNode();
+							sceneNode.Position = new Vec3( x * 2, y * 2, z * 2 );
+							sceneNode.Rotation = new Angles( 0, 0, 0 ).ToQuat();
+							sceneNode.Scale = new Vec3( 1, 1, 1 );
+							sceneNode.Attach( meshObject );
+
+							sceneNodes.Add( sceneNode );
+						}
+					}
+				}
 			}
-		}
 
-		void DestroyMeshObject()
+			//Hide by default. Show during drawing time.
+			SetObjectsVisible( false );
+
+			sceneCreated = true;
+        }
+
+		void DestroyScene()
 		{
-			if( meshObject != null )
+			foreach( var light in lights )
+				light.Dispose();
+			lights.Clear();
+
+			foreach( var node in sceneNodes )
 			{
-				sceneNode.Detach( meshObject );
-				sceneNode.Dispose();
-				sceneNode = null;
-				meshObject.Dispose();
-				meshObject = null;
+				while( node.MovableObjects.Count != 0 )
+				{
+					MovableObject obj = node.MovableObjects[ node.MovableObjects.Count - 1 ];
+					node.Detach( obj );
+					obj.Dispose();
+				}
+				node.Dispose();
 			}
-		}
+			sceneNodes.Clear();
+
+			sceneCreated = false;
+        }
 
 		private void AddonDockingForm_FormClosed( object sender, FormClosedEventArgs e )
 		{
-			DestroyMeshObject();
-		}
+			DestroyScene();
+        }
 
 		private void checkBoxInteractive2DGUI_CheckedChanged( object sender, EventArgs e )
 		{

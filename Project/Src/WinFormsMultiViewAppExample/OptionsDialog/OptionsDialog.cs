@@ -10,7 +10,7 @@ using Engine.Utils;
 
 namespace WinFormsMultiViewAppExample
 {
-	public partial class OptionsDialog : Form
+	public partial class OptionsDialog : EditorBase.Theme.EditorForm
 	{
 		static string lastOpenedNodeFullPath = "";
 

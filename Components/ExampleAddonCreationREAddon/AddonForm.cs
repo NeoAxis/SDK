@@ -22,7 +22,7 @@ using Engine.MathEx;
 
 namespace ExampleAddonCreationREAddon
 {
-	public partial class AddonForm : Form
+	public partial class AddonForm : EditorBase.Theme.EditorForm
 	{
 		ResourceEditorAddonImpl addon;
 

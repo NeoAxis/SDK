@@ -59,7 +59,8 @@ namespace OpenALSoundSystem
 			default: text = string.Format( "Unknown error ({0})", error ); break;
 			}
 
-			Log.Warning( "OpenALSoundSystem: Internal error: {0}.", text );
+			Log.Info( "OpenALSoundSystem: Internal error: {0}.", text );
+			//Log.Warning( "OpenALSoundSystem: Internal error: {0}.", text );
 
 			return true;
 		}

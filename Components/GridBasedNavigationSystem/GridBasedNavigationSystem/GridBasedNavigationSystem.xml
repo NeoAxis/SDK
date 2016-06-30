@@ -4,15 +4,6 @@
         <name>GridBasedNavigationSystem</name>
     </assembly>
     <members>
-        <member name="M:Engine.GridBasedNavigationSystem.OnPostCreate(System.Boolean)">
-            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
-        </member>
-        <member name="M:Engine.GridBasedNavigationSystem.OnPostCreate2(System.Boolean)">
-            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
-        </member>
-        <member name="M:Engine.GridBasedNavigationSystem.OnDestroy">
-            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
-        </member>
         <member name="P:Engine.GridBasedNavigationSystem.Type">
             <summary>
             Gets the entity type.
@@ -37,6 +28,15 @@
             <summary>
             The maximum angle which the agent can reach.
             </summary>
+        </member>
+        <member name="M:Engine.GridBasedNavigationSystem.OnPostCreate(System.Boolean)">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="M:Engine.GridBasedNavigationSystem.OnPostCreate2(System.Boolean)">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
+        </member>
+        <member name="M:Engine.GridBasedNavigationSystem.OnDestroy">
+            <summary>Overridden from <see cref="T:Engine.EntitySystem.Entity"/>.</summary>
         </member>
         <member name="P:Engine.GridBasedNavigationSystem.AlwaysDrawGrid">
             <summary>

@@ -35,7 +35,7 @@ namespace Engine.Editor
 			int posY = 8;
 
 			//Update button
-			button = new Button();
+			button = new EditorBase.Theme.EditorButton();
 			parentControl.Controls.Add( button );
 			button.Location = new System.Drawing.Point( 8, posY );
 			button.Size = new System.Drawing.Size( 120, 32 );
@@ -47,7 +47,7 @@ namespace Engine.Editor
 			};
 
 			//Path test button
-			button = new Button();
+			button = new EditorBase.Theme.EditorButton();
 			parentControl.Controls.Add( button );
 			button.Location = new System.Drawing.Point( 120 + 8 * 2, posY );
 			button.Size = new System.Drawing.Size( 120, 32 );
@@ -94,7 +94,7 @@ namespace Engine.Editor
 			//numericUpDown.Value = 10000000;
 
 			//checkBoxSmooth
-			checkBox = new CheckBox();
+			checkBox = new EditorBase.Theme.EditorCheckBox();
 			checkBoxSmooth = checkBox;
 			parentControl.Controls.Add( checkBox );
 			checkBox.Location = new System.Drawing.Point( 8, posY );
@@ -106,7 +106,7 @@ namespace Engine.Editor
 			posY += 26;
 
 			//checkBoxVisualize
-			checkBox = new CheckBox();
+			checkBox = new EditorBase.Theme.EditorCheckBox();
 			checkBoxVisualize = checkBox;
 			parentControl.Controls.Add( checkBox );
 			checkBox.Location = new System.Drawing.Point( 8, posY );

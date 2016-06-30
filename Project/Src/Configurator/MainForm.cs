@@ -14,10 +14,11 @@ using Engine.FileSystem;
 using Engine.Renderer;
 using Engine.MathEx;
 using Engine.Utils;
+using EditorBase;
 
 namespace Configurator
 {
-	public partial class MainForm : Form
+	public partial class MainForm : EditorBase.Theme.EditorForm
 	{
 		bool formLoaded;
 		bool needRestart;
@@ -145,6 +146,7 @@ namespace Configurator
 			bool localizeToolset = true;
 			string renderingDeviceName = "";
 			int renderingDeviceIndex = 0;
+			int textureSkipMipLevels = 0;
 
 			//load from Deployment.config
 			if( VirtualFileSystem.Deployed )
@@ -207,6 +209,9 @@ namespace Configurator
 						if( rendererBlock.IsAttributeExist( "allowChangeDisplayFrequency" ) )
 							allowChangeDisplayFrequency = bool.Parse(
 								rendererBlock.GetAttribute( "allowChangeDisplayFrequency" ) );
+
+						if( rendererBlock.IsAttributeExist( "textureSkipMipLevels" ) )
+							textureSkipMipLevels = int.Parse( rendererBlock.GetAttribute( "textureSkipMipLevels" ) );
 					}
 
 					//Physics system
@@ -402,6 +407,10 @@ namespace Configurator
 
 				//vertical sync
 				checkBoxVerticalSync.Checked = verticalSync;
+
+				//comboBoxTextureSkipMipLevels
+				if( textureSkipMipLevels < comboBoxTextureSkipMipLevels.Items.Count )
+					comboBoxTextureSkipMipLevels.SelectedIndex = textureSkipMipLevels;
 			}
 
 			//fill physics system page
@@ -579,6 +588,12 @@ namespace Configurator
 				//vertical sync
 				rendererBlock.SetAttribute( "verticalSync",
 					checkBoxVerticalSync.Checked.ToString() );
+
+				//texture skip mip levels
+				int levels = comboBoxTextureSkipMipLevels.SelectedIndex;
+				if( levels < 0 )
+					levels = 0;
+				rendererBlock.SetAttribute( "textureSkipMipLevels", levels.ToString() );
 			}
 
 			//Physics system
@@ -903,6 +918,11 @@ namespace Configurator
 		{
 			if( needRestart )
 				RunApplication( "Configurator.exe", false );
+		}
+
+		private void label21_Click( object sender, EventArgs e )
+		{
+
 		}
 	}
 }

@@ -55,7 +55,7 @@ namespace WinFormsMultiViewAppExample
 			this.aboutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
 			this.statusStrip1 = new System.Windows.Forms.StatusStrip();
 			this.toolStripStatusLabel1 = new System.Windows.Forms.ToolStripStatusLabel();
-			this.toolStripGeneral = new System.Windows.Forms.ToolStrip();
+			this.toolStripGeneral = new EditorBase.Theme.EditorSafeToolStrip();
 			this.toolStripButtonOpen = new System.Windows.Forms.ToolStripButton();
 			this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
 			this.toolStripButtonOptions = new System.Windows.Forms.ToolStripButton();
@@ -352,7 +352,7 @@ namespace WinFormsMultiViewAppExample
 		private System.Windows.Forms.StatusStrip statusStrip1;
 		private System.Windows.Forms.ToolStripMenuItem example3DViewToolStripMenuItem;
 		private System.Windows.Forms.ToolStripStatusLabel toolStripStatusLabel1;
-		private System.Windows.Forms.ToolStrip toolStripGeneral;
+		private EditorBase.Theme.EditorSafeToolStrip toolStripGeneral;
 		private System.Windows.Forms.Timer timer1;
 		private System.Windows.Forms.ToolStripMenuItem propertiesWindowToolStripMenuItem;
 		private System.Windows.Forms.ToolStripMenuItem outputToolStripMenuItem;

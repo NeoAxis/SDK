@@ -129,7 +129,7 @@ namespace Game
 		protected override void OnDetach()
 		{
 			if( Map.Instance != null )
-				Map.Instance.Tick += Map_Tick;
+				Map.Instance.Tick -= Map_Tick;
 
 			GameStop( false );
 

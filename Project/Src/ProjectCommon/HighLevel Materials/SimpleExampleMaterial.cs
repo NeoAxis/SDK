@@ -71,6 +71,10 @@ namespace ProjectCommon
 
 			parameters.SetNamedAutoConstant( "ambientLightColor",
 				GpuProgramParameters.AutoConstantType.AmbientLightColor );
+			parameters.SetNamedAutoConstant( "ambientLightColor2",
+				GpuProgramParameters.AutoConstantType.AmbientLightColor2 );
+			parameters.SetNamedAutoConstant( "ambientLightColor3",
+				GpuProgramParameters.AutoConstantType.AmbientLightColor3 );
 
 			if( lightCount != 0 )
 			{

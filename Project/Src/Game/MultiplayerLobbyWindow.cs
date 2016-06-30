@@ -18,7 +18,7 @@ namespace Game
 		const string exampleOfProceduralMapCreationText = "[The example of a procedural map creation]";
 
 		[Config( "MultiplayerLobbyWindow", "lastMapName" )]
-		static string lastMapName = "Maps\\Village Demo\\Map\\Map.map";//Jigsaw puzzle by default
+		static string lastMapName = "Maps\\Demos\\Village Demo\\Map\\Map.map";
 
 		Control window;
 		ComboBox comboBoxMaps;

@@ -21,7 +21,7 @@ using Engine.MathEx;
 
 namespace ExportTo3DModelMEAddon
 {
-	public partial class AddonForm : Form
+	public partial class AddonForm : EditorBase.Theme.EditorForm
 	{
 		[Config( "ExportTo3DModelMEAddonForm", "lastOutputMapName" )]
 		static string lastOutputMapName = "C:\\MapExport.fbx";
@@ -113,33 +113,6 @@ namespace ExportTo3DModelMEAddon
 			return uniqueName;
 		}
 
-		VertexData CreateVertexData( Vec3[] vertices )
-		{
-			VertexData vertexData = new VertexData();
-
-			VertexDeclaration declaration = vertexData.VertexDeclaration;
-			declaration.AddElement( 0, 0, VertexElementType.Float3, VertexElementSemantic.Position );
-
-			VertexBufferBinding bufferBinding = vertexData.VertexBufferBinding;
-			HardwareVertexBuffer vertexBuffer = HardwareBufferManager.Instance.CreateVertexBuffer(
-				12, vertices.Length, HardwareBuffer.Usage.StaticWriteOnly );
-			bufferBinding.SetBinding( 0, vertexBuffer, true );
-			vertexData.VertexCount = vertices.Length;
-
-			unsafe
-			{
-				Vec3* buffer = (Vec3*)vertexBuffer.Lock( HardwareBuffer.LockOptions.Normal ).ToPointer();
-				foreach( Vec3 position in vertices )
-				{
-					*buffer = position;
-					buffer++;
-				}
-				vertexBuffer.Unlock();
-			}
-
-			return vertexData;
-		}
-
 		private void buttonExport_Click( object sender, EventArgs e )
 		{
 			lastOutputMapName = textBoxOutputFileName.Text;
@@ -198,8 +171,6 @@ namespace ExportTo3DModelMEAddon
 
 					List<ModelImportLoader.SaveGeometryItem> geometry =
 						new List<ModelImportLoader.SaveGeometryItem>();
-					List<VertexData> vertexDatasToDispose = new List<VertexData>();
-					List<IndexData> indexDatasToDispose = new List<IndexData>();
 					Set<string> names = new Set<string>();
 
 					//SceneNodes
@@ -283,27 +254,20 @@ namespace ExportTo3DModelMEAddon
 												int[] indices;
 												if( meshShape.GetData( out vertices, out indices ) )
 												{
-													VertexData vertexData = CreateVertexData( vertices );
-													if( vertexData != null )
-														vertexDatasToDispose.Add( vertexData );
+													ModelImportLoader.SaveGeometryItem.Vertex[] vertices2 =
+														new ModelImportLoader.SaveGeometryItem.Vertex[ vertices.Length ];
+													for( int n = 0; n < vertices.Length; n++ )
+														vertices2[ n ] = new ModelImportLoader.SaveGeometryItem.Vertex( vertices[ n ] );
 
-													IndexData indexData = IndexData.CreateFromArray(
-														indices, 0, indices.Length, false );
-													if( indexData != null )
-														indexDatasToDispose.Add( indexData );
+													string uniqueName = GetUniqueName( names, entity );
 
-													if( vertexData != null && indexData != null )
+													ModelImportLoader.SaveGeometryItem item =
+														new ModelImportLoader.SaveGeometryItem( vertices2, indices, false,
+														body.Position, body.Rotation, new Vec3( 1, 1, 1 ), uniqueName );
+													if( item != null )
 													{
-														string uniqueName = GetUniqueName( names, entity );
-
-														ModelImportLoader.SaveGeometryItem item =
-															new ModelImportLoader.SaveGeometryItem( vertexData, indexData,
-															body.Position, body.Rotation, new Vec3( 1, 1, 1 ), uniqueName );
-														if( item != null )
-														{
-															geometry.Add( item );
-															names.Add( uniqueName );
-														}
+														geometry.Add( item );
+														names.Add( uniqueName );
 													}
 												}
 											}
@@ -317,28 +281,21 @@ namespace ExportTo3DModelMEAddon
 												heightFieldShape.GetVerticesAndIndices( false, false, out vertices,
 													out indices );
 
-												VertexData vertexData = CreateVertexData( vertices );
-												if( vertexData != null )
-													vertexDatasToDispose.Add( vertexData );
+												ModelImportLoader.SaveGeometryItem.Vertex[] vertices2 =
+													new ModelImportLoader.SaveGeometryItem.Vertex[ vertices.Length ];
+												for( int n = 0; n < vertices.Length; n++ )
+													vertices2[ n ] = new ModelImportLoader.SaveGeometryItem.Vertex( vertices[ n ] );
 
-												IndexData indexData = IndexData.CreateFromArray(
-													indices, 0, indices.Length, false );
-												if( indexData != null )
-													indexDatasToDispose.Add( indexData );
+												string uniqueName = GetUniqueName( names, entity );
 
-												if( vertexData != null && indexData != null )
+												ModelImportLoader.SaveGeometryItem item =
+													new ModelImportLoader.SaveGeometryItem( vertices2, indices, false,
+													body.Position, body.Rotation, new Vec3( 1, 1, 1 ),
+													uniqueName );
+												if( item != null )
 												{
-													string uniqueName = GetUniqueName( names, entity );
-
-													ModelImportLoader.SaveGeometryItem item =
-														new ModelImportLoader.SaveGeometryItem( vertexData, indexData,
-														body.Position, body.Rotation, new Vec3( 1, 1, 1 ),
-														uniqueName );
-													if( item != null )
-													{
-														geometry.Add( item );
-														names.Add( uniqueName );
-													}
+													geometry.Add( item );
+													names.Add( uniqueName );
 												}
 											}
 
@@ -389,11 +346,6 @@ namespace ExportTo3DModelMEAddon
 
 					if( !loader.Save( geometry, fileName ) )
 						return;
-
-					foreach( VertexData vertexData in vertexDatasToDispose )
-						vertexData.Dispose();
-					foreach( IndexData indexData in indexDatasToDispose )
-						indexData.Dispose();
 				}
 			}
 			catch( Exception ex )

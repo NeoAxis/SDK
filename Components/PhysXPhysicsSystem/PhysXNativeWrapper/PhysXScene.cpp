@@ -272,8 +272,8 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 			//else
 			//{
 
-					NativeRayCastResult result;
-					result.shape = (PhysXShape*)hit.shape->userData;
+			NativeRayCastResult result;
+			result.shape = (PhysXShape*)hit.shape->userData;
 			result.worldImpact = hit.position;
 			result.worldNormal = hit.normal;
 			result.distance = hit.distance;
@@ -281,21 +281,21 @@ EXPORT int PhysXScene_RayCast( PhysXScene* _this, const PxVec3& origin, const Px
 			bool isTriangleMesh = hit.shape->getGeometryType() == PxGeometryType::eTRIANGLEMESH;
 			//bool isHeightfield = hit.shape->getGeometryType() == PxGeometryType::eHEIGHTFIELD;
 
-					if(isTriangleMesh)
-					{
-						PxShape* pxShape = result.shape->mShape;
-						const PxTriangleMeshGeometry& geometry = pxShape->getGeometry().triangleMesh();
-						const PxU32* remap = geometry.triangleMesh->getTrianglesRemap();
-						if(remap != NULL)
+			if(isTriangleMesh)
+			{
+				PxShape* pxShape = result.shape->mShape;
+				const PxTriangleMeshGeometry& geometry = pxShape->getGeometry().triangleMesh();
+				const PxU32* remap = geometry.triangleMesh->getTrianglesRemap();
+				if(remap != NULL)
 					result.faceID = remap[hit.faceIndex];
-						else
+				else
 					result.faceID = hit.faceIndex;
-					}
-					else
+			}
+			else
 				result.faceID = hit.faceIndex;
 			//result.faceID = 0;
 
-					_this->lastRayCastResults.push_back(result);
+			_this->lastRayCastResults.push_back(result);
 
 			//}
 		}

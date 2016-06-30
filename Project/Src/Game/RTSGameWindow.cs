@@ -78,7 +78,7 @@ namespace Game
 			EngineApp.Instance.KeysAndMouseButtonUpAll();
 
 			//hudControl
-			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\RTS Demo\\Gui\\HUD.gui" );
+			hudControl = ControlDeclarationManager.Instance.CreateControl( "Maps\\Demos\\RTS Demo\\Gui\\HUD.gui" );
 			Controls.Add( hudControl );
 
 			( (Button)hudControl.Controls[ "Menu" ] ).Click += delegate( Button sender )
@@ -422,7 +422,7 @@ namespace Game
 									tasks[ index ].Task.EntityType ), toQueue );
 
 								GameEngineApp.Instance.ControlManager.PlaySound(
-									"Maps\\RTS Demo\\Sounds\\BuildBuilding.ogg" );
+									"Maps\\Demos\\RTS Demo\\Sounds\\BuildBuilding.ogg" );
 							}
 							else
 							{

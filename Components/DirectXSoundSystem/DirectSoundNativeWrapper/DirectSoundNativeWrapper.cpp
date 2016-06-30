@@ -6,6 +6,11 @@
 #pragma comment (lib, "dxerr.lib")
 #pragma comment (lib, "dxguid.lib")
 
+#include <stdarg.h>
+#include <stdio.h>
+#include <wchar.h>
+int (WINAPIV * __vsnwprintf)(wchar_t *, size_t, const wchar_t *, va_list) = _vsnwprintf;
+
 WCHAR* CreateOutString(const WCHAR* str)
 {
 #ifndef _UNICODE

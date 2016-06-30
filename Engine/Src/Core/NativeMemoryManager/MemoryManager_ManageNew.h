@@ -5,6 +5,11 @@
 
 #include "MemoryManager_SimpleNew.h"
 
+#ifdef _WIN32
+#pragma warning( push )
+#pragma warning( disable : 4595)
+#endif
+
 inline void* NATIVEMEMORYMANAGER_CALLING_CONVENTION operator new(size_t nSize, int nType, const char* lpszFileName, int nLine)
 {
 	return Memory_Alloc( _DefinedMemoryAllocationType, (int)nSize, lpszFileName, nLine );
@@ -44,6 +49,10 @@ inline void NATIVEMEMORYMANAGER_CALLING_CONVENTION operator delete[](void* pData
 {
 	::operator delete(pData);
 }
+
+#ifdef _WIN32
+#pragma warning( pop ) 
+#endif
 
 #define new new(__FILE__, __LINE__)
 

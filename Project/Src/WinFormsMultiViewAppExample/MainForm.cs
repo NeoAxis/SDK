@@ -19,7 +19,7 @@ using WinFormsAppFramework;
 
 namespace WinFormsMultiViewAppExample
 {
-	partial class MainForm : Form
+	partial class MainForm : EditorBase.Theme.EditorForm
 	{
 		const string dockingConfigFileName = "user:Configs/WinFormsMultiViewAppExampleDocking.config";
 
@@ -286,7 +286,7 @@ namespace WinFormsMultiViewAppExample
 			timer1.Start();
 
 			//load map
-			MapLoad( "Maps\\Village Demo\\Map\\Map.map" );
+			MapLoad( "Maps\\Demos\\Village Demo\\Map\\Map.map" );
 
 			if( SplashForm.Instance != null )
 				SplashForm.Instance.AllowClose = true;

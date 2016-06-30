@@ -129,7 +129,7 @@ namespace Game
 
 		//void Run_Click( Button sender )
 		//{
-		//   GameEngineApp.Instance.SetNeedMapLoad( "Maps\\Village Demo\\Map\\Map.map" );
+		//   GameEngineApp.Instance.SetNeedMapLoad( "Maps\\Demos\\Village Demo\\Map\\Map.map" );
 		//}
 
 		void Multiplayer_Click( Button sender )
@@ -305,7 +305,7 @@ namespace Game
 		{
 			DestroyMap();
 
-			string mapName = "Maps\\Village Demo\\Map\\Map.map";
+			string mapName = "Maps\\Demos\\Village Demo\\Map\\Map.map";
 
 			if( VirtualFile.Exists( mapName ) )
 			{
